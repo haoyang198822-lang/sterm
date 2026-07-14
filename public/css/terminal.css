@@ -1,0 +1,310 @@
+* ,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: none !important;
+}
+
+:root {
+  --bg-canvas: #0b0c0d;
+  --bg-panel: #101112;
+  --bg-surface-1: #1a1b1d;
+  --bg-surface-2: #222326;
+  --text-primary: #ebedf0;
+  --text-secondary: #a0a4ae;
+  --text-tertiary: #6c7080;
+  --text-quaternary: #4a4d57;
+  --color-accent: #4a7cff;
+  --color-accent-hover: #5c8aff;
+  --color-success: #2bae5c;
+  --color-error: #e64a4a;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-standard: rgba(255,255,255,0.1);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-full: 9999px;
+  --font-sans: "Inter", "Inter Variable", "PingFang SC", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", "Consolas", monospace;
+  --font-weight-read: 400;
+  --font-weight-ui: 510;
+  --font-weight-emphasis: 590;
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 14px;
+}
+
+.light {
+  --bg-canvas: #f0f1f3;
+  --bg-panel: #f8f9fa;
+  --bg-surface-1: #ffffff;
+  --bg-surface-2: #ecedf0;
+  --text-primary: #1a1b1e;
+  --text-secondary: #4e5058;
+  --text-tertiary: #8a8e99;
+  --text-quaternary: #b0b4be;
+  --color-accent: #3366e6;
+  --color-accent-hover: #4477ff;
+  --color-success: #1e8b4c;
+  --border-subtle: rgba(0,0,0,0.06);
+  --border-standard: rgba(0,0,0,0.1);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-canvas);
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv01", "ss03";
+}
+
+button {
+  font-family: inherit;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-read);
+}
+
+#header {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  padding: 0 var(--space-2);
+  padding-left: 78px;
+  gap: var(--space-2);
+  user-select: none;
+  -webkit-app-region: drag;
+  position: relative;
+}
+
+/* 盖住 macOS hiddenInset 的 1px 分隔线 */
+#header::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bg-panel);
+  z-index: 1;
+}
+
+#tab-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow-x: auto;
+  gap: 2px;
+  scrollbar-width: none;
+}
+
+#tab-container::-webkit-scrollbar { display: none; }
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  height: 28px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-ui);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.tab.active {
+  color: var(--text-primary);
+  background: var(--bg-surface-1);
+}
+
+.tab:hover {
+  color: var(--text-secondary);
+  background: var(--bg-surface-1);
+}
+
+.tab-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  flex-shrink: 0;
+}
+
+.tab-close {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  color: var(--text-quaternary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  opacity: 0;
+}
+
+.tab:hover .tab-close { opacity: 1; }
+.tab-close:hover {
+  background: var(--bg-surface-2);
+  color: var(--text-secondary);
+}
+
+#header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+#header-actions button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+#header-actions button:hover,
+.status-btn:hover {
+  background: var(--bg-surface-2);
+  color: var(--text-secondary);
+}
+
+#terminal-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#terminal-container .xterm {
+  height: 100%;
+  padding: var(--space-1) var(--space-2);
+}
+
+#terminal-container .xterm-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.08) transparent;
+}
+
+#status-bar {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-read);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.status-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status-left, .status-right { flex-shrink: 0; }
+.status-center {
+  flex: 1;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  flex-shrink: 0;
+}
+
+.status-dot.disconnected { background: var(--text-quaternary); }
+
+.status-label {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--text-xs);
+}
+
+.status-label.status-conn {
+  color: var(--color-success);
+}
+
+.status-label.status-conn.disconnected {
+  color: var(--text-tertiary);
+}
+
+.status-cwd,.status-mono {
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.status-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--border-standard);
+}
+
+.status-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+.light ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); }
+.light ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.15); }
