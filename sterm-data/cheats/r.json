@@ -1,0 +1,139 @@
+{
+  "name": "R",
+  "description": "R 快速参考",
+  "category": "",
+  "count": 22,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "获取帮助",
+          "description": "访问帮助文件\n有关对象的更多信息",
+          "code": "str(iris)\n# 获取对象结构的摘要\nclass(iris)\n# 查找对象所属的类"
+        },
+        {
+          "title": "下载和使用库",
+          "description": "",
+          "code": "install.packages('dplyr')\n# 从 CRAN 下载并安装软件包\ninstall.packages(“BiocManager”)\nlibrary(BiocManager)\nBiocManager::install(\"dplyr\")\n# 使用Bioconductor的BiocManager包下载并安装软件包\ndevtools::install_github(\"clusterProfiler\")\n# 直接从github中下载并安装软件包\nlibrary(dplyr)\n# 将包加载到会话中，使所有其功能可供使用\ndplyr::select\n# 使用包中的特定函数\ndata(iris)\n# 将内置数据集加载到环境中。"
+        },
+        {
+          "title": "工作目录",
+          "description": "查找当前工作目录（其中找到输入并发送输出）\n更改当前工作目录\n使用 RStudio 中的项目来设置工作目录到您正在使用的文件夹\n基础入门",
+          "code": "setwd(‘C://file/path’)"
+        }
+      ]
+    },
+    {
+      "title": "基础入门",
+      "entries": [
+        {
+          "title": "变量和赋值",
+          "description": "",
+          "code": "x <- 10   # 使用箭头赋值\ny = 20    # 或者直接使用等号赋值"
+        },
+        {
+          "title": "数据类型",
+          "description": "",
+          "code": "numeric_var <- 3.14   # 数值型\ncharacter_var <- \"hello\"  # 字符串\nlogical_var <- TRUE   # 逻辑型"
+        },
+        {
+          "title": "向量和列表",
+          "description": "向量和操作",
+          "code": "# 创建向量\nnumbers <- c(1, 2, 3, 4, 5)\n# 计算向量的和\nsum_result <- sum(numbers)\n# 计算向量的平均值\nmean_result <- mean(numbers)"
+        },
+        {
+          "title": "数据框(Data Frame)",
+          "description": "",
+          "code": "my_df <- data.frame(name = c(\"John\", \"Alice\"), age = c(30, 25))\n\n# 创建数据框\nstudent_data <- data.frame(\n  name = c(\"John\", \"Alice\", \"Bob\"),\n  age = c(25, 23, 22),\n  grade = c(\"A\", \"B\", \"C\")\n)\n\n# 显示数据框\nprint(student_data)"
+        },
+        {
+          "title": "函数",
+          "description": "",
+          "code": "# 定义函数\nadd_numbers <- function(a, b) {\n  result <- a + b\n  return(result)\n}\n\n# 调用函数\nsum_result <- add_numbers(10, 5)"
+        },
+        {
+          "title": "条件语句",
+          "description": "",
+          "code": "if (x > 0) {\n  print(\"Positive\")\n} else {\n  print(\"Non-positive\")\n}"
+        },
+        {
+          "title": "for 循环语句",
+          "description": "",
+          "code": "for (i in 1:5) {\n  print(i)\n}"
+        },
+        {
+          "title": "while 循环",
+          "description": "",
+          "code": "counter <- 1\nwhile (counter <= 5) {\n  print(counter)\n  counter <- counter + 1\n}"
+        },
+        {
+          "title": "数据读取和输出",
+          "description": "",
+          "code": "# 读取数据\nmy_data <- read.csv(\"data.csv\")\n# 输出数据\nwrite.csv(my_data, \"output.csv\")"
+        },
+        {
+          "title": "清理工作空间",
+          "description": "图形绘制",
+          "code": "# 清空所有变量\nrm(list = ls())\n# 退出 R\nq()"
+        }
+      ]
+    },
+    {
+      "title": "图形绘制",
+      "entries": [
+        {
+          "title": "散点图",
+          "description": "",
+          "code": "plot(x, y)"
+        },
+        {
+          "title": "直方图",
+          "description": "",
+          "code": "hist(data)"
+        },
+        {
+          "title": "线图",
+          "description": "",
+          "code": "plot(x, y, type = \"l\")"
+        },
+        {
+          "title": "绘制散点图",
+          "description": "",
+          "code": "x <- c(1, 2, 3, 4, 5)\ny <- c(2, 4, 5, 6, 7)\nplot(x, y, main = \"Scatter Plot\", xlab = \"X-axis\", ylab = \"Y-axis\")"
+        },
+        {
+          "title": "绘制直方图",
+          "description": "",
+          "code": "data <- c(1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5)\nhist(data, main = \"Histogram\", xlab = \"Value\", col = \"lightblue\")"
+        },
+        {
+          "title": "绘制折线图",
+          "description": "向量",
+          "code": "x <- c(1, 2, 3, 4, 5)\ny <- c(2, 4, 5, 6, 7)\nplot(x, y, type = \"l\", main = \"Line Plot\", xlab = \"X-axis\", ylab = \"Y-axis\")"
+        }
+      ]
+    },
+    {
+      "title": "向量",
+      "entries": [
+        {
+          "title": "创建向量",
+          "description": ":- | - | -\n-------|-------|-------\n`c(2, 4, 6)` | 2 4 6 | 将元素连接成向量\n`2:6` | 2 3 4 5 6 | 整数序列\n`seq(2, 3, by=0.5)` | 2.0 2.5 3.0 | 复杂的序列\n`rep(1:2, times=3)` | 1 2 1 2 1 2 | 重复向量\n`rep(1:2, each=3)` | 1 1 1 2 2 2 | 重复向量的元素",
+          "code": ""
+        },
+        {
+          "title": "选择向量元素",
+          "description": "**按位置**\n:- | -\n----|----\n`x[4]` | 第四个元素\n`x[-4]` | 除了第四个之外的所有\n`x[2:4]` | 元素二到四\n`x[-(2:4)]` | 除二到四之外的所有元素\n`x[c(1, 5)]` | 元素一和元素五\n\n**按值**\n:- | -\n----|----\n`x[x == 10]` | 等于 10 的元素\n`x[x < 0]` | 所有元素小于零\n`x[x %in% c(1, 2, 5)]` | 集合 1, 2, 5 中的元素\n\n**命名向量**\n:- | -\n----|----\n`x['apple']` | 名为“apple”的元素。",
+          "code": ""
+        },
+        {
+          "title": "重复向量的元素",
+          "description": ":- | -\n----|----\n`sort(x)` | 返回排序后的 x\n`rev(x)` | 返回 x 的反转\n`table(x)` | 查看值的计数\n`unique(x)`| 查看唯一值\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://raw.githubusercontent.com/jaywcjlove/reference/main/docs/r.md"
+}

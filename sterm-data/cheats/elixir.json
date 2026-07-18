@@ -1,0 +1,264 @@
+{
+  "name": "Elixir",
+  "description": "Elixir 快速参考",
+  "category": "",
+  "count": 45,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装 Elixir",
+          "description": "Elixir 自带了 `iex` 这样一个交互 shell，可以随时计算 Elixir 表达式的值，运行`iex`命令，继续输入几个简单的表达式试试：\n每个操作系统的文档可以在[官网](https://elixir-lang.org)网站上 [Installing Elixir](http://elixir-lang.org/install.html) 部分找到",
+          "code": "iex 2+3\n5\niex 2+3 == 5\ntrue\niex String.length(\"快速的狐狸跳过了懒惰的狗\")\n43"
+        },
+        {
+          "title": "hello.exs",
+          "description": "Elixir 运行命令",
+          "code": "$ elixir hello.exs"
+        },
+        {
+          "title": "基本类型",
+          "description": "Elixir 支持多种基本类型：整数、浮点、布尔值、原子和字符串。其他数据类型，如列表和元组",
+          "code": "# integer 整数\niex> 1          \n# integer（支持2进制、8进制和16进制的整数）\niex> 0x1F       \n# float\niex> 1.0        \n# boolean\niex> true       \n# atom / symbol\niex> :atom      \n# string\niex> \"elixir\"   \n# list\niex> [1, 2, 3]  \n# tuple\niex> {1, 2, 3}"
+        },
+        {
+          "title": "注释",
+          "description": "",
+          "code": "# 这是一个单行注释"
+        },
+        {
+          "title": "字符串插值与拼接",
+          "description": "",
+          "code": "iex> name = \"Sean\"\niex> \"Hello #{name}\"\n\"Hello Sean\"\n\niex> \"Hello \" <> \"world!\"\n\"Hello world!\""
+        },
+        {
+          "title": "变量和模式匹配",
+          "description": "在 Elixir 中，使用 `=` 来进行赋值操作，但实际上是模式匹配。左边是模式，右边是值",
+          "code": "x = 1\n# => x 现在等于 1\n\n{a, b} = {1, 2}\n# => a 等于 1，b 等于 2"
+        },
+        {
+          "title": "原子（Atoms）",
+          "description": "原子是常量，它们的名称就是它们的值",
+          "code": ":ok"
+        },
+        {
+          "title": "列表（Lists）",
+          "description": "",
+          "code": "list = [1, 2, 3]"
+        },
+        {
+          "title": "元组（Tuples）",
+          "description": "",
+          "code": "tuple = {:ok, \"value\"}"
+        },
+        {
+          "title": "函数定义",
+          "description": "",
+          "code": "defmodule MyModule do\n  def my_function(parameter) do\n    # 函数体\n  end\nend"
+        },
+        {
+          "title": "匿名函数",
+          "description": "",
+          "code": "add = fn a, b -> a + b end"
+        },
+        {
+          "title": "控制结构",
+          "description": "`if/else`\n`case`\n`cond`",
+          "code": "cond do\n  x > 2 -> \"Greater than 2\"\n  x == 2 -> \"Equal to 2\"\n  true -> \"Less than 2\"\nend"
+        },
+        {
+          "title": "基本算术",
+          "description": "运算符`/`总是返回一个 float。如果你想做整数除法或得到除法余数，你可以调用 div 和 rem 函数:\n允许在调用需要一个或多个参数的函数时删除括号\n可以调用 round 函数来获取与给定浮点数最接近的整数，或者调用 trunc 函数来获取浮点数的整数部分\n可以使用 is_integer、is_float 或 is_number 分别检查参数是否为 integer、float 或 number 类型",
+          "code": "iex> is_integer(1)\ntrue\niex> is_float(2.0)\ntrue\niex> is_number(2.0)\nfalse"
+        },
+        {
+          "title": "布尔算术",
+          "description": "Elixir 提供了 `||`、`&&` 和 `!` 布尔操作符，它们支持任何类型的操作：\n还有三个操作符（and、or、not），它们的第一个参数**必须是布尔类型**（true 和 false）:",
+          "code": "iex> true and 42\n42\niex> false or true\ntrue\niex> not false\ntrue\niex> 42 and true\n** (ArgumentError) argument error: 42\niex> not 42\n** (ArgumentError) argument error"
+        },
+        {
+          "title": "模块和函数导入",
+          "description": "",
+          "code": "import List, only: [duplicate: 2]"
+        },
+        {
+          "title": "管道操作符",
+          "description": "`|>` 用于链式调用函数，将前一个函数的结果作为下一个函数的第一个参数",
+          "code": "result = data\n         |> process1()\n         |> process2()"
+        },
+        {
+          "title": "比较运算符",
+          "description": "比较运算符 ：`==`, `!=`, `===`, `!==`, `<=`, `>=`, `<` 和 `>`\n集合",
+          "code": "iex> 1 > 2\nfalse\niex> 1 != 2\ntrue\niex> 2 == 2\ntrue\niex> 2 <= 3\ntrue"
+        }
+      ]
+    },
+    {
+      "title": "集合",
+      "entries": [
+        {
+          "title": "列表（List）",
+          "description": "列表的开头添加元素\n列表的尾部添加元素/列表拼接\n获取列表的头部元素\n获取列表的尾部元素",
+          "code": "iex> tl [3.14, :pie, \"Apple\"]\n[:pie, \"Apple\"]"
+        },
+        {
+          "title": "元组（Tuple）",
+          "description": "",
+          "code": "iex> {3.14, :pie, \"Apple\"}\n{3.14, :pie, \"Apple\"}"
+        },
+        {
+          "title": "关键字列表（Keyword List）",
+          "description": "关键字列表非常重要，它有以下的特性：\n- 键（key）都是原子（atom）\n- 键（key）是有序的（定义后，顺序不会改变）\n- 键（key）不必是唯一的\n因为这些原因，常见的用法是作为参数传递给函数",
+          "code": "iex> [foo: \"bar\", hello: \"world\"]\n[foo: \"bar\", hello: \"world\"]\niex> [{:foo, \"bar\"}, {:hello, \"world\"}]\n[foo: \"bar\", hello: \"world\"]"
+        },
+        {
+          "title": "映射（Map）",
+          "description": "Elixir 的映射（maps）是键值对结构的第一选择，和关键字列表（keywords）不同，映射允许任意类型的数据作为键，而且数据并不严格排序。 你可以使用 %{} 来定义映射：\n模式匹配",
+          "code": "iex> map = %{:foo => \"bar\", \"hello\" => :world}\n%{:foo => \"bar\", \"hello\" => :world}\niex> map[:foo]\n\"bar\"\niex> map[\"hello\"]\n:world"
+        }
+      ]
+    },
+    {
+      "title": "模式匹配",
+      "entries": [
+        {
+          "title": "匹配元组",
+          "description": "",
+          "code": "iex> {a, b, c} = {:hello, \"world\", 42}\n{:hello, \"world\", 42}\niex> a\n:hello\niex> b\n\"world\""
+        },
+        {
+          "title": "匹配列表",
+          "description": "",
+          "code": "iex> [a, b, c] = [1, 2, 3]\n[1, 2, 3]\niex> a\n1"
+        },
+        {
+          "title": "匹配列表的头部元素",
+          "description": "",
+          "code": "iex> [head | tail] = [1, 2, 3]\n[1, 2, 3]\niex> head\n1\niex> tail\n[2, 3]"
+        },
+        {
+          "title": "Pin 操作符",
+          "description": "pin 操作符，就是用已经绑定的值去匹配，而不是重新绑定一个新值。",
+          "code": "iex> {x, ^x} = {2, 1}\n{2, 1}\niex> x\n2"
+        },
+        {
+          "title": "使用下划线 `_` 忽略匹配的值",
+          "description": "控制语句",
+          "code": "iex> [head | _] = [1, 2, 3]\n[1, 2, 3]\niex> head\n1"
+        }
+      ]
+    },
+    {
+      "title": "控制语句",
+      "entries": [
+        {
+          "title": "if/else/end",
+          "description": "",
+          "code": "if condition do\n  # 条件成立时执行的代码\nelse\n  # 条件不成立时执行的代码\nend"
+        },
+        {
+          "title": "case/end",
+          "description": "",
+          "code": "case expression do\n  pattern1 -> # 匹配 pattern1 时执行的代码\n  pattern2 -> # 匹配 pattern2 时执行的代码\n  _ -> # 其他情况执行的代码\nend"
+        },
+        {
+          "title": "cond/end",
+          "description": "",
+          "code": "cond do\n  condition1 -> # 条件1成立时执行的代码\n  condition2 -> # 条件2成立时执行的代码\n  true -> # 如果没有任何条件成立，执行这里的代码\nend"
+        },
+        {
+          "title": "unless/do/end",
+          "description": "",
+          "code": "unless condition do\n  # 条件为假时执行的代码\nend"
+        },
+        {
+          "title": "try/rescue/end",
+          "description": "",
+          "code": "try do\n  # 可能会引发异常的代码\nrescue\n  pattern1 -> # 匹配 pattern1 的异常处理代码\n  pattern2 -> # 匹配 pattern2 的异常处理代码\n  _ -> # 其他异常处理代码\nend"
+        },
+        {
+          "title": "case",
+          "description": "允许将一个值与许多模式进行比较，直到找到匹配的模式：\n还可以使用when指定额外的条件",
+          "code": "iex> case {1, 2, 3} do\n  {1, x, 3} when x > 0 ->\n    \"Will match\"\n  _ ->\n    \"如果不满足保护条件，将匹配\"\nend\n\"Will match\""
+        },
+        {
+          "title": "cond",
+          "description": "当我们需要根据条件进行匹配而不是值时，类似于其他语言的 `else if` 或 `elsif`，可以使用 `cond` 控制结构。\n如果所有的条件都返回 `nil` 或 `false`，则会引发一个错误（CondClauseError）。因此，需要添加一个 `final` 条件，等于 `true`，它将始终匹配：",
+          "code": "iex> cond do\n  2 + 2 == 5 ->\n    \"This is never true\"\n  2 * 2 == 3 ->\n    \"Nor this\"\n  true ->\n    \"这始终为真（等同于 else）\"\nend\n\"这始终为真（等同于 else）\""
+        },
+        {
+          "title": "变量的作用域",
+          "description": "如果在if、case和类似的构造中声明或更改了任何变量，则声明和更改将只在构造中可见。\n如果要更改值，则必须从if返回值：\n函数",
+          "code": "iex> x = 1\n1\niex> x = if true do\n  x + 1\nelse\n  x\nend\n2"
+        }
+      ]
+    },
+    {
+      "title": "函数",
+      "entries": [
+        {
+          "title": "函数定义",
+          "description": "示例：",
+          "code": "def sum(a, b) do\n  a + b\nend"
+        },
+        {
+          "title": "模式匹配的多个函数定义",
+          "description": "示例：",
+          "code": "def is_positive(number) when number > 0 do\n  true\nend\n\ndef is_positive(_), do: false"
+        },
+        {
+          "title": "函数调用",
+          "description": "示例：",
+          "code": "Enum.map([1, 2, 3], &(&1 * 2))"
+        },
+        {
+          "title": "函数参数默认值",
+          "description": "示例：",
+          "code": "def greet(name \\\\ \"World\") do\n  \"Hello, #{name}!\"\nend"
+        },
+        {
+          "title": "可变参数数量",
+          "description": "示例：",
+          "code": "def sum(numbers) do\n  Enum.sum(numbers)\nend"
+        },
+        {
+          "title": "函数文档注释",
+          "description": "示例：\n这些是 Elixir 函数语法的基本要点，可以帮助你开始编写函数。",
+          "code": "@doc \"\"\"\nAdds two numbers together.\n\n## 示例\n\n    iex> MyModule.add(1, 2)\n    3\n\"\"\"\ndef add(a, b) do\n  a + b\nend"
+        },
+        {
+          "title": "匿名函数",
+          "description": "可以使用 & 语法来简化匿名函数的定义：",
+          "code": "iex> sum = &(&1 + &2)\niex> sum.(2, 3)\n5"
+        },
+        {
+          "title": "闭包",
+          "description": "匿名函数去引用外部的变量，这通常被称为闭包。\n闭包与守卫",
+          "code": "iex> f = fn\n  x, y when x > 0 -> x + y\n  x, y -> x * y\nend\n\niex> f.(1, 3)\n4\niex> f.(-1, 3)\n-3"
+        },
+        {
+          "title": "命名函数",
+          "description": "命名函数是通过 def 关键字定义在某个模块中\n简写为一行：\n私有函数\n函数的默认参数：使用 `\\\\` 来定义默认参数\nEnumerables 与 Streams",
+          "code": "defmodule Greeter do\n  def hello(name, language_code \\\\ \"en\") do\n    phrase(language_code) <> name\n  end\n\n  defp phrase(\"en\"), do: \"Hello, \"\n  defp phrase(\"es\"), do: \"Hola, \"\nend"
+        }
+      ]
+    },
+    {
+      "title": "Enumerables 与 Streams",
+      "entries": [
+        {
+          "title": "Enum",
+          "description": ">\n> Enum 模块提供了对集合的常用操作，如 map、filter、reduce、sort、chunk、join、into 等。",
+          "code": "iex> Enum.map([1, 2, 3], fn x -> x * 2 end)\n[2, 4, 6]\niex> Enum.map(%{1 => 2, 3 => 4}, fn {k, v} -> k * v end)\n[2, 12]"
+        },
+        {
+          "title": "Stream",
+          "description": ">\n> 作为Enum的替代品，Elixir提供了支持懒惰操作的Stream模块\n> 流文件操作\n另见",
+          "code": "iex> stream = File.stream!(\"path/to/file\")\n%File.Stream{\n  line_or_bytes: :line,\n  modes: [:raw, :read_ahead, :binary],\n  path: \"path/to/file\",\n  raw: true\n}\nEnum.take(stream, 10)\n\n# 上面的例子将提取所选文件的前10行。这意味着流对于处理大型文件甚至是网络资源等慢速资源非常有用。"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/elixir.md"
+}

@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;510;590&family=JetBrains+Mono&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --color-bg-canvas: #08090a;
+  --color-bg-panel: #0f1011;
+  --color-bg-surface-1: #191a1b;
+  --color-bg-surface-2: #28282c;
+  --color-text-primary: #f7f8f8;
+  --color-text-secondary: #d0d6e0;
+  --color-text-tertiary: #8a8f98;
+  --color-text-quaternary: #62666d;
+  --color-brand: #5e6ad2;
+  --color-accent: #7170ff;
+  --color-accent-hover: #828fff;
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-standard: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}
+
+.light {
+  --color-bg-canvas: #f7f8f8;
+  --color-bg-panel: #ffffff;
+  --color-bg-surface-1: #ffffff;
+  --color-bg-surface-2: #f3f4f5;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-tertiary: #8a8a8a;
+  --color-text-quaternary: #b0b0b0;
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-border-standard: rgba(0, 0, 0, 0.1);
+  color-scheme: light;
+}
+
+/* ── xterm.js CSS overrides ── */
+
+/* Let xterm fill its container naturally */
+.xterm {
+  height: 100%;
+  width: 100%;
+  padding: 16px;
+}
+
+/* Viewport background should be transparent — xterm theme sets canvas bg */
+.xterm .xterm-viewport {
+  background-color: transparent !important;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* ── End xterm overrides ── */
+
+/* ── Drag-over feedback for file drop ── */
+.drag-over {
+  outline: 2px solid var(--color-accent, #7170ff);
+  outline-offset: -2px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Cheats markdown rendering (matching Lucerna's answer-content) ── */
+.cheats-content h1,
+.cheats-content h2,
+.cheats-content h3,
+.cheats-content h4 {
+  margin: 16px 0 8px 0;
+  line-height: 1.4;
+  font-weight: 590;
+  color: var(--color-text-primary);
+}
+.cheats-content h1 { font-size: 18px; }
+.cheats-content h2 { font-size: 16px; }
+.cheats-content h3 { font-size: 14px; }
+.cheats-content h4 { font-size: 13px; }
+
+.cheats-content p {
+  margin: 8px 0;
+  line-height: 1.75;
+}
+
+.cheats-content strong {
+  font-weight: 590;
+  color: var(--color-text-primary);
+}
+
+.cheats-content em {
+  font-style: italic;
+}
+
+.cheats-content code {
+  background: var(--color-bg-surface-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+}
+
+.cheats-content pre {
+  background: var(--color-bg-surface-2);
+  padding: 12px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid var(--color-border-standard);
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.cheats-content pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.cheats-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+  border: 1px solid var(--color-border-standard);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cheats-content th {
+  background: var(--color-bg-surface-2);
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 590;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-standard);
+}
+
+.cheats-content td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--color-border-standard);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.cheats-content tr:last-child td {
+  border-bottom: none;
+}
+
+.cheats-content tr:hover td {
+  background: var(--color-bg-surface-2);
+}
+
+.cheats-content ul,
+.cheats-content ol {
+  margin: 8px 0;
+  padding-left: 24px;
+  line-height: 1.7;
+}
+
+.cheats-content hr {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.cheats-content blockquote {
+  margin: 8px 0;
+  padding: 4px 12px;
+  border-left: 3px solid var(--color-brand);
+  color: var(--color-text-secondary);
+}
+/* ── End cheats markdown ── */

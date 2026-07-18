@@ -1,0 +1,494 @@
+{
+  "name": "React",
+  "description": "React 快速参考",
+  "category": "前端",
+  "count": 89,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "React 是一个用于构建用户界面的 JavaScript 库\n- [React 官方文档](https://react.dev) _(react.dev)_\n- [Styled Components 备忘清单](./styled-components.md) _(jaywcjlove.github.io)_\n- [TypeScript JSX 备忘清单](./typescript.md#jsx) _(jaywcjlove.github.io)_\n\n**快速创建 **React** 项目 ([CRA](https://github.com/facebook/create-react-app))**",
+          "code": "npx create-react-app my-app"
+        },
+        {
+          "title": "导入多个导出",
+          "description": "使用 `export` 导出 **`Hello`**，`export default` 导出 **`World`** 组件\n使用 `import` 导入 `Hello` 组件，在示例中使用。",
+          "code": "import World, { Hello } from './hello.js';"
+        },
+        {
+          "title": "React 组件中的 CSS",
+          "description": "注意：类属性 `className`",
+          "code": "const divStyle = {\n  backgroundImage: 'url(' + imgUrl + ')',\n};\nexport const Student = (\n  <div style={divStyle}></div>\n);"
+        },
+        {
+          "title": "属性",
+          "description": "函数组件 `Student` 中访问属性\nClass 组件 `Student` 中访问属性\n`class` 组件使用 `this.props` 访问传递给组件的属性。",
+          "code": "class Student extends React.Component {\n  render() {\n    return (\n      <h1>Hello, {this.props.name}</h1>\n    );\n  }\n}"
+        },
+        {
+          "title": "Children",
+          "description": "函数 `AlertBox` 组件\nClass `AlertBox` 组件，与函数组件 `AlertBox` 组件相同\n`children` 作为子组件的的属性传递。",
+          "code": "{this.props.children}"
+        },
+        {
+          "title": "State",
+          "description": "函数中的 State，Hook 是 React 16.8 的新增特性\n使用 `setState` 更新状态，下面是函数组件读取状态\n\n**Class 中的 State**\n使用 `setState` 更新状态，`class` 组件中不能使用 <yel>~~hooks~~</yel>。下面是 `class` 组件读取状态",
+          "code": "<p>您点击了{this.state.count}次</p>"
+        },
+        {
+          "title": "循环",
+          "description": "`key` 值在兄弟节点之间必须唯一",
+          "code": "const elm = ['one', 'two', 'three'];\nfunction Student() {\n  return (\n    <ul>\n      {elm.map((value, index) => (\n        <li key={index}>{value}</li>\n      ))}\n    </ul>\n  );\n}"
+        },
+        {
+          "title": "事件监听",
+          "description": "",
+          "code": "export default function Hello() {\n  function handleClick(event) {\n    event.preventDefault();\n    alert(\"Hello World\");\n  }\n\n  return (\n    <a href=\"/\" onClick={handleClick}>\n      Say Hi\n    </a>\n  );\n}"
+        },
+        {
+          "title": "函数注入",
+          "description": "",
+          "code": "function addNumbers(x1, x2) {\n  return x1 + x2;\n}\n\nconst element = (\n  <div>\n    {addNumbers(2, 5)}\n  </div>\n);"
+        },
+        {
+          "title": "嵌套",
+          "description": "",
+          "code": "import { useState } from 'react'\nimport Avatar from './Avatar';\nimport Profile from './Profile';\n\nfunction Student() {\n  const [count, setCount] = useState(0);\n  return (\n    <div>\n      <Avatar src={count} />\n      <Profile username={count} />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Portals",
+          "description": "React 并_没有_创建一个新的 `div`。它只是把子元素渲染到 `domNode` 中。`domNode` 是一个可以在任何位置的有效 DOM 节点。\n提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案",
+          "code": "render() {\n  return ReactDOM.createPortal(\n    this.props.children,\n    domNode\n  );\n}"
+        },
+        {
+          "title": "Fragment",
+          "description": "从 `v16.2.0` 开始 `Fragment` 可用于返回多个子节点，而无需向 DOM 添加额外的包装节点。或者使用 `<></>` 效果是一样的。\n查看: [Fragments & strings](https://reactjs.org/blog/2017/09/26/react-v16.0.html#new-render-return-types-fragments-and-strings)",
+          "code": "const Student = () => (\n  <>\n    <Avatar src=\"./demo.jpg\" />\n    <Profile username=\"name\" />\n  </>\n);"
+        },
+        {
+          "title": "返回字符串",
+          "description": "您可以只返回一个字符串。查看: [Fragments & strings](https://reactjs.org/blog/2017/09/26/react-v16.0.html#new-render-return-types-fragments-and-strings)",
+          "code": "render() {\n  return 'Look ma, no spans!';\n}"
+        },
+        {
+          "title": "返回数组",
+          "description": "不要忘记 `key`！查看: [Fragments & strings](https://reactjs.org/blog/2017/09/26/react-v16.0.html#new-render-return-types-fragments-and-strings)",
+          "code": "const Student = () => [\n  <li key=\"A\">First item</li>,\n  <li key=\"B\">Second item</li>\n];"
+        },
+        {
+          "title": "Refs 转发",
+          "description": "**使用**",
+          "code": "// 你可以直接获取 DOM button 的 ref：\nconst ref = React.createRef();\n\n<FancyButton ref={ref}>\n  点击我\n</FancyButton>;"
+        },
+        {
+          "title": "Class 组件内部使用 ref 属性",
+          "description": "提示：Refs 适用于类组件，但不适用于函数组件（除非您使用 useRef hook，请参阅[hooks](#hooks)）",
+          "code": "import {Component,createRef} from 'react'\n\nclass MyComponent extends Component {\n  constructor(props) {\n    super(props);\n    this.myRef = createRef();\n  }\n\n  render() {\n    return <div ref={this.myRef} />;\n  }\n}"
+        },
+        {
+          "title": "函数组件内部使用 ref 属性",
+          "description": "",
+          "code": "function CustomTextInput(props) {\n  // 这里必须声明 $input，这样 ref 才可以引用它\n  const $input = useRef(null);\n  function handleClick() {\n    $input.current.focus();\n  }\n  return (\n    <div>\n      <input type=\"text\" ref={$input} />\n      <input\n        type=\"button\" value=\"聚焦文本输入\"\n        onClick={handleClick}\n      />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "严格模式 StrictMode",
+          "description": "- [识别不安全的生命周期](https://zh-hans.reactjs.org/docs/strict-mode.html#identifying-unsafe-lifecycles)\n- [关于使用过时字符串 ref API 的警告](https://zh-hans.reactjs.org/docs/strict-mode.html#warning-about-legacy-string-ref-api-usage)\n- [关于使用废弃的 findDOMNode 方法的警告](https://zh-hans.reactjs.org/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage)\n- [检测意外的副作用](https://zh-hans.reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects)\n- [检测过时的 context API](https://zh-hans.reactjs.org/docs/strict-mode.html#detecting-legacy-context-api)\n- [确保可复用的状态](https://zh-hans.reactjs.org/docs/strict-mode.html#ensuring-reusable-state)\n突出显示应用程序中潜在问题的工具。请参阅：[严格模式](https://zh-hans.reactjs.org/docs/strict-mode.html)",
+          "code": "<div>\n  <Header />\n  <React.StrictMode>\n    <div>\n      <ComponentOne />\n      <ComponentTwo />\n    </div>\n  </React.StrictMode>\n  <Footer />\n</div>"
+        },
+        {
+          "title": "Profiler",
+          "description": "测量一个 React 应用多久渲染一次以及渲染一次的 `代价`\n为了分析 `Navigation` 组件和它的子代。应该在需要时才去使用它。\n:- | :-\n:- | :-\n`id(string)` | 发生提交的 `Profiler` 树的 `id`\n`onRender(function)` | 组件树任何组件 “提交” 一个更新的时候调用这个函数\n\n**onRender 回调函数**\n:- | :-\n:- | :-\n`phase: \"mount\" \\| \"update\"` |  判断是由 `props`/`state`/`hooks` 改变 或 “第一次装载” 引起的重渲染\n`actualDuration: number` | 本次更新在渲染 Profiler 和它的子代上花费的时间\n`baseDuration: number` | 在 Profiler 树中最近一次每一个组件 render 的持续时间\n`startTime: number` | 本次更新中 React 开始渲染的时间戳\n`commitTime: number` | 本次更新中 React commit 阶段结束的时间戳\n`interactions: Set` | 当更新被制定时，“[interactions](https://fb.me/react-interaction-tracing)” 的集合会被追踪\n默认值",
+          "code": "<Profiler id=\"Navigation\" onRender={callback}>\n  <Navigation {...props} />\n</Profiler>"
+        }
+      ]
+    },
+    {
+      "title": "默认值",
+      "entries": [
+        {
+          "title": "Class 组件默认 props",
+          "description": "**使用**\n不传值 `props.color` 将自动设置为 `blue`",
+          "code": "<CustomButton /> ;"
+        },
+        {
+          "title": "Class 组件默认 state",
+          "description": "在构造 `constructor()`中设置默认状态。",
+          "code": "class Hello extends Component {\n  state = { visible: true }\n}"
+        },
+        {
+          "title": "函数组件默认 props",
+          "description": "",
+          "code": "function CustomButton(props) {\n  const { color = 'blue' } = props;\n  return <div>{color}</div>\n}"
+        },
+        {
+          "title": "函数组件默认 state",
+          "description": "Props",
+          "code": "function CustomButton() {\n  const [color, setColor]=useState('blue')\n  return <div>{color}</div>\n}"
+        }
+      ]
+    },
+    {
+      "title": "Props",
+      "entries": [
+        {
+          "title": "Props 的 Spread 运算符",
+          "description": "扩展运算符可用于一次传递所有 Props。",
+          "code": "function Profile(props) {\n  return <p>{props.name}, {props.age}</p>;\n}\n\nconst user = { name: \"John\", age: 25 };\n<Profile {...user}/>"
+        },
+        {
+          "title": "什么是 Props？",
+          "description": "- Props（“properties”的缩写）用于将数据从父组件传递到子组件。\n- 它们是只读的，不能在子组件内修改。",
+          "code": "<MyComponent propName=\"value\" />"
+        },
+        {
+          "title": "将 Pros 传递给组件",
+          "description": "您可以通过 JSX 中的属性将 props 从父组件传递到子组件。",
+          "code": "function ParentComponent() {\n  return <ChildComponent name=\"John\" age={25} />;\n}\n\nfunction ChildComponent (props) {\n  return <div>Hello，{props.name}. You are {props.age} years old. </div>;\n}"
+        },
+        {
+          "title": "解构 props",
+          "description": "props 可以解构以便于访问。",
+          "code": "function Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}"
+        },
+        {
+          "title": "访问功能组件中的 Props",
+          "description": "可以使用 props 对象在功能组件中访问 Props。",
+          "code": "function Greeting(props) {\n  return <h1>Hello, {props.name}!</h1>;\n}"
+        },
+        {
+          "title": "使用 Pros 进行条件渲染",
+          "description": "道具可用于组件内部的条件渲染。",
+          "code": "function Greeting({ name, isLoggedIn }) {\n  return isLoggedIn ? <hl>Welcome back, {name}</h1>: <h1>Please log in</h1>;\n}"
+        },
+        {
+          "title": "Prop Drilling（属性传递）",
+          "description": "将属性（props）在多个组件层级中逐层传递可能会变得繁琐。这种方式称为属性传递（prop drilling）。",
+          "code": "function Parent() {\n  const name = \"John\";\n  return <Child name={name}/>;\n}\n\nfunction Child({ name }) {\n  return <Grandchild name={name} />\n}\n\nfunction Grandchild({ name }) {\n  return <p>{name}</p>;\n}"
+        },
+        {
+          "title": "Props 与 State",
+          "description": "- `props` 被传递给组件并且是不可变的。\n- `State` 是组件的本地状态，可以更改。",
+          "code": "function ChildComponent({ name }) {\n  return <h2>Hi,my name is {name}.</h2>;\n}\n\nfunction ParentComponent() {\n  // State to manage the name value\n  const ［name, setName］= usestate('John');\n  const changeName = () => {\n    setName('Jane');\n  };\n  return (\n    <div>\n      <ChildComponent name={name}/>\n      <button onClick={changeName}>\n        Change Names\n      </button>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "默认 props",
+          "description": "您可以为 `props` 设置默认值。",
+          "code": "function Greeting({ name = \"Bob\" } = 0}) {\n  return <h1>Hello, {name}!</h1>;\n}\n// Renders \"Hello, Bob!\"\n< Greeting />"
+        },
+        {
+          "title": "使用 prop 处理事件",
+          "description": "你可以将事件处理程序作为 props 传递给 handle 用户交互。\nJSX",
+          "code": "function Button({ onClick }) {\n  return < button onClick={onClick}>Click me</button>;\n}\n\nfunction App() {\n  const handleClick = () => alert(\"Button clicked!\"):\n  return <Button onClick={handleClick} />;\n}"
+        }
+      ]
+    },
+    {
+      "title": "JSX",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "`JSX` 仅仅只是 `React.createElement(component, props, ...children)` 函数的语法糖\n会编译为\n没有子节点\n会编译为",
+          "code": "React.createElement(\n  'div',\n  {className: 'sidebar'}\n)"
+        },
+        {
+          "title": "JSX 点语法",
+          "description": "",
+          "code": "const Menu = ({ children }) => (\n  <div className=\"menu\">{children}<div>\n);\n\nMenu.Item = ({ children }) => (\n  <div>{children}<div>\n);\n\n<Menu>\n  <Menu.Item>菜单一</Menu.Item>\n  <Menu.Item>菜单二</Menu.Item>\n<Menu>"
+        },
+        {
+          "title": "JSX Element",
+          "description": "参考：[渲染元素](https://reactjs.org/docs/rendering-elements.html)",
+          "code": "let element = <h1>Hello, world!</h1>;\nlet emptyHeading = <h1 />;\n\nconst root = ReactDOM.createRoot(\n  document.getElementById('root')\n);\n\nconst element = <h1>Hello, world</h1>;\nroot.render(element);"
+        },
+        {
+          "title": "JSX 属性",
+          "description": "注意：类属性 `className`",
+          "code": "const avatarUrl = \"img/picture.jpg\"\nconst element = <img src={avatarUrl} />;\n\nconst element = (\n  <button className=\"btn\">\n    点击我\n  </button>\n);"
+        },
+        {
+          "title": "JSX 表达式",
+          "description": "",
+          "code": "let name = '张三';\nlet element = <h1>Hello, {name}</h1>;\n\nfunction fullName(firstName, lastName) {\n  return firstName + ' ' + lastName;\n}\nlet element = (\n  <h1>\n    Hello, {fullName('三', '张')}\n  </h1>\n);"
+        },
+        {
+          "title": "JSX style",
+          "description": "",
+          "code": "const divStyle = {\n  color: 'blue',\n  backgroundImage: 'url(' + imgUrl + ')',\n};\nfunction MyComponent() {\n  return <div style={divStyle}>组件</div>;\n}"
+        },
+        {
+          "title": "JSX dangerouslySetInnerHTML",
+          "description": "`dangerouslySetInnerHTML` 是 React 为浏览器 DOM 提供 `innerHTML` 的替换方案。",
+          "code": "const markup = {__html: '我 &middot; 你' };\n\nconst MyComponent = () => (\n  <div dangerouslySetInnerHTML={markup} />\n);"
+        },
+        {
+          "title": "JSX htmlFor",
+          "description": "`for` 在 `JS` 中是保留字，JSX 元素使用了 `htmlFor` 代替",
+          "code": "const MyComponent = () => (\n  <div>\n    <input type=\"radio\" id=\"ab\" name=\"v\">\n    <label for=\"ab\">HTML</label>\n  </div>\n);"
+        },
+        {
+          "title": "JSX defaultValue",
+          "description": "非受控组件的属性，设置组件第一次挂载时的 `value`\n`<input>`、`<select>` 和 `<textarea>` 支持 value 属性",
+          "code": "<textarea defaultValue=\"Hello\" />"
+        },
+        {
+          "title": "JSX defaultChecked",
+          "description": "非受控组件的属性，设置组件是否被选中\n类型为 `checkbox` 或 `radio` 时，组件支持 checked 属性",
+          "code": "<input type=\"radio\" defaultChecked />"
+        },
+        {
+          "title": "JSX className",
+          "description": "属性用于指定 `CSS` 的 `class`\nReact 中使用 [Web Components](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components) 使用 `class` 属性代替",
+          "code": "<div className=\"warp\">...</div>"
+        },
+        {
+          "title": "JSX 条件渲染",
+          "description": "注意：组件必须总是返回一些东西。\n\n**使用**",
+          "code": "<Greeting firstName=\"三\" lastName=\"张\" />"
+        },
+        {
+          "title": "JSX 三目运算符 / 与运算符 &&",
+          "description": "",
+          "code": "{isShow && <div>内容</div>}"
+        },
+        {
+          "title": "JSX 组件",
+          "description": "组件名称以大驼峰式命名。",
+          "code": "<Dropdown>\n  下拉列表\n  <Menu>\n    <Menu.Item>菜单一</Menu.Item>\n    <Menu.Item>菜单二</Menu.Item>\n    <Menu.Item>菜单三</Menu.Item>\n  </Menu>\n</Dropdown>"
+        },
+        {
+          "title": "JSX 元素变量",
+          "description": "",
+          "code": "function Greeting(props) {\n  let button;\n  if (props.isLoggedIn) {\n    button = <UserGreeting />;\n  } else {\n    button = <GuestGreeting />;\n  }\n  return <div>{button}</div>;\n}"
+        },
+        {
+          "title": "JSX 注释",
+          "description": "组件",
+          "code": "function Student() {\n  const [count, setCount] = useState(0);\n  return (\n    <Fragment>\n      {/* 这里写注释 */}\n    </Fragment>\n  );\n}"
+        }
+      ]
+    },
+    {
+      "title": "组件",
+      "entries": [
+        {
+          "title": "函数组件",
+          "description": "注意：每个组件都需要一个根元素，[更多说明](https://reactjs.org/docs/components-and-props.html)。",
+          "code": "import React from 'react';\n\nconst UserName = () => <h1>Kenny</h1>;\n\nexport default function UserProfile() {\n  return (\n    <div className=\"UserProfile\">\n      <div>Hello</div>  \n      <UserName />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Class 组件",
+          "description": "",
+          "code": "class Welcome extends React.Component {\n  render() {\n    return <h1>{this.props.name}</h1>;\n  }\n}"
+        },
+        {
+          "title": "Class 组件 API",
+          "description": "**额外的 API**\n:- | -\n:- | -\n`this.forceUpdate()` | 强制重新渲染\n`this.setState({ ... })` | 更新状态\n`this.setState(state =>{ ... })` | 更新状态\n\n**属性**\n:- | -\n:- | -\n`defaultProps` | 默认 props\n`displayName` | 显示组件名称(用于调试)\n\n**实例属性**\n:- | -\n:- | -\n`this.props` | 组件接受参数\n`this.state` | 组件内状态",
+          "code": ""
+        },
+        {
+          "title": "Pure 组件",
+          "description": "",
+          "code": "import React, {PureComponent} from 'react'\n\nclass MessageBox extends PureComponent {\n  ···\n}"
+        },
+        {
+          "title": "高阶组件",
+          "description": "使用高阶组件",
+          "code": "const LowComponent = (props) => (\n  <div>{props.data}</div>\n);\n\nconst MyComp = with('Hello')(LowComponent)"
+        },
+        {
+          "title": "包含关系",
+          "description": "组件可以通过 JSX 嵌套",
+          "code": "function WelcomeDialog() {\n  return (\n    <FancyBorder color=\"blue\">\n      <h1 className=\"title\">欢迎</h1>\n      <p className=\"message\">\n        感谢您访问我们的宇宙飞船\n      </p>\n    </FancyBorder>\n  );\n}"
+        },
+        {
+          "title": "作为参数传递",
+          "description": "给组件 `SplitPane` 传递 `left` 和 `right` 两个组件参数",
+          "code": "function SplitPane(props) {\n  return (\n    <div className=\"SplitPane\">\n      <div className=\"left\">\n        {props.left}\n      </div>\n      <div className=\"right\">\n        {props.right}\n      </div>\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <SplitPane\n      left={<Contacts />}\n      right={<Chat />}\n    />\n  );\n}"
+        },
+        {
+          "title": "嵌入内部组件",
+          "description": "注意：假设 `UserAvatar` 在 `UserAvatar.js` 中声明",
+          "code": "import React from 'react';\nimport UserAvatar from \"./UserAvatar\";\n\nexport default function UserProfile() {\n  return (\n    <div className=\"UserProfile\">\n      <UserAvatar />\n      <UserAvatar />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "嵌入外部组件",
+          "description": "注意：[uiw](http://npmjs.com/uiw) 组件在 [npmjs.com](https://www.npmjs.com) 上找到，需要先安装导入",
+          "code": "import React from 'react';\nimport {Button} from 'uiw';\nexport default function UserProfile() {\n  return (\n    <div className=\"UserProfile\">\n      <Button type=\"primary\">\n        主要按钮\n      </Button>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "点组件语法技巧",
+          "description": "Hooks",
+          "code": "<Menu>\n  <Menu.Item>菜单一</Menu.Item>\n  <Menu.Item>菜单二</Menu.Item>\n<Menu>"
+        }
+      ]
+    },
+    {
+      "title": "Hooks",
+      "entries": [
+        {
+          "title": "Hooks API 参考",
+          "description": "**基础 Hook**\n方法 | 描述\n:- | -\n`useState` | 返回一个 `state`，更新 `state` 的函数 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate)\n`useEffect` | 可能有副作用代码的函数 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#useeffect)\n`useContext` | 接收并返回该 `context` 的当前值 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usecontext)\n\n**额外的 Hook**\n方法 | 描述\n:- | -\n`useReducer` | `useState` 的替代方案 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate)\n`useCallback` | 返回一个回调函数 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback)\n`useMemo` | 返回一个 [memoized](https://en.wikipedia.org/wiki/Memoization) 值[#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo)\n`useRef` | 返回一个可变的 `ref` 对象 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#useref)\n`useImperativeHandle` | 暴露给父组件的实例值 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle)\n`useLayoutEffect` | DOM 变更后同步调用函数 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#uselayouteffect)\n`useDebugValue` | 开发者工具中显示标签 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usedebugvalue)\n`useDeferredValue` | 接受并返回该值的新副本 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usedeferredvalue)\n`useTransition` | 过渡任务的等待状态 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usetransition)\n`useId` | 用于生成唯一 ID [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#useid)\n\n**Library Hooks**\n方法 | 描述\n:- | -\n`useSyncExternalStore` | 读取和订阅外部数据源 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usesyncexternalstore)\n`useInsertionEffect` |  DOM 突变之前 同步触发 [#](https://zh-hans.reactjs.org/docs/hooks-reference.html#usesyncexternalstore)",
+          "code": ""
+        },
+        {
+          "title": "函数式更新",
+          "description": "",
+          "code": "function Counter({ initialCount }) {\n  const [count, setCount] = useState(initialCount);\n  return (\n    <>\n      Count: {count} <button onClick={() => setCount(initialCount)}>Reset</button>\n      <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>\n      <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>\n    </>\n  );\n}"
+        },
+        {
+          "title": "useRef",
+          "description": "`current` 指向已挂载到 DOM 上的文本输入元素",
+          "code": "function TextInputWithFocusButton() {\n  const $input = useRef(null);\n  const onButtonClick = () => {\n    $input.current.focus();\n  };\n  return (\n    <>\n      <input ref={$input} type=\"text\" />\n      <button onClick={onButtonClick}>\n        聚焦输入\n      </button>\n    </>\n  );\n}"
+        },
+        {
+          "title": "useImperativeHandle",
+          "description": "父组件使用",
+          "code": "<FancyInput ref={inputRef} />\ninputRef.current.focus()"
+        },
+        {
+          "title": "useEffect",
+          "description": "",
+          "code": "useEffect(() => {\n  const subs = props.source.subscribe();\n  return () => {\n    subs.unsubscribe();\n  };\n}, [props.source]);"
+        },
+        {
+          "title": "useCallback",
+          "description": "",
+          "code": "const memoizedCallback = useCallback(\n  () => {\n    doSomething(a, b);\n  },\n  [a, b],\n);"
+        },
+        {
+          "title": "useMemo",
+          "description": "",
+          "code": "const memoizedValue = useMemo(\n  () => {\n    return computeExpensiveValue(a, b)\n  },\n  [a, b]\n);"
+        },
+        {
+          "title": "useId",
+          "description": "用于生成跨服务端和客户端稳定的唯一 `ID` 的同时避免 `hydration` 不匹配",
+          "code": "function Checkbox() {\n  const id = useId();\n  return (\n    <>\n      <label htmlFor={id}>\n        你喜欢React吗？\n      </label>\n      <input id={id} type=\"checkbox\" />\n    </>\n  );\n};"
+        },
+        {
+          "title": "useDebugValue",
+          "description": "不推荐你向每个自定义 `Hook` 添加 `debug` 值",
+          "code": "function useFriendStatus(friendID) {\n  const [\n    isOnline, setIsOnline\n  ] = useState(null);\n  // ...\n  // 在开发者工具中的这个 Hook 旁边显示标签\n  // e.g. \"FriendStatus: Online\"\n  useDebugValue(\n    isOnline ? 'Online' : 'Offline'\n  );\n  return isOnline;\n}"
+        },
+        {
+          "title": "componentDidMount & componentWillUnmount",
+          "description": "这是一个类似 `class` 组件中 `componentDidMount` & `componentWillUnmount` 两个生命周期函数的写法。\n生命周期",
+          "code": "useEffect(\n  () => {\n    // componentDidMount\n    // 组件挂载时，可以在这里完成你的任务\n    return () => {\n      // componentWillUnmount\n      // 卸载时执行，清除 effect\n    };\n  },\n  [ ]\n);"
+        }
+      ]
+    },
+    {
+      "title": "生命周期",
+      "entries": [
+        {
+          "title": "挂载",
+          "description": "方法 | 描述\n:- | -\n`constructor` _(props)_  | 渲染前 [#](https://zh-hans.reactjs.org/docs/react-component.html#constructor)\n`static getDerivedStateFromProps()` | 调用 `render` 方法之前调用 [#](https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops)\n`render()`               |  `class` 组件中唯一必须实现的方法 [#](https://reactjs.org/docs/react-component.html#render)\n`componentDidMount()`    | 在组件挂载后(插入 DOM 树中)立即调用 [#](https://reactjs.org/docs/react-component.html#componentdidmount)\n`UNSAFE_componentWillMount()` | 在挂载之前被调用，建议使用 `constructor()` [#](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillmount)\n在 `constructor()` 上设置初始状态。在 `componentDidMount()` 上添加 DOM 事件处理程序、计时器(等），然后在 `componentWillUnmount()` 上删除它们。",
+          "code": ""
+        },
+        {
+          "title": "卸载",
+          "description": "方法 | 描述\n:- | -\n`componentWillUnmount()` | 在组件卸载及销毁之前直接调用 [#](https://zh-hans.reactjs.org/docs/react-component.html#componentwillunmount)",
+          "code": ""
+        },
+        {
+          "title": "过时 API",
+          "description": "过时方法 | 新方法\n:- | -\n~~`componentWillMount()`~~ | `UNSAFE_componentWillMount()`  [#](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillmount)\n~~`componentWillReceiveProps()`~~ | `UNSAFE_componentWillReceiveProps()`  [#](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops)\n~~`componentWillUpdate()`~~ | `UNSAFE_componentWillUpdate()`  [#](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillupdate)\n17+ 之后不再支持，在 `17` 版本之后，只有新的 `UNSAFE_` 生命周期名称可以使用。",
+          "code": ""
+        },
+        {
+          "title": "更新",
+          "description": "方法 | 描述\n:- | -\n`static getDerivedStateFromProps(props, state)` | 调用 `render` 之前调用，在初始挂载及后续更新时都会被调用 [#](https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops)\n`shouldComponentUpdate(nextProps, nextState)` | 如果返回 `false`，则跳过 `render()` [#](https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops)\n`render()` | 在不修改组件 `state` 的情况下，每次调用时都返回相同的结果 [#](https://zh-hans.reactjs.org/docs/react-component.html#render)\n`getSnapshotBeforeUpdate()` | 在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置） [#](https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)\n`componentDidUpdate()` | 这里使用 `setState()`，但记得比较 `props`。首次渲染不会执行此方法 [#](https://zh-hans.reactjs.org/docs/react-component.html#componentdidupdate)",
+          "code": ""
+        },
+        {
+          "title": "错误处理",
+          "description": "方法 | 描述\n:- | -\n`static getDerivedStateFromError(error)` | 后代组件抛出错误后被调用，它将抛出的错误作为参数，并返回一个值以更新 `state` [#](https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromerror)\n`componentDidCatch(error, info)` | 在后代组件抛出错误后被调用，会在“提交”阶段被调用，因此允许执行副作用 [#](https://zh-hans.reactjs.org/docs/react-component.html#componentdidcatch)",
+          "code": ""
+        },
+        {
+          "title": "render()",
+          "description": "",
+          "code": "class Welcome extends React.Component {\n  render() {\n    return <h1>Hello, {this.props.name}</h1>;\n  }\n}"
+        },
+        {
+          "title": "constructor()",
+          "description": "",
+          "code": "constructor(props) {\n  super(props);\n  // 不要在这里调用 this.setState()\n  this.state = { counter: 0 };\n  this.handleClick = this.handleClick.bind(this);\n}"
+        },
+        {
+          "title": "static getDerivedStateFromError()",
+          "description": "",
+          "code": "class ErrorBoundary extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { hasError: false };\n  }\n\n  static getDerivedStateFromError(error) {\n    // 更新 state 使下一次渲染可以显降级 UI\n    return { hasError: true };\n  }\n\n  render() {\n    if (this.state.hasError) {\n      // 你可以渲染任何自定义的降级  UI\n      return <h1>Something went wrong.</h1>;\n    }\n\n    return this.props.children;\n  }\n}"
+        },
+        {
+          "title": "componentDidUpdate()",
+          "description": "",
+          "code": "componentDidUpdate(prevProps) {\n  // 典型用法（不要忘记比较 props）：\n  if (this.props.uid !== prevProps.uid) {\n    this.fetchData(this.props.uid);\n  }\n}"
+        },
+        {
+          "title": "getSnapshotBeforeUpdate()",
+          "description": "PropTypes 属性类型检查",
+          "code": "getSnapshotBeforeUpdate(prevProps, prevState) {\n  // 我们是否在 list 中添加新的 items ？\n  // 捕获滚动​​位置以便我们稍后调整滚动位置。\n  if (prevProps.list.length < this.props.list.length) {\n    const list = this.listRef.current;\n    return list.scrollHeight - list.scrollTop;\n  }\n  return null;\n}"
+        }
+      ]
+    },
+    {
+      "title": "PropTypes 属性类型检查",
+      "entries": [
+        {
+          "title": "PropTypes",
+          "description": ":- | -\n:- | -\n`any` | 任意类型\n`(props, propName, 组件名称)=>{}` | 自定义验证器\n\n**_基础_**\n:- | -\n:- | -\n`string` | 字符串\n`number` | 数组\n`func` | 函数\n`bool` | 布尔值\n`symbol` | -\n\n**_枚举 Enum_**\n:- | -\n:- | -\n`oneOf(any)` | 枚举类型\n`oneOfType([type])` | 几种类型中的任意一个类型\n\n**_数组 Array_**\n:- | -\n:- | -\n`array` | 数组\n`arrayOf` | 数组由某一类型的元素组成\n\n**_对象 Object_**\n:- | -\n:- | -\n`object` | 对象\n`objectOf` | 对象由某一类型的值组成\n`instanceOf(...)` | 类的实例\n`shape` | 对象由特定的类型值组成\n`exact` | 有额外属性警告\n\n**_元素 Elements_**\n:- | -\n:- | -\n`element` | React 元素\n`elementType` | React 元素类型(即 `MyComponent`)\n`node` | DOM 节点\n\n**_必需的_**\n:- | -\n:- | -\n`(···).isRequired` | 必需的\n请参阅：[使用 PropTypes 进行类型检查](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)",
+          "code": "import PropTypes from 'prop-types'"
+        },
+        {
+          "title": "基本类型",
+          "description": "你可以将属性声明为 JS 原生类型，默认都是可选的。",
+          "code": "MyComponent.propTypes = {\n  email:      PropTypes.string,\n  seats:      PropTypes.number,\n  callback:   PropTypes.func,\n  isClosed:   PropTypes.bool,\n  any:        PropTypes.any\n  symbol:     PropTypes.symbol,\n}"
+        },
+        {
+          "title": "必需的",
+          "description": "你可以在任何 `PropTypes` 属性后面加上 `isRequired`。",
+          "code": "MyComponent.propTypes = {\n  // 确保这个 prop 没有被提供时，会打印警告信息\n  requiredFunc: PropTypes.func.isRequired,\n\n  // 任意类型的必需数据\n  requiredAny: PropTypes.any.isRequired,\n}"
+        },
+        {
+          "title": "枚举",
+          "description": "",
+          "code": "MyComponent.propTypes = {\n  // 只能是特定的值，枚举类型。\n  optionalEnum: PropTypes.oneOf([\n    'News', 'Photos'\n  ]),\n  // 一个对象可以是几种类型中的任意一个类型\n  optionalUnion: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number,\n    PropTypes.instanceOf(Message)\n  ]),\n}"
+        },
+        {
+          "title": "元素 Elements",
+          "description": "",
+          "code": "MyComponent.propTypes = {\n  // 任何可被渲染的元素\n  // (包括数字、字符串、元素或数组)\n  // (或 Fragment) 也包含这些类型。\n  node: PropTypes.node,\n\n  // 一个 React 元素。\n  element: PropTypes.element,\n\n  // 一个 React 元素类型（即，MyComponent）\n  elementType: PropTypes.elementType,\n}"
+        },
+        {
+          "title": "对象 Object",
+          "description": "",
+          "code": "MyComponent.propTypes = {\n  // 可以指定一个对象由某一类型的值组成\n  objectOf: PropTypes.objectOf(\n    PropTypes.number\n  ),\n  // 可以指定一个对象由特定的类型值组成\n  objectWithShape: PropTypes.shape({\n    color: PropTypes.string,\n    fontSize: PropTypes.number\n  }),\n  // 带有额外属性警告的对象\n  objectWithStrictShape: PropTypes.exact({\n    name: PropTypes.string,\n    quantity: PropTypes.number\n  }),\n}"
+        },
+        {
+          "title": "自定义验证器",
+          "description": "请不要使用 `console.warn` 或抛出异常，因为这在 `oneOfType` 中不会起作用。",
+          "code": "MyComponent.propTypes = {\n  custom: (props, propName, compName) => {\n    if (!/matchm/.test(props[propName])) {\n      // 它在验证失败时应返回一个 Error 对象\n      return new Error(\n        '无效的prop `'\n        ` \\`${propName}\\` 提供给` + \n        ` \\`${compName}\\`。验证失败。`\n      );\n\n    }\n  },\n}"
+        },
+        {
+          "title": "自定义的 `arrayOf` 或 `objectOf` 验证器",
+          "description": "`propValue` 是数组或对象本身，`key` 是他们当前的键。",
+          "code": "MyComponent.propTypes = {\n  arrayProp: PropTypes.arrayOf((propValue, key, componentName, location, propFullName) => {\n    if (!/matchme/.test(propValue[key])) {\n      // 它应该在验证失败时返回一个 Error 对象。\n      return new Error(\n        'Invalid prop `' + propFullName + '` supplied to' +\n        ' `' + componentName + '`. Validation failed.'\n      );\n    }\n  })\n}"
+        },
+        {
+          "title": "数组",
+          "description": "可以指定一个数组由某一类型的元素组成",
+          "code": "MyComponent.propTypes = {\n  arr: PropTypes.arrayOf(PropTypes.number),\n};"
+        },
+        {
+          "title": "验证类的实例",
+          "description": "声明 `message` 为类的实例\n另见",
+          "code": "MyComponent.propTypes = {\n  message: PropTypes.instanceOf(Message),\n};"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/react.md"
+}

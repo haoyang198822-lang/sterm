@@ -1,0 +1,89 @@
+{
+  "name": "Pinia",
+  "description": "Pinia 快速参考",
+  "category": "",
+  "count": 14,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装 Pinia",
+          "description": "",
+          "code": "npm install pinia\n# or\nyarn add pinia\n# or\npnpm add pinia"
+        },
+        {
+          "title": "定义 Store",
+          "description": "创建一个 store 文件（例如 `src/stores/counter.js`），并定义 `store`",
+          "code": "import { defineStore } from 'pinia'\n\nexport const useCounterStore = defineStore('counter', {\n  state: () => ({\n    count: 0\n  }),\n  actions: {\n    increment() {\n      this.count++\n    }\n  },\n  getters: {\n    doubleCount: (state) => state.count * 2\n  }\n})"
+        },
+        {
+          "title": "创建 Pinia 实例",
+          "description": "在你的 [Vue](./vue.md) 应用中创建一个 Pinia 实例并将其传递给 [Vue](./vue.md)",
+          "code": "import { createApp } from 'vue'\nimport { createPinia } from 'pinia'\nimport App from './App.vue'\n\nconst app = createApp(App)\nconst pinia = createPinia()\n\napp.use(pinia)\napp.mount('#app')"
+        },
+        {
+          "title": "热重载 Store",
+          "description": "使用 Vite 时，你可以启用热重载功能：",
+          "code": "if (import.meta.hot) {\n  import.meta.hot.accept(acceptHMRUpdate(useCounterStore, import.meta.hot))\n}"
+        },
+        {
+          "title": "使用 Store",
+          "description": "在组件中使用 `store`",
+          "code": "<template>\n  <div>\n    <p>Count: {{ counterStore.count }}</p>\n    <p>Double Count: {{ counterStore.doubleCount }}</p>\n    <button @click=\"counterStore.increment\">Increment</button>\n  </div>\n</template>\n\n<script>\nimport { useCounterStore } from '@/stores/counter'\n\nexport default {\n  setup() {\n    const counterStore = useCounterStore()\n\n    return {\n      counterStore\n    }\n  }\n}\n</script>"
+        },
+        {
+          "title": "Modules 模式",
+          "description": "Pinia 不使用传统的 Vuex 模块模式。相反，推荐使用独立的 store 文件：",
+          "code": "// src/stores/user.js\nimport { defineStore } from 'pinia'\n\nexport const useUserStore = defineStore('user', {\n  state: () => ({\n    name: 'Alice',\n    age: 25\n  }),\n  actions: {\n    setName(name) {\n      this.name = name\n    }\n  },\n  getters: {\n    isAdult: (state) => state.age >= 18\n  }\n})"
+        },
+        {
+          "title": "使用 Options API",
+          "description": "如果你更喜欢 Options API，可以这样使用 Pinia：\n高级用法",
+          "code": "<script>\nimport { defineComponent } from 'vue'\nimport { useCounterStore } from '@/stores/counter'\n\nexport default defineComponent({\n  setup() {\n    const counterStore = useCounterStore()\n\n    return {\n      counterStore\n    }\n  }\n})\n</script>"
+        }
+      ]
+    },
+    {
+      "title": "高级用法",
+      "entries": [
+        {
+          "title": "使用组合函数",
+          "description": "你可以将 store 与组合函数一起使用：",
+          "code": "// src/composables/useCounter.js\nimport { useCounterStore } from '@/stores/counter'\n\nexport function useCounter() {\n  const counterStore = useCounterStore()\n\n  return {\n    count: counterStore.count,\n    doubleCount: counterStore.doubleCount,\n    increment: counterStore.increment\n  }\n}"
+        },
+        {
+          "title": "插件",
+          "description": "Pinia 支持插件。你可以编写插件来扩展 Pinia 的功能：",
+          "code": "// src/plugins/piniaPlugin.js\nexport function piniaPlugin({ store }) {\n  store.$onAction(({ name, store, args, after, onError }) => {\n    console.log(`Action ${name} was called with args:`, args)\n  })\n}\n\n// main.js\nimport { createPinia } from 'pinia'\nimport { piniaPlugin } from './plugins/piniaPlugin'\n\nconst pinia = createPinia()\npinia.use(piniaPlugin)"
+        },
+        {
+          "title": "持久化状态",
+          "description": "**1. 安装  `pinia-plugin-persist`**\n\n**2. 配置 Pinia 和 `pinia-plugin-persist`**\n在你的入口文件中配置 Pinia 和 `pinia-plugin-persist`。\n**⚠️ Vue 2 项目**\n**Vue 3 项目：**\n\n**3. 创建 Store 并启用持久化**\n创建一个 Pinia store，并启用持久化存储。\n\n**4. 使用 Store**\n在组件中使用创建好的 store。",
+          "code": "// src/components/SomeComponent.vue\n<template>\n  <div>\n    <p>{{ userStore.firstName }} {{ userStore.lastName }}</p>\n    <p>{{ userStore.accessToken }}</p>\n  </div>\n</template>\n\n<script>\nimport { useUserStore } from '@/stores/userStore'\n\nexport default {\n  setup() {\n    const userStore = useUserStore()\n    \n    return { userStore }\n  }\n}\n</script>"
+        },
+        {
+          "title": "SSR 支持",
+          "description": "Pinia 支持服务端渲染 (SSR)。在你的 SSR 入口文件中创建 Pinia 实例：\n明白了，让我们来结合 `pinia-plugin-persist` 插件完善 Pinia 备忘清单。",
+          "code": "import { createPinia } from 'pinia'\n\nexport function createApp() {\n  const app = createSSRApp(App)\n  const pinia = createPinia()\n\n  app.use(pinia)\n  return { app, pinia }\n}"
+        },
+        {
+          "title": "使用 Vue Devtools",
+          "description": "Pinia 可以与 Vue Devtools 一起使用。确保你安装了最新版本的 Vue Devtools，然后你可以在 Devtools 中查看和调试你的 Pinia store。",
+          "code": ""
+        },
+        {
+          "title": "使用异步 Actions",
+          "description": "Pinia 支持在 actions 中使用异步代码：",
+          "code": "// src/stores/todo.js\nimport { defineStore } from 'pinia'\nimport axios from 'axios'\n\nexport const useTodoStore = defineStore('todo', {\n  state: () => ({\n    todos: []\n  }),\n  actions: {\n    async fetchTodos() {\n      const response = await axios.get('/api/todos')\n      this.todos = response.data\n    }\n  }\n})"
+        },
+        {
+          "title": "测试 Pinia Store",
+          "description": "你可以使用 Vue Test Utils 和 Jest 来测试你的 Pinia store：\n另见",
+          "code": "// __tests__/counterStore.test.js\nimport { setActivePinia, createPinia } from 'pinia'\nimport { useCounterStore } from '@/stores/counter'\n\ndescribe('Counter Store', () => {\n  beforeEach(() => {\n    setActivePinia(createPinia())\n  })\n\n  it('increments the count', () => {\n    const counterStore = useCounterStore()\n    expect(counterStore.count).toBe(0)\n    counterStore.increment()\n    expect(counterStore.count).toBe(1)\n  })\n\n  it('returns double count', () => {\n    const counterStore = useCounterStore()\n    counterStore.count = 2\n    expect(counterStore.doubleCount).toBe(4)\n  })\n})"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/pinia.md"
+}

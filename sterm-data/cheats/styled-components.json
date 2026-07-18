@@ -1,0 +1,224 @@
+{
+  "name": "Styled Components",
+  "description": "Styled Components 快速参考",
+  "category": "",
+  "count": 39,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装",
+          "description": "[Styled Components](https://styled-components.com) 是增强 CSS 在 React 组件系统样式的 CSS in JS 的最佳实践。\n- [VSCode styled-components](https://github.com/styled-components/vscode-styled-components) _有代码高亮和代码提示_\n- [VIM styled-components](https://github.com/styled-components/vim-styled-components) _有代码高亮_\n- [WebStorm styled-components](https://github.com/styled-components/webstorm-styled-components) _有代码高亮和代码提示_\n安装依赖和 TypeScript 类型依赖",
+          "code": "npm install --save styled-components"
+        },
+        {
+          "title": "快速开始",
+          "description": "创建一个 Title 组件\n创建一个 Wrapper 组件\n像使用其他 React 组件一样使用 Title/Wrapper - 除了它们的样式！",
+          "code": "function Demo() {\n  return (\n    <Wrapper>\n      <Title>\n        Hello World!\n      </Title>\n    </Wrapper>\n  );\n}"
+        },
+        {
+          "title": "根据 Props 适配",
+          "description": "使用 `primary` props 控制按钮样式",
+          "code": "function Demo() {\n  return (\n    <div>\n      <Button>Normal</Button>\n      <Button primary>Primary</Button>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "扩展样式",
+          "description": "",
+          "code": "const Button = styled.button`\n  color: palevioletred;\n  border: 2px solid palevioletred;\n  border-radius: 3px;\n`;\n// 基于 Button 的新组件，但具有一些覆盖样式\nconst TomatoButton = styled(Button)`\n  color: tomato;\n  border-color: tomato;\n`;\nconst Demo = () => (\n  <div>\n    <Button>普通按钮</Button>\n    <TomatoButton>番茄色按钮</TomatoButton>\n  </div>\n);"
+        },
+        {
+          "title": "扩展样式改变标签 (as)",
+          "description": "",
+          "code": "const Button = styled.button`\n  color: palevioletred;\n  padding: 0.25em 1em;\n  border: 2px solid palevioletred;\n  border-radius: 3px;\n  display: block;\n`;\n\nconst TomatoButton = styled(Button)`\n  color: tomato;\n  border-color: tomato;\n`;\n\nconst Demo = () => (\n  <div>\n    <Button>普通按钮</Button>\n    <Button as=\"a\" href=\"#\">\n      按钮样式的链接\n    </Button>\n    <TomatoButton as=\"a\" href=\"#\">\n      番茄按钮样式的链接\n    </TomatoButton>\n  </div>\n);"
+        },
+        {
+          "title": "自定义组件(as)",
+          "description": "",
+          "code": "const Button = styled.button`\n  color: palevioletred;\n  font-size: 1em;\n  border: 2px solid palevioletred;\n  display: block;\n`;\n\nconst ReversedButton = props => (\n  <Button\n    {...props}\n    children={\n      props.children.split('').reverse()\n    }\n  />\n);\n\nrender(\n  <div>\n    <Button>普通按钮</Button>\n    <Button as={ReversedButton}>\n      具有普通按钮样式的自定义按钮\n    </Button>\n  </div>\n);"
+        },
+        {
+          "title": "样式化任何组件",
+          "description": "",
+          "code": "const Link = ({ className, children }) => (\n  <a className={className}>\n    {children}\n  </a>\n);\nconst StyledLink = styled(Link)`\n  color: palevioletred;\n  font-weight: bold;\n`;\n<StyledLink className=\"hello\" />"
+        },
+        {
+          "title": "在 render 之外定义 Styled 组件",
+          "description": "注意：组件 `Box` 不能放到 `Wrapper` 函数组件里面",
+          "code": "const Box = styled.div`/* ... */`;\nconst Wrapper = ({ message }) => {\n  // ⚠️ 不能在这里定义 styled 组件\n  return (\n    <Box>\n      {message}\n    </Box>\n  );\n};"
+        },
+        {
+          "title": "传入值",
+          "description": "",
+          "code": "const Input = styled.input`\n  color: ${\n    props => \n      props.inputColor || \"palevioletred\"\n  };\n  background: papayawhip;\n`;\nconst Demo = () => (\n  <div>\n    <Input\n      defaultValue=\"@probablyup\"\n      type=\"text\"\n    />\n    <Input\n      defaultValue=\"@geelen\"\n      type=\"text\"\n      inputColor=\"rebeccapurple\"\n    />\n  </div>\n);"
+        },
+        {
+          "title": "样式对象",
+          "description": "在组件中使用\n注意：样式对象里面的样式并不是 CSS 中的写法。",
+          "code": "const Example = () => {\n  return (\n    <div>\n      <PropsBox\n        background=\"blue\"\n      />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "CSSModules => styled",
+          "description": "**👇👇 与下面 **styled** 写法等效 👇👇**",
+          "code": "import styled from 'styled-components';\n\nconst StyledCounter = styled.div`\n  /* ... */\n`;\nconst Paragraph = styled.p`\n  /* ... */\n`;\nconst Button = styled.button`\n  /* ... */\n`;\nfunction ExampleCounter() {\n  const [count, setCount] = useState(0);\n  const increment = () => {\n    setCount(count +1);\n  }\n  const decrement = () => {\n    setCount(count -1);\n  }\n  return (\n    <StyledCounter>\n      <Paragraph>{count}</Paragraph>\n      <Button onClick={increment}>\n        +\n      </Button>\n      <Button onClick={decrement}>\n        -\n      </Button>\n    </StyledCounter>\n  );\n}"
+        },
+        {
+          "title": "伪元素、伪选择器和嵌套",
+          "description": "",
+          "code": "const Thing = styled.div.attrs((/* props */) => ({ tabIndex: 0 }))`\n  color: blue;\n  &:hover {              /* <Thing> 悬停时 */\n    color: red;\n  }\n  & ~ & {                /* <Thing> 作为 <Thing> 的兄弟，但可能不直接在它旁边 */\n    background: tomato;\n  }\n  & + & {                /* <Thing> 旁边的 <Thing> */\n    background: lime;\n  }\n  &.something {          /* <Thing> 标记有一个额外的 CSS 类 “.something” */\n    background: orange;\n  }\n  .something-else & {    /* <Thing> 在另一个标记为 “.something-else” 的元素中 */\n    border: 1px solid;\n  }\n`;\n\nrender(\n  <React.Fragment>\n    <Thing>Hello world!</Thing>\n    <Thing>你怎么样？</Thing>\n    <Thing className=\"something\">\n      艳阳高照...\n    </Thing>\n    <div>今天真是美好的一天。</div>\n    <Thing>你不觉得吗？</Thing>\n    <div className=\"something-else\">\n      <Thing>灿烂</Thing>\n    </div>\n  </React.Fragment>\n);"
+        },
+        {
+          "title": "改变 styled 组件样式",
+          "description": "",
+          "code": "import { css } from 'styled-components'\nimport styled from 'styled-components'\n\nconst Input = styled.input.attrs({\n  type: \"checkbox\"\n})``;\nconst LabelText = styled.span`\n  ${(props) => {\n    switch (props.$mode) {\n      case \"dark\":\n        return css`\n          color: white;\n          ${Input}:checked + && {\n            color: blue;\n          }\n        `;\n      default:\n        return css`\n          color: black;\n          ${Input}:checked + && {\n            color: red;\n          }\n        `;\n    }\n  }}\n`;\n\nfunction Example() {\n  return (\n    <React.Fragment>\n      <Label>\n        <Input defaultChecked />\n        <LabelText>Foo</LabelText>\n      </Label>\n      <Label>\n        <Input />\n        <LabelText $mode=\"dark\">\n          Foo\n        </LabelText>\n      </Label>\n    </React.Fragment>\n  );\n}"
+        },
+        {
+          "title": "全局样式 createGlobalStyle",
+          "description": "",
+          "code": "import {\n  styled,\n  createGlobalStyle\n} from 'styled-components'\n\nconst Thing = styled.div`\n   && {\n     color: blue;\n   }\n`;\nconst GlobalStyle = createGlobalStyle`\n  div${Thing} {\n    color: red;\n  }\n`;\n\nconst Example = () => (\n  <React.Fragment>\n    <GlobalStyle />\n    <Thing>\n      我是蓝色的\n    </Thing>\n  </React.Fragment>\n);"
+        },
+        {
+          "title": "className 使用",
+          "description": "",
+          "code": "const Thing = styled.div`\n  color: blue;\n  /* <Thing> 中标记为“.something”的元素 */\n  .something {\n    border: 1px solid;\n  }\n`;\n\nfunction Example() {\n  return (\n    <Thing>\n      <label\n        htmlFor=\"foo-button\"\n        className=\"something\"\n      >\n        神秘按钮\n      </label>\n      <button id=\"foo-button\">\n        我该怎么办？\n      </button>\n    </Thing>\n  )\n}"
+        },
+        {
+          "title": "共享样式片段",
+          "description": "",
+          "code": "const rotate = keyframes`\n  from {top:0px;}\n  to {top:200px;}\n`;\n\n// ❌ 这将引发错误！\nconst styles = `\n  animation: ${rotate} 2s linear infinite;\n`;\n\n// ✅ 这将按预期工作\nconst styles = css`\n  animation: ${rotate} 2s linear infinite;\n`;"
+        },
+        {
+          "title": "Class 组件样式定义",
+          "description": "",
+          "code": "class NewHeader extends React.Component {\n  render() {\n    return (\n      <div\n        className={this.props.className}\n      />\n    );\n  }\n}\nconst StyledA = styled(NewHeader)``\nconst Box = styled.div`\n  ${StyledA} {\n    /* 变更 NewHeader 样式 */\n  }\n`;"
+        },
+        {
+          "title": "附加额外的 Props",
+          "description": "使用 `Input` 组件",
+          "code": "function Example() {\n  return (\n    <div>\n      <Input placeholder=\"小文本输入\" />\n      <br />\n      <Input\n        placeholder=\"更大的文本输入\"\n        size=\"2em\"\n      />\n    </div>\n  )\n}"
+        },
+        {
+          "title": "覆盖 .attrs",
+          "description": "使用 `Input` 和 `PasswordInput` 组件",
+          "code": "render(\n  <div>\n    <Input\n      placeholder=\"更大的文本输入\"\n      size=\"2em\"\n    />\n    <br />\n    {/*⚠️ 仍然可以使用Input中的 size attr*/}\n    <PasswordInput\n      placeholder=\"更大的密码输入\"\n      size=\"2em\"\n    />\n  </div>\n);"
+        },
+        {
+          "title": "动画",
+          "description": "创建关键帧\n我们创建一个 `Rotate` 组件\n使用 `Rotate` 组件",
+          "code": "function Example() {\n  return (\n    <Rotate>&lt; 💅🏾 &gt;</Rotate>\n  )\n}"
+        },
+        {
+          "title": "isStyledComponent",
+          "description": "",
+          "code": "import React from 'react'\nimport styled, { isStyledComponent } from 'styled-components'\nimport MaybeStyledComponent from './my'\n\nlet TargetedComponent = isStyledComponent(MaybeStyledComponent)\n  ? MaybeStyledComponent\n  : styled(MaybeStyledComponent)``;\n\nconst ParentComponent = styled.div`\n  color: cornflowerblue;\n\n  ${TargetedComponent} {\n    color: tomato;\n  }\n`;"
+        },
+        {
+          "title": "ThemeConsumer",
+          "description": "TypeScript",
+          "code": "import {\n  ThemeConsumer\n} from 'styled-components'\n\nfunction Example() {\n  return (\n    <ThemeConsumer>\n      {theme => (\n        <div>主题色是 {theme.color}</div>\n      )}\n    </ThemeConsumer>\n  );\n}"
+        }
+      ]
+    },
+    {
+      "title": "TypeScript",
+      "entries": [
+        {
+          "title": "安装",
+          "description": "Web 应用上安装 styled\nReact Native 应用上安装 styled\n如果对 TypeScript 不熟悉，参考 [TypeScript 备忘清单](./typescript.md)",
+          "code": "npm install -D \\\n    @types/styled-components \\\n    @types/styled-components-react-native"
+        },
+        {
+          "title": "自定义 Props",
+          "description": "",
+          "code": "import styled from 'styled-components';\n\ninterface TitleProps {\n  readonly isActive: boolean;\n}\n\nconst Title = styled.h1<TitleProps>`\n  color: ${(props) => (\n    props.isActive \n      ? props.theme.colors.main \n      : props.theme.colors.secondary\n  )};\n`;"
+        },
+        {
+          "title": "简单的 Props 类型定义",
+          "description": "",
+          "code": "import styled from 'styled-components';\nimport Header from './Header';\n\nconst Header = styled.header`\n  font-size: 12px;\n`;\n\nconst NewHeader = styled(Header)<{\n  customColor: string;\n}>`\n  color: ${(props) => props.customColor};\n`;"
+        },
+        {
+          "title": "禁止转移到子组件($)",
+          "description": "禁止 `customColor` 属性转移到 `Header` 组件，在其前面加上美元(`$`)符号",
+          "code": "import styled from 'styled-components';\nimport Header from './Header';\n\ninterface ReHeader {\n  $customColor: string;\n}\n\nconst ReHeader = styled(Header)<ReHeader>`\n  color: ${\n    props => props.$customColor\n  };\n`;"
+        },
+        {
+          "title": "函数组件类型继承",
+          "description": "React Native",
+          "code": "import { FC, PropsWithRef, DetailedHTMLProps, ImgHTMLAttributes } from 'react';\nimport styled from 'styled-components';\n\nconst Img = styled.img`\n  height: 32px;\n  width: 32px;\n`;\nexport interface ImageProps extends DetailedHTMLProps<\n  ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement\n> {\n  text?: string;\n};\nexport const Image: FC<PropsWithRef<ImageProps>> = (props) => (\n  <Img src=\"\" alt=\"\" {...props} />\n);"
+        }
+      ]
+    },
+    {
+      "title": "React Native",
+      "entries": [
+        {
+          "title": "基础实例",
+          "description": "",
+          "code": "import React from 'react'\nimport styled from 'styled-components/native'\n\nconst StyledView = styled.View`\n  background-color: papayawhip;\n`;\nconst StyledText = styled.Text`\n  color: palevioletred;\n`;\n\nclass MyReactNativeComponent extends React.Component {\n  render() {\n    return (\n      <StyledView>\n        <StyledText>Hello World!</StyledText>\n      </StyledView>\n    );\n  }\n}"
+        },
+        {
+          "title": "React Native 中写 CSS",
+          "description": "与 web 版本的一些区别是，您不能使用关键帧(`keyframes`)和 `createGlobalStyle` 助手，因为 React Native 不支持关键帧或全局样式。如果您使用媒体查询或嵌套 CSS，我们也会警告您。\n高级用法",
+          "code": "import styled from 'styled-components/native'\n\nconst RotatedBox = styled.View`\n  transform: rotate(90deg);\n  text-shadow-offset: 10px 5px;\n  font-variant: small-caps;\n  margin: 5px 7px 2px;\n`;\n\nfunction Example() {\n  return (\n    <RotatedBox />\n  )\n}"
+        }
+      ]
+    },
+    {
+      "title": "高级用法",
+      "entries": [
+        {
+          "title": "主题化",
+          "description": "",
+          "code": "import styled, { ThemeProvider } from 'styled-components'\n\n// 定义我们的按钮，但这次使用 props.theme\nconst Button = styled.button`\n  font-size: 1em;\n  margin: 1em;\n  padding: 0.25em 1em;\n  border-radius: 3px;\n\n  /* 使用 theme.main 为边框和文本着色 */\n  color: ${props => props.theme.main};\n  border: 2px solid ${props => props.theme.main};\n`;\n\n// 我们正在为未包装在 ThemeProvider 中的按钮传递默认主题\nButton.defaultProps = {\n  theme: {\n    main: \"palevioletred\"\n  }\n}\n\n// 定义 props.theme 的外观\nconst theme = {\n  main: \"mediumseagreen\"\n};\n\nrender(\n  <div>\n    <Button>Normal</Button>\n\n    <ThemeProvider theme={theme}>\n      <Button>Themed</Button>\n    </ThemeProvider>\n  </div>\n);"
+        },
+        {
+          "title": "功能主题",
+          "description": "",
+          "code": "import styled, { ThemeProvider } from 'styled-components'\n\n// 定义我们的按钮，但这次使用 props.theme\nconst Button = styled.button`\n  color: ${props => props.theme.fg};\n  border: 2px solid ${props => props.theme.fg};\n  background: ${props => props.theme.bg};\n\n  font-size: 1em;\n  margin: 1em;\n  padding: 0.25em 1em;\n  border-radius: 3px;\n`;\n// 在主题上定义我们的`fg`和`bg`\nconst theme = {\n  fg: \"palevioletred\",\n  bg: \"white\"\n};\n\n// 这个主题交换了`fg`和`bg`\nconst invertTheme = ({ fg, bg }) => ({\n  fg: bg,\n  bg: fg\n});\n\nrender(\n  <ThemeProvider theme={theme}>\n    <div>\n      <Button>默认主题</Button>\n      <ThemeProvider theme={invertTheme}>\n        <Button>反转主题</Button>\n      </ThemeProvider>\n    </div>\n  </ThemeProvider>\n);"
+        },
+        {
+          "title": "通过 withTheme 高阶组件",
+          "description": "",
+          "code": "import { withTheme } from 'styled-components'\n\nclass MyComponent extends React.Component {\n  render() {\n    console.log('Current theme: ', this.props.theme)\n    // ...\n  }\n}\n\nexport default withTheme(MyComponent)"
+        },
+        {
+          "title": "useContext 钩子",
+          "description": "",
+          "code": "import { useContext } from 'react'\nimport { ThemeContext } from 'styled-components'\n\nconst MyComponent = () => {\n  const themeContext = useContext(ThemeContext)\n  \n  console.log('Current theme: ', themeContext)\n  // ...\n}"
+        },
+        {
+          "title": "useTheme 自定义钩子",
+          "description": "",
+          "code": "import {useTheme} from 'styled-components'\n\nconst MyComponent = () => {\n  const theme = useTheme()\n\n  console.log('Current theme: ', theme)\n  // ...\n}"
+        },
+        {
+          "title": "主题 props",
+          "description": "使用自定义主题组件",
+          "code": "render(\n  <div>\n    <Button theme={{ main: \"royalblue\" }}>\n      特设主题\n    </Button>\n    <ThemeProvider theme={theme}>\n      <div>\n        <Button>Themed</Button>\n        <Button\n          theme={{ main: \"darkorange\" }}\n        >\n          被覆盖\n        </Button>\n      </div>\n    </ThemeProvider>\n  </div>\n);"
+        },
+        {
+          "title": "Refs",
+          "description": "使用 `Form` 组件",
+          "code": "function Example() {\n  return (\n    <Form />\n  )\n}"
+        },
+        {
+          "title": "特异性问题",
+          "description": "在文件 `MyComponent.js` 中定义 `MyComponent` 组件。\n定义样式 `my-component.css`\n使用 `MyComponent` 组件\n由于某种原因，这个组件仍然有绿色背景，即使你试图用 `red-bg` 类覆盖它！\n\n**解决方案**",
+          "code": ".red-bg.red-bg {\n  background-color: red;\n}"
+        },
+        {
+          "title": "ThemeProvider",
+          "description": "",
+          "code": "import styled, { ThemeProvider } from 'styled-components'\n\nconst Box = styled.div`\n  color: ${props => props.theme.color};\n`;\n\nconst Example = () => (\n  <ThemeProvider theme={{ color: 'mediumseagreen' }}>\n    <Box>I'm mediumseagreen!</Box>\n  </ThemeProvider>\n);"
+        },
+        {
+          "title": "shouldForwardProp",
+          "description": "",
+          "code": "const Comp = styled('div').withConfig({\n  shouldForwardProp: (prop, defaultValidatorFn) =>\n      !['hidden'].includes(prop) && defaultValidatorFn(prop),\n}).attrs({ className: 'foo' })`\n  color: red;\n  &.foo {\n    text-decoration: underline;\n  }\n`;\n\nconst Example = () => (\n  <Comp hidden draggable=\"true\">\n    Drag Me!\n  </Comp>\n);"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/styled-components.md"
+}

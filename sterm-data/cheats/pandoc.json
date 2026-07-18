@@ -1,0 +1,104 @@
+{
+  "name": "Pandoc",
+  "description": "Pandoc 快速参考",
+  "category": "",
+  "count": 17,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "语法",
+          "description": "- [Pandoc 官方文档](https://pandoc.org/)\n\n**安装**\n安装命令 | 环境\n:-|-\n`$ brew install pandoc`   | macos\n`$ choco install pandoc`    | windows\n\n**Debian/Ubuntu**\n\n**Fedora**\n\n**Arch Linux**",
+          "code": "$ sudo pacman -S pandoc"
+        },
+        {
+          "title": "将 LaTeX 转换为 MS Word",
+          "description": "简单的 `.tex` 到 `.docx`\n将 `.tex` 转换为 `.docx` 并使用默认引文\n将 `.tex` 文件转换为 `.docx` 文件，并注明具体引文\n`.tex` 到 `.docx`，带交叉引用\n使用示例",
+          "code": "$ pandoc -s file.tex --filter pandoc-crossref -o file.docx"
+        }
+      ]
+    },
+    {
+      "title": "使用示例",
+      "entries": [
+        {
+          "title": "转换文件格式",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf"
+        },
+        {
+          "title": "支持的输入格式",
+          "description": "",
+          "code": "$ pandoc -s input.txt -o output.html"
+        },
+        {
+          "title": "自定义输出格式",
+          "description": "",
+          "code": "$ pandoc input.md --to=latex -o output.tex"
+        },
+        {
+          "title": "添加元数据",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf --metadata title=\"My Document\""
+        },
+        {
+          "title": "从 URL 转换",
+          "description": "",
+          "code": "$ pandoc https://example.com/document.md -o output.pdf"
+        },
+        {
+          "title": "生成幻灯片",
+          "description": "",
+          "code": "$ pandoc input.md -t beamer -o output.pdf"
+        },
+        {
+          "title": "合并文件",
+          "description": "",
+          "code": "$ pandoc file1.md file2.md -o output.pdf"
+        },
+        {
+          "title": "指定样式文件",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf --css=style.css"
+        },
+        {
+          "title": "转换为 AsciiDoc",
+          "description": "",
+          "code": "$ pandoc input.md -o output.asciidoc"
+        },
+        {
+          "title": "转换为 Docx 格式",
+          "description": "",
+          "code": "$ pandoc input.md -o output.docx"
+        },
+        {
+          "title": "执行 Lua 过滤器",
+          "description": "",
+          "code": "$ pandoc input.md --lua-filter=custom-filter.lua -o output.pdf"
+        },
+        {
+          "title": "自动生成目录",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf --toc"
+        },
+        {
+          "title": "禁用目录编号",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf --toc --toc-depth=2"
+        },
+        {
+          "title": "显示详细信息",
+          "description": "",
+          "code": "$ pandoc input.md -o output.pdf -v"
+        },
+        {
+          "title": "查看支持的输出格式",
+          "description": "",
+          "code": "$ pandoc --list-output-formats"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/pandoc.md"
+}

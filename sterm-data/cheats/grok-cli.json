@@ -1,0 +1,149 @@
+{
+  "name": "Grok CLI",
+  "description": "Grok CLI 快速参考",
+  "category": "",
+  "count": 21,
+  "sections": [
+    {
+      "title": "快速开始",
+      "entries": [
+        {
+          "title": "快速上手",
+          "description": "",
+          "code": "# 立即运行（无需安装）\n$ GROK_API_KEY=your_key npx -y grok-cli-hurry-mode@latest\n\n# 全局安装\n$ npm install -g grok-cli-hurry-mode@latest\n\n# 启动交互会话\n$ grok\n\n# 发送初始消息\n$ grok \"Help me understand this project\"\n\n# 无头 / 非交互模式\n$ grok -p \"explain the auth module\"\n\n# 指定模型\n$ grok -m grok-4-latest \"refactor this file\"\n\n# 设置工作目录\n$ grok -d /path/to/project\n\n# 设置最大工具轮次\n$ grok --max-tool-rounds 100 \"rewrite the API\""
+        },
+        {
+          "title": "认证",
+          "description": "| 方式          | 用法                                               |\n| ------------- | ------------------------------------------------- |\n| 环境变量      | `export GROK_API_KEY=your_key`                    |\n| 内联（npx）   | `GROK_API_KEY=key npx grok-cli-hurry-mode@latest` |\n| CLI 参数      | `grok --api-key your_key`                         |\n| 配置文件      | 在 `~/.grok/user-settings.json` 设置 `apiKey`     |\n从 [console.x.ai](https://console.x.ai) 获取 API key。\n写入 shell 配置以持久生效：",
+          "code": "echo 'export GROK_API_KEY=your_key' >> ~/.zshrc\nsource ~/.zshrc"
+        },
+        {
+          "title": "安装方式",
+          "description": "| 方式              | 命令                                                                                                  |\n| ----------------- | ----------------------------------------------------------------------------------------------------- |\n| npm（推荐）       | `npm install -g grok-cli-hurry-mode@latest`                                                           |\n| npx（免安装）     | `npx grok-cli-hurry-mode@latest`                                                                      |\n| yarn              | `yarn global add grok-cli-hurry-mode@latest`                                                          |\n| pnpm              | `pnpm add -g grok-cli-hurry-mode@latest`                                                              |\n| bun               | `bun add -g grok-cli-hurry-mode@latest`                                                               |\n| 自动脚本          | `curl -fsSL https://raw.githubusercontent.com/hinetapora/grok-cli-hurry-mode/main/install.sh \\| bash` |\n**要求：** Node.js（最新 LTS）、npm/yarn/pnpm、可用网络连接。",
+          "code": ""
+        },
+        {
+          "title": "AI 模型",
+          "description": "| 模型               | 说明                          |\n| ------------------ | ----------------------------- |\n| `grok-code-fast-1` | 默认，针对代码任务优化        |\n| `grok-4-latest`    | 最新版本，能力增强            |\n| `grok-3-fast`      | 更快，通用场景               |\n可通过 `-m`、`GROK_MODEL` 环境变量或 `~/.grok/user-settings.json` 覆盖默认模型。\n自定义基础 URL：`-u https://api.x.ai/v1` 或 `GROK_BASE_URL`。\nCLI 选项",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "CLI 选项",
+      "entries": [
+        {
+          "title": "全部选项",
+          "description": "| 选项                    | 别名  | 说明                           |\n| ----------------------- | ----- | ------------------------------ |\n| `--api-key <key>`       | `-k`  | Grok API key                   |\n| `--base-url <url>`      | `-u`  | API 基础 URL                   |\n| `--model <model>`       | `-m`  | 指定模型                       |\n| `--prompt <text>`       | `-p`  | 无头模式提示词                 |\n| `--directory <dir>`     | `-d`  | 设置工作目录                   |\n| `--max-tool-rounds <n>` |       | 最大工具轮次（默认：400）      |\n| `--version`             | `-V`  | 显示版本                       |\n| `--help`                | `-h`  | 显示帮助                       |\n**环境变量：**\n| 变量            | 用途                |\n| --------------- | ------------------- |\n| `GROK_API_KEY`  | API key（必需）     |\n| `GROK_MODEL`    | 默认模型            |\n| `GROK_BASE_URL` | 自定义 API 端点     |",
+          "code": ""
+        },
+        {
+          "title": "子命令",
+          "description": "`git commit-and-push` 支持与主命令相同的 `-d`、`-k`、`-u`、`-m`、`--max-tool-rounds` 参数。\n交互模式",
+          "code": "# AI 生成提交并推送\n$ grok git commit-and-push\n$ grok git commit-and-push -d /path/to/repo\n$ grok git commit-and-push -m grok-4-latest\n\n# MCP 服务器管理\n$ grok mcp add <name>\n$ grok mcp add-json <name> <json>\n$ grok mcp remove <name>\n$ grok mcp list\n$ grok mcp test <name>"
+        }
+      ]
+    },
+    {
+      "title": "交互模式",
+      "entries": [
+        {
+          "title": "键盘快捷键",
+          "description": "| 按键              | 操作                              |\n| ----------------- | -------------------------------- |\n| `Shift+Tab` 连按两次 | 进入 Plan Mode                |\n| `Shift+Tab`       | 切换自动编辑模式                 |\n| `Ctrl+I`          | 上下文提示（工作区信息）         |\n| `Ctrl+C`          | 清空当前输入                     |\n| `Esc`             | 中断当前操作                     |\n| `↑` / `↓`         | 浏览输入历史                     |\n**自动编辑模式：** 免确认文件编辑，AI 会直接修改文件而不弹出确认提示。\n**上下文提示（`Ctrl+I`）：** 显示项目统计、git 分支、内存压力与会话信息。",
+          "code": ""
+        },
+        {
+          "title": "Slash 命令",
+          "description": "| 命令                 | 说明                          |\n| -------------------- | ----------------------------- |\n| `/help`              | 显示可用命令                  |\n| `/clear`             | 清空终端屏幕                  |\n| `/models`            | 列出可用模型                  |\n| `/exit`              | 退出应用                      |\n| `/compact`           | 压缩会话上下文                |\n| `/commit-and-push`   | AI 生成提交信息并推送         |\n| `/init-agent`        | 初始化 agent 文档             |\n| `/docs`              | 打开文档                      |\n| `/readme`            | 生成 README                   |\n| `/api-docs`          | 生成 API 文档                 |\n| `/changelog`         | 生成变更日志                  |\n| `/comments`          | 添加代码注释                  |\n| `/update-agent-docs` | 更新 agent 文档               |\n| `/heal`              | 自愈系统检查                  |\n| `/guardrails`        | 显示护栏状态                  |",
+          "code": ""
+        },
+        {
+          "title": "配置文件",
+          "description": "| 文件                         | 用途                   |\n| ---------------------------- | ---------------------- |\n| `~/.grok/user-settings.json` | 全局用户配置           |\n| `.grok/settings.json`        | 项目级配置             |\n| `.grok/GROK.md`              | 提供给 AI 的项目上下文 |\n**user-settings.json 示例：**\n**创建项目上下文：**\n工具",
+          "code": "# 为 Plan Mode 添加自定义上下文\n$ mkdir -p .grok\n$ echo \"# Project Rules\" > .grok/GROK.md"
+        }
+      ]
+    },
+    {
+      "title": "工具",
+      "entries": [
+        {
+          "title": "核心工具",
+          "description": "| 工具      | 用途                                       |\n| --------- | ------------------------------------------ |\n| **Read**  | 读取文件：文本、图片、PDF、notebook         |\n| **Write** | 创建或覆盖文件                              |\n| **Edit**  | 精确字符串查找替换                          |\n| **Bash**  | 执行 shell 命令                             |\n| **Grep**  | 通过 ripgrep 进行正则搜索                   |\n| **Glob**  | 文件模式匹配                                |\n| **LS**    | 目录列表                                    |\n**Read** 支持大文件的行偏移/行数限制，并可直接显示图片。\n**Edit** 支持：\n- 精确字符串替换\n- 正则模式\n- 单次或全量替换\n**Bash** 支持：\n- stdout/stderr 捕获\n- 后台进程\n- 超时管理\n- 环境变量处理",
+          "code": ""
+        },
+        {
+          "title": "高级工具",
+          "description": "| 工具          | 用途                                  |\n| ------------- | ------------------------------------- |\n| **MultiEdit** | 原子化多文件编辑（支持回滚）          |\n| **WebFetch**  | 抓取并解析网页内容                     |\n| **WebSearch** | 实时网页搜索                           |\n| **Task**      | 委派给专用子代理                       |\n| **TodoWrite** | 任务追踪与进度管理                     |\n**MultiEdit** 操作包括：创建、编辑、删除、重命名、移动，均在一次原子事务中完成。\n**Task**（子代理委派）：\n- 面向 token 成本优化\n- 复杂调研与分析\n- 自动完成并输出报告\n**WebFetch：** 支持 HTML 到 Markdown 转换，并带 AI 内容提取与缓存。",
+          "code": ""
+        },
+        {
+          "title": "IDE 工具",
+          "description": "| 工具             | 用途                             |\n| ---------------- | -------------------------------- |\n| **NotebookEdit** | 编辑 Jupyter notebook 单元       |\n| **BashOutput**   | 流式查看后台进程输出             |\n| **KillBash**     | 终止后台进程                     |\nAI 会为你的请求**自动选择**合适的工具组合，无需手动调用。\nPlan Mode",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Plan Mode",
+      "entries": [
+        {
+          "title": "启用 Plan Mode",
+          "description": "快速连续按下 **`Shift+Tab` 两次**：\n**或使用无头模式：**\n**Plan Mode 下会被阻止的操作：**\n- 所有文件写入/编辑操作\n- 破坏性 bash 命令\n- 任何修改状态的操作\n**Plan Mode 下允许的操作：**\n- 读取文件（`ls`、`cat`、`grep`）\n- Web 搜索与抓取\n- 项目结构分析\n- 生成计划（仅写入计划输出）\n**退出 Plan Mode：**\n- `Enter`：确认并执行计划\n- `Esc`：不执行直接退出",
+          "code": "$ grok -p \"analyze changes in this PR and create plan\"\n$ grok -p \"check if changes follow architecture guidelines\""
+        },
+        {
+          "title": "Plan Mode 阶段",
+          "description": "| 阶段            | 时长            | 发生内容                         |\n| --------------- | --------------- | -------------------------------- |\n| 🔍 Analysis     | 1–5 秒          | 项目类型、结构、依赖分析         |\n| 🧠 Strategy     | 5–15 秒         | AI 生成实施计划                  |\n| 📋 Presentation | 1–2 秒          | 整理计划供审阅                   |\n| ✅ Approval     | 用户控制         | 审阅、确认或细化                 |\nPlan Mode 会分析：项目类型（Node/Python/React 等）、目录结构、关键组件、依赖、入口点、模块与架构模式。",
+          "code": ""
+        },
+        {
+          "title": "Plan Mode 建议",
+          "description": "Plan Mode 适用于：\n- 复杂的多文件功能开发\n- 大规模重构\n- 探索陌生代码库\n- 变更前风险评估\n**建议：**\n- 明确描述你的目标\n- 批准前先审阅计划\n- 出问题时可使用 `/heal`\n- 通过 `.grok/GROK.md` 提供自定义上下文\nMCP 服务器",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "MCP 服务器",
+      "entries": [
+        {
+          "title": "管理 MCP 服务器",
+          "description": "",
+          "code": "# 添加 stdio 服务器\n$ grok mcp add myserver \\\n  -t stdio \\\n  -c npx \\\n  -a -y my-mcp-package\n\n# 添加 HTTP/SSE 服务器\n$ grok mcp add myserver \\\n  -t http \\\n  -u https://api.example.com/mcp\n\n# 携带环境变量和请求头添加\n$ grok mcp add myserver \\\n  -t http \\\n  -u https://api.example.com/mcp \\\n  -e API_KEY=secret \\\n  -h Authorization=\"Bearer token\"\n\n# 从原始 JSON 添加\n$ grok mcp add-json myserver \\\n  '{\"transport\":{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"-y\",\"pkg\"]}}'\n\n# 列出全部服务器\n$ grok mcp list\n\n# 测试连接\n$ grok mcp test myserver\n\n# 删除服务器\n$ grok mcp remove myserver"
+        },
+        {
+          "title": "MCP 配置结构",
+          "description": "**在 `.grok/settings.json` 中：**\n**传输类型：**\n| 类型              | 适用场景                   |\n| ----------------- | -------------------------- |\n| `stdio`           | 本地子进程（默认）         |\n| `http`            | 远程 HTTP 端点             |\n| `sse`             | Server-Sent Events         |\n| `streamable_http` | 流式 HTTP                  |",
+          "code": "{\n  \"mcpServers\": [\n    {\n      \"name\": \"my-server\",\n      \"transport\": {\n        \"type\": \"stdio\",\n        \"command\": \"npx\",\n        \"args\": [\"-y\", \"my-mcp-package\"],\n        \"env\": { \"KEY\": \"value\" }\n      }\n    },\n    {\n      \"name\": \"remote-server\",\n      \"transport\": {\n        \"type\": \"http\",\n        \"url\": \"https://api.example.com/mcp\",\n        \"headers\": { \"Authorization\": \"Bearer $TOKEN\" }\n      }\n    }\n  ]\n}"
+        },
+        {
+          "title": "添加服务器参数",
+          "description": "| 选项                 | 别名  | 说明                                 |\n| -------------------- | ----- | ------------------------------------ |\n| `--transport <type>` | `-t`  | stdio / http / sse / streamable_http |\n| `--command <cmd>`    | `-c`  | 可执行命令（仅 stdio）               |\n| `--args [args...]`   | `-a`  | 命令参数（仅 stdio）                 |\n| `--url <url>`        | `-u`  | 服务器 URL（http/sse）               |\n| `--headers [kv...]`  | `-h`  | HTTP 请求头（`key=value`）           |\n| `--env [kv...]`      | `-e`  | 环境变量（`key=value`）              |\n故障排查",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "故障排查",
+      "entries": [
+        {
+          "title": "常见问题",
+          "description": "**找不到 API key：**\n**安装后命令找不到：**\n**安装时报权限错误：**\n**安装卡住 / 缓存问题：**",
+          "code": "$ pkill -f grok\n$ npm uninstall -g grok-cli-hurry-mode\n$ npm cache clean --force\n$ npm install -g grok-cli-hurry-mode@latest"
+        },
+        {
+          "title": "常用环境变量",
+          "description": "| 变量            | 说明                   |\n| --------------- | ---------------------- |\n| `GROK_API_KEY`  | API key（必需）        |\n| `GROK_MODEL`    | 覆盖默认模型           |\n| `GROK_BASE_URL` | 自定义 API 端点        |\n**默认 API 端点：** `https://api.x.ai/v1`",
+          "code": ""
+        },
+        {
+          "title": "Git 智能推送",
+          "description": "自动发布系统会创建版本号变更提交，因此请始终使用 smart push 以避免冲突：\n延伸阅读",
+          "code": "# 正确：可处理自动版本变更\n$ npm run smart-push\n$ git pushup\n\n# 错误：会触发 \"fetch first\" 报错\n$ git push origin main"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/grok-cli.md"
+}

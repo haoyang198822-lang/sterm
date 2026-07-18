@@ -1,0 +1,84 @@
+{
+  "name": "Ansible",
+  "description": "Ansible 快速参考",
+  "category": "",
+  "count": 14,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装",
+          "description": "安装命令 | 环境\n:-|-\n`brew install ansible`   | macos\n`yum install -y ansible` | centos\n`pip install ansible`    | python\n- [Ansible 官方文档](https://docs.ansible.com)",
+          "code": ""
+        },
+        {
+          "title": "配置位置",
+          "description": "文件路径 | 说明\n:-|-\n`/etc/ansible/ansible.cfg`  | 系统范围的配置\n`~/ansible.cfg`             | 用户特定的配置\n`$pwd/ansible.cfg`          | 当前目录下的配置\n配置文件优先级\n- 如果没有任何其他配置文件，默认使用 `/etc/ansible/ansible.cfg`\n- `~/.ansible.cfg` `家`目录下的 `.ansible.cfg`\n- 当前目录下的 `ansible.cfg`，即在同一目录下 `ansible.cfg` 优先级高于 `~/.ansible.cfg`\n- 环境变量 `exoport ANSIBLE_CONFIG=/$DIR/ansible.cfg`\n查看正在使用的 `ansible` 配置文件：",
+          "code": "ansible --version | grep \"config file\""
+        },
+        {
+          "title": "Inventory文件(hosts列表)",
+          "description": "**静态Inventory**\n`/etc/ansible/hosts`",
+          "code": "mail.example.com\n\n[webservers]\nfoo.example.com\nbar.example.com"
+        },
+        {
+          "title": "Inventory 主机组使用多个IP和域名",
+          "description": "",
+          "code": "[web]\n172.18.12.5[1:4]\n[webservers]\nwww[01:50].example.com"
+        },
+        {
+          "title": "Inventory 主机组使用子主机组",
+          "description": "",
+          "code": "[usa:children]\nsoutheast\nnortheast\nsouthwest\nnorthwest"
+        },
+        {
+          "title": "给多台主机设置变量",
+          "description": "`group variables`\n如果组中的所有主机共享一个变量值，则可以一次将该变量应用于整个组\n## 命令行(ad-hoc)",
+          "code": "[atlanta]\nhost1\nhost2\n\n[atlanta:vars]\nntp_server=ntp.atlanta.example.com\nproxy=proxy.atlanta.example.com"
+        },
+        {
+          "title": "ansible",
+          "description": "检查Inventory是否生效\nping所有目标\nping本地(不使用SSH连接)\n本地执行命令\n获取本地主机的信息\n获取远程到本地\n拷贝本地到远程",
+          "code": "$ ansible target -m copy -a \"src=/tmp/seq dest=/tmp/seq\""
+        },
+        {
+          "title": "Ansible 命令帮助",
+          "description": ":- | -\n:- | -\n`-a MODULE_ARGS`, `--args=MODULE_ARGS` | 模块参数\n`--ask-vault-pass` | 询问保险库密码\n`-B SECONDS`, `--background=SECONDS` | 异步运行，X 秒后失败 (默认=N/A)\n`-C`, `--check` | 不要做任何改变；相反，尝试预测可能发生的一些变化\n`-D`, `--diff` | 更改(小)文件和模板时，显示这些文件中的差异； 与 `--check` 配合使用效果很好\n`-e EXTRA_VARS`, `--extra-vars=EXTRA_VARS` | 将附加变量设置为 key=value 或 YAML/JSON\n`-f FORKS`, `--forks=FORKS` | 指定要使用的并行进程数 (default=5)\n`-h`, `--help` | 显示此帮助信息并退出\n`-i INVENTORY`, `--inventory-file=INVENTORY` | 指定清单主机路径(默认=/etc/ansible/hosts)或逗号分隔的主机列表\n`-l SUBSET`, `--limit=SUBSET` | 进一步将选定主机限制为其他模式\n`--list-hosts` | 输出匹配主机列表；不执行任何其他操作\n`-m MODULE_NAME`, `--module-name=MODULE_NAME` | 要执行的模块名称 (default=command)\n`-M MODULE_PATH`, `--module-path=MODULE_PATH` | 指定模块库的路径 (default=None)\n`--new-vault-password-file=NEW_VAULT_PASSWORD_FILE` | 用于重新生成密钥的新保管库密码文件\n`-o`, `--one-line` | 压缩输出\n`--output=OUTPUT_FILE` | 用于加密或解密的输出文件名； 使用 - 用于标准输出\n`-P POLL_INTERVAL`, `--poll=POLL_INTERVAL` | 如果使用 -B 则设置轮询间隔(default=15)\n`--syntax-check` | 对 playbook 执行语法检查，但不要执行它\n`-t TREE`, `--tree=TREE` | 将输出记录到此目录\n`--vault-password-file=VAULT_PASSWORD_FILE` | 保险库密码文件\n`-v`, `--verbose` | 详细模式(-vvv 更多，-vvvv 启用连接调试)\n`--version` | 显示程序的版本号并退出\n控制谁以及如何连接到主机，连接选项：\n:- | -\n:- | -\n`-k`, `--ask-pass` | 询问连接密码\n`--private-key=PRIVATE_KEY_FILE`, `--key-file=PRIVATE_KEY_FILE` | 使用此文件来验证连接\n`-u REMOTE_USER`, `--user=REMOTE_USER` | 以此用户身份连接(default=None)\n`-c CONNECTION`, `--connection=CONNECTION` | 要使用的连接类型 (default=smart)\n`-T TIMEOUT`, `--timeout=TIMEOUT` | 以秒为单位覆盖连接超时 (default=10)\n`--ssh-common-args=SSH_COMMON_ARGS` | 指定要传递给 sftp/scp/ssh 的常用参数 (e.g. ProxyCommand)\n`--sftp-extra-args=SFTP_EXTRA_ARGS` | 指定仅传递给 `sftp` 的额外参数 (e.g. -f, -l)\n`--scp-extra-args=SCP_EXTRA_ARGS` | 指定仅传递给 `scp` 的额外参数 (e.g. -l)\n`--ssh-extra-args=SSH_EXTRA_ARGS` | 指定仅传递给 `ssh` 的额外参数 (e.g. -R)\n控制您成为目标主机上的用户的方式和用户，特权升级选项：\n:- | -\n:- | -\n~~`-s`~~, ~~`--sudo`~~ | 使用 sudo (nopasswd) 运行操作(已弃用，使用 become)\n~~`-U SUDO_USER`~~, ~~`--sudo-user=SUDO_USER`~~ | 所需的 sudo 用户(默认=root)(已弃用，使用 become)\n~~`-S`~~, ~~`--su`~~ | 使用 su 运行操作(已弃用，使用 become)\n~~`-R SU_USER`~~, ~~`--su-user=SU_USER`~~ | 以该用户身份使用 su 运行操作(默认 = root)(已弃用，使用 become)\n`-b`, `--become` | 使用 become 运行操作(不暗示密码提示)\n`--become-method=BECOME_METHOD` | 要使用的权限提升方法(默认=sudo)，有效选择：\\[ `sudo` \\| `su` \\| `pbrun` \\| `pfexec` \\| `runas` \\| `doas` \\| `dzdo` \\]\n`--become-user=BECOME_USER` | 以该用户身份运行操作(默认=root)\n~~`--ask-sudo-pass`~~ | 询问 sudo 密码(已弃用，使用 become)\n~~`--ask-su-pass`~~ | 询问 su 密码(已弃用，使用 become)\n`-K`, `--ask-become-pass` | 要求提权密码",
+          "code": "$ ansible\n$ ansible <host-pattern> [options]"
+        },
+        {
+          "title": "Ansible Galaxy 工具",
+          "description": ":- | -\n:- | -\n`-h`, `--help` | 显示此帮助信息并退出\n`-v`, `--verbose` | 详细模式(-vvv 更多，-vvvv 启用连接调试)\n`--version` | 显示程序的版本号并退出",
+          "code": "$ ansible-galaxy search --author <AUTHOR>\n$ ansible-galaxy search --platforms <PLATFORM>\n$ ansible-galaxy search --galaxy-tags <TAG>\n$ ansible-galaxy info <ROLE>\n$ ansible-galaxy install <ROLE> -p <ROLE_DIRECTORY>\n$ ansible-galaxy install -r <ROLE1> <ROLE2> <ROLE3> ...\n$ ansible-galaxy list\n$ ansible-galaxy remove <ROLE>\n$ ansible-galaxy init <ROLE>\n$ ansible-galaxy init --offline <ROLE>"
+        },
+        {
+          "title": "ansible-doc",
+          "description": "在本地访问文档\n:- | -\n:- | -\n`-h`, `--help` | 显示此帮助信息并退出\n`-l`, `--list` | 列出可用模块\n`-M MODULE_PATH`, `--module-path=MODULE_PATH` | 指定模块库的路径 (default=None)\n`-s`, `--snippet` | 显示指定模块的剧本片段\n`-v`, `--verbose` | 详细模式(-vvv 更多，-vvvv 启用连接调试)\n`--version` | 显示程序的版本号并退出",
+          "code": "$ ansible-doc\n$ ansible-doc [options] [module...]"
+        },
+        {
+          "title": "ansible-vault",
+          "description": ":- | -\n:- | -\n`--ask-vault-pass` | 询问保险库密码\n`-h`, `--help` | 显示此帮助信息并退出\n`--new-vault-password-file=NEW_VAULT_PASSWORD_FILE` | 用于重新生成密钥的新保管库密码文件\n`--output=OUTPUT_FILE` | 用于加密或解密的输出文件名； 使用 - 用于标准输出\n`--vault-password-file=VAULT_PASSWORD_FILE` | 保险库密码文件\n`-v`, `--verbose` | 详细模式(-vvv 更多，-vvvv 启用连接调试)\n`--version` | 显示程序的版本号并退出",
+          "code": "$ ansible-vault\n$ ansible-vault [create|decrypt|edit|encrypt|rekey|view] [--help] [options] vaultfile.yml"
+        },
+        {
+          "title": "ansible-playbook",
+          "description": ":- | -\n:- | -\n`--ask-vault-pass` | 询问保险库密码\n`-C`, `--check` | 不要做任何改变；相反，尝试预测可能发生的一些变化\n`-D`, `--diff` | 更改（小）文件和模板时，显示这些文件中的差异；与 `--check` 配合使用效果很好\n`-e EXTRA_VARS`, `--extra-vars=EXTRA_VARS` | 将附加变量设置为 key=value 或 YAML/JSON\n`--flush-cache` | 清除事实缓存\n`--force-handlers` | 即使任务失败也运行处理程序\n`-f FORKS`, `--forks=FORKS` | 指定要使用的并行进程数（默认值=5）\n`-h`, `--help` | 显示此帮助信息并退出\n`-i INVENTORY`, `--inventory-file=INVENTORY` | 指定清单主机路径（默认=/etc/ansible/hosts）或逗号分隔的主机列表\n`-l SUBSET`, `--limit=SUBSET` | 进一步将选定主机限制为其他模式\n`--list-hosts` | 输出匹配主机列表；不执行任何其他操作\n`--list-tags` | 列出所有可用的标签\n`--list-tasks` | 列出所有将要执行的任务\n`-M MODULE_PATH`, `--module-path=MODULE_PATH` | 指定模块库的路径（默认=无）\n`--new-vault-password-file=NEW_VAULT_PASSWORD_FILE` | 用于重新生成密钥的新保管库密码文件\n`--output=OUTPUT_FILE` | 用于加密或解密的输出文件名；使用 - 用于标准输出\n`--skip-tags=SKIP_TAGS` | 只运行标签与这些值不匹配的播放和任务\n`--start-at-task=START_AT_TASK` | 在匹配此名称的任务处启动剧本\n`--step` | 一步一步：在运行前确认每个任务\n`--syntax-check` | 对 playbook 执行语法检查，但不要执行它\n`-t TAGS`, `--tags=TAGS` | 只运行带有这些值标记的播放和任务\n`--vault-password-file=VAULT_PASSWORD_FILE` | 保险库密码文件\n`-v`, `--verbose` | 详细模式（-vvv 更多，-vvvv 启用连接调试）\n`--version` | 显示程序的版本号并退出\n连接选项：\n:- | -\n:- | -\n`-k`, `--ask-pass` | 询问连接密码\n`--private-key=PRIVATE_KEY_FILE`, `--key-file=PRIVATE_KEY_FILE` | 使用此文件来验证连接\n`-u REMOTE_USER`, `--user=REMOTE_USER` | 以此用户身份连接(默认=None)\n`-c CONNECTION`, `--connection=CONNECTION` | 要使用的连接类型(默认=smart)\n`-T TIMEOUT`, `--timeout=TIMEOUT` | 以秒为单位覆盖连接超时(默认值 = 10)\n`--ssh-common-args=SSH_COMMON_ARGS` | 指定要传递给 sftp/scp/ssh 的常用参数(例如 ProxyCommand)\n`--sftp-extra-args=SFTP_EXTRA_ARGS` | 指定仅传递给 sftp 的额外参数(例如 -f、-l)\n`--scp-extra-args=SCP_EXTRA_ARGS` | 指定仅传递给 scp 的额外参数(例如 -l)\n`--ssh-extra-args=SSH_EXTRA_ARGS` | 指定仅传递给 ssh 的额外参数(例如 -R)\n特权升级选项：\n:- | -\n:- | -\n`-s`, `--sudo` | 使用 sudo (nopasswd) 运行操作(已弃用，使用 become)\n`-U SUDO_USER`, `--sudo-user=SUDO_USER` | 所需的 sudo 用户(默认=root)(已弃用，使用become)\n`-S`, `--su` | 使用 su 运行操作(已弃用，使用 become)\n`-R SU_USER`, `--su-user=SU_USER` | 以该用户身份使用 su 运行操作(默认 = root)(已弃用，使用become)\n`-b`, `--become` | 使用 become 运行操作(不暗示密码提示)\n`--become-method=BECOME_METHOD` | 要使用的权限提升方法(默认=sudo)，有效选择：[ sudo \\| su \\| pbrun \\| pfexec \\| runas \\| doas \\| dzdo ]\n`--become-user=BECOME_USER` | 以该用户身份运行操作(默认=root)\n`--ask-sudo-pass` | 询问 sudo 密码(已弃用，使用 become)\n`--ask-su-pass` | 询问 su 密码(已弃用，使用 become)\n`-K`, `--ask-become-pass` | 要求提权密码",
+          "code": "$ ansible-playbook\n$ ansible-playbook playbook.yml"
+        },
+        {
+          "title": "ansible-pull",
+          "description": ":- | -\n:- | -\n`--accept-host-key` | 如果尚未添加，则添加 repo url 的主机密钥\n`--ask-vault-pass` | 询问保险库密码\n`-C CHECKOUT`, `--checkout=CHECKOUT` | 分支/标签/提交结帐。默认为存储库模块的行为。\n`-d DEST`, `--directory=DEST` | 签出存储库的目录\n`-e EXTRA_VARS`, `--extra-vars=EXTRA_VARS` | 将附加变量设置为 key=value 或 YAML/JSON\n`-f`, `--force` | 即使无法更新存储库也运行 playbook\n`--full` | 做一个完整的克隆，而不是一个浅的\n`-h`, `--help` | 显示此帮助信息并退出\n`-i INVENTORY`, `--inventory-file=INVENTORY` | 指定清单主机路径(默认=/etc/ansible/hosts)或逗号分隔的主机列表\n`-l SUBSET`, `--limit=SUBSET` | 进一步将选定主机限制为其他模式\n`--list-hosts` | 输出匹配主机列表；不执行任何其他操作\n`-m MODULE_NAME`, `--module-name=MODULE_NAME` | 存储库模块名称，ansible 将使用它来签出 repo。默认是 git\n`-M MODULE_PATH`, `--module-path=MODULE_PATH` | 指定模块库的路径(默认=无)\n`--new-vault-password-file=NEW_VAULT_PASSWORD_FILE` | 用于重新生成密钥的新保管库密码文件\n`-o`, `--only-if-changed` | 仅在存储库已更新时才运行 playbook\n`--output=OUTPUT_FILE` | 用于加密或解密的输出文件名；使用 - 用于标准输出\n`--purge` | 剧本运行后清除结帐\n`--skip-tags=SKIP_TAGS` | 只运行标签与这些值不匹配的播放和任务\n`-s SLEEP`, `--sleep=SLEEP` | 在开始之前休眠随机间隔(在 0 到 n 秒之间)。这是分散 git 请求的有用方法\n`-t TAGS`, `--tags=TAGS` | 只运行带有这些值标记的播放和任务\n`-U URL`, `--url=URL` | 剧本存储库的 URL\n`--vault-password-file=VAULT_PASSWORD_FILE` | 保险库密码文件\n`-v`, `--verbose` | 详细模式(-vvv 更多，-vvvv 启用连接调试)\n`--verify-commit` | 验证签出提交的 GPG 签名，如果失败则中止运行 playbook。这就需要对应的VCS模块来支持这样的操作\n`--version` | 显示程序的版本号并退出\n连接选项：\n:- | -\n:- | -\n`-k`, `--ask-pass` | 询问连接密码\n`--private-key=PRIVATE_KEY_FILE`, `--key-file=PRIVATE_KEY_FILE` | 使用此文件来验证连接\n`-u REMOTE_USER`, `--user=REMOTE_USER` | 以此用户身份连接(默认=无)\n`-c CONNECTION`, `--connection=CONNECTION` | 要使用的连接类型(默认=智能)\n`-T TIMEOUT`, `--timeout=TIMEOUT` | 以秒为单位覆盖连接超时(默认值 = 10)\n`--ssh-common-args=SSH_COMMON_ARGS` | 指定要传递给 sftp/scp/ssh 的常用参数(例如 ProxyCommand)\n`--sftp-extra-args=SFTP_EXTRA_ARGS` | 指定仅传递给 sftp 的额外参数(例如 -f、-l)\n`--scp-extra-args=SCP_EXTRA_ARGS` | 指定仅传递给 scp 的额外参数(例如 -l)\n`--ssh-extra-args=SSH_EXTRA_ARGS` | 指定仅传递给 ssh 的额外参数(例如 -R)\n特权升级选项：\n:- | -\n:- | -\n`--ask-sudo-pass` | 询问 sudo 密码(已弃用，使用become)\n`--ask-su-pass` | 询问 su 密码(已弃用，使用become)\n`-K`, `--ask-become-pass` | 要求提权密码",
+          "code": "$ ansible-pull \n$ ansible-pull -U <repository> [options]"
+        },
+        {
+          "title": "ansible常用模块",
+          "description": "`Ansible` 的模块已经高达 `3000+` 之多。但是个人在日常工作中，比较常见的大约 `20` 多个\n| :-               | -                                                | -                                                            |\n| ---------------- | ------------------------------------------------ | ------------------------------------------------------------ |\n| ping             | 检查指定节点机器是否还能连通                     | `ansible all -m ping`                                        |\n| command          | 用于在各受控端节点运行指定的命令                 | `ansible all -m command -a 'hostname'`                       |\n| shell            | shell模块可以特殊字符，而command是不支持         | `ansible all -m shell -a 'hostname && date'`                 |\n| hostname         | 修改远程受控节点的主机名的模块                   | `ansible -i /opt/hosts xx -m hostname -a 'name=ansible-client-199'` |\n| copy             | 在远程主机执行复制操作文件                       | `ansible all -m copy -a 'src=/etc/hosts dest=/opt/hosts backup=yes'` |\n| fetch            | 从远程主机获取文件到管理节点，但是不支持目录操作 | `ansible all -m fetch -a \"src=/etc/yum.repos.d/epel.repo dest=/usr/local/src\"` |\n| script           | 管理端一个脚本，然后在远程服务器上执行           | `ansible all  -m script -a '/root/time.sh'`                  |\n| file             | 主要用于远程主机上的文件和目录操作               | `ansible all -m file -a \"path=/root/rsync.password mode=600 state=touch\"` |\n| cron             | 管理执行任务计划模块（增删改查）                 | `ansible all -m cron -a \"name='test a job' user=root job='/bin/sh /server/scripts/test.sh' minute=* hour=* day=* month=* weekday=*\"` |\n| yum              | RedHat和CentOS的软件包安装和管理                 | 安装<br />`ansible all -m yum -a \"name=httpd state=present\"`<br/>`ansible all -m yum -a \"name=httpd state=installed\"`<br />卸载<br />`ansible all -m yum -a \"name=httpd state=absent\"`<br/>`ansible all -m yum -a \"name=httpd state=removed\"` |\n| `service`和`systemd` | 用于管理远程主机的服务                           | `ansible all -m systemd -a \"name=httpd state=started enabled=yes\"`<br />`ansible all -m systemd -a \"name=httpd state=restarted\"` |\n| user             | useradd, userdel, usermod                        | `ansible all -m user -a 'name=haha remove=no state=absent'`  |\n| group            | groupadd, groupdel, groupmod                     | `ansible all -m group -a 'name=mygroup state=absent'`        |\n| setup            | 可收集远程主机的facts变量的信息                  | `ansible all -m setup -a 'filter=ansible_default_ipv4'`      |\n| authorized_key   | 为特定的用户账号添加或删除 SSH authorized keys   | `ansible all -m authorized_key -a \"user=root key='{{lookup('file','/root/.ssh/id_rsa.pub')}}' path=/root/.ssh/authorized_keys manage_dir=no\"` |\n| replace          | 和 sed 命令比较类似，用于正则匹配和替换          | `ansible all -m replace -a \"path=/etc/fstab regexp=^(UUID.*) replace='#\\1'\"` |\n| lineinfile       | 正则匹配，更改某个关键参数值                     | `ansible all -m lineinfile -a \"path=/etc/selinux/config regexp='^SELINUX=' line='SELINUX=disabled'\"` |\n另见",
+          "code": "$  ansible-doc --list  #查询所有模块\n$  ansible <host-pattern> [options] # 标准使用方式"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/ansible.md"
+}

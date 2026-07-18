@@ -1,0 +1,219 @@
+{
+  "name": "Flutter",
+  "description": "Flutter 快速参考",
+  "category": "移动端",
+  "count": 38,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "macOS 操作系统上安装和配置",
+          "description": "> 完整教程请参阅 Flutter 中文社区的 [安装和环境配置](https://docs.flutter.cn/get-started/install)\n在 [Apple 芯片的 Mac 电脑](https://support.apple.com/zh-cn/HT211814) 上，还需要安装 [Rosetta 2](https://github.com/flutter/website/pull/7119#issuecomment-1124537969) 环境因为 一些辅助工具 仍然需要，通过手动运行上面的命令来安装\n\n**获取 Flutter SDK**\n- 安装包来获取最新的 stable Flutter SDK：\n- Intel [`flutter_macos_3.22.2-stable.zip`](https://storage.flutter-io.cn/flutter_infra_release/releases/stable/macos/flutter_macos_3.22.2-stable.zip)\n- Apple 芯片 [`flutter_macos_arm64_3.22.2-stable.zip`](https://storage.flutter-io.cn/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_3.22.2-stable.zip)\n想要获取到其他版本的安装包，请参阅 [SDK 版本列表](https://docs.flutter.cn/release/archive) 页面\n- 将文件解压到目标路径, 比如:\n<!--rehype:className=wrap-text-->\n- 配置 `flutter` 的 PATH 环境变量：\n- 运行 `flutter doctor` 命令",
+          "code": "$ export PATH=\"$PATH:`pwd`/flutter/bin\""
+        },
+        {
+          "title": "Windows 操作系统上安装和配置",
+          "description": "> 完整教程请参阅 Flutter 中文社区的 [安装和环境配置](https://docs.flutter.cn/get-started/install)\n- 点击下方的安装包，获取 stable 发行通道的 Flutter SDK 最新版本：\n- [flutter_windows_3.22.2-stable.zip](https://storage.flutter-io.cn/flutter_infra_release/releases/stable/windows/flutter_windows_3.22.2-stable.zip)\n- 要查看其他发行通道和以往的版本，请参阅 [SDK 版本列表](https://docs.flutter.cn/release/archive) 页面\n- 将压缩包解压，然后把其中的 `flutter` 目录整个放在你想放置 `Flutter SDK` 的路径中（例如 `C:\\src\\flutter`）\n- 更新 `path` 环境变量，在开始菜单的搜索功能键入`「env」`，然后选择 `编辑系统环境变量`。在 **`用户变量`** 一栏中，检查是否有 **`Path`** 这个条目：\n- 如果存在这个条目，以 `;` 分隔已有的内容，加入 `flutter\\bin` 目录的完整路径。\n- 如果不存在的话，在用户环境变量中创建一个新的 Path 变量，然后将 `flutter\\bin` 所在的完整路径作为新变量的值\n如果你不想安装指定版本的安装包。可以忽略步骤 `1` 和 `2`。从 `GitHub` 上的 `Flutter repo` 获取源代码，并根据需要，切换到指定的分支或标签\n基础组件",
+          "code": "C:\\src>git clone https://github.com/flutter/flutter.git -b stable"
+        }
+      ]
+    },
+    {
+      "title": "基础组件",
+      "entries": [
+        {
+          "title": "Text 样式文本",
+          "description": "",
+          "code": "Text(\"Hello world\",\n  textAlign: TextAlign.left,\n);\n\nText(\"Hello world! I'm Jack. \"*4,\n  maxLines: 1,\n  overflow: TextOverflow.ellipsis,\n);\n\nText(\"Hello world\",\n  textScaleFactor: 1.5,\n);"
+        },
+        {
+          "title": "TextStyle 指定文本显示的样式",
+          "description": "",
+          "code": "Text(\"Hello world\",\n  style: TextStyle(\n    color: Colors.blue,\n    fontSize: 18.0,\n    height: 1.2,  \n    fontFamily: \"Courier\",\n    background: Paint()..color=Colors.yellow,\n    decoration:TextDecoration.underline,\n    decorationStyle: TextDecorationStyle.dashed\n  ),\n);"
+        },
+        {
+          "title": "TextSpan 文本的一个“片段”",
+          "description": "",
+          "code": "Text.rich(TextSpan(\n    children: [\n     TextSpan(\n       text: \"Home: \"\n     ),\n     TextSpan(\n       text: \"https://flutter.dev\",\n       style: TextStyle(\n         color: Colors.blue\n       ),  \n       recognizer: _tapRecognizer\n     ),\n    ]\n))"
+        },
+        {
+          "title": "DefaultTextStyle 文本默认样式",
+          "description": "",
+          "code": "DefaultTextStyle(\n  // 1.设置文本默认样式  \n  style: TextStyle(\n    color:Colors.red,\n    fontSize: 20.0,\n  ),\n  textAlign: TextAlign.start,\n  child: Column(\n    crossAxisAlignment: CrossAxisAlignment.start,\n    children: <Widget>[\n      Text(\"hello world\"),\n      Text(\"I am Jack\"),\n      Text(\"I am Jack\",\n        style: TextStyle(\n          inherit: false, //2.不继承默认样式\n          color: Colors.grey\n        ),\n      ),\n    ],\n  ),\n);"
+        },
+        {
+          "title": "字体设置加载",
+          "description": "- 在 asset 中声明，要先在 `pubspec.yaml` 中声明它\n- 将字体文件复制到在 `pubspec.yaml` 中指定的位置\n- 使用字体",
+          "code": "// 声明文本样式\n    const textStyle = const TextStyle(\n      fontFamily: 'Raleway',\n    );\n    // 使用文本样式\n    var buttonText = const Text(\n      \"Use the font for this text\",\n      style: textStyle,\n    );"
+        },
+        {
+          "title": "ElevatedButton \"漂浮\"按钮",
+          "description": "",
+          "code": "ElevatedButton(\n  child: Text(\"normal\"),\n  onPressed: () {},\n);"
+        },
+        {
+          "title": "TextButton 文本按钮",
+          "description": "",
+          "code": "TextButton(\n  child: Text(\"normal\"),\n  onPressed: () {},\n)"
+        },
+        {
+          "title": "OutlineButton 边框阴影且背景透明按钮",
+          "description": "",
+          "code": "OutlineButton(\n  child: Text(\"normal\"),\n  onPressed: () {},\n)"
+        },
+        {
+          "title": "IconButton 可点击的图标按钮",
+          "description": "",
+          "code": "IconButton(\n  icon: Icon(Icons.thumb_up),\n  onPressed: () {},\n)"
+        },
+        {
+          "title": "带图标的按钮",
+          "description": "",
+          "code": "ElevatedButton.icon(\n  icon: Icon(Icons.send),\n  label: Text(\"发送\"),\n  onPressed: _onPressed,\n),\nOutlineButton.icon(\n  icon: Icon(Icons.add),\n  label: Text(\"添加\"),\n  onPressed: _onPressed,\n),\nTextButton.icon(\n  icon: Icon(Icons.info),\n  label: Text(\"详情\"),\n  onPressed: _onPressed,\n),"
+        },
+        {
+          "title": "从 asset 中加载图片",
+          "description": "- 在工程根目录下创建一个`images目录`，并将图片 `aaa.png` 拷贝到该目录。\n- 在 `pubspec.yaml` 中的 `flutter` 部分添加如下内容：\n注意: 由于 yaml 文件对缩进严格，所以必须严格按照每一层两个空格的方式进行缩进，此处 assets 前面应有两个空格。\n- 加载该图片\nImage 也提供了一个快捷的构造函数 `Image.asset` 用于从 `asset` 中加载、显示图片：",
+          "code": "Image.asset(\"images/aaa.png\",\n      width: 100.0,\n    )"
+        },
+        {
+          "title": "从网络加载图片",
+          "description": "Image 也提供了一个快捷的构造函数 `Image.network` 用于从网络加载、显示图片：",
+          "code": "Image.network(\n  \"https://avatars2.githubusercontent.com/u/20411648?s=460&v=4\",\n  width: 100.0,\n)"
+        },
+        {
+          "title": "Image 参数",
+          "description": "",
+          "code": "const Image({\n  ...\n  this.width, // 图片的宽\n  this.height, // 图片高度\n  this.color, // 图片的混合色值\n  this.colorBlendMode, // 混合模式\n  this.fit,// 缩放模式\n  // 对齐方式\n  this.alignment = Alignment.center,\n  // 重复方式\n  this.repeat = ImageRepeat.noRepeat,\n  ...\n})"
+        },
+        {
+          "title": "Switch 单选开关",
+          "description": "",
+          "code": "Switch(\n  value: true,//当前状态\n  onChanged:(value){\n    // 重新构建页面  \n  },\n),"
+        },
+        {
+          "title": "Checkbox 复选框",
+          "description": "",
+          "code": "Checkbox(\n  value: true,\n  // 选中时的颜色\n  activeColor: Colors.red,\n  onChanged:(value){\n    // ...\n  },\n)"
+        },
+        {
+          "title": "TextField 文本输入框",
+          "description": "",
+          "code": "TextField(\n    autofocus: true,\n    onChanged: (v) {\n      print(\"onChange: $v\");\n    }\n)"
+        },
+        {
+          "title": "LinearProgressIndicator 线性、条状的进度条",
+          "description": "模糊进度条(会执行一个动画)\n进度条显示 `50%`",
+          "code": "LinearProgressIndicator(\n  backgroundColor: Colors.grey[200],\n  valueColor: AlwaysStoppedAnimation(Colors.blue),\n  value: .5, \n)"
+        },
+        {
+          "title": "CircularProgressIndicator 圆形进度条",
+          "description": "模糊进度条(会执行一个旋转动画)\n进度条显示 `50%`，会显示一个半圆",
+          "code": "CircularProgressIndicator(\n  backgroundColor: Colors.grey[200],\n  valueColor: AlwaysStoppedAnimation(Colors.blue),\n  value: .5,\n),"
+        },
+        {
+          "title": "自定义尺寸",
+          "description": "线性进度条高度指定为 `3`\n圆形进度条直径指定为 `100`\n基础布局",
+          "code": "SizedBox(\n  height: 100,\n  width: 100,\n  child: CircularProgressIndicator(\n    backgroundColor: Colors.grey[200],\n    valueColor: AlwaysStoppedAnimation(Colors.blue),\n    value: .7,\n  ),\n),"
+        }
+      ]
+    },
+    {
+      "title": "基础布局",
+      "entries": [
+        {
+          "title": "Container",
+          "description": "在实际开发中，Container常常用于对一个组件进行包装修饰。\n将 `Contianer` 大小固定为 `100 * 100`， 背景色为蓝色。把 `Text` 包裹在 `Container` 中，并将其居中",
+          "code": "Container(\n  width: 100,\n  height: 100,\n  color: Colors.blue,\n  alignment: Alignment.center,\n  child: Text('Hello world'),\n),"
+        },
+        {
+          "title": "Column",
+          "description": "列布局(Column),可以将多个子组件沿着垂直的方向摆放(竖的摆放)",
+          "code": "// 将container 和 button 摆放到同一列。\nColumn(\n   children: [\n     Container(\n       width: 100,\n       height: 100,\n       color: Colors.blue,\n       alignment: Alignment.center,\n       child: Text('Hello world'),\n     ),\n     ElevatedButton(\n       onPressed: () {},\n       child: Text('Button'),\n     ),\n   ],\n),"
+        },
+        {
+          "title": "Row",
+          "description": "行布局(Row)，可以将多个组件沿水平的方向摆放。\n在同一行摆放 3 个 `Button`",
+          "code": "Row(\n  children: [\n    ElevatedButton(\n      onPressed: () {},\n      child: const Text('1'),\n    ),\n    ElevatedButton(\n      onPressed: () {},\n      child: const Text('2'),\n    ),\n    ElevatedButton(\n      onPressed: () {},\n      child: const Text('3'),\n    ),\n  ],\n),"
+        },
+        {
+          "title": "Wrap",
+          "description": "将子组件从左到右依次排列，当空间不足时自动换行。\n显示多个 `Flutter` 的 `logo` 并自动换行",
+          "code": "Wrap(\n  children: [\n    FlutterLogo(),\n    FlutterLogo(),\n    FlutterLogo(),\n    FlutterLogo(),\n    FlutterLogo(),  \n    FlutterLogo(),\n  ],\n),"
+        },
+        {
+          "title": "Stack",
+          "description": "Stack 可以将一多个子组件叠在一起显示。堆叠顺序按照children属性中的列表依次堆叠摆放，默认将子控件沿左上角对齐。\n需要控制子控件位置可以嵌套`Positoned`控件。\n依次堆叠 `300*300` 的蓝色色块、`200*200` 的黑色色块、`100*100` 的黄色色块",
+          "code": "Stack(\n  children: [\n    Container(\n      height: 300,\n      width: 300,\n      color: Colors.blue,\n    ),\n    Container(\n      height: 200,\n      width: 200,\n      color: Colors.black,\n    ),\n    Container(\n      height: 100,\n      width: 100,\n      color: Colors.yellow,\n    ),\n  ],\n),"
+        },
+        {
+          "title": "Positioned",
+          "description": "若需要控制Stack中子控件的位置，则可以嵌套改控件。",
+          "code": "Stack(\n  children: [\n    // 默认摆放在左上位置\n    Container(\n      height: 300,\n      width: 300,\n      color: Colors.blue,\n    ),\n    // 距离左边40个、距离上面40个逻辑像素的位置\n    Positioned(\n      left: 40,\n      top: 40,\n      child: Container(\n        height: 200,\n        width: 200,\n        color: Colors.black,\n      ),\n    ),\n    // 距离左边80个、距离上面80个逻辑像素的位置\n    Positioned(\n      left: 80,\n      top: 80,\n      child: Container(\n        height: 100,\n        width: 100,\n        color: Colors.yellow,\n      ),\n    ),\n  ],\n),"
+        },
+        {
+          "title": "Align",
+          "description": "Align组件用于决定子组件对齐方式",
+          "code": "// 使用Align将Button 居中在Container中\nContainer(\n  width: 100,\n  height: 100,\n  color: Colors.green,\n  child: Align(\n    alignment: Alignment.center,\n    child: ElevatedButton(\n      onPressed: () {}, \n      child: Text('Center'),\n    ),\n  ),\n),"
+        },
+        {
+          "title": "Center",
+          "description": "Center 组件实际上继承于Align。用于专门居中。",
+          "code": "//与 Align中代码效果一致\nContainer(\n  width: 100,\n  height: 100,\n  color: Colors.green,\n  child: Center(\n    child: ElevatedButton(\n      onPressed: () {}, \n      child: Text('Center'),\n    ),\n  ),\n),"
+        },
+        {
+          "title": "Flex",
+          "description": "Flex 的用法与 `Row` 或 `Column` 类似，但只需要额外传入 `direction` 参数\n- `Row` 和 `Column` 组件都继承 `Flex` 组件\n- 设置 `direction` 为 `Axis.horizontal` 表示水平方向(`Row`)，为 `Axis.vertical`则为垂直方向(`Column`)\n垂直方向依次摆放3个flutter logo\n水平方向依次摆放 3 个 flutter logo",
+          "code": "Flex(\n  direction: Axis.horizontal,\n  children: [\n    FlutterLogo(),\n    FlutterLogo(),\n    FlutterLogo(),\n  ],\n),"
+        },
+        {
+          "title": "Expaneded",
+          "description": "Expanded 用于扩张一个子组件。可以通过 `flex` 属性，用于表示该组件相对其他弹性组件放大的倍数(可以理解为一个权重)。",
+          "code": "// Container 会占满剩余的全部空用空间\nRow(\n  children: [\n    FlutterLogo(),\n    Expanded(\n      child: Container(\n        child: FlutterLogo(),\n        color: Colors.green,\n      ),\n    ),\n    FlutterLogo(),\n  ],\n),\n\n// 按照1:2 的比例分配一整行的空间\nRow(\n  children: [\n    Expanded(\n      flex: 1,\n      child: Container(\n        child: FlutterLogo(),\n        color: Colors.green,\n      ),\n    ),\n    Expanded(\n      flex: 2,\n      child: Container(\n        child: FlutterLogo(),\n        color: Colors.blue,\n      ),\n    ),\n  ],\n),"
+        },
+        {
+          "title": "Flexible",
+          "description": "`Flexible` 是 `Expanded` 组件的父类。\n与 `Expanded` 不同的是，`Flexible` 可以通过 `fit` 属性设置子控件是否必须占满 `Flexibal` 扩展的空间。而 `Expaned` 默认子控件必须占满\n将 `Flexible` 的 `fit` 属性设置为 `tingt`，就等价于使用 `Expanded`",
+          "code": "// 如果将fit设置为tight，\n// 则绿色Container 和蓝色Container大小一样。\n// 如果将fit设置为loose，\n// 则两个Flexible扩展的空间大小是一样的，\n// 但绿色Container并不会填充整个扩展的空间。\nRow(\n  children: [\n    Flexible(\n      flex: 2,\n      // fit: FlexFit.tight,\n      child: Container(\n        child: FlutterLogo(),\n        color: Colors.green,\n      ),\n    ),\n    Expanded(\n      flex: 2,\n      child: Container(\n        child: FlutterLogo(),\n        color: Colors.blue,\n      ),\n    ),\n  ],\n),"
+        },
+        {
+          "title": "Spacer",
+          "description": "Spacer 用于在布局中留白\n例如，需要文本和图标位于一个行的两端，而中间留白时。就可以使用 `Spacer`",
+          "code": "Row(\n  children: [\n    Text('Item'),\n    Spacer(),\n    FlutterLogo(),\n  ],\n),"
+        },
+        {
+          "title": "ListView",
+          "description": "`ListView` 是一个支持滚动的列表组件。该组件默认支持上下滑动。\n`ListView`的默认构造函数，会立即初始化`children`中的所有子`widget`，无法动态加载。\n需要动态加载，则可以使用 `ListView.builder()`命名构函数。\n需要在对`ListView`中的`Item`添加分割线，则可以借助`ListView.separated()`。",
+          "code": "// separatorBuilder 函数用于在元素之间插入分割线。\n// 也可以返回其他widget。该widget会被插入各个元素之间。\nListView.separated(\n  itemBuilder: (BuildContext context, int index) {\n    return Text('$index');\n  },\n  itemCount: 4,\n  separatorBuilder: (BuildContext context, int index) {\n    // 使用Divider widget 画一条粗为5，颜色为红色的线\n    return const Divider(\n      height: 5,\n      thickness: 5,\n      color: Colors.red,\n    );\n  },\n),"
+        },
+        {
+          "title": "GridView",
+          "description": "`GridView`可将元素显示为二维网格状的列表组件，并支持主轴方向滚动。\n使用GridView() 构造函数，需要传入gridDelegate和children。Flutter中已经提供了两种实现方式，分别是:\n- `SliverGridDelegateWithFixedCrossAxisCount()` 用于交叉轴方向固定数。\n- `SliverGridDelegateWithMaxCrossAxisExtent()` 用于交叉轴方向限制最大长度。\n`GridView.builder()`命名构造可以实现元素的动态加载，与`ListView.builder()`类似\n`Gridview.count()` 一个简单的构造函数，只需要传入`crossAxisCount`（交叉轴元素的个数）和`children`即可。\n`GridView.extent()` 用于设定每个元素在交叉轴方向的最大尺寸。当程序运行在较大屏幕时通常能看到更多的元素，而不是少量元素的放大版。通过传入`maxCrossAxisExtent`,`Gridview`会根据屏幕尺寸自动选择合适的行数量。\n`GridView.count()`和GridView.extent()`可以看作GridView的语法糖。",
+          "code": "GridView.extent(\n  maxCrossAxisExtent: 200,\n  children: List.generate(\n      8,\n      (index) => Container(\n            color: Colors.red[index % 8 * 100],\n            child: Text(\"index $index\"),\n          )),\n),"
+        },
+        {
+          "title": "PageView",
+          "description": "使用`PageView`可以实现整屏页面滚动,默认为水平方向翻页。与`ListView`类似。\n- `pageSnapping`参数可以设置滑动时`Page`停留在任意位置。\n- `scrollDirection`参数设置滚动方向(默认为水平方向)。\n使用`PageView.builder()`命名构造，可以动态加载页面。与`ListView.builder()`类似。\nFlutter 动画组件",
+          "code": "PageView.builder(\n  pageSnapping: false,\n  scrollDirection: Axis.vertical,\n  itemBuilder: (BuildContext context, int index) => Container(\n    color: Colors.red[index % 4 * 100],\n  ),\n),"
+        }
+      ]
+    },
+    {
+      "title": "Flutter 动画组件",
+      "entries": [
+        {
+          "title": "1.隐式动画",
+          "description": "在动画组件内，直接配置curve和duration属性\n\n**AnimatedContainer**\n使用AnimatedContainer组件，配置curve曲线过渡和duration过渡时间\n\n**AnimatedPadding**\n通过配置padding值的改变，引起组件的移动动画效果,同样支持curve和duration的配置\n\n**AnimatedAlign**\n通过配置alignment值的改变，引起组件的对齐动画效果,同样支持curve和duration的配置\n\n**AnimatedOpacity**\n通过配置opacity值的改变，引起组件的透明度变化动画效果,同样支持curve和duration的配置\n\n**AnimatedPositioned**\n通过配置top,left,right,bottom值的改变，引起组件的距离变化动画效果,同样支持curve和duration的配置",
+          "code": "class _HomeState extends State<HomeState>{\n  bool press = false;\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n        home: Scaffold(\n            floatingActionButton:FloatingActionButton(onPressed: (){\n              setState(() {\n                press = true;\n              });\n            }\n              ,child: const Icon(Icons.add),) ,\n            appBar: AppBar(\n              title: const Text(\"测试\"),\n            ),\n            body:Stack(\n              children: [\n                AnimatedPositioned(\n                  top: press ? 0 : 100,\n                  left:press ? 0 : 100,\n                  curve: Curves.ease, //曲线\n                  duration: const Duration(seconds: 1), //延时\n                  child: Container(\n                    width: 200,\n                    height: 200,\n                    color:Colors.yellow,\n                  ),\n                ),\n              ],\n            )\n        )\n    );\n  }\n}"
+        },
+        {
+          "title": "2.显示动画",
+          "description": "使用显示动画时，定义 `AnimationController`，并在组件中使用 `SingleTickerProviderStateMixin`。\n\n**RotationTransition**\n`RotationTransition` 实现旋转动画，`turns` 为 `AnimationController`。在 `initState` 中设置 `vsync` 和 `duration`，使用 `..repeat()` 实现动画循环。\n\n**AnimationController**\n\n**FadeTransition**\n`FadeTransition` 实现透明度变化，`opacity` 为 `AnimationController`。可以通过 `reverse()` 实现从实体逐渐变透明。\n也可以通过 lowerBound 和 upperBound 来配置 controller 的最低和最高值\n\n**ScaleTransition**\n`ScaleTransition` 实现缩放动画，`scale` 为 `AnimationController`，可以通过 `reverse()` 实现从大到小的动画效果。\n另见",
+          "code": "class _HomeState extends State<HomeState> with SingleTickerProviderStateMixin {\n  late AnimationController _controller;\n  @override\n  void initState() {\n    super.initState();\n    // 让程序和手机的刷新频率统一\n    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n        home: Scaffold(\n            floatingActionButton:FloatingActionButton(onPressed: (){\n              _controller.repeat(); //重复播放\n            },child:const Icon(Icons.add),) ,\n            appBar: AppBar(\n              title: const Text(\"测试\"),\n            ),\n            body: Center(\n                child: ScaleTransition(scale: _controller,\n                  child: const FlutterLogo(size: 60,),\n                )\n            )\n        )\n    );\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/flutter.md"
+}

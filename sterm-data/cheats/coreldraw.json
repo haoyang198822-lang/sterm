@@ -1,0 +1,184 @@
+{
+  "name": "CorelDRAW 键盘快捷键",
+  "description": "CorelDRAW 键盘快捷键 快速参考",
+  "category": "",
+  "count": 31,
+  "sections": [
+    {
+      "title": "编辑与剪贴板",
+      "entries": [
+        {
+          "title": "基础编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Backspace` | 删除(L)：删除 |\n| `删除` | 删除(L)：删除 |\n| `Ctrl+X` | 剪切(T)：将一个或多个对象移到剪贴板. |\n| `Shift+删除` | 剪切(T)：将一个或多个对象移到剪贴板. |\n| `Ctrl+C` | 复制(C)：将一个或多个对象的副本放到剪贴板. |\n| `Ctrl+Insert` | 复制(C)：将一个或多个对象的副本放到剪贴板. |\n| `Ctrl+F` | 查找并替换(F) |\n| `Ctrl+V` | 粘贴(P)：将剪贴板内容放入文档中. |\n| `Ctrl+Shift+V` | 粘贴到视图中 |\n| `Shift+Insert` | 粘贴(P)：将剪贴板内容放入文档中. |",
+          "code": ""
+        },
+        {
+          "title": "历史与重复",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+W` | 刷新窗口(W)：重绘 |\n| `Alt+Backspace` | 撤消%s(U)：取消前一个操作. |\n| `Ctrl+Z` | 撤消%s(U)：取消前一个操作. |\n| `Ctrl+Shift+Z` | 重做%s(E)：重新执行上一个撤销的操作. |\n| `Ctrl+R` | 重复%s(R)：重复 |",
+          "code": ""
+        },
+        {
+          "title": "群组编号快捷",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+Shift+S` | 移除对称(R)：将主要对象恢复为基本对象，并删除所有对象副本. |\n| `0` | 撤消选定群组 0 |\n| `1` | 撤消选定群组 1 |\n| `2` | 撤消选定群组 2 |\n| `3` | 撤消选定群组 3 |\n| `4` | 撤消选定群组 4 |\n| `5` | 撤消选定群组 5 |\n| `6` | 撤消选定群组 6 |\n| `7` | 撤消选定群组 7 |\n| `8` | 撤消选定群组 8 |\n| `9` | 撤消选定群组 9 |",
+          "code": ""
+        },
+        {
+          "title": "辅助编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Shift+D` | 步长和重复(T)：显示步长和重复泊坞窗 |\n| `Ctrl+M` | 项目符号(B)：添加或删除带项目符号的列表格式。 |\n视图与导航",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "视图与导航",
+      "entries": [
+        {
+          "title": "页面与视图",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `PgUp` | 上一页 |\n| `PgDn` | 下一页 |\n| `F9` | 全屏预览(F)：显示文档的全屏预览. |\n| `Shift+F9` | 切换视图 |\n| `P` | 对页面居中(P) |\n| `N` | 导航器 |\n| `Ctrl+F2` | 视图：视图泊坞窗 |\n| `Shift+F1` | 这是什么(W)？：调用上下文相关的帮助 |\n| `Shift+Esc` | 退出聚焦模式：在聚焦模式下完成编辑。 |",
+          "code": ""
+        },
+        {
+          "title": "缩放控制",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `F4` | 按窗口大小显示(F) |\n| `Ctrl++` | 放大(I)：增加縮放級別查看更多细节. |\n| `Ctrl+=` | 放大(I)：增加縮放級別查看更多细节. |\n| `Ctrl+NUMPAD+` | 放大(I)：增加縮放級別查看更多细节. |\n| `Ctrl+-` | 缩小(O)：降低缩放级别查看文档的更大部分内容. |\n| `Ctrl+NUMPAD-` | 缩小(O)：降低缩放级别查看文档的更大部分内容. |\n| `Ctrl+_` | 缩小(O)：降低缩放级别查看文档的更大部分内容. |\n| `F3` | 缩小(O)：降低缩放级别查看文档的更大部分内容. |\n| `Z` | 缩放：更改文档窗口的缩放级别. |\n| `F2` | 缩放一次 |\n| `F4` | 缩放以适合(F)：调整缩放级别以包含所有对象 |\n| `Shift+F2` | 缩放选定对象(S)：只缩放所选对象. |\n| `Alt+F9` | 缩放和镜像(S)：通过指定百分比调整对象大小，并为该对象生成镜像. |",
+          "code": ""
+        },
+        {
+          "title": "显示与辅助",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+Shift+P` | 显示完整预览：将对象副本显示为轮廓或完整对象. |\n| `Ctrl+Shift+G` | 显示已填充的未选定节点 |\n| `Ctrl+Shift+I` | 切换预览颜色(T)：在主要與次要預覽色彩之間切換。 |\n| `Shift+F4` | 显示页面(P)：调整缩放级别以适合整个页面. |\n| `Alt+Shift+R` | 标尺(R)：显示或隐藏标尺. |\n| `Alt+F3` | 透镜(S)：透镜泊坞窗 |",
+          "code": ""
+        },
+        {
+          "title": "平移导航",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `H` | 平移：不更改缩放级别，将绘图的隐藏区域拖动到视图. |\n| `Alt+UpArrow` | 向上平移 |\n| `Alt+DnArrow` | 向下平移 |\n| `Alt+RightArrow` | 向右平移 |\n| `Alt+LeftArrow` | 向左平移 |\n对象与排列",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "对象与排列",
+      "entries": [
+        {
+          "title": "选择与贴齐",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Shift+H` | 个性(S)：允许对象在移动时贴齐自己。 |\n| `Ctrl+Space` | 切换选取状态 |\n| `Alt+Shift+D` | 动态辅助线(Y)：使用动态辅助线将对象和其他对象对齐. |\n| `Ctrl+Enter` | 唤出属性栏 |\n| `Alt+Y` | 文档网格(D)：根据文档网格对齐对象. |\n| `Alt+Q` | 贴齐关闭(O)：关闭所有贴齐。再次单击以恢复选定的贴齐选项. |",
+          "code": ""
+        },
+        {
+          "title": "排列与对齐",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Shift+PgUp` | 到图层前面(L)：将对象移动到堆叠顺序的顶部. |\n| `Shift+PgDn` | 到图层后面(A)：将对象移动到堆叠顺序的底部. |\n| `Ctrl+PgUp` | 向前一层(O)：将对象向上移动一级到堆叠顺序中. |\n| `Ctrl+PgDn` | 向后一层(N)：将对象向下移动一级到堆叠顺序中. |\n| `Ctrl+主页` | 到页面前面(F)：将对象移动到页面前面. |\n| `Ctrl+End` | 到页面背面(B)：将对象移动到页面背面. |\n| `Shift+C` | 垂直分散排列中心 |\n| `Shift+A` | 垂直分散排列间距 |\n| `E` | 垂直居中对齐(C) |\n| `Ctrl+Shift+A` | 对齐与分布(A)：准确确定对象的相对位置或在页面上的特定位置. |\n| `Alt+F12` | 对齐至基线(A)：对齐至基线 |\n| `Alt+Shift+A` | 对齐辅助线(A)：启用或禁用对齐辅助线. |\n| `Shift+T` | 顶部分散排列 |\n| `T` | 顶部对齐(T) |\n| `Shift+L` | 左分散排列 |\n| `L` | 左对齐(L) |\n| `Shift+B` | 底部分散排列 |\n| `B` | 底部对齐(B) |\n| `Shift+E` | 水平分散排列中心 |\n| `Shift+P` | 水平分散排列间距 |\n| `C` | 水平居中对齐(E) |",
+          "code": ""
+        },
+        {
+          "title": "对象变换",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+F7` | 变换(T)：指定绘图页面上的图像位置. |\n| `Alt+F10` | 大小(I)：指定对象的尺寸. |\n| `Alt+F8` | 旋转(R)：指定对象的旋转. |\n| `Alt+Enter` | 属性：允许查看和编辑对象的属性. |\n| `Alt+Z` | 对象(O)：根据文档中的其他对象对齐对象. |\n| `Ctrl+Shift+Q` | 将轮廓转换为对象(E)：将轮廓转换为对象 |\n| `Ctrl+Q` | 转换为曲线(V)：允许使用形状工具修改对象. |\n| `UpArrow` | 向上微调(U) |\n| `Shift+UpArrow` | 向上精密微调 |\n| `Ctrl+UpArrow` | 向上细微调 |\n| `DnArrow` | 向下微调(D) |\n| `Shift+DnArrow` | 向下精密微调 |\n| `Ctrl+DnArrow` | 向下细微调 |\n| `RightArrow` | 向右微调 |\n| `Shift+RightArrow` | 向右精密微调 |\n| `Ctrl+RightArrow` | 向右细微调 |\n| `LeftArrow` | 向左微调 |\n| `Shift+LeftArrow` | 向左精密微调 |\n| `Ctrl+LeftArrow` | 向左细微调 |\n| `V` | 变量轮廓：将可变宽度的轮廓应用于对象。 |",
+          "code": ""
+        },
+        {
+          "title": "群组与批量",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+U` | 取消群组(U)：将组拆分为单个对象或组. |\n| `Ctrl+L` | 合并(C)：将对象合并为有相同属性的单一对象. |\n| `Ctrl+K` | 拆分(B)：拆分对象创建多个对象和路径. |\n| `Ctrl+G` | 组合(G)：组合对象，同时保留其各自属性. |\n| `Ctrl+D` | 生成副本(D)：生成副本 |\n| `Alt+0` | 添加至选定群组 0 |\n| `Alt+1` | 添加至选定群组 1 |\n| `Alt+2` | 添加至选定群组 2 |\n| `Alt+3` | 添加至选定群组 3 |\n| `Alt+4` | 添加至选定群组 4 |\n| `Alt+5` | 添加至选定群组 5 |\n| `Alt+6` | 添加至选定群组 6 |\n| `Alt+7` | 添加至选定群组 7 |\n| `Alt+8` | 添加至选定群组 8 |\n| `Alt+9` | 添加至选定群组 9 |\n| `Ctrl+0` | 定义选定群组 0 |\n| `Ctrl+1` | 定义选定群组 1 |\n| `Ctrl+2` | 定义选定群组 2 |\n| `Ctrl+3` | 定义选定群组 3 |\n| `Ctrl+4` | 定义选定群组 4 |\n| `Ctrl+5` | 定义选定群组 5 |\n| `Ctrl+6` | 定义选定群组 6 |\n| `Ctrl+7` | 定义选定群组 7 |\n| `Ctrl+8` | 定义选定群组 8 |\n| `Ctrl+9` | 定义选定群组 9 |",
+          "code": ""
+        },
+        {
+          "title": "对称与镜像",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+Shift+E` | 完成编辑对称：退出\"编辑对称\"模式. |\n| `Alt+Shift+Y` | 编辑对称(E)：编辑对称属性，并将对象添加到对称组. |\n| `Alt+Shift+M` | 镜像对称：创建在一组平面上镜像的相同形状. |",
+          "code": ""
+        },
+        {
+          "title": "样式与轮廓",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Shift+E` | 对网状填充颜色进行取样：从桌面对要应用于选定节点的颜色进行取样. |\n| `Ctrl+F3` | 符号：符号泊坞窗 |\n| `Ctrl+F5` | 对象样式(S)：打开\"对象样式\"泊坞窗. |\n| `Ctrl+F7` | 封套(E)：封套泊坞窗 |\n| `Ctrl+F9` | 轮廓图(C)：轮廓图泊坞窗 |\n| `F12` | 轮廓笔：设置轮廓属性，如线条宽度、角形状和箭头类型. |\n| `Shift+F12` | 轮廓颜色：使用颜色查看器和调色板选择轮廓色. |\n| `Ctrl+Shift+B` | 颜色平衡(L)...：颜色平衡 |\n| `Ctrl+F6` | 颜色样式(O)：打开\"颜色样式\"泊坞窗. |\n其它快捷键",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "其它快捷键",
+      "entries": [
+        {
+          "title": "绘图与工具",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `S` | LiveSketch：通过调整智能笔触自然流畅地绘制草图。 |\n| `G` | 交互式填充：在绘图窗口中，向对象动态应用当前填充. |\n| `D` | 图纸(G)：绘制网格. |\n| `Shift+F11` | 均匀填充：使用调色板、颜色查看器、颜色和谐或颜色调和为对象选择一种纯填充颜色. |\n| `Y` | 多边形(P)：在绘图窗口拖动工具绘图窗口绘制多边形. |\n| `F10` | 形状：通过控制节点编辑曲线对象或文本字符. |\n| `F5` | 手绘(F)：绘制曲线和直线线段. |\n| `Shift+S` | 智能绘图(S)：将手绘笔触转换为基本形状或平滑的曲线. |\n| `F7` | 椭圆形(E)：在绘图窗口拖动工具绘制圆形和椭圆形. |\n| `X` | 橡皮擦：移除绘图中不需要的区域。 |\n| `F11` | 渐变填充：使用渐变颜色或色调填充对象. |\n| `J` | 画笔：采用颜料、干媒介或数字画笔，以像素为基础进行绘制。 |\n| `F6` | 矩形(R)：在绘图窗口拖动工具绘制正方形和矩形. |\n| `M` | 网状填充：通过调和网状网格中的多种颜色或阴影来填充对象. |\n| `I` | 艺术笔：使用轻松自如的笔触，添加矢量笔刷和书法效果，或者喷涂图像。 |\n| `A` | 螺纹(S)：绘制对称式和对数式螺纹. |\n| `Ctrl+Shift+J` | 连接曲线(J)：连接曲线 |",
+          "code": ""
+        },
+        {
+          "title": "文本与排版",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+.` | 垂直文本：将文本更改为垂直方向 |\n| `F8` | 文本(T)：添加和编辑段落和美术字. |\n| `Ctrl+,` | 水平文本：将文本更改为水平方向 |\n| `Ctrl+T` | 文本：编辑段落和艺术文本属性. |\n| `Ctrl+F8` | 转换(V)：转换文本 |\n| `Ctrl+F11` | 字形：浏览字体中的字符、字形和 OpenType 功能. |\n| `Ctrl+F12` | 拼写检查(S)...：拼写 |\n| `Ctrl+Shift+T` | 编辑文本(X)...：使用文本编辑器修改文本. |",
+          "code": ""
+        },
+        {
+          "title": "颜色与样式",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Shift+U` | 色度/饱和度/亮度(S)...：色调/饱和度/亮度 |\n| `Ctrl+B` | 亮度...：亮体 |",
+          "code": ""
+        },
+        {
+          "title": "群组与对称",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+S` | 创建新对称(R)：创建并将对象添加到对称组，或将现有曲线转换为对称组. |\n| `Alt+X` | 断开对称链接(B)：断开对称链接以创建一组对象和路径. |",
+          "code": ""
+        },
+        {
+          "title": "脚本与自动化",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Shift+O` | 停止记录(O)：停止录制脚本. |\n| `Alt+Shift+F11` | 脚本(I)：创建、加载和管理脚本项目. |\n| `Alt+F11` | 脚本编辑器(E)...：打开 VBA 编辑的脚本. |\n| `Ctrl+Shift+R` | 记录临时脚本(R) |\n| `Ctrl+Shift+P` | 运行临时脚本(P) |\n| `Alt+Shift+F12` | 可视化工作室编辑器... |",
+          "code": ""
+        },
+        {
+          "title": "文本编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+_` | Em 短划线(D) |\n| `Ctrl+Shift+M` | Em 空格(M) |\n| `Alt+-` | En 短划线(A) |\n| `Ctrl+Shift+N` | En 空格(N) |\n| `Ctrl+Shift+H` | HTML 字体大小列表 |\n| `Ctrl+Alt+Space` | ¼ Em 空格(E) |\n| `PgUp` | 上移 1 帧 |\n| `Ctrl+UpArrow` | 上移 1 段 |\n| `UpArrow` | 上移 1 行 |\n| `Ctrl+U` | 下划线：为文本加下划线。 |\n| `PgDn` | 下移 1 帧 |\n| `Ctrl+DnArrow` | 下移 1 段 |\n| `DnArrow` | 下移 1 行 |\n| `Ctrl+J` | 两端对齐：对齐边框左右侧的所有文本，但不包括最后一行. |\n| `Ctrl+E` | 中：居中边框中的文本. |\n| `Ctrl+Shift+D` | 使用首字下沉(U)：添加或移除首字下沉. |\n| `Ctrl+Enter` | 列/图文框分割(F) |\n| `Ctrl+-` | 可选的连字符(O) |\n| `Ctrl+R` | 右：对齐边框右侧的文本. |\n| `Ctrl+RightArrow` | 右移 1 个单词 |\n| `RightArrow` | 右移 1 个字符 |\n| `Ctrl+Shift+F` | 字体列表：为新文本或所选文本选择一种字样. |\n| `Ctrl+NUMPAD4` | 字体大小上一组合大小 |\n| `Ctrl+NUMPAD6` | 字体大小下一组合大小 |\n| `Ctrl+NUMPAD2` | 字体大小减小 |\n| `Ctrl+NUMPAD8` | 字体大小增加 |\n| `Ctrl+Shift+W` | 字体样式：选择文本的字体样式. |\n| `Ctrl+Shift+K` | 小型大写字母 |\n| `Ctrl+L` | 左：对齐边框左侧的文本. |\n| `Ctrl+LeftArrow` | 左移 1 个单词 |\n| `LeftArrow` | 左移 1 个字符 |\n| `Ctrl+H` | 强制两端对齐：对齐边框左右侧的所有文本. |\n| `Ctrl+I` | 斜体：将文本设为斜体. |\n| `Ctrl+F10` | 文本：文本选项 |\n| `Ctrl+N` | 无：不要对齐带有边框的文本. |\n| `Ctrl+Shift+C` | 显示非打印字符(N)：非打印字符 |\n| `Shift+F3` | 更改大小写(G)...：更改大小写 |\n| `Ctrl+主页` | 移至图文框的开头 |\n| `Ctrl+End` | 移至图文框的结尾 |\n| `Ctrl+PgUp` | 移至文本的开头 |\n| `Ctrl+PgDn` | 移至文本的结尾 |\n| `主页` | 移至线条的开头 |\n| `End` | 移至线条的结尾 |\n| `Ctrl+B` | 粗体：将文本设为粗体. |\n| `Ctrl+Shift+S` | 样式列表 |\n| `Ctrl+Shift+Space` | 非断行空格(S) |\n| `Ctrl+Shift+-` | 非断行连字符(H) |\n| `Ctrl+_` | 非断行连字符(H) |\n| `删除` | 删除右侧字符 |\n| `Ctrl+删除` | 删除右侧文字 |\n| `Shift+PgUp` | 向上选择 1 帧 |\n| `Ctrl+Shift+UpArrow` | 向上选择 1 段 |\n| `Shift+UpArrow` | 向上选择 1 行 |\n| `Shift+PgDn` | 向下选择 1 帧 |\n| `Ctrl+Shift+DnArrow` | 向下选择 1 段 |\n| `Shift+DnArrow` | 向下选择 1 行 |\n| `Ctrl+Shift+RightArrow` | 向右选择 1 个单词 |\n| `Shift+RightArrow` | 向右选择 1 个字符 |\n| `Ctrl+Shift+LeftArrow` | 向左选择 1 个单词 |\n| `Shift+LeftArrow` | 向左选择 1 个字符 |\n| `Ctrl+Shift+主页` | 选择到图文框的开头 |\n| `Ctrl+Shift+End` | 选择到图文框的结尾 |\n| `Ctrl+Shift+PgUp` | 选择到文本的开头 |\n| `Ctrl+Shift+PgDn` | 选择到文本的结尾 |\n| `Shift+主页` | 选择到线条的开头 |\n| `Shift+End` | 选择到线条的结尾 |",
+          "code": ""
+        },
+        {
+          "title": "表格文本编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+_` | Em 短划线(D) |\n| `Ctrl+Shift+M` | Em 空格(M) |\n| `Alt+-` | En 短划线(A) |\n| `Ctrl+Shift+N` | En 空格(N) |\n| `Ctrl+Alt+Space` | ¼ Em 空格(E) |\n| `PgUp` | 上移 1 帧 |\n| `Ctrl+UpArrow` | 上移 1 段 |\n| `UpArrow` | 上移 1 行 |\n| `Ctrl+U` | 下划线：为文本加下划线。 |\n| `PgDn` | 下移 1 帧 |\n| `Ctrl+DnArrow` | 下移 1 段 |\n| `DnArrow` | 下移 1 行 |\n| `Ctrl+J` | 两端对齐：对齐边框左右侧的所有文本，但不包括最后一行. |\n| `Ctrl+E` | 中：居中边框中的文本. |\n| `Ctrl+Shift+D` | 使用首字下沉(U)：添加或移除首字下沉. |\n| `Ctrl+Enter` | 列/图文框分割(F) |\n| `Ctrl+-` | 可选的连字符(O) |\n| `Ctrl+R` | 右：对齐边框右侧的文本. |\n| `Ctrl+RightArrow` | 右移 1 个单词 |\n| `RightArrow` | 右移 1 个字符 |\n| `Ctrl+Shift+F` | 字体列表：为新文本或所选文本选择一种字样. |\n| `Ctrl+Shift+P` | 字体大小：指定字体大小. |\n| `Ctrl+NUMPAD4` | 字体大小上一组合大小 |\n| `Ctrl+NUMPAD6` | 字体大小下一组合大小 |\n| `Ctrl+NUMPAD2` | 字体大小减小 |\n| `Ctrl+NUMPAD8` | 字体大小增加 |\n| `Ctrl+Shift+W` | 字体样式：选择文本的字体样式. |\n| `Ctrl+Shift+K` | 小型大写字母 |\n| `Ctrl+L` | 左：对齐边框左侧的文本. |\n| `Ctrl+LeftArrow` | 左移 1 个单词 |\n| `LeftArrow` | 左移 1 个字符 |\n| `Ctrl+H` | 强制两端对齐：对齐边框左右侧的所有文本. |\n| `Ctrl+I` | 斜体：将文本设为斜体. |\n| `Ctrl+F10` | 文本：文本选项 |\n| `Ctrl+N` | 无：不要对齐带有边框的文本. |\n| `Ctrl+Shift+C` | 显示非打印字符(N)：非打印字符 |\n| `Shift+F3` | 更改大小写(G)...：更改大小写 |\n| `Ctrl+A` | 展开选项 |\n| `Ctrl+主页` | 移至图文框的开头 |\n| `Ctrl+End` | 移至图文框的结尾 |\n| `Ctrl+PgUp` | 移至文本的开头 |\n| `Ctrl+PgDn` | 移至文本的结尾 |\n| `主页` | 移至线条的开头 |\n| `End` | 移至线条的结尾 |\n| `Ctrl+B` | 粗体：将文本设为粗体. |\n| `Ctrl+Shift+S` | 样式列表 |\n| `Ctrl+Shift+Space` | 非断行空格(S) |\n| `Ctrl+Shift+-` | 非断行连字符(H) |\n| `Ctrl+_` | 非断行连字符(H) |\n| `删除` | 删除右侧字符 |\n| `Ctrl+删除` | 删除右侧文字 |\n| `Shift+PgUp` | 向上选择 1 帧 |\n| `Ctrl+Shift+UpArrow` | 向上选择 1 段 |\n| `Shift+UpArrow` | 向上选择 1 行 |\n| `Shift+PgDn` | 向下选择 1 帧 |\n| `Ctrl+Shift+DnArrow` | 向下选择 1 段 |\n| `Shift+DnArrow` | 向下选择 1 行 |\n| `Ctrl+Shift+RightArrow` | 向右选择 1 个单词 |\n| `Shift+RightArrow` | 向右选择 1 个字符 |\n| `Ctrl+Shift+LeftArrow` | 向左选择 1 个单词 |\n| `Shift+LeftArrow` | 向左选择 1 个字符 |\n| `Alt+F3` | 查找和替换文本(F)...：查找和替换文本 |\n| `Ctrl+Shift+主页` | 选择到图文框的开头 |\n| `Ctrl+Shift+End` | 选择到图文框的结尾 |\n| `Ctrl+Shift+PgUp` | 选择到文本的开头 |\n| `Ctrl+Shift+PgDn` | 选择到文本的结尾 |\n| `Shift+主页` | 选择到线条的开头 |\n| `Shift+End` | 选择到线条的结尾 |",
+          "code": ""
+        },
+        {
+          "title": "文本编辑精简（去重）",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Alt+_` | Em 短划线(D) |\n| `Ctrl+Shift+M` | Em 空格(M) |\n| `Alt+-` | En 短划线(A) |\n| `Ctrl+Shift+N` | En 空格(N) |\n| `Ctrl+Shift+H` | HTML 字体大小列表 |\n| `Ctrl+Alt+Space` | ¼ Em 空格(E) |\n| `PgUp` | 上移 1 帧 |\n| `Ctrl+UpArrow` | 上移 1 段 |\n| `UpArrow` | 上移 1 行 |\n| `Ctrl+U` | 下划线：为文本加下划线。 |\n| `PgDn` | 下移 1 帧 |\n| `Ctrl+DnArrow` | 下移 1 段 |\n| `DnArrow` | 下移 1 行 |\n| `Ctrl+J` | 两端对齐：对齐边框左右侧的所有文本，但不包括最后一行. |\n| `Ctrl+E` | 中：居中边框中的文本. |\n| `Ctrl+Shift+D` | 使用首字下沉(U)：添加或移除首字下沉. |\n| `Ctrl+Enter` | 列/图文框分割(F) |\n| `Ctrl+-` | 可选的连字符(O) |\n| `Ctrl+R` | 右：对齐边框右侧的文本. |\n| `Ctrl+RightArrow` | 右移 1 个单词 |\n| `RightArrow` | 右移 1 个字符 |\n| `Ctrl+Shift+F` | 字体列表：为新文本或所选文本选择一种字样. |\n| `Ctrl+Shift+P` | 字体大小：指定字体大小. |\n| `Ctrl+NUMPAD4` | 字体大小上一组合大小 |\n| `Ctrl+NUMPAD6` | 字体大小下一组合大小 |\n| `Ctrl+NUMPAD2` | 字体大小减小 |\n| `Ctrl+NUMPAD8` | 字体大小增加 |\n| `Ctrl+Shift+W` | 字体样式：选择文本的字体样式. |\n| `Ctrl+Shift+K` | 小型大写字母 |\n| `Ctrl+L` | 左：对齐边框左侧的文本. |\n| `Ctrl+LeftArrow` | 左移 1 个单词 |\n| `LeftArrow` | 左移 1 个字符 |\n| `Ctrl+H` | 强制两端对齐：对齐边框左右侧的所有文本. |\n| `Ctrl+I` | 斜体：将文本设为斜体. |\n| `Ctrl+F10` | 文本：文本选项 |\n| `Ctrl+N` | 无：不要对齐带有边框的文本. |\n| `Ctrl+Shift+C` | 显示非打印字符(N)：非打印字符 |\n| `Shift+F3` | 更改大小写(G)...：更改大小写 |\n| `Ctrl+A` | 展开选项 |\n| `Ctrl+主页` | 移至图文框的开头 |\n| `Ctrl+End` | 移至图文框的结尾 |\n| `Ctrl+PgUp` | 移至文本的开头 |\n| `Ctrl+PgDn` | 移至文本的结尾 |\n| `主页` | 移至线条的开头 |\n| `End` | 移至线条的结尾 |\n| `Ctrl+B` | 粗体：将文本设为粗体. |\n| `Ctrl+Shift+S` | 样式列表 |\n| `Ctrl+Shift+Space` | 非断行空格(S) |\n| `Ctrl+Shift+-` | 非断行连字符(H) |\n| `Ctrl+_` | 非断行连字符(H) |\n| `删除` | 删除右侧字符 |\n| `Ctrl+删除` | 删除右侧文字 |\n| `Shift+PgUp` | 向上选择 1 帧 |\n| `Ctrl+Shift+UpArrow` | 向上选择 1 段 |\n| `Shift+UpArrow` | 向上选择 1 行 |\n| `Shift+PgDn` | 向下选择 1 帧 |\n| `Ctrl+Shift+DnArrow` | 向下选择 1 段 |\n| `Shift+DnArrow` | 向下选择 1 行 |\n| `Ctrl+Shift+RightArrow` | 向右选择 1 个单词 |\n| `Shift+RightArrow` | 向右选择 1 个字符 |\n| `Ctrl+Shift+LeftArrow` | 向左选择 1 个单词 |\n| `Shift+LeftArrow` | 向左选择 1 个字符 |\n| `Alt+F3` | 查找和替换文本(F)...：查找和替换文本 |\n| `Ctrl+Shift+主页` | 选择到图文框的开头 |\n| `Ctrl+Shift+End` | 选择到图文框的结尾 |\n| `Ctrl+Shift+PgUp` | 选择到文本的开头 |\n| `Ctrl+Shift+PgDn` | 选择到文本的结尾 |\n| `Shift+主页` | 选择到线条的开头 |\n| `Shift+End` | 选择到线条的结尾 |",
+          "code": ""
+        },
+        {
+          "title": "表格编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `UpArrow` | 上移 |\n| `DnArrow` | 下移 |\n| `RightArrow` | 右移 |\n| `LeftArrow` | 左移 |\n| `Ctrl+M` | 合并单元格(M)：将多个单元格合并为一个单元格. |\n| `Shift+UpArrow` | 向上选择 |\n| `Shift+DnArrow` | 向下选择 |\n| `Shift+RightArrow` | 向右选择 |\n| `Shift+LeftArrow` | 向左选择 |\n| `Ctrl+A` | 展开选项 |\n| `删除` | 表格(T)：删除选定的表格 |",
+          "code": ""
+        },
+        {
+          "title": "打印预览",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+U` | 全屏(U) |\n| `F9` | 全屏(U) |\n| `Alt+C` | 关闭打印预览(C) |\n| `Alt+F4` | 关闭打印预览(C) |\n| `Ctrl+S` | 分色(S)... |\n| `Ctrl+I` | 印前检查(I)... |\n| `Ctrl+D` | 双面打印设置向导(D)... |\n| `Ctrl+L` | 布局(L)... |\n| `Ctrl+F1` | 帮助主题(H)... |\n| `Ctrl+E` | 常规(E)... |\n| `Ctrl+P` | 打印(P) |\n| `Ctrl+A` | 打印样式另存为(A)... |\n| `F12` | 打印样式另存为(A)... |\n| `Alt+O` | 打印选项 |\n| `Ctrl++` | 放大(I) |\n| `Ctrl+=` | 放大(I) |\n| `Ctrl+NUMPAD+` | 放大(I) |\n| `F4` | 按窗口大小显示(F) |\n| `Ctrl+R` | 标尺(R) |\n| `Shift+F2` | 缩放选定对象(M) |\n| `Ctrl+-` | 缩小(O) |\n| `Ctrl+NUMPAD-` | 缩小(O) |\n| `Ctrl+_` | 缩小(O) |\n| `F3` | 缩小(O) |\n| `Ctrl+H` | 显示当前平铺页(H) |\n| `Shift+F4` | 显示页面(A) |\n| `Ctrl+G` | 转到(G)... |\n| `Ctrl+T` | 现在打印本工作表(T) |\n| `Ctrl+M` | 预印(R)... |",
+          "code": ""
+        },
+        {
+          "title": "配置数据源",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+S` | 保存数据来源(S)...：将数据保存到文件中 |\n| `Ctrl+M` | 导入数据源...(M)：从文件导入数据 |\n| `Ctrl+O` | 打开 ODBC 数据来源(O)... |\n| `Ctrl+C` | 持续增加值(C) |\n| `Ctrl+C` | 持续增加值(C) |\n| `Ctrl+V` | 查看单个记录(V) |\n| `Ctrl+A` | 添加列(A)... |\n| `Ctrl+S` | 添加列开始值：添加数字开始值 (Ctrl+S) |\n| `Ctrl+E` | 添加列结束值：添加数字结束值 (Ctrl+E) |\n| `Ctrl+D` | 配置列(C) |\n| `Ctrl+S` | 编辑列开始值：编辑数字开始值 (Ctrl+S) |\n| `Ctrl+E` | 编辑结束值：编辑数字结束值 (Ctrl+E) |",
+          "code": ""
+        },
+        {
+          "title": "打印与数据源精简（去重）",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+U` | 全屏(U) |\n| `F9` | 全屏(U) |\n| `Alt+C` | 关闭打印预览(C) |\n| `Alt+F4` | 关闭打印预览(C) |\n| `Ctrl+S` | 分色(S)... / 保存数据来源(S)... / 添加列开始值 / 编辑列开始值 |\n| `Ctrl+I` | 印前检查(I)... |\n| `Ctrl+D` | 双面打印设置向导(D)... / 配置列(C) |\n| `Ctrl+L` | 布局(L)... |\n| `Ctrl+F1` | 帮助主题(H)... |\n| `Ctrl+E` | 常规(E)... / 添加列结束值 / 编辑结束值 |\n| `Ctrl+P` | 打印(P) |\n| `Ctrl+A` | 打印样式另存为(A)... / 添加列(A)... |\n| `F12` | 打印样式另存为(A)... |\n| `Alt+O` | 打印选项 |\n| `Ctrl++` | 放大(I) |\n| `Ctrl+=` | 放大(I) |\n| `Ctrl+NUMPAD+` | 放大(I) |\n| `F4` | 按窗口大小显示(F) |\n| `Ctrl+R` | 标尺(R) |\n| `Shift+F2` | 缩放选定对象(M) |\n| `Ctrl+-` | 缩小(O) |\n| `Ctrl+NUMPAD-` | 缩小(O) |\n| `Ctrl+_` | 缩小(O) |\n| `F3` | 缩小(O) |\n| `Ctrl+H` | 显示当前平铺页(H) |\n| `Shift+F4` | 显示页面(A) |\n| `Ctrl+G` | 转到(G)... |\n| `Ctrl+T` | 现在打印本工作表(T) |\n| `Ctrl+M` | 预印(R)... / 导入数据源...(M) |\n| `Ctrl+O` | 打开 ODBC 数据来源(O)... |\n| `Ctrl+C` | 持续增加值(C) |\n| `Ctrl+V` | 查看单个记录(V) |",
+          "code": ""
+        },
+        {
+          "title": "效果",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `Ctrl+Z` | 反转上次操作 |\n| `H` | 平移工具 |\n| `Ctrl+Shift+Z` | 重新执行上一次撤消操作 |\n| `Ctrl+R` | 重置 |",
+          "code": ""
+        },
+        {
+          "title": "效果预览",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `H` | 平移工具 |\n| `F3` | 缩小 |\n| `F2` | 放大 |\n| `F4` | 显示适合窗口大小的图像 |\n| `Ctrl+R` | 重置 |",
+          "code": ""
+        },
+        {
+          "title": "矫正图像",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `H` | 平移工具 |\n| `G` | 网格(G)： |\n| `C` | 裁剪图像(C) |\n| `Ctrl+1` | 显示正常大小的图像 |\n| `F4` | 显示适合窗口大小的图像 |\n| `Ctrl+R` | 重置 |",
+          "code": ""
+        },
+        {
+          "title": "曲线编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `C` | 切换尖端和平滑：在尖端和平滑之间切换选定的节点. |\n| `L` | 切换直线(T)：在直线和曲线段之间切换选定的节点. |\n| `S` | 在平滑和对称之间切换：在平滑和对称之间切换选定的节点. |",
+          "code": ""
+        },
+        {
+          "title": "锚点编辑",
+          "description": "| 快捷键 | 说明 |\n| :- | - |\n| `UpArrow` | 向上微调锚点 |\n| `Ctrl+UpArrow` | 向上细微调锚点 |\n| `Shift+UpArrow` | 向上超微调锚点 |\n| `DnArrow` | 向下微调锚点 |\n| `Ctrl+DnArrow` | 向下细微调锚点 |\n| `Shift+DnArrow` | 向下超微调锚点 |\n| `RightArrow` | 向右微调锚点 |\n| `Ctrl+RightArrow` | 向右细微调锚点 |\n| `Shift+RightArrow` | 向右超微调锚点 |\n| `LeftArrow` | 向左微调锚点 |\n| `Ctrl+LeftArrow` | 向左细微调锚点 |\n| `Shift+LeftArrow` | 向左超微调锚点 |\n| `Ctrl+A` | 选择所有锚点 |",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/coreldraw.md"
+}

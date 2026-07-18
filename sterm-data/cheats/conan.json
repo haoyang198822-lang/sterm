@@ -1,0 +1,59 @@
+{
+  "name": "Conan",
+  "description": "Conan 快速参考",
+  "category": "",
+  "count": 9,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "Conan 是开源、去中心化和多平台的软件包，管理器来创建和共享您的所有本机二进制文件\n- [Conan 官网](https://conan.io/)\n\n**安装**\n初始化配置文件",
+          "code": "$ conan config init"
+        },
+        {
+          "title": "显示本地客户端配置",
+          "description": "Conan 应用配置\n配置文件的内容（例如默认值）\n远程存储库",
+          "code": "$ conan remote list"
+        },
+        {
+          "title": "添加和修改配置",
+          "description": "安装配置集合\n更改单个配置值\n添加遥控器\n提供远程凭据",
+          "code": "$ conan user -p <password> -r my_remote <username>"
+        },
+        {
+          "title": "显示来自 inspect 或 reference 的信息",
+          "description": "显示 `conanfile.py` 的属性\n显示 `conanfile.py` 的内容以供参考\n显示 `recipe` 的依赖关系图信息",
+          "code": "$ conan info <path_or_reference>"
+        },
+        {
+          "title": "搜索包",
+          "description": "在远程搜索包",
+          "code": "# 列出本地缓存中的包名称\n$ conan search \n$ conan search <package>/<revision>@<user>/<channel>  # 输出取决于给出了多少包引用。\n                                          # 支持通配符\n               [--table=file.html]        # 将输出保存在 HTML 文件中\n               [-r=<remote>]              # 查看远程存储库（默认为本地缓存）\n\n$ conan search mylib/1.0@user/channel     # 显示本地缓存中 mylib/1.0@user/channel 的所有包\n$ conan search \"zlib/*\" -r=all            # 在所有远程中显示所有版本的 zlib\n\n$ conan search zlib -r conan-center\n\n# 显示包的修订：\n$ conan search <package>/<revision>@<user>/<channel> --revisions"
+        },
+        {
+          "title": "安装包",
+          "description": "仅使用参考安装包\n从 conanfile 安装软件包列表\n通过生成器在构建系统中使用包\n安装需求并生成文件\n运行您的构建系统（以下之一）",
+          "code": "$ cmake .. && cmake --build .\n$ msbuild myproject.sln\n$ make"
+        },
+        {
+          "title": "创建一个包",
+          "description": "从模板创建配方 (conanfile.py)\n只需将配方导出到本地缓存\n从 recipe 为一种配置创建包\n也隐含地安装和导出步骤",
+          "code": "$ conan create . -pr <profile>"
+        },
+        {
+          "title": "检查包裹",
+          "description": "完整打印包装配方：\n包装配方的打印属性：\n请参阅 [conan get](https://docs.conan.io/en/latest/reference/commands/consumer/get.html) 和 [conan inspect](https://docs.conan.io/en/latest/reference/commands/misc/inspect.html) 参考",
+          "code": "$ conan inspect <package>/<revision>@<user>/<channel>\n$ conan inspect boost/1.74.0"
+        },
+        {
+          "title": "Lockfiles",
+          "description": "创建一个锁文件：\n在 `conan create` 或 `conan install` 期间使用 lockfile：\n查看 [conan lock](https://docs.conan.io/en/latest/reference/commands/misc/lock.html) 参考",
+          "code": "$ conan <command> --lockfile conan.lock"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/conan.md"
+}

@@ -1,0 +1,539 @@
+{
+  "name": "Java",
+  "description": "Java 快速参考",
+  "category": "编程语言",
+  "count": 92,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "Hello.java",
+          "description": "编译和运行",
+          "code": "$ javac Hello.java\n$ java Hello\nHello, world!"
+        },
+        {
+          "title": "变量 Variables",
+          "description": "",
+          "code": "int num = 5;\nfloat floatNum = 5.99f;\nchar letter = 'D';\nboolean bool = true;\nString site = \"jaywcjlove.github.io\";"
+        },
+        {
+          "title": "原始数据类型",
+          "description": "| 数据类型 | 大小   | 默认 | 范围               |\n|-----------|--------|---------|---------------------|\n| `byte`    | 1 byte | 0       | -128 ^to^ 127       |\n| `short`   | 2 byte | 0       | -2^15^ ^to^ 2^15^-1 |\n| `int`     | 4 byte | 0       | -2^31^ ^to^ 2^31^-1 |\n| `long`    | 8 byte | 0       | -2^63^ ^to^ 2^63^-1 |\n| `float`   | 4 byte | 0.0f    | _N/A_               |\n| `double`  | 8 byte | 0.0d    | _N/A_               |\n| `char`    | 2 byte | \\\\u0000 | 0 ^to^ 65535        |\n| `boolean` | _N/A_  | false   | true / false        |",
+          "code": ""
+        },
+        {
+          "title": "字符串 Strings",
+          "description": "查看: [Strings](#java-字符串)",
+          "code": "String first = \"John\";\nString last = \"Doe\";\nString name = first + \" \" + last;\nSystem.out.println(name);"
+        },
+        {
+          "title": "循环 Loops",
+          "description": "查看: [Loops](#java-循环)",
+          "code": "String word = \"QuickRef\";\nfor (char c: word.toCharArray()) {\n  System.out.print(c + \"-\");\n}\n// 输出: Q-u-i-c-k-R-e-f-"
+        },
+        {
+          "title": "数组 Arrays",
+          "description": "查看: [Arrays](#java-数组)",
+          "code": "char[] chars = new char[10];\nchars[0] = 'a';\nchars[1] = 'b';\nString[] letters = {\"A\", \"B\", \"C\"};\nint[] mylist = {100, 200};\nboolean[] answers = {true, false};"
+        },
+        {
+          "title": "交换变量 Swap",
+          "description": "",
+          "code": "int a = 1;\nint b = 2;\nSystem.out.println(a + \" \" + b); // 1 2\nint temp = a;\na = b;\nb = temp;\nSystem.out.println(a + \" \" + b); // 2 1"
+        },
+        {
+          "title": "类型转换 Type Casting",
+          "description": "",
+          "code": "// Widening\n// byte<short<int<long<float<double\nint i = 10;\nlong l = i;               // 10\n// Narrowing\ndouble d = 10.02;\nlong l = (long)d;         // 10\nString.valueOf(10);       // \"10\"\nInteger.parseInt(\"10\");   // 10\nDouble.parseDouble(\"10\"); // 10.0"
+        },
+        {
+          "title": "条件语句 Conditionals",
+          "description": "查看: [Conditionals](#条件语句 Conditionals)",
+          "code": "int j = 10;\nif (j == 10) {\n  System.out.println(\"I get printed\");\n} else if (j > 10) {\n  System.out.println(\"I don't\");\n} else {\n  System.out.println(\"I also don't\");\n}"
+        },
+        {
+          "title": "用户输入",
+          "description": "Java 字符串",
+          "code": "Scanner in = new Scanner(System.in);\nString str = in.nextLine();\nSystem.out.println(str);\nint num = in.nextInt();\nSystem.out.println(num);"
+        }
+      ]
+    },
+    {
+      "title": "Java 字符串",
+      "entries": [
+        {
+          "title": "基本的",
+          "description": "",
+          "code": "String str1 = \"value\";\nString str2 = new String(\"value\");\nString str3 = String.valueOf(123);"
+        },
+        {
+          "title": "字符串连接",
+          "description": "",
+          "code": "String s = 3 + \"str\" + 3;     // 3str3\nString s = 3 + 3 + \"str\";     // 6str\nString s = \"3\" + 3 + \"str\";   // 33str\nString s = \"3\" + \"3\" + \"23\";  // 3323\nString s = \"\" + 3 + 3 + \"23\"; // 3323\nString s = 3 + 3 + 23;        // 29"
+        },
+        {
+          "title": "字符串生成器",
+          "description": "",
+          "code": "┌───┬───┬───┬───┬───┬───┬───┬───┬───┐\n| M | y |   | R | e | f | ! |   |   |\n└───┴───┴───┴───┴───┴───┴───┴───┴───┘\n0   1   2   3   4   5   6   7   8   9"
+        },
+        {
+          "title": "比较",
+          "description": "",
+          "code": "String s1 = \"QuickRef\";\nString s2 = new String(\"QuickRef\");\ns1 == s2                     // false\ns1.equals(s2)                // true\n// intern 方法获得字符串常量池中的惟一引用\ns1 == s2.intern()            // true\n\"AB\".equalsIgnoreCase(\"ab\")  // true"
+        },
+        {
+          "title": "操纵",
+          "description": "",
+          "code": "String str = \"Abcd\";\nstr.toUpperCase();     // ABCD\nstr.toLowerCase();     // abcd\nstr.concat(\"#\");       // Abcd#\nstr.replace(\"b\", \"-\"); // A-cd\n\"  abc \".trim();       // abc\n\"ab\".toCharArray();    // {'a', 'b'}"
+        },
+        {
+          "title": "信息",
+          "description": "",
+          "code": "String str = \"abcd\";\nstr.charAt(2);       // c\nstr.indexOf(\"a\")     // 0\nstr.indexOf(\"z\")     // -1\nstr.length();        // 4\nstr.toString();      // abcd\nstr.substring(2);    // cd\nstr.substring(2,3);  // c\nstr.contains(\"c\");   // true\nstr.endsWith(\"d\");   // true\nstr.startsWith(\"a\"); // true\nstr.isEmpty();       // false"
+        },
+        {
+          "title": "不可变",
+          "description": "一旦创建就不能修改，任何修改都会创建一个新的String\nJava 数组",
+          "code": "String str = \"hello\";\nString concat = str.concat(\"world\");\n// 输出: helloworld\nSystem.out.println(concat);"
+        }
+      ]
+    },
+    {
+      "title": "Java 数组",
+      "entries": [
+        {
+          "title": "声明 Declare",
+          "description": "",
+          "code": "int[] a1;\nint[] a2 = {1, 2, 3};\nint[] a3 = new int[]{1, 2, 3};\nint[] a4 = new int[3];\na4[0] = 1;\na4[1] = 2;\na4[2] = 3; // 正常赋值\na4[3] = 4; // 会出现索引越界异常 ArrayIndexOutOfBoundsException"
+        },
+        {
+          "title": "修改 Modify",
+          "description": "",
+          "code": "int[] a = {1, 2, 3};\nSystem.out.println(a[0]); // 1\na[0] = 9;\nSystem.out.println(a[0]); // 9\nSystem.out.println(a.length); // 3"
+        },
+        {
+          "title": "循环 (读 & 写)",
+          "description": "",
+          "code": "int[] arr = {1, 2, 3};\nfor (int i=0; i < arr.length; i++) {\n    arr[i] = arr[i] * 2;\n    System.out.print(arr[i] + \" \");\n}\n// 输出: 2 4 6"
+        },
+        {
+          "title": "Loop (Read)",
+          "description": "",
+          "code": "String[] arr = {\"a\", \"b\", \"c\"};\nfor (String a: arr) {\n    System.out.print(a + \" \");\n}\n// 输出: a b c"
+        },
+        {
+          "title": "二维数组 Multidimensional Arrays",
+          "description": "",
+          "code": "int[][] matrix = {{1, 2, 3}, {4, 5}, {6}};\nint x = matrix[1][0];  // 4\nSystem.out.println(Arrays.deepToString(matrix));\n// 输出: [[1, 2, 3], [4, 5], [6]]\nfor (int i = 0; i < matrix.length; ++i) {\n    for(int j = 0; j < matrix[i].length; ++j) {\n        System.out.println(matrix[i][j]);\n    }\n}\n// 输出: 1 2 3 4 5 6"
+        },
+        {
+          "title": "排序 Sort",
+          "description": "Java 条件语句",
+          "code": "char[] chars = {'b', 'a', 'c'};\nArrays.sort(chars);\n// [a, b, c]\nArrays.toString(chars);"
+        }
+      ]
+    },
+    {
+      "title": "Java 条件语句",
+      "entries": [
+        {
+          "title": "运算符",
+          "description": "- `+` _(加法运算符(也用于字符串连接))_\n- `-` _(减法运算符)_\n- `*` _(乘法运算符)_\n- `/` _(分区运算符)_\n- `%` _(余数运算符)_\n- `=` _(简单赋值运算符)_\n- `++` _(增量运算符；将值增加 1)_\n- `--` _(递减运算符；将值减 1)_\n- `!` _(逻辑补码运算符；反转布尔值)_\n- `==` _(等于)_\n- `!=` _(不等于)_\n- `>` _(比...更棒)_\n- `>=` _(大于或等于)_\n- `<` _(少于)_\n- `<=` _(小于或等于)_\n- `&&` _条件与_\n- `||` _条件或_\n- [?:](#三元运算符) _三元(if-then-else 语句的简写)_\n- `instanceof` _(将对象与指定类型进行比较)_\n- `~` _(一元按位补码)_\n- `<<` _(签名左移)_\n- `>>` _(有符号右移)_\n- `>>>` _(无符号右移)_\n- `&` _(按位与)_\n- `^` _(按位异或)_\n- `|` _(按位包含 OR)_",
+          "code": ""
+        },
+        {
+          "title": "If else",
+          "description": "",
+          "code": "int k = 15;\nif (k > 20) {\n  System.out.println(1);\n} else if (k > 10) {\n  System.out.println(2);\n} else {\n  System.out.println(3);\n}"
+        },
+        {
+          "title": "Switch",
+          "description": "",
+          "code": "int month = 3;\nString str;\nswitch (month) {\n  case 1:\n    str = \"January\";\n    break;\n  case 2:\n    str = \"February\";\n    break;\n  case 3:\n    str = \"March\";\n    break;\n  default:\n    str = \"Some other month\";\n    break;\n}\n// 输出: Result March\nSystem.out.println(\"Result \" + str);"
+        },
+        {
+          "title": "三元运算符",
+          "description": "",
+          "code": "int a = 10;\nint b = 20;\nint max = (a > b) ? a : b;\n// 输出: 20\nSystem.out.println(max);"
+        },
+        {
+          "title": "逻辑运算符",
+          "description": "",
+          "code": "// 与运算\nif (condition1 && condition2) {\n  // 如果 condition1 和 condition2 都成立\n  // 则执行此处的代码\n}\n\n// 或运算\nif (condition1 || condition2) {\n  // 如果condition1或condition2任意一个成立\n  // 则执行此处的代码\n}\n\n// 非运算\nif (!condition) {\n  // 如果条件不成立，则执行此处的代码\n}"
+        },
+        {
+          "title": "比较运算",
+          "description": "Java 循环",
+          "code": "// 等于\nif (a == b) {\n    // 如果a等于b，则执行此处的代码\n}\n\n// 不等于\nif (a != b) {\n    // 如果a不等于b，则执行此处的代码\n}\n\n// 大于、大于等于、小于、小于等于\nif (a > b) {}\nif (a >= b) {}\nif (a < b) {}\nif (a <= b) {}"
+        }
+      ]
+    },
+    {
+      "title": "Java 循环",
+      "entries": [
+        {
+          "title": "For 循环",
+          "description": "",
+          "code": "for (int i = 0,j = 0; i < 3; i++,j--) {\n  System.out.print(j + \"|\" + i + \" \");\n}\n// 输出: 0|0 -1|1 -2|2"
+        },
+        {
+          "title": "增强的 For 循环",
+          "description": "用于循环数组或列表",
+          "code": "int[] numbers = {1,2,3,4,5};\nfor (int number: numbers) {\n  System.out.print(number);\n}\n// 输出: 12345"
+        },
+        {
+          "title": "While 循环",
+          "description": "",
+          "code": "int count = 0;\nwhile (count < 5) {\n  System.out.print(count);\n  count++;\n}\n// 输出: 01234"
+        },
+        {
+          "title": "Do While 循环",
+          "description": "",
+          "code": "int count = 0;\ndo {\n  System.out.print(count);\n  count++;\n} while (count < 5);\n// 输出: 01234"
+        },
+        {
+          "title": "继续语句",
+          "description": "",
+          "code": "for (int i = 0; i < 5; i++) {\n  if (i == 3) {\n    continue;\n  }\n  System.out.print(i);\n}\n// 输出: 0124"
+        },
+        {
+          "title": "中断语句",
+          "description": "Java 面向对象",
+          "code": "for (int i = 0; i < 5; i++) {\n  System.out.print(i);\n  if (i == 3) {\n    break;\n  }\n}\n// 输出: 0123"
+        }
+      ]
+    },
+    {
+      "title": "Java 面向对象",
+      "entries": [
+        {
+          "title": "类的定义",
+          "description": "",
+          "code": "public class Dog {\n  private String name;\n\n  // 构造方法无无返回值，方法名与类名相同\n  // 一个类可以有多个构造方法\n  // Java 默认提供一个无参构造方法（只有在没有显式定义任何构造方法时）\n  public Dog() {\n  }\n\n  public Dog(String name) {\n    this.name = name;\n  }\n}"
+        },
+        {
+          "title": "类中的变量",
+          "description": "",
+          "code": "public class Dog {\n  // 成员变量\n  private String name;\n\n  // 类变量\n  // 多对象将会共享同一个类变量\n  static int val = 10;\n\n  public void Say() {\n    // 局部变量\n    String sentence = \"hello\";\n    System.out.println(sentence);\n  }\n}"
+        },
+        {
+          "title": "对象的创建",
+          "description": "",
+          "code": "Dog myDog = new Dog(); // 调用无参构造函数\nDog myDog2 = new Dog(\"aaa\"); // 调用对应参数列表的构造函数\n\n// 调用方法\nmyDog.Say();"
+        },
+        {
+          "title": "对象的继承",
+          "description": "请注意Java不支持多继承，只能够单继承，但支持多重继承\n即，一个类最多只有一个父类，但可以有爷爷类和太爷爷类\n\n**Java继承的特点**\n- 子类拥有父类中可访问的属性和方法（public、protected 以及同包访问权限的成员）\n- 子类可以有自己的属性、方法\n- 子类可以重写父类的方法\n\n**super 与 this**\nsuper引用当前类的父类\nthis引用自身\n\n**final 关键字**\n被final 关键字修饰的类不能够被继承\n被final 关键字修饰的方法不能被子类重写",
+          "code": "class Animal {\n  void eat() {\n    System.out.println(\"animal : eat\");\n  }\n}\n\nclass Dog extends Animal {\n  void eat() {\n    System.out.println(\"dog : eat\");\n  }\n  void eatTest() {\n    this.eat();   // this 调用自己的方法\n    super.eat();  // super 调用父类方法\n  }\n}"
+        },
+        {
+          "title": "Java的重写(Override)与重载(Overload)",
+          "description": "**重写(Override)**\n重写者位于被重写者的子类中\n重写者的签名必须与被重写者的签名相同\n\n**重载(Overload)**\n重载位于同一类内部\n签名必须不同",
+          "code": "public class Overloading {\n  public int test(){\n    System.out.println(\"test1\");\n    return 1;\n  }\n\n  public void test(int a) {\n    System.out.println(\"test2\");\n  }\n\n    //以下两个参数类型顺序不同\n  public String test(int a,String s){\n    System.out.println(\"test3\");\n    return \"returntest3\";\n  }\n\n  public String test(String s,int a){\n    System.out.println(\"test4\");\n    return \"returntest4\";\n  }\n}"
+        },
+        {
+          "title": "Java 抽象类",
+          "description": "抽象类不能被实例化为对象，因此，抽象类必须被继承才能够使用\n抽象类使用abstract 关键字进行修饰\n使用abstract 关键字修饰的方法是抽象方法\n抽象方法必须包含在抽象类中\n子类必须重写父类中的所有抽象方法，除非子类也是抽象类",
+          "code": "public abstract class Animal {\n  String name;\n\n  public Animal(String name) {\n    this.name = name;\n  }\n\n  public abstract void say();\n}\n\npublic class Dog extends Animal {\n  public Dog(String name) {\n    super(name);\n  }\n\n  public void say(){\n    System.out.println(\"Dog\");\n  }\n\n}"
+        },
+        {
+          "title": "Java 接口",
+          "description": "**接口的定义**\n与类的继承不同，接口可以继承多个接口\n\n**接口的实现**\n一个类可以实现多个接口\n类必须实现接口的所有方法，除非该类是抽象类\nJava 多线程",
+          "code": "public interface Animal {\n  public void eat();\n  public void say();\n}\n\npublic class Dog implements Animal {\n  public void eat() {\n    System.out.println(\"Dog eat something\");\n  }\n\n  public void say() {\n    System.out.println(\"Dog say something\");\n  }\n}"
+        }
+      ]
+    },
+    {
+      "title": "Java 多线程",
+      "entries": [
+        {
+          "title": "创建线程",
+          "description": "实现Callable接口,T 替换成实际类型\n继承Thrad类\n运行线程",
+          "code": "public static void main(String[] args) throws ExecutionException, InterruptedException {\n    new Thread(new RunnableThread()).start();\n    new ExtendsThread().start();\n    FutureTask<Integer> integerFutureTask = new FutureTask<>(new CallableTask());\n    integerFutureTask.run();\n}"
+        },
+        {
+          "title": "线程池",
+          "description": "- corePoolSize: 核心线程数\n- maximumPoolSize: 最大线程数\n- keepAliveTime: 线程空闲时间\n- TimeUnit: 线程空闲时间单位\n- workQueue: 线程等待队列\n- threadFactory: 线程创建工厂\n- handler: 拒绝策略",
+          "code": "ThreadPoolExecutor threadPoolExecutor\n  = new ThreadPoolExecutor(\n  2, 5,\n  5, TimeUnit.SECONDS,\n  new ArrayBlockingQueue<>(10),\n  new DefaultThreadFactory(\"pollName\"),\n  new ThreadPoolExecutor.CallerRunsPolicy()\n);\n\n// 内置的线程池, 不推荐生产使用\nExecutors.newCachedThreadPool();\nExecutors.newFixedThreadPool(10);\nExecutors.newScheduledThreadPool(10);\nExecutors.newSingleThreadExecutor();"
+        },
+        {
+          "title": "synchronized",
+          "description": "",
+          "code": "// 代码块\nsynchronized(obj) {\n   ...\n}\n\n// 实例方法同步\npublic synchronized void methodName() {\n   ...\n}\n\n// 静态方法同步\npublic static synchronized void methodName() {\n   ...\n}"
+        },
+        {
+          "title": "线程编排",
+          "description": "CompletableFuture\nSemaphore",
+          "code": "Semaphore semaphore = new Semaphore(5);\ntry {\n    semaphore.acquire();\n} finally {\n    semaphore.release();\n}"
+        },
+        {
+          "title": "ThreadLocal",
+          "description": "使用完之后一定要记得 `remove`, 否则会内存泄露",
+          "code": "threadLocal.set(1);\nthreadLocal.get();\nthreadLocal.remove();"
+        },
+        {
+          "title": "线程等待与唤醒",
+          "description": "Java 框架搜集",
+          "code": "// 需要synchronized修饰的代码块才能使用\nwait();\nnotify();\nnotifyAll();\n\n// 使用lock的条件唤醒\nReentrantLock lock = new ReentrantLock();\nCondition condition= lock.newCondition();\nlock.lock();\ntry{\n   // 当前线程唤醒或等待\n    condition.await();\n    condition.signal();\n    condition.signalAll();\n} finally {\n  lock.unlock();\n}\n\n// LockSupport,可以先unpark,后续park不会阻塞线程\nLockSupport.park(obj);\nLockSupport.unpark(thread);"
+        }
+      ]
+    },
+    {
+      "title": "Java 框架搜集",
+      "entries": [
+        {
+          "title": "Java 集合",
+          "description": "集合 | Interface   | 有序 | 已排序 | 线程安全 | 复制 | Nullable\n:-|:-|:-|:-|:-|:-|:-\n[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)                                    | List        | Y       | _N_    | _N_         | Y         | Y\n[Vector](https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html)                                          | List        | Y       | _N_    | Y           | Y         | Y\n[LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html)                                  | List, Deque | Y       | _N_    | _N_         | Y         | Y\n[CopyOnWriteArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html)   | List        | Y       | _N_    | Y           | Y         | Y\n[HashSet](https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html)                                        | Set         | _N_     | _N_    | _N_         | _N_       | One `null`\n[LinkedHashSet](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html)                            | Set         | Y       | _N_    | _N_         | _N_       | One `null`\n[TreeSet](https://docs.oracle.com/javase/8/docs/api/java/util/TreeSet.html)                                        | Set         | Y       | Y      | _N_         | _N_       | _N_\n[CopyOnWriteArraySet](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArraySet.html)     | Set         | Y       | _N_    | Y           | _N_       | One `null`\n[ConcurrentSkipListSet](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentSkipListSet.html) | Set         | Y       | Y      | Y           | _N_       | _N_\n[HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)                                        | Map         | _N_     | _N_    | _N_         | _N (key)_ | One `null` _(key)_\n[Hashtable](https://docs.oracle.com/javase/8/docs/api/java/util/Hashtable.html)                                    | Map         | _N_     | _N_    | Y           | _N (key)_ | _N (key)_\n[LinkedHashMap](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html)                            | Map         | Y       | _N_    | _N_         | _N (key)_ | One `null` _(key)_\n[TreeMap](https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html)                                        | Map         | Y       | Y      | _N_         | _N (key)_ | _N (key)_\n[ConcurrentHashMap](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html)         | Map         | _N_     | _N_    | Y           | _N (key)_ | _N_\n[ConcurrentSkipListMap](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentSkipListMap.html) | Map         | Y       | Y      | Y           | _N (key)_ | _N_\n[ArrayDeque](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayDeque.html)                                  | Deque       | Y       | _N_    | _N_         | Y         | _N_\n[PriorityQueue](https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html)                            | Queue       | Y       | _N_    | _N_         | Y         | _N_\n[ConcurrentLinkedQueue](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html) | Queue       | Y       | _N_    | Y           | Y         | _N_\n[ConcurrentLinkedDeque](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedDeque.html) | Deque       | Y       | _N_    | Y           | Y         | _N_\n[ArrayBlockingQueue](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ArrayBlockingQueue.html)       | Queue       | Y       | _N_    | Y           | Y         | _N_\n[LinkedBlockingDeque](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingDeque.html)     | Deque       | Y       | _N_    | Y           | Y         | _N_\n[PriorityBlockingQueue](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/PriorityBlockingQueue.html) | Queue       | Y       | _N_    | Y           | Y         | _N_",
+          "code": ""
+        },
+        {
+          "title": "ArrayList",
+          "description": "",
+          "code": "List<Integer> nums = new ArrayList<>();\n// 添加\nnums.add(2);\nnums.add(5);\nnums.add(8);\n// 检索\nSystem.out.println(nums.get(0));\n// 为循环迭代编制索引\nfor (int i = 0; i < nums.size(); i++) {\n    System.out.println(nums.get(i));\n}\nnums.remove(nums.size() - 1);\nnums.remove(0); // 较慢，因为需要移动后续元素\nfor (Integer value : nums) {\n    System.out.println(value);\n}\n// lambda 打印元素\nnums.forEach(\n  e -> System.out.println(e.toString())\n);"
+        },
+        {
+          "title": "HashMap",
+          "description": "",
+          "code": "Map<Integer, String> m = new HashMap<>();\nm.put(5, \"Five\");\nm.put(8, \"Eight\");\nm.put(6, \"Six\");\nm.put(4, \"Four\");\nm.put(2, \"Two\");\n// 检索\nSystem.out.println(m.get(6));\n// Lambda forEach\nm.forEach((key, value) -> {\n    String msg = key + \": \" + value;\n    System.out.println(msg);\n});"
+        },
+        {
+          "title": "ConcurrentHashMap",
+          "description": "",
+          "code": "ConcurrentHashMap<Integer, String> m\n            = new ConcurrentHashMap<>();\nm.put(100, \"Hello\");\nm.put(101, \"Geeks\");\nm.put(102, \"Geeks\");\n// 移除\nm.remove(101, \"Geeks\");\n\n// 如果不存在，就添加，存在就不变更\nm.putIfAbsent(103, \"Hello\");\n\n// 替换\nm.replace(101, \"Hello\", \"For\");\nSystem.out.println(m);"
+        },
+        {
+          "title": "HashSet",
+          "description": "",
+          "code": "Set<String> set = new HashSet<>();\nif (set.isEmpty()) {\n    System.out.println(\"Empty!\");\n}\nset.add(\"dog\");\nset.add(\"cat\");\nset.add(\"mouse\");\nset.add(\"snake\");\nset.add(\"bear\");\nif (set.contains(\"cat\")) {\n    System.out.println(\"Contains cat\");\n}\nset.remove(\"cat\");\nfor (String element : set) {\n    System.out.println(element);\n}\nset.forEach(\n  e -> System.out.println(e.toString())\n);"
+        },
+        {
+          "title": "ArrayDeque",
+          "description": "Java I/O流",
+          "code": "Deque<String> a = new ArrayDeque<>();\n// 使用 add()\na.add(\"Dog\");\n// 使用 addFirst()\na.addFirst(\"Cat\");\n// 使用 addLast()\na.addLast(\"Horse\");\n// [Cat, Dog, Horse]\nSystem.out.println(a);\n// 访问元素\nSystem.out.println(a.peek());\n// 移除元素\nSystem.out.println(a.pop());"
+        }
+      ]
+    },
+    {
+      "title": "Java I/O流",
+      "entries": [
+        {
+          "title": "常见的类和操作",
+          "description": "字节流\n- `InputStream` 字节输入流的抽象基类\n- `FileInputStream` 从文件中读取字节的输入流\n- `ByteArrayInputStream` 从字节数组中读取字节的输入流\n- `OutputStream` 字节输出流的抽象基类\n- `FileOutputStream` 向文件中写入字节的输出流\n- `ByteArrayOutputStream` 将字节写入到字节数组的输出流\n字符流\n- `Reader` 字符输入流的抽象基类\n- `FileReader` 从文件中读取字符的输入流\n- `BufferedReader` 带缓冲区的字符输入流\n- `InputStreamReader` 字节流到字符流的桥接器\n- `Writer` 字符输出流的抽象基类\n- `FileWriter` 向文件中写入字符的输出流\n- `BufferedWriter` 带缓冲区的字符输出流\n- `OutputStreamWriter` 字符流到字节流的桥接器\n对象流\n- `ObjectInputStream` 从输入流中读取Java对象的流\n- `ObjectOutputStream` 将Java对象写入输出流的流\n缓冲流\n- `BufferedInputStream` 带缓冲区的字节输入流\n- `BufferedOutputStream` 带缓冲区的字节输出流\n- `BufferedReader` 带缓冲区的字符输入流\n- `BufferedWriter` 带缓冲区的字符输出流\n数据流\n- `DataInputStream` 从输入流中读取基本数据类型的数据\n- `DataOutputStream` 将基本数据类型数据写入输出流\n文件类\n- `File` 文件和目录路径名的抽象表示\n- `FileReader` 从文件中读取字符的输入流\n- `FileWriter` 向文件中写入字符的输出流\n输入输出异常处理\n- `IOException` Java I/O操作中的通用异常\n- `FileNotFoundException` 当试图打开指定文件失败时抛出\n- `EOFException` 在尝试读取流的末尾时抛出\n其他流\n- `PrintStream` 打印格式化表示的对象的输出流\n- `PrintWriter` 格式化的文本输出流\n- `RandomAccessFile` 随机访问文件的类，支持读取和写入操作",
+          "code": ""
+        },
+        {
+          "title": "字节流",
+          "description": "",
+          "code": "// 文件输入流 （注意：需要手动关闭或使用 try-with-resources）\nInputStream inputStream\n  = new FileInputStream(\"input.txt\");\n\n// 文件输出流 （注意：需要手动关闭或使用 try-with-resources）\nOutputStream outputStream\n  = new FileOutputStream(\"output.txt\");\n\n// 缓冲字节输入流\nInputStream bufferedInputStream\n  = new BufferedInputStream(inputStream);\n\n// 缓冲字节输出流\nOutputStream bufferedOutputStream\n  = new BufferedOutputStream(outputStream);"
+        },
+        {
+          "title": "字符流",
+          "description": "",
+          "code": "// 文件字符输入流\nReader fileReader\n  = new FileReader(\"input.txt\");\n\n// 文件字符输出流\nWriter fileWriter\n  = new FileWriter(\"output.txt\");\n\n// 缓冲字符输入流\nReader bufferedFileReader\n  = new BufferedReader(\n    new FileReader(\"input.txt\")\n  );\n\n// 缓冲字符输出流\nWriter bufferedFileWriter\n  = new BufferedWriter(\n    new FileWriter(\"output.txt\")\n  );"
+        },
+        {
+          "title": "数据流",
+          "description": "",
+          "code": "// 数据输入流\nDataInputStream dataInputStream\n  = new DataInputStream(inputStream);\n\n// 数据输出流\nDataOutputStream dataOutputStream\n  = new DataOutputStream(outputStream);"
+        },
+        {
+          "title": "对象流",
+          "description": "",
+          "code": "// 对象输入流\nObjectInputStream objectInputStream\n  = new ObjectInputStream(inputStream);\n\n// 对象输出流\nObjectOutputStream objectOutputStream\n  = new ObjectOutputStream(outputStream);"
+        },
+        {
+          "title": "序列化与反序列化",
+          "description": "序列化对象到文件\n从文件反序列化对象",
+          "code": "try (\n  ObjectInputStream objectInputStream\n    = new ObjectInputStream(new FileInputStream(\"object.dat\"))\n) {\n    Object object = objectInputStream.readObject();\n}"
+        },
+        {
+          "title": "标准输入输出流",
+          "description": "标准输入流\n标准输出流",
+          "code": "PrintStream standardOutputStream\n      = System.out;"
+        },
+        {
+          "title": "基本操作",
+          "description": "",
+          "code": "// 读取字节数据\nint byteData = inputStream.read();\n\n// 写入字节数据\noutputStream.write(byteData);\n\n// 读取字符数据\nint charData = reader.read();\n\n// 写入字符数据\nwriter.write(charData);"
+        },
+        {
+          "title": "关闭流",
+          "description": "Java Stream 流",
+          "code": "// 关闭输入流\ninputStream.close();\n\n// 关闭输出流\noutputStream.close();"
+        }
+      ]
+    },
+    {
+      "title": "Java Stream 流",
+      "entries": [
+        {
+          "title": "创建流",
+          "description": "从集合创建流\n从数组创建流\n创建空流\n创建无限流",
+          "code": "Stream<Integer> infiniteStream = Stream.iterate(0, n -> n + 2);"
+        },
+        {
+          "title": "中间操作",
+          "description": "",
+          "code": "// 过滤\nStream<String> filteredStream = list.stream().filter(\n  s -> s.startsWith(\"a\")\n);\n\n// 映射\nStream<Integer> mappedStream = list.stream().map(String::length);\n\n// 排序\nStream<String> sortedStream = list.stream().sorted();\n\n// 去重\nStream<String> distinctStream = list.stream().distinct();\n\n// 截断\nStream<String> limitedStream = list.stream().limit(2);\n\n// 跳过\nStream<String> skippedStream = list.stream().skip(1);"
+        },
+        {
+          "title": "终端操作",
+          "description": "",
+          "code": "// 聚合操作\nOptional<String> anyElement = list.stream().findAny();\nOptional<String> firstElement = list.stream().findFirst();\nlong count = list.stream().count();\nOptional<String> maxElement = list.stream()\n    .max(Comparator.naturalOrder());\nOptional<String> minElement = list.stream()\n    .min(Comparator.naturalOrder());\n\n// 检查匹配\nboolean anyMatch = list.stream().anyMatch(s -> s.contains(\"a\"));\nboolean allMatch = list.stream().allMatch(s -> s.length() == 1);\nboolean noneMatch = list.stream().noneMatch(s -> s.contains(\"z\"));\n\n// 归约\nOptional<String> reducedString = list.stream()\n  .reduce((s1, s2) -> s1 + s2);\nString reducedStringWithIdentity = list.stream()\n  .reduce(\"Start:\", (s1, s2) -> s1 + s2);\n\n// 收集\nList<String> collectedList = list.stream()\n    .collect(Collectors.toList());\nSet<String> collectedSet = list.stream()\n    .collect(Collectors.toSet());\nMap<Integer, String> collectedMap = list.stream()\n    .collect(\n        Collectors.toMap(String::length, Function.identity())\n    );"
+        },
+        {
+          "title": "并行流",
+          "description": "反射",
+          "code": "List<String> list = Arrays.asList(\"a\", \"b\", \"c\", \"d\", \"e\");\nList<String> upperCaseList = list.parallelStream()\n    .map(String::toUpperCase)\n    .collect(Collectors.toList());"
+        }
+      ]
+    },
+    {
+      "title": "反射",
+      "entries": [
+        {
+          "title": "获取 Class 对象",
+          "description": "",
+          "code": "// 通过类名获取Class对象\nClass<?> clazz1 = MyClass.class;\n\n// 通过对象获取Class对象\nMyClass obj = new MyClass();\nClass<?> clazz2 = obj.getClass();\n\n// 通过完整类名字符串获取Class对象\nClass<?> clazz3 = Class.forName(\"com.example.MyClass\");"
+        },
+        {
+          "title": "获取类的信息",
+          "description": "获取类的名称\n获取类的修饰符\n获取类的包信息\n获取类的父类\n获取类实现的接口",
+          "code": "Class<?>[] interfaces = clazz.getInterfaces();"
+        },
+        {
+          "title": "创建对象实例",
+          "description": "",
+          "code": "// 使用默认构造函数创建对象（注意：newInstance() 已废弃）\nMyClass instance = (MyClass) clazz.getDeclaredConstructor().newInstance();\n\n// 使用带参数的构造函数创建对象\nConstructor<?> constructor = clazz.getConstructor(String.class, int.class);\nMyClass instanceWithArgs = (MyClass) constructor.newInstance(\"example\", 123);"
+        },
+        {
+          "title": "获取和设置字段值",
+          "description": "",
+          "code": "// 获取字段值\nField field = clazz.getDeclaredField(\"fieldName\");\nfield.setAccessible(true); // 如果字段是私有的，需要设置可访问\nObject value = field.get(instance);\n\n// 设置字段值\nfield.set(instance, newValue);"
+        },
+        {
+          "title": "处理泛型",
+          "description": "",
+          "code": "// 获取泛型信息\nType genericType = field.getGenericType();"
+        },
+        {
+          "title": "调用方法",
+          "description": "",
+          "code": "// 获取方法\nMethod method = clazz.getDeclaredMethod(\"methodName\", parameterTypes);\nmethod.setAccessible(true); // 如果方法是私有的，需要设置可访问\n\n// 调用方法\nObject result = method.invoke(instance, args);"
+        },
+        {
+          "title": "其他常用操作",
+          "description": "",
+          "code": "// 判断是否是数组、枚举、注解等\nboolean isArray = clazz.isArray();\nboolean isEnum = clazz.isEnum();\nboolean isAnnotation = clazz.isAnnotation();\n\n// 获取构造函数、字段、方法等\nConstructor<?>[] constructors = clazz.getConstructors();\nField[] fields = clazz.getDeclaredFields();\nMethod[] methods = clazz.getDeclaredMethods();"
+        },
+        {
+          "title": "处理注解",
+          "description": "方法引用",
+          "code": "// 获取注解信息\nAnnotation annotation = field.getAnnotation(MyAnnotation.class);"
+        }
+      ]
+    },
+    {
+      "title": "方法引用",
+      "entries": [
+        {
+          "title": "方法引用",
+          "description": "Java 的 `Consumer` 接口里的 `accept` 方法接受参数但不返回值。要让它打印传入的参数，可以这样做：\n更简单的，我们可以直接传入Lambda表达式\n方法引用通过方法的名字指向一个方法，使语言构造更简洁，减少冗余代码。\n\n**使用方式**\n- 引用方法\n- 引用构造方法\n- 引用数组",
+          "code": "Consumer<String> test = System.out::println;"
+        },
+        {
+          "title": "静态方法引用",
+          "description": "",
+          "code": "Comparator<Integer> comparator = Math::max;\n\nint result = comparator.compare(1, 2);\n// 返回 -1 \n\nBinaryOperator<Integer> maxOperator = Math::max;\nint result = maxOperator.apply(1, 2);\n// 返回 2"
+        },
+        {
+          "title": "实例方法引用",
+          "description": "",
+          "code": "String str = \"HELLO\";\nSupplier<String> lowerCaseSupplier = str::toLowerCase;\nString lowerCase = lowerCaseSupplier.get();\n// 返回 \"hello\""
+        },
+        {
+          "title": "构造方法引用",
+          "description": "",
+          "code": "Supplier<String> supplier = String::new;\n\nString str = supplier.get();\n// 返回一个空字符串"
+        },
+        {
+          "title": "数组构造方法引用",
+          "description": "",
+          "code": "Function<Integer, String[]> function = String[]::new;\n\n\nString[] array = function.apply(5);\n// 返回长度为 5 的空字符串数组"
+        },
+        {
+          "title": "对象中的方法引用",
+          "description": "",
+          "code": "String someStr = \"HELLO\";\n\nSupplier<String> lowerCaseSupplier = someStr::toLowerCase;\nString lowerCase = lowerCaseSupplier.get();\n// 返回 \"hello\""
+        },
+        {
+          "title": "对象中的静态方法引用",
+          "description": "杂项 Misc",
+          "code": "SomeClass someObject = new SomeClass();\n\nSupplier<Integer> methodSupplier = someObject::staticMethod;\nint result = methodSupplier.get();\n// 调用静态方法"
+        }
+      ]
+    },
+    {
+      "title": "杂项 Misc",
+      "entries": [
+        {
+          "title": "访问修饰符",
+          "description": "| 修饰符    | Class | Package | Subclass | World |\n|-------------|-------|---------|----------|-------|\n| public      | Y     | Y       | Y        | Y     |\n| protected   | Y     | Y       | Y        | _N_   |\n| no modifier | Y     | Y       | _N_      | _N_   |\n| private     | Y     | _N_     | _N_      | _N_   |",
+          "code": ""
+        },
+        {
+          "title": "常用表达",
+          "description": "查看: [Regex in java](./regex.md#java-中的正则表达式)",
+          "code": "String text = \"I am learning Java\";\n// 删除所有空格\ntext.replaceAll(\"\\\\s+\", \"\");\n// 拆分字符串\ntext.split(\"\\\\|\");\ntext.split(Pattern.quote(\"|\"));"
+        },
+        {
+          "title": "注释 Comment",
+          "description": "",
+          "code": "// 我是单行注释！\n\n/*\n而我是一个\n多行注释！\n*/\n/**\n  * 这个\n  * 是\n  * 文档\n  * 注释\n */"
+        },
+        {
+          "title": "关键字",
+          "description": "- abstract\n- continue\n- for\n- new\n- switch\n- assert\n- default\n- goto\n- package\n- synchronized\n- boolean\n- do\n- if\n- private\n- this\n- break\n- double\n- implements\n- protected\n- throw\n- byte\n- else\n- import\n- public\n- throws\n- case\n- enum\n- instanceof\n- return\n- transient\n- catch\n- extends\n- int\n- short\n- try\n- char\n- final\n- interface\n- static\n- void\n- class\n- finally\n- long\n- strictfp\n- volatile\n- const\n- float\n- native\n- super\n- while",
+          "code": ""
+        },
+        {
+          "title": "数学方法",
+          "description": "方法 | 说明\n:-|:-\n`Math.max(a,b)`       | `a` 和 `b` 的最大值\n`Math.min(a,b)`       | `a` 和 `b` 的最小值\n`Math.abs(a)`         | `a` 的绝对值\n`Math.sqrt(a)`        | `a` 的平方根\n`Math.pow(a,b)`       | `b` 的幂\n`Math.round(a)`       | 最接近的整数\n`Math.sin(ang)`       | 正弦\n`Math.cos(ang)`       | `ang` 的余弦\n`Math.tan(ang)`       | `ang` 的切线\n`Math.asin(ang)`      | `ang` 的反正弦\n`Math.log(a)`         | `a` 的自然对数\n`Math.toDegrees(rad)` | 弧度转角度\n`Math.toRadians(deg)` | 角度转弧度",
+          "code": ""
+        },
+        {
+          "title": "异常 Try/Catch/Finally",
+          "description": "",
+          "code": "try {\n  // something\n} catch (Exception e) {\n  // 建议使用日志框架记录异常\n  logger.error(\"发生异常\", e);\n  // 或者至少使用标准错误流\n  // e.printStackTrace();\n} finally {\n  System.out.println(\"总是执行\");\n}"
+        },
+        {
+          "title": "util工具类",
+          "description": "- `ArrayDeque`: 可调整大小的数组双端队列，实现了Deque接口\n- `Arrays`: 提供操作数组的静态方法，如排序、搜索、比较等\n- `Collections`: 包含操作集合或返回集合的静态方法\n- `Date`: 表示特定时间瞬间，精度为毫秒\n- `Dictionary`: 抽象父类，可用于键值对映射，例如Hashtable\n- `EnumMap`: 专门用于枚举键的Map实现\n- `EnumSet`: 专门用于枚举键的Set实现\n- `Formatter`: 提供对布局、对齐、数字、字符串和日期/时间数据的格式化支持，以及特定于语言环境的输出\n- `SecureRandom`: 生成安全的伪随机数流的实例\n- `UUID`: 表示不可变的通用唯一标识符\n- `Vector`: 实现了可增长的对象数组\n- `LocalDate`: 表示无时区的日期，仅包含年月日，不可变且线程安全，适用于Java 8及更高版本\n- `LocalTime`: 表示无时区的时间，仅包含时分秒，不可变且线程安全，适用于Java 8及更高版本\n- `LocalDateTime`: 表示无时区的日期时间，包含年月日时分秒，不可变且线程安全，适用于Java 8及更高版本",
+          "code": ""
+        },
+        {
+          "title": "Collections 工具类",
+          "description": "操纵数据库",
+          "code": "// 计算出现频率\nList<Integer> list = new ArrayList<>();\nlist.add(1);\nlist.add(2);\nlist.add(2);\nlist.add(3);\nlist.add(3);\nlist.add(3);\nint frequency = Collections\n      .frequency(list, 2); // frequency = 2"
+        }
+      ]
+    },
+    {
+      "title": "操纵数据库",
+      "entries": [
+        {
+          "title": "JDBC",
+          "description": "",
+          "code": "String url = \"jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC\";\nString user = \"root\";\nString password = \"123456\";\nString sql = \"SELECT 1 as a, '2' as b\";\nString preparedSql = \"SELECT * FROM t_user WHERE id = ?\";\n\nConnection conn = null;\nStatement sm = null;\nResultSet rs = null;\ntry {\n  // 1.注册驱动\n  Class.forName(\"com.mysql.cj.jdbc.Driver\");\n} catch (ClassNotFoundException e) {\n  // 驱动找不到\n  throw new RuntimeException(e);\n}\n\n// 2.建立连接\ntry (Connection connection = DriverManager.getConnection(url, user, password)) {\n\n  conn = connection;\n\n  // 3.创建Statement对象\n  try (Statement statement = connection.createStatement()) {\n\n    sm = statement;\n\n    // 4.执行SQL语句\n    try (ResultSet resultSet = statement.executeQuery(sql)) {\n\n      rs = resultSet;\n\n      // 5.处理结果集\n      while (resultSet.next()) {\n        // 按照列名取值\n        System.out.println(resultSet.getLong(\"a\"));\n        // 按照索引取值\n        System.out.println(resultSet.getString(2));\n      }\n    }\n  }\n\n  // 3.创建PreparedStatement对象\n  try (PreparedStatement preparedStatement = connection.prepareStatement(preparedSql)) {\n\n    sm = preparedStatement;\n\n    preparedStatement.setLong(1, 1_000L);\n    // 4.执行SQL语句\n    try (ResultSet resultSet = preparedStatement.executeQuery()) {\n\n      rs = resultSet;\n\n      // 5.处理结果集\n      while (resultSet.next()) {\n        System.out.println(resultSet.getLong(\"id\"));\n        System.out.println(resultSet.getString(2));\n      }\n    }\n  }\n} catch (SQLException e) {\n  // 数据库异常\n  throw new RuntimeException(e);\n} finally {\n  // 6.关闭资源\n  // 上面的try块里已经自动关闭，否则（JDK 7以前）按照以下顺序关闭\n  // 先打开的后关闭，后打开的先关闭\n  if (null != rs) {\n    try {\n      rs.close();\n    } catch (SQLException ignored) {\n    }\n  }\n\n  if (null != sm) {\n    try {\n      sm.close();\n    } catch (SQLException ignored) {\n    }\n  }\n\n  if (null != conn) {\n    try {\n      conn.close();\n    } catch (SQLException ignored) {\n    }\n  }\n\n  // 也可以直接工具类， 注意顺序\n  IOUtils.close(rs);\n  IOUtils.close(sm);\n  IOUtils.close(conn);\n}"
+        },
+        {
+          "title": "JDBC注册驱动",
+          "description": "另见",
+          "code": "Class.forName(\"com.mysql.cj.jdbc.Driver\");\n\nDriverManager.registerDriver(new org.postgresql.Driver());\n\n// 支持多个同时注册\nSystem.setProperty(\"jdbc.drivers\", \"com.mysql.cj.jdbc.Driver:org.postgresql.Driver\");"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/java.md"
+}

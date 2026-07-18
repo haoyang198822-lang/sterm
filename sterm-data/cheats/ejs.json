@@ -1,0 +1,119 @@
+{
+  "name": "Ejs",
+  "description": "Ejs 快速参考",
+  "category": "编程语言",
+  "count": 19,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "Hello world",
+          "description": "**安装**\n\n**hello.ejs**\n\n**命令 CLI**",
+          "code": "$ ejs hello.ejs -o hello.html"
+        },
+        {
+          "title": "使用数据渲染",
+          "description": "向 `EJS` 传递模板字符串和一些数据",
+          "code": "let ejs = require('ejs');\n\nlet people = ['geddy', 'neil', 'alex'];\nlet tpl = '<%= people.join(\", \"); %>';\n\nlet html = ejs.render(tpl, {\n  people: people\n});\nconsole.log(html);"
+        },
+        {
+          "title": "浏览器支持",
+          "description": "在脚本标签中使用 `ejs`",
+          "code": "<script src=\"ejs.js\"></script>\n<script>\n  let people = ['geddy', 'neil', 'alex'];\n  let html = ejs.render(\n    '<%= people.join(\", \"); %>',\n    { people: people }\n  );\n</script>"
+        },
+        {
+          "title": "变量",
+          "description": "|              |                                  |\n|--------------|----------------------------------|\n| `<%= var %>` | 打印变量的值 |\n| `<%- var %>` | 打印时不进行 HTML 转义 |",
+          "code": ""
+        },
+        {
+          "title": "CLI",
+          "description": "渲染并指定输出文件\n为其提供模板文件和数据文件",
+          "code": "$ ejs hello.ejs -f data.json -o hello.html"
+        },
+        {
+          "title": "注释",
+          "description": "",
+          "code": "<%# 这是一个多行 EJS 注释。\n    它可以跨越多行，\n    但不会显示\n    在最终的 HTML 输出中。\n%>"
+        },
+        {
+          "title": "方法",
+          "description": "",
+          "code": "let ejs = require('ejs');\nlet template = ejs.compile(str, options);\n\ntemplate(data);\n// => 渲染的 HTML 字符串\n\nejs.render(str, data, options);\n// => 渲染的 HTML 字符串\n\nejs.renderFile(filename, data, options,\n  function(err, str){\n      // str => 渲染的 HTML 字符串\n  }\n);"
+        },
+        {
+          "title": "包括文件",
+          "description": "包含带有数据的模板：\n要包含模板，需要文件名选项，路径是相对的\n文档",
+          "code": "<ul>\n  <% users.forEach(function(user){ %>\n    <%- include('item', {user: user}); %>\n  <% }); %>\n</ul>"
+        }
+      ]
+    },
+    {
+      "title": "文档",
+      "entries": [
+        {
+          "title": "条件句",
+          "description": "",
+          "code": "<% if (userLoggedIn) { %>\n  <p>Welcome, <%= username %>!</p>\n<% } else { %>\n  <p>Please log in.</p>\n<% } %>"
+        },
+        {
+          "title": "使用循环",
+          "description": "",
+          "code": "<% if (userLoggedIn) { %>\n  <p>Welcome, <%= username %>!</p>\n<% } else { %>\n  <p>Please log in.</p>\n<% } %>"
+        },
+        {
+          "title": "自定义分隔符",
+          "description": "",
+          "code": "let ejs = require('ejs'),\n    users = ['geddy', 'neil', 'alex'];\n\n// 只需一个模板\nejs.render('<?= users.join(\" | \"); ?>',\n    {users: users},\n    {delimiter: '?'});\n// => 'geddy | neil | alex'\n\n// 或全局范围内\nejs.delimiter = '$';\nejs.render('<$= users.join(\" | \"); $>',\n    {users: users});\n// => 'geddy | neil | alex'"
+        },
+        {
+          "title": "缓存",
+          "description": "",
+          "code": "let ejs = require('ejs'),\nLRU = require('lru-cache');\n\n// LRU 缓存具有 100 项限制\nejs.cache = LRU(100);"
+        },
+        {
+          "title": "布局",
+          "description": "",
+          "code": "<%- include('header'); -%>\n<h1> Title </h1>\n<p>\n  My page\n</p>\n<%- include('footer'); -%>"
+        },
+        {
+          "title": "自定义文件加载器",
+          "description": "客户端支持",
+          "code": "let ejs = require('ejs');\nlet myFileLoader = function (filePath) {\n  return 'myFileLoader: ' + fs.readFileSync(filePath);\n};\n\nejs.fileLoader = myFileLoader;"
+        }
+      ]
+    },
+    {
+      "title": "客户端支持",
+      "entries": [
+        {
+          "title": "例子",
+          "description": "",
+          "code": "<div id=\"output\"></div>\n<script src=\"ejs.min.js\"></script>\n<script>\n  let people = ['geddy', 'neil', 'alex'],\n      html = ejs.render('<%= people.join(\", \"); %>', {people: people});\n  // With jQuery:\n  $('#output').html(html);\n  // Vanilla JS:\n  document.getElementById('output').innerHTML = html;\n</script>"
+        },
+        {
+          "title": "注意事项",
+          "description": "## 选项",
+          "code": "let str = \"Hello <%= include('file', {person: 'John'}); %>\",\n      fn = ejs.compile(str, {client: true});\n\nfn(data, null, function(path, d){ // include callback\n  // path -> 'file'\n  // d -> {person: 'John'}\n  // Put your code here\n  // Return the contents of file as a string\n}); // returns rendered string"
+        },
+        {
+          "title": "选项列表",
+          "description": "选项 | 描述\n:---|---\n`cache`              | 编译后的函数被缓存，需要文件名\n`filename`           | 由缓存用于关键缓存，并用于包含\n`root`               | 使用绝对路径（例如 `/file.ejs`）设置包含项目的根目录。 可以是一个数组来尝试解析来自多个目录的包含。\n`views`              | 解析包含相对路径时要使用的路径数组。\n`context`            | 函数执行上下文\n`compileDebug`       | 当 `false` 时，不编译任何调试工具\n`client`             | 返回独立编译的函数\n`delimiter`          | 用于内部分隔符的字符，默认为 `%`\n`openDelimiter`      | 用于打开分隔符的字符，默认为 `<`\n`closeDelimiter`     | 用于结束分隔符的字符，默认为 `>`\n`debug`              | 输出生成的函数体\n`strict`             | 当设置为 `true` 时，生成的函数处于严格模式\n`_with`              | 是否使用 `with() {}` 构造。 如果为 `false`，则局部变量将存储在局部变量对象中。 （暗示`--strict`）\n`localsName`         | 不使用时用于存储局部变量的对象的名称 默认为局部变量\n`rmWhitespace`       | 删除所有可安全删除的空格，包括前导和尾随空格。 它还为所有 `scriptlet` 标记启用了更安全版本的 `-%>` 行吸收（它不会在行中间去除新的标记行）\n`escape`             | 与 `<%=` 构造一起使用的转义函数。 它用于渲染，并在生成客户端函数时进行 `.toString()` 处理。 （默认情况下转义 XML）\n`outputFunctionName` | 设置为字符串（例如 `echo` 或 `print`），以便函数在 `scriptlet` 标签内打印输出\n`async`              | 当 `true` 时，EJS 将使用异步函数进行渲染。 （取决于 `JS` 运行时中的 `async`/`await` 支持\n## 标签",
+          "code": ""
+        },
+        {
+          "title": "标签列表",
+          "description": "标签 | 描述\n:---|---\n`<%`  | 'Scriptlet' 标签，用于控制流，无输出\n`<%_`  | “Whitespace Slurping”Scriptlet 标签，删除其前面的所有空格\n`<%=`  | 将值输出到模板中（HTML 转义）\n`<%-`  | 将未转义的值输出到模板中\n`<%#`  | 注释标签，不执行，不输出\n`<%%`  | 输出文字 `<%`\n`%>`  | 普通结束标签\n`-%>`  | 修剪模式（'newline slurp'）标签，修剪换行符后的内容\n`_%>`  | “Whitespace Slurping”结束标签，删除其后的所有空格\n## Cli",
+          "code": ""
+        },
+        {
+          "title": "Cli 列表",
+          "description": "选项 | 描述\n:---|---\n`cache`                           | 编译后的函数被缓存，需要文件名\n`-o / --output-file FILE`         | 将渲染的输出写入 FILE 而不是 stdout。\n`-f / --data-file FILE`           | 必须是 JSON 格式。 使用来自 FILE 的解析输入作为渲染数据。\n`-i / --data-input STRING`        | 必须采用 JSON 格式和 URI 编码。 使用来自 STRING 的解析输入作为渲染数据。\n`-m / --delimiter CHARACTER`      | 使用带有尖括号的 CHARACTER 来表示打开/关闭（默认为 %）。\n`-p / --open-delimiter CHARACTER` | 使用 CHARACTER 而不是左尖括号来打开。\n`-c / --close-delimiter CHARACTER` | 使用 CHARACTER 而不是右尖括号来结束。\n`-s / --strict`                   | 当设置为 `true` 时，生成的函数处于严格模式\n`-n / --no-with`                   | 对变量使用 `locals` 对象，而不是使用 `with`（隐含--strict）。\n`-l / --locals-name`               | 不使用“with”时用于存储局部变量的对象的名称。\n`-w / --rm-whitespace`             | 删除所有可安全删除的空格，包括前导和尾随空格。\n`-d / --debug`                     | 输出生成的函数体\n`-h / --help`                     | 显示此帮助消息。\n`-V/v / --version`                 | 显示 EJS 版本。\n使用示例：",
+          "code": "$ ejs -p [ -c ] ./template_file.ejs -o ./output.html\n$ ejs ./test/fixtures/user.ejs name=Lerxst\n$ ejs -n -l _ ./some_template.ejs -f ./data_file.json"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/ejs.md"
+}

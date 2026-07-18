@@ -1,0 +1,99 @@
+{
+  "name": "Grep",
+  "description": "Grep 快速参考",
+  "category": "",
+  "count": 15,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "使用",
+          "description": "搜索标准输出（即文本流）\n在文件中搜索确切的字符串：\n打印 myfile.txt 中包含字符串“mellon”的行\n文件名中接受通配符。",
+          "code": "$ grep 'mellon' myfile.txt"
+        },
+        {
+          "title": "选项示例",
+          "description": "选项 | 示例 | 说明\n:-|:-|:-\n| `-i`   | grep -i ^DA demo.txt                  | 忘记区分大小写\n| `-w`   | grep -w \"of\" demo.txt                 | 仅搜索完整的单词\n| `-A`   | grep -A 3 'Exception' error.log       | 匹配字符串后显示 3 行\n| `-B`   | grep -B 4 'Exception' error.log       | 在匹配字符串前显示 4 行\n| `-C`   | grep -C 5 'Exception' error.log       | 在匹配字符串周围显示 5 行\n| `-r`   | grep -r 'github.io' /var/log/nginx/   | 递归搜索 _(在子目录内)_\n| `-v`   | grep -v 'warning' /var/log/syslog     | 返回所有与模式不匹配的行\n| `-e`   | grep -e '^al' filename                | 使用正则表达式 _(以'al'开头的行)_\n| `-E`   | grep -E 'ja(s\\|cks)on' filename       | 扩展正则表达式 _(包含 jason 或 jackson 的行)_\n| `-c`   | grep -c 'error' /var/log/syslog       | 计算匹配数\n| `-l`   | grep -l 'robot' /var/log/*            | 打印匹配文件的名称\n| `-o`   | grep -o search_string filename        | 只显示字符串的匹配部分\n| `-n`   | grep -n \"go\" demo.txt                 | 显示匹配的行号\nGrep 正则表达式",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Grep 正则表达式",
+      "entries": [
+        {
+          "title": "参考",
+          "description": "- [Regex syntax](./regex.md) _(jaywcjlove.github.io)_\n- [Regex examples](./regex.md#正则表达式示例) _(jaywcjlove.github.io)_\n有关更复杂的要求，请参阅完整版的正则表达式备忘单。",
+          "code": ""
+        },
+        {
+          "title": "通配符(Wildcards)",
+          "description": ":- | :-\n:- | :-\n`.`   | 任何字符\n`?`   | 可选且只能出现一次\n`*`   | 可选的，可以多次出现\n`+`   | 必需并且可以多次出现",
+          "code": ""
+        },
+        {
+          "title": "量词(Quantifiers)",
+          "description": ":- | :-\n:- | :-\n`{n}`    | 前一项恰好出现 n 次\n`{n,}`   | 上一个项目出现 n 次或更多\n`{,m}`   | 上一个项目最多出现 n 次\n`{n,m}`  | 上一项出现在 n 到 m 次之间",
+          "code": ""
+        },
+        {
+          "title": "POSIX",
+          "description": ":- | :-\n:- | :-\n`[:alpha:]`   | 任何大小写字母\n`[:digit:]`   | 任何数字\n`[:alnum:]`   | 任何大小写字母或数字\n`[:space:]`   | 任何空格",
+          "code": ""
+        },
+        {
+          "title": "字符串",
+          "description": ":- | :-\n:- | :-\n`[A-Z­a-z]`    | 任何大小写字母\n`[0-9]`       | 任何数字\n`[0-9­A-Z­a-z]` | 任何大小写字母或数字",
+          "code": ""
+        },
+        {
+          "title": "位置",
+          "description": ":- | :-\n:- | :-\n`^` | 行的开头\n`$` | 行结束\n`^$` | 空行\n`\\<` | 词的开头\n`\\>` | 词尾\n更多示例",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "更多示例",
+      "entries": [
+        {
+          "title": "搜索命令行历史记录",
+          "description": "输入过 `git` 命令的记录",
+          "code": "history | grep git"
+        },
+        {
+          "title": "搜索多个文件并查找匹配文本在哪些文件中",
+          "description": "",
+          "code": "grep -l \"text\" file1 file2 file3..."
+        },
+        {
+          "title": "多级目录中对文本进行递归搜索",
+          "description": "`.` 表示当前目录。",
+          "code": "grep \"text\" . -r -n"
+        },
+        {
+          "title": "搜索结果中包括或者排除指定文件",
+          "description": "",
+          "code": "# 目录中所有的 .php 和 .html 文件中\n# 递归搜索字符 \"main()\"\ngrep \"main()\" . -r --include *.{php,html}\n\n# 在搜索结果中排除所有 README 文件\ngrep \"main()\" . -r --exclude \"README\"\n\n# 在搜索结果中排除 filelist 文件列表里的文件\ngrep \"main()\" . -r --exclude-from filelist"
+        },
+        {
+          "title": "输出包含匹配字符串的行数 -n 选项",
+          "description": "",
+          "code": "grep \"text\" -n file_name\n# 或\ncat file_name | grep \"text\" -n\n\n#多个文件\ngrep \"text\" -n file_1 file_2"
+        },
+        {
+          "title": "忽略匹配样式中的字符大小写",
+          "description": "",
+          "code": "echo \"hello world\" | grep -i \"HELLO\"\n# hello"
+        },
+        {
+          "title": "统计文件或文本中包含匹配字符串的行数 -c 选项",
+          "description": "另见",
+          "code": "grep -c \"text\" file_name"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/grep.md"
+}

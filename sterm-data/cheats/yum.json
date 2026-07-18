@@ -1,0 +1,64 @@
+{
+  "name": "YUM",
+  "description": "YUM 快速参考",
+  "category": "",
+  "count": 10,
+  "sections": [
+    {
+      "title": "YUM 清单查询",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "yum（`Y`ellow dog `U`pdater, `M`odified）是一个在 `Fedora` 和 `RedHat` 以及 SUSE 中的 `Shell` 前端软件包管理器\n- [YUM 官方网站](http://yum.baseurl.org/) _(yum.baseurl.org)_\n- [Fedora 中的 Yum 文档](https://docs.fedoraproject.org/en-US/Fedora/15/html/Deployment_Guide/ch-yum.html) _(fedoraproject.org)_\n- [CentOS 中的 Yum 文档](http://wiki.centos.org/PackageManagement/Yum/) _(wiki.centos.org)_\n- [Scientific Linux 中的 Yum 文档](https://www.scientificlinux.org/documentation/faq/yum.apt.repo) _(scientificlinux.org)_",
+          "code": "$ yum [options] [command] [package ...]"
+        },
+        {
+          "title": "YUM 查询",
+          "description": "子命令描述和任务\n\n**help**\n显示 yum 命令和选项\n显示 yum 子命令和选项",
+          "code": "yum help"
+        },
+        {
+          "title": "单独的包",
+          "description": "**list**\n列出存储库中的包名称\n\n**info**\n列出已安装和可用的内核包\n\n**deplist**\n显示包的依赖项\n列出依赖项和提供它们的包\n\n**provides**\n\n**search**\n\n**updateinfo**\n获取有关可用 security 更新的信息",
+          "code": "# 获取有关可用软件包更新的信息\n$ yum updateinfo security"
+        },
+        {
+          "title": "包组",
+          "description": "**grouplist**\n列出已安装和可用软件包组的名称\n\n**groupinfo**\n\n**check-update**\n查询存储库以获取可用的软件包更新",
+          "code": "# 查看 Web 服务器组中的包\n$ yum groupinfo \"Web Server\""
+        },
+        {
+          "title": "管理 YUM 存储库",
+          "description": "**repolist**\n显示启用的软件存储库\n\n**repoinfo**\n显示有关启用的 `yum` 存储库的信息 *\n请参阅有关 rhel-7-server-rpms 存储库的信息\n\n**repo-pkgs**\n使用特定存储库中的包 *\n\n**makecache**\n下载 `yum` 存储库数据到缓存",
+          "code": "# 列出来自 my-rpms 存储库的软件包\n$ yum repo-pkgs my-rpms list\n# 从 my-rpms repo 安装所有软件包\n$ yum repo-pkgs my-rpms install\n# 从 my-rpms 存储库中删除所有软件包\n$ yum repo-pkgs my-rpms remove"
+        },
+        {
+          "title": "故障排除和维护 YUM",
+          "description": "**check**\n检查本地 RPM 数据库是否有问题（运行了很长时间）\n\n**history**\n\n**clean**\n清除缓存的包数据\n\n**fssnapshot**\n列出 LVM 快照（帮助在包更新后回滚）\n\n**fs**\n对文件系统采取行动（防止在最小系统上安装 doc 或语言文件）非常有用！",
+          "code": "# 列出启用的文件系统过滤器\n$ yum fs filters\n# 过滤所有正在安装的文档（小心！）\n$ yum fs documentation"
+        },
+        {
+          "title": "使用 YUM 管理语言包",
+          "description": "**langavailable**\n列出已安装的语言 *\n\n**langinfo**\n\n**langinstall**\n\n**langlist**\n列出已安装的语言 *\n\n**langremove**",
+          "code": "# 删除与西班牙语相关的软件包\n$ yum langremove es"
+        },
+        {
+          "title": "使用 YUM 安装、删除和升级软件包",
+          "description": "**install**\n\n**update**\n\n**update-to**\n将一个或所有软件包更新到特定版本\n\n**upgrade**\n更新包考虑过时，只升级所有包，不升级软件和系统内核\n\n**localinstall**\n从 FTP 站点安装 abc\n\n**downgrade**\n将软件包降级到早期版本\n将 abc 包降级到早期版本\n\n**reinstall**\n\n**swap**\n\n**erase/remove**\n\n**autoremove**\n\n**groupinstall**",
+          "code": "# 安装 Web 服务器包\n$ yum groupinstall \"Web server\""
+        },
+        {
+          "title": "更多 YUM 相关命令（安装 yum-utils 软件包）",
+          "description": "**find-repos-of-install**\n查找包来自哪个存储库\n\n**needs-restarting**\n查找已更新且需要重启的进程\n\n**repoclosure**\n从存储库中获取未满足的依赖项列表\n\n**repoquery**\n查询远程仓库和本地 `RPM` 数据库\n\n**reposync**\n将 `yum` 存储库同步到本地目录\n\n**repotrack**\n下载一个包及其所有依赖项\n\n**show-installed**\n列出已安装的 RPM 包和统计信息\n\n**verifytree**\n检查本地 yum 存储库的一致性\n\n**yum-complete-transaction**\n尝试完成未完成的 yum 交易\n\n**yumdb**\n检查或更改 yum 数据库\n\n**yumdownloader**\n从 repo 下载一个包到当前目录",
+          "code": "# 使用本地源离线安装 net-tools 工具包\n$ yumdownloader net-tools.x86_64\n# 使用 –destdir 参数设置下载的目标目录\n$ yumdownloader net-tools.x86_64 --destdir=/usr/local/bin/\n# 使用 –resolve 参数解决依赖关系并下载所需的安装包\n$ yumdownloader net-tools.x86_64 --resolve --destdir=/usr/local/bin/"
+        },
+        {
+          "title": "不同 YUM 命令的常用选项",
+          "description": ":- | -\n:- | -\n`-y` | 如果出现提示，假设是\n`--assumeno` | 如果提示，则假设否\n`-q` | 不产生任何输出\n`-v` | 产生额外的调试输出\n`--noplugins` | 运行命令而不加载任何 yum 插件\n`--disableplugin=` | 禁用单个命令的特定插件\n`--enableplugin=` | 启用已安装但当前已禁用的插件\n`--enablerepo=` | 为单个命令启用当前禁用的 repo（通配符可以）\n`--disablerepo=` | 为单个命令禁用当前启用的 repo（通配符可以）\n`--downloadonly` | 下载到 `/var/cache/yum/arch/prod/repo/packages/`，但不要安装\n`--filter-???=` | 代替???与vendors, rpm-groups, arches 和其他人一起过滤输出\n`--changelog` | 显示包的变更日志信息\n另见",
+          "code": "yum --disableplugin=langpacks info vsftpd\n# 显示与正在运行的进程相关的包\nyum --enableplugin=ps ps\nyum install docker \\\n  --enablerepo=rhel-7-server-extras-rpm\nyum list available --disablerepo=epel\n# 下载 vsftpd 包到缓存\nyum install --downloadonly vsftpd"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/yum.md"
+}

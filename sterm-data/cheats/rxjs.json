@@ -1,0 +1,24 @@
+{
+  "name": "RxJS",
+  "description": "RxJS 快速参考",
+  "category": "编程语言",
+  "count": 2,
+  "sections": [
+    {
+      "title": "调度器",
+      "entries": [
+        {
+          "title": "调度器说明",
+          "description": "调度器（Scheduler）控制着 RxJS 操作的执行时机。常见的调度器有：\n- `asyncScheduler`：异步执行任务\n- `queueScheduler`：按队列顺序执行任务\n- `animationFrameScheduler`：在浏览器的下一次重绘前执行任务",
+          "code": ""
+        },
+        {
+          "title": "示例",
+          "description": "## 另见\n- [RxJS 官方文档](https://rxjs.dev/)\n- [RxJS 学习资源](https://rxjs.dev/guide/overview)\n- [RxJS 操作符参考](https://rxjs.dev/guide/operators)",
+          "code": "const obs = of(1, 2, 3).pipe(observeOn(asyncScheduler));\n\nconsole.log('Before subscribe');\nobs.subscribe(console.log);\nconsole.log('After subscribe');\n// 输出: Before subscribe, After subscribe, 1, 2, 3"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/rxjs.md"
+}

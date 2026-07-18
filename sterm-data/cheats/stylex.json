@@ -1,0 +1,249 @@
+{
+  "name": "StyleX",
+  "description": "StyleX 快速参考",
+  "category": "",
+  "count": 42,
+  "sections": [
+    {
+      "title": "入门 StyleX",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "StyleX 是一个 CSS In JS 的用户界面的样式系统\n- [StyleX Intellisense](https://marketplace.visualstudio.com/items?itemName=yash-singh.stylex) _VSCode 插件_\n\n**Vite**\n- [vite-plugin-stylex](https://www.npmjs.com/package/vite-plugin-stylex)\n- [vite-plugin-stylex-dev](https://www.npmjs.com/package/vite-plugin-stylex-dev)\n\n**Babel 插件**\n- [tailwind-to-stylex](https://www.npmjs.com/package/tailwind-to-stylex) 支持在 Tailwind CSS 中使用\n- [@stylex-extend/babel-plugin](https://github.com/nonzzz/stylex-extend/tree/main/packages/babel-plugin) 使用 JSX 属性定义 StyleX\n\n**Prettier**\n- [prettier-plugin-stylex-key-sort](https://github.com/nedjulius/prettier-plugin-stylex-key-sort)\n\n**Bun**\n- [bun-plugin-stylex](https://www.npmjs.com/package/bun-plugin-stylex)\n\n**入门模板**\n- [next.js](https://github.com/nmn/nextjs-app-dir-stylex) _支持 StyleX 的 next.js 项目_\n- [qwik](https://github.com/nmn/qwik-stylex) _使用 StyleX 和 tailwind-to-stylex 的 Qwik 项目_\n- [docusaurus 3](https://github.com/nmn/docusaurus-stylex) _支持 StyleX 的 docusaurus 3 项目_\n- [SvelteKit](https://github.com/nmn/sveltekit-stylex) _支持 StyleX 的 SvelteKit 项目_",
+          "code": ""
+        },
+        {
+          "title": "配置编译器",
+          "description": "",
+          "code": "import plg from '@stylexjs/rollup-plugin';\n\nconst config = () => ({\n  plugins: [\n    plg({ ...options })\n  ]\n})\n\nexport default config;"
+        },
+        {
+          "title": "使用样式",
+          "description": "在 [React](./react.md) 中使用",
+          "code": "function ReactDemo(\n    { color,isActive,style }\n) {\n  return (\n    <div {...stylex.props(\n        styles.main,\n        // 有条件地应用样式\n        isActive && styles.active,\n        // 根据属性选择样式变体\n        colorStyles[color],\n        // 将样式作为 props 传递\n        style,\n      )}\n    />\n  );\n}"
+        },
+        {
+          "title": "定义样式",
+          "description": "样式是使用对象语法和 `create()` API 定义的\n安装",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  root: {\n    width: '100%',\n    maxWidth: 800,\n    minHeight: 40,\n  },\n});"
+        }
+      ]
+    },
+    {
+      "title": "安装",
+      "entries": [
+        {
+          "title": "StyleX 运行时包",
+          "description": "",
+          "code": "npm install --save @stylexjs/stylex"
+        },
+        {
+          "title": "编译器(生产) Rollup",
+          "description": "修改 Rollup 配置 _rollup.config.js_",
+          "code": "import stylexPlugin from '@stylexjs/rollup-plugin';\n\nconst config = {\n  input: './index.js',\n  output: {\n    file: './.build/bundle.js',\n    format: 'es',\n  },\n  // 确保在 Babel 之前使用 stylex 插件\n  plugins: [stylexPlugin({\n    // 必需项。生成的 CSS 文件的文件路径。\n    fileName: './.build/stylex.css',\n    // 默认值：false\n    dev: false,\n    // 所有生成的类名的前缀\n    classNamePrefix: 'x',\n    // CSS 变量支持所必需\n    unstable_moduleResolution: {\n      // 类型：'commonJS' | 'haste'\n      // 默认值：'commonJS'\n      type: 'commonJS',\n      // 项目根目录的绝对路径\n      rootDir: __dirname,\n    },\n  })],\n};\n\nexport default config;"
+        },
+        {
+          "title": "编译器(开发)",
+          "description": "修改 Babel 配置 _(babel.config.js)_",
+          "code": "import styleX from '@stylexjs/babel-plugin';\n\nconst config = {\n  plugins: [\n    [styleX, {\n        dev: true,\n        // 设置为 true 以进行快照测试\n        // 默认值：false\n        test: false,\n        // CSS 变量支持所必需\n        unstable_moduleResolution: {\n          // 类型：'commonJS' | 'haste'\n          // 默认值：'commonJS'\n          type: 'commonJS',\n          // 项目根目录的绝对路径\n          rootDir: __dirname,\n        }\n    }],\n  ],\n};\n\nexport default config;"
+        },
+        {
+          "title": "编译器(生产) Webpack",
+          "description": "修改 Webpack 配置 _webpack.config.js_",
+          "code": "const StylexPlugin = require('@stylexjs/webpack-plugin');\nconst path = require('path');\n\nconst config = (env, argv) => ({\n  entry: {\n    main: './src/index.js',\n  },\n  output: {\n    path: path.resolve(__dirname, '.build'),\n    filename: '[name].js',\n  },\n  module: {\n    rules: [\n      {\n        test: /\\.js$/,\n        exclude: /node_modules/,\n        use: 'babel-loader',\n      },\n    ],\n  },\n  plugins: [\n    // 确保在 Babel 之前使用 stylex 插件\n    new StylexPlugin({\n      filename: 'styles.[contenthash].css',\n      // 获取 webpack 的模式并为开发设置值\n      dev: argv.mode === 'development',\n      // 使用静态生成的 CSS 文件，而不是运行时注入的 CSS。\n      // 即使在开发环境中也是如此。\n      runtimeInjection: false,\n      // 可选的。默认值：'x'\n      classNamePrefix: 'x',\n      // CSS 变量支持所必需\n      unstable_moduleResolution: {\n        // 类型：'commonJS' | 'haste'\n        // 默认值：'commonJS'\n        type: 'commonJS',\n        // 项目根目录的绝对路径\n        rootDir: __dirname,\n      },\n    }),\n  ],\n  cache: true,\n});\n\nmodule.exports = config;"
+        },
+        {
+          "title": "编译器(生产) Next.js",
+          "description": "在 `package.json` 添加配置\n修改 Babel 配置 _.babelrc.js_\n修改 Next.js 配置 _next.config.mjs_",
+          "code": "/** @type {import('next').NextConfig} */\nimport stylexPlugin from \"@stylexjs/nextjs-plugin\";\n\nconst nextConfig = {};\n\nconst __dirname = new URL(\".\", import.meta.url).pathname;\nexport default stylexPlugin({\n  rootDir: __dirname,\n})(nextConfig);"
+        },
+        {
+          "title": "仅限本地开发",
+          "description": "要开始使用 `StyleX` 而无需配置编译器和构建过程，您可以安装本地开发运行时\n开发运行时必须导入到应用程序的 `JavaScript` 入口点并进行配置",
+          "code": "import inject from '@stylexjs/dev-runtime';\n\ninject({\n  classNamePrefix: 'x',\n  dev: true,\n  test: false,\n});"
+        },
+        {
+          "title": "用 ESLint 捕捉错误",
+          "description": "StyleX 编译器不会验证您的样式，并且会编译许多无效样式。当您创作样式时，您应该使用 ESLint 插件来捕获这些错误。修改 ESLint 配置 `.eslintrc.js`\n定义样式",
+          "code": "module.exports = {\n  plugins: [\"@stylexjs\"],\n  rules: {\n    \"@stylexjs/valid-styles\": \"error\",\n  },\n};"
+        }
+      ]
+    },
+    {
+      "title": "定义样式",
+      "entries": [
+        {
+          "title": "创建样式",
+          "description": "",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  base: {\n    fontSize: 16,\n    lineHeight: 1.5,\n    color: 'rgb(60,60,60)',\n  },\n  highlighted: {\n    color: 'rebeccapurple',\n  },\n});"
+        },
+        {
+          "title": "伪类",
+          "description": "样式名为 `button` 的背景样式上添加 `:hover` 和 `:active` 伪类",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  button: {\n    backgroundColor: {\n      default: 'lightblue',\n      ':hover': 'blue',\n      ':active': 'darkblue',\n    },\n  },\n});"
+        },
+        {
+          "title": "伪元素",
+          "description": "",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  input: {\n    // 伪元素\n    '::placeholder': {\n      color: '#999',\n    },\n    color: {\n      default: '#333',\n      // 伪类\n      ':invalid': 'red',\n    },\n  },\n});"
+        },
+        {
+          "title": "媒体查询（和其他@规则）",
+          "description": "同样，媒体查询也可以作为样式值中的 \"条件\"",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  base: {\n    width: {\n      default: 800,\n      '@media (max-width: 800px)': '100%',\n      '@media (min-width: 1540px)': 1366,\n    },\n  },\n});"
+        },
+        {
+          "title": "组合条件",
+          "description": "当您需要组合媒体查询和伪选择器时，嵌套超过`一层`",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  button: {\n    color: {\n      default: 'var(--blue-link)',\n      ':hover': {\n        default: null,\n        '@media (hover: hover)': 'scale(1.1)',\n      },\n      ':active': 'scale(0.9)',\n    },\n  },\n});"
+        },
+        {
+          "title": "后备样式",
+          "description": "使用 `firstThatWorks` 函数来实现相同的目的",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  header: {\n    position: stylex.firstThatWorks('sticky', '-webkit-sticky', 'fixed'),\n  },\n});"
+        },
+        {
+          "title": "关键帧动画",
+          "description": "使用 `stylex.keyframes()` 函数来定义关键帧动画",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst fadeIn = stylex.keyframes({\n  from: {opacity: 0},\n  to: {opacity: 1},\n});\n\nconst styles = stylex.create({\n  base: {\n    animationName: fadeIn,\n    animationDuration: '1s',\n  },\n});"
+        },
+        {
+          "title": "动态样式",
+          "description": "注意：动态样式是一项高级功能，应谨慎使用。对于大多数用例，条件样式应该足够了。\n使用样式",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  // 函数参数必须是简单标识符\n  // -- 不允许解构或默认值\n  bar: (height) => ({\n    height,\n    // 函数体必须是对象字面量\n    // -- 不允许使用 { return {} }\n  }),\n});\n\nfunction MyComponent() {\n  // `height` 的值在编译时不能确定。\n  const [height, setHeight] = useState(10);\n  return <div {...stylex.props(styles.bar(height))} />;\n}"
+        }
+      ]
+    },
+    {
+      "title": "使用样式",
+      "entries": [
+        {
+          "title": "合并样式",
+          "description": "如果样式的顺序颠倒，文本将为灰色",
+          "code": "<div {...stylex.props(\n    styles.highlighted, styles.base\n  )}\n/>"
+        },
+        {
+          "title": "条件样式",
+          "description": "通过使用常见的 JavaScript 模式（例如三元表达式和 `&&` 运算符），可以在运行时有条件地应用样式。 `stylex.props` 忽略虚假值，例如 `null`、`undefined` 或 `false`",
+          "code": "<div\n  {...stylex.props(\n    styles.base,\n    props.isHighlighted && styles.highlighted,\n    isActive ? styles.active : styles.inactive,\n  )}\n/>"
+        },
+        {
+          "title": "样式变体",
+          "description": "然后，通过使用 `variant` 属性作为样式对象上的键来应用适当的样式",
+          "code": "function Button({variant, ...props}) {\n  return (\n    <button {...props}\n      {...stylex.props(styles[variant])}\n    />\n  );\n}"
+        },
+        {
+          "title": "样式作为道具",
+          "description": "`stylex.props` 函数返回具有 `className` 和 `style` 的对象。当样式要合并到组件内时不要使用它：",
+          "code": "<CustomComponent\n  style={[\n    styles.base,\n    isHighlighted && styles.highlighted\n  ]}\n/>"
+        },
+        {
+          "title": "接受组件中的样式",
+          "description": "将其与 `stylex.props` 函数一起应用",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\n// Local Styles\nconst styles = stylex.create({\n  base: {\n    /*...*/\n  },\n});\n\nfunction CustomComponent({style}) {\n  return (\n    <div\n      {...stylex.props(styles.base, style)}\n    />\n  );\n}"
+        },
+        {
+          "title": "“取消设置”样式",
+          "description": "将样式属性设置为 `null` 会删除 StyleX 之前为其应用的任何样式。\n主题",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nconst styles = stylex.create({\n  base: {\n    color: null,\n  },\n});"
+        }
+      ]
+    },
+    {
+      "title": "主题",
+      "entries": [
+        {
+          "title": "使用媒体查询",
+          "description": "",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\n// 可以使用常量来避免重复媒体查询\nconst DARK = '@media (prefers-color-scheme: dark)';\n\nexport const colors = stylex.defineVars({\n  primaryText: {default: 'black', [DARK]: 'white'},\n  secondaryText: {default: '#333', [DARK]: '#ccc'},\n  accent: {default: 'blue', [DARK]: 'lightblue'},\n  background: {default: 'white', [DARK]: 'black'},\n  lineColor: {default: 'gray', [DARK]: 'lightgray'},\n});"
+        },
+        {
+          "title": "定义变量",
+          "description": "这定义了 HTML 文档的 `:root` 处的变量。它们可以作为常量导入并在 `stylex.create` 调用中使用。",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nexport const tokens = stylex.defineVars({\n  primaryText: 'black',\n  secondaryText: '#333',\n  borderRadius: '4px',\n  fontFamily: 'system-ui, sans-serif',\n  fontSize: '16px',\n});"
+        },
+        {
+          "title": "使用变量",
+          "description": "然后就可以像这样导入和使用这些样式：",
+          "code": "import * as stylex from '@stylexjs/stylex';\nimport {colors, spacing} from '../tokens.stylex';\n\nconst styles = stylex.create({\n  container: {\n    color: colors.primaryText,\n    backgroundColor: colors.background,\n    padding: spacing.medium,\n  },\n});"
+        },
+        {
+          "title": "定义变量时的规则",
+          "description": "变量必须定义在 `.stylex.js` 文件中，变量必须位于具有以下扩展名之一的文件中：\n- .stylex.js\n- .stylex.mjs\n- .stylex.cjs\n- .stylex.ts\n- .stylex.tsx\n- .stylex.jsx\n变量必须命名为 `exports`\n不允许：",
+          "code": "// ❌ - 只允许命名导出\nexport default stylex.defineVars({\n  /* ... */\n});\n\n// ❌ - 变量必须直接导出\nconst x = stylex.defineVars({\n  /* ... */\n});\nexport const colors = x;\n\n// ❌ - 变量不能嵌套在另一个对象内部\nexport const colors = {\n  foregrounds: stylex.defineVars({\n    /* ... */\n  }),\n  backgrounds: stylex.defineVars({\n    /* ... */\n  }),\n};"
+        },
+        {
+          "title": "创建主题",
+          "description": "应用主题，主题对象类似于使用 `stylex.create()` 创建的样式对象。使用 `stylex.props()` 将它们应用于元素，以覆盖该元素及其所有后代的变量。\n- 创建主题时必须覆盖变量组中的所有变量。这一选择是为了帮助发现意外遗漏\n- 主题可以在代码库中的任何位置使用 `stylex.createTheme()` 创建，并在文件或组件之间传递\n- 如果同一变量组的多个主题应用于同一 HTML 元素，则最后应用的主题获胜",
+          "code": "<div {...stylex.props(dracula, styles.container)}>\n  {children}\n</div>;"
+        },
+        {
+          "title": "变量类型",
+          "description": "所有值都可以是任意字符串。要将类型分配给变量，可以使用适当的类型函数包装它们",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nexport const tokens = stylex.defineVars({\n  primaryTxt: stylex.types.color('black'),\n  secondaryTxt: stylex.types.color('#333'),\n  borderRadius: stylex.types.length('4px'),\n  angle: stylex.types.angle('0deg'),\n  int: stylex.types.integer(2),\n});"
+        },
+        {
+          "title": "变量类型 & 条件值",
+          "description": "用法保持不变，以上内容完全有效",
+          "code": "/// tokens.stylex.js\nimport * as stylex from '@stylexjs/stylex';\n\nexport const colors = stylex.defineVars({\n  primaryText: stylex.types.color({\n    default: 'black', [DARK]: 'white'\n  }),\n});"
+        },
+        {
+          "title": "源代码中的类型安全",
+          "description": "当在 `stylex.defineVars` 中使用特定类型声明变量时，静态类型将强制在 `stylex.createTheme` 调用中为该变量设置主题时使用相同类型的函数",
+          "code": "// tokens.stylex.js\nimport * as stylex from '@stylexjs/stylex';\nimport {tokens} from './tokens.stylex.js';\n\nexport const high = stylex.defineVars({\n  primaryTxt: stylex.types.color('black'),\n  secondaryTxt: stylex.types.color('#222'),\n  borderRadius: stylex.types.length('8px'),\n  angle: stylex.types.angle('0deg'),\n  int: stylex.types.integer(4),\n});"
+        },
+        {
+          "title": "动画渐变",
+          "description": "可以通过对其中使用的角度进行动画处理来对渐变进行动画处理",
+          "code": "import * as stylex from '@stylexjs/stylex';\nimport {tokens} from './tokens.stylex';\n\nconst rotate = stylex.keyframes({\n  from: { [tokens.angle]: '0deg' },\n  to: { [tokens.angle]: '360deg' },\n});\n\nconst styles = stylex.create({\n  gradient: {\n    backgroundImage: `conic-gradient(from ${tokens.angle}, ...colors)`,\n    animationName: rotate,\n    animationDuration: '10s',\n    animationTimingFunction: 'linear',\n    animationIterationCount: 'infinite',\n  },\n})"
+        },
+        {
+          "title": "模拟 round()",
+          "description": "现代浏览器开始支持 CSS 中的 [round()](https://developer.mozilla.org/en-US/docs/Web/CSS/round) 函数。\n该功能通过一个整数类型的变量来模拟\nTypeScript 类型",
+          "code": "const styles = stylex.create({\n  gradient: {\n    // Math.floor\n    [tokens.int]: `calc(16 / 9)`\n\n    // Math.round\n    [tokens.int]: `calc((16 / 9) + 0.5)`\n  },\n})"
+        }
+      ]
+    },
+    {
+      "title": "TypeScript 类型",
+      "entries": [
+        {
+          "title": "StyleXStyles 样式 props 类型",
+          "description": "",
+          "code": "import type {StyleXStyles} from '@stylexjs/stylex';\nimport * as stylex from '@stylexjs/stylex';\n\ntype Props = {\n  ...\n  style?: StyleXStyles,\n};\n\nfunction MyComponent(\n  { style, ...otherProps }: Props\n) {\n  return (\n    <div\n      {...stylex.props(\n        localStyles.foo,\n        localStyles.bar, style\n      )}\n    >\n      {/* ... */}\n    </div>\n  );\n}"
+        },
+        {
+          "title": "StyleXStylesWithout 禁止属性",
+          "description": "此处对象类型中列出的属性将被禁止，但所有其他样式仍将被接受。",
+          "code": "import type {StyleXStylesWithout} from '@stylexjs/stylex';\nimport * as stylex from '@stylexjs/stylex';\n\ntype NoLayout = StyleXStylesWithout<{\n  position: unknown,\n  display: unknown,\n  top: unknown,\n  start: unknown,\n  end: unknown,\n  bottom: unknown,\n  border: unknown,\n  borderWidth: unknown,\n  borderBottomWidth: unknown,\n  borderEndWidth: unknown,\n  borderStartWidth: unknown,\n  borderTopWidth: unknown,\n  margin: unknown,\n  marginBottom: unknown,\n  marginEnd: unknown,\n  marginStart: unknown,\n  marginTop: unknown,\n  padding: unknown,\n  paddingBottom: unknown,\n  paddingEnd: unknown,\n  paddingStart: unknown,\n  paddingTop: unknown,\n  width: unknown,\n  height: unknown,\n  flexBasis: unknown,\n  overflow: unknown,\n  overflowX: unknown,\n  overflowY: unknown,\n}>;\n\ntype Props = {\n  // ...\n  style?: NoLayout,\n};\n\nfunction MyComponent({style, ...}: Props) {\n  return (\n    <div\n      {...stylex.props(localStyles.foo, localStyles.bar, style)}\n    >\n      {/* ... */}\n    </div>\n  );\n}"
+        },
+        {
+          "title": "从一组样式属性中接受",
+          "description": "",
+          "code": "import type {StyleXStyles} from '@stylexjs/stylex';\n\ntype Props = {\n  // ...\n  style?: StyleXStyles<{\n    color?: string;\n    backgroundColor?: string;\n    borderColor?: string;\n    borderTopColor?: string;\n    borderEndColor?: string;\n    borderBottomColor?: string;\n    borderStartColor?: string;\n  }>;\n};"
+        },
+        {
+          "title": "限制样式的可能值",
+          "description": "",
+          "code": "import type {StyleXStyles} from '@stylexjs/stylex';\n\ntype Props = {\n  ...\n  // 只接受 marginTop 的样式，其他不接受。\n  // marginTop 的值只能是 0、4、8 或 16。\n  style?: StyleXStyles<{\n    marginTop: 0 | 4 | 8 | 16\n  }>,\n};"
+        },
+        {
+          "title": "VarGroup",
+          "description": "VarGroup 是调用 `stylex.defineVars` 生成的对象的类型。它将键映射到 CSS 自定义属性的引用",
+          "code": "import * as stylex from '@stylexjs/stylex';\n\nexport const vars = stylex.defineVars({\n  color: 'red',\n  backgroundColor: 'blue',\n});\n\nexport type Vars = typeof vars;\n/*\n  Vars = VarGroup<{\n    color: string,\n    backgroundColor: string,\n  }>\n*/"
+        },
+        {
+          "title": "StaticStyles",
+          "description": "不允许使用函数定义的动态样式",
+          "code": "import type {StaticStyles} from '@stylexjs/stylex';\n\ntype Props = {\n  // ...\n  style?: StaticStyles<{\n    color?: 'red' | 'blue' | 'green';\n    padding?: 0 | 4 | 8 | 16 | 32;\n    backgroundColor?: string;\n    borderColor?: string;\n    borderTopColor?: string;\n    borderEndColor?: string;\n    borderBottomColor?: string;\n    borderStartColor?: string;\n  }>;\n};"
+        },
+        {
+          "title": "Theme",
+          "description": "",
+          "code": "import type {VarGroup} from '@stylexjs/stylex';\nimport * as stylex from '@stylexjs/stylex';\n\nimport {vars} from './vars.stylex';\n\nexport const theme: Theme<typeof vars> = stylex.createTheme(vars, {\n  color: 'red', // OK\n  backgroundColor: 'blue', // OK\n});"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/stylex.md"
+}

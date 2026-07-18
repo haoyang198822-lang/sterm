@@ -1,0 +1,94 @@
+{
+  "name": "Zip",
+  "description": "Zip 快速参考",
+  "category": "",
+  "count": 14,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "Zip 用法",
+          "description": "默认操作是添加或替换压缩文件列表中的压缩文件条目，压缩文件列表可以包括特殊名称 `-`，压缩标准输入数据\n- `Zip` 是一个创建和管理 `zip` 文件的压缩工具\n- `Unzip` 是一个用于解压缩 `zip` 文件的工具",
+          "code": "$ yum install -y unzip zip"
+        },
+        {
+          "title": "选项示例",
+          "description": "参数 | 描述  | 参数 | 描述\n:--- | :--- | :--- | :---\n`-f` | **freshen:** 只压缩具有变化的文件 | `-u` | **update:** 只压缩变化的或新增的文件\n`-d` | 在压缩文件中删除项目 | `-m` | 移动到压缩文件中(删除操作系统文件)\n`-r` | 递归进入目录   | `-j` | 不记录目录名\n`-0` | 仅存储    | `-l` | 将`LF`转换为`CRLF`(-ll CRLF转LF)\n`-1` | 更快压缩  | `-9`  | 更好压缩\n`-q` | 安静操作  | `-v` | 显示详细操作/打印版本信息\n`-c` | 增加注释   | `-z`  | 添加压缩文件注释\n`-@` | 从标准输入流读取文件列表  | `-o` | 让压缩文件日期与最近更新的文件日期一致\n`-x` | 排除以下文件/目录  | `-i` | 仅添加以下文件/目录\n`-F` | 修复压缩文件(-FF尝试更加努力) | `-D` | 不添加目录到压缩文件中\n`-A` | 调整自解压可执行文件   | `-J` | 忽略压缩文件的前缀(解压自解压文件)\n`-T` | 检查压缩文件是否完整  | `-X`  | 排除额外的文件属性\n`-y` | 将符号链接作为链接存储 | `-h` | 显示此帮助文件\n`-n` | 不压缩以下文件类型   | `-w`  | 在压缩操作之前提示\n`-V` | 保留VMS版本号     | `-L` | 使一些名称小写\n`-M` | 通过“more”分页器进行数据流输出 | `-O` | CHARSET指定字符编码以供压缩条目使用\n`-k`  | 加密压缩文件项     | `-s`  | 使用正则表达式选择要包括的条目\n`-u@` | 从标准输入读取参数 | `-vV` | 仅包括与VMS版本字符串匹配的条目\n`-z`   | 将zip放入存档模式    | `-Z`  | `zipinfo` 模式\n`-C`   | 大小写不敏感匹配文件名(需要UTF-8文件系统;参阅--Ohelp) | &nbsp; | &nbsp;\n`-2**` | 通过第二层压缩  | `-3**` | 通过第三层压缩\n`-4**` | 通过第四层压缩  | `-d**` | 仅提取这些文件(仅限zipinfo模式)\n`-j**` | 忽略 `zipfile` 的前缀(解压模式) | &nbsp; | &nbsp;\n`**` 这些级别是数据压缩算法，具有 gzip(1) 兼容的级别 `1-9`, 以及特殊的 `0` 表示无压缩和 `-1` (最快)表示压缩数据以\"存储\"方法机会存储在ZIP文件中 的未压缩数据。",
+          "code": ""
+        },
+        {
+          "title": "语法形式和选项",
+          "description": ":- | :-\n:- | :-\n**基本语法** | `zip [选项] 文件名.zip [文件列表]`\n**压缩目录** | `zip -r [选项] 文件名.zip 目录名称`\n**将文件添加到现有压缩文件** | `zip -u [选项] 文件名.zip 文件名称`\n**解压缩文件** | `unzip [选项] 文件名.zip`\n**将 zip 文件解压缩到指定目录** | `unzip [选项] 文件名.zip -d 目录名称`\n**列出 zip 文件中的内容** | `unzip -l 文件名.zip`\n**将 zip 文件加密** | `zip -e [选项] 文件名.zip 文件名称`\n**将 zip 文件解密** | `unzip [选项] 文件名.zip（然后输入密码解密）`\n**将 zip 文件中的文件转成 UTF-8 编码** | `zip -O utf-8 -r [选项] 文件名.zip 文件列表`\nZip 压缩示例",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Zip 压缩示例",
+      "entries": [
+        {
+          "title": "创建新的 zip 压缩文件",
+          "description": "",
+          "code": "$ zip filename.zip file1 file2 folder1"
+        },
+        {
+          "title": "将文件添加到现有的 zip 压缩文件",
+          "description": "",
+          "code": "$ zip -r filename.zip file3 folder2"
+        },
+        {
+          "title": "压缩文件排除文件",
+          "description": "压缩 `example/basic/` 目录内容到 `basic.zip` 压缩包中 `-x` 指定排除目录，注意**没有双引**号将不起作用",
+          "code": "$ zip -r basic.zip example/basic/ -x \"example/basic/node_modules/*\" -x \"example/basic/build/*\" -x \"example/basic/coverage/*\""
+        },
+        {
+          "title": "将大文件分割成多个zip文件",
+          "description": "",
+          "code": "$ zip -s 10M -r filename.zip largefile"
+        },
+        {
+          "title": "将zip文件加密",
+          "description": "",
+          "code": "$ zip -e secure.zip file4"
+        },
+        {
+          "title": "更新zip文件中的文件",
+          "description": "",
+          "code": "$ zip -u filename.zip file5"
+        },
+        {
+          "title": "将zip文件中的文件转成UTF-8编码",
+          "description": "Zip 解压示例",
+          "code": "$ zip -O utf-8 -r utf8zip.zip utf8file"
+        }
+      ]
+    },
+    {
+      "title": "Zip 解压示例",
+      "entries": [
+        {
+          "title": "将zip文件解密",
+          "description": "",
+          "code": "$ unzip secure.zip（然后输入密码解密）"
+        },
+        {
+          "title": "解压缩zip文件",
+          "description": "",
+          "code": "$ unzip filename.zip"
+        },
+        {
+          "title": "将zip文件解压缩到指定目录",
+          "description": "",
+          "code": "$ unzip filename.zip -d folder3"
+        },
+        {
+          "title": "列出zip文件中的内容",
+          "description": "另见",
+          "code": "$ unzip -l filename.zip"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/zip.md"
+}

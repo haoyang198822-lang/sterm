@@ -1,0 +1,214 @@
+{
+  "name": "TOML",
+  "description": "TOML 快速参考",
+  "category": "",
+  "count": 36,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "[TOML](https://toml.io/en/) 是一种最小的配置文件格式，由于明显的语义而易于阅读。\n- [Document](https://toml.io/en/latest) _(toml.io)_\n- [Learn X in Y minutes](https://learnxinyminutes.com/docs/toml/) _(learnxinyminutes.com)_\n- [Better TOML VSCode 插件](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml) _(visualstudio.com)_",
+          "code": ""
+        },
+        {
+          "title": "示例",
+          "description": "",
+          "code": "bool = true\ndate = 2006-05-27T07:32:00Z\nstring = \"hello\"\nnumber = 42\nfloat = 3.14\nscientificNotation = 1e+12"
+        },
+        {
+          "title": "注释",
+          "description": "",
+          "code": "# A single line comment example\n# block level comment example\n# 注释行 1\n# 注释行 2\n# 注释行 3"
+        },
+        {
+          "title": "整数",
+          "description": "",
+          "code": "int1 = +42\nint2 = 0\nint3 = -21\nintegerRange = 64"
+        },
+        {
+          "title": "浮点数",
+          "description": "",
+          "code": "float2 = 3.1415\nfloat4 = 5e+22\nfloat7 = 6.626e-34"
+        },
+        {
+          "title": "布尔值",
+          "description": "",
+          "code": "bool1 = true\nbool2 = false\nboolMustBeLowercase = true"
+        },
+        {
+          "title": "时间日期",
+          "description": "",
+          "code": "date1 = 1989-05-27T07:32:00Z\ndate2 = 1989-05-26T15:32:00-07:00\ndate3 = 1989-05-27T07:32:00\ndate4 = 1989-05-27\ntime1 = 07:32:00\ntime2 = 00:32:00.999999"
+        },
+        {
+          "title": "字符串",
+          "description": "See: [Strings](#字符串)",
+          "code": "str1 = \"I'm a string.\"\nstr2 = \"You can \\\"quote\\\" me.\"\nstr3 = \"Name\\tJos\\u00E9\\nLoc\\tSF.\""
+        },
+        {
+          "title": "Table",
+          "description": "See: [Tables](#toml-tables)",
+          "code": "[owner]\nname = \"Tom Preston-Werner\"\ndob = 1979-05-27T07:32:00-08:00"
+        },
+        {
+          "title": "数组",
+          "description": "",
+          "code": "array1 = [1, 2, 3]\narray2 = [\"Commas\", \"are\", \"delimiter\"]\narray3 = [8001, 8001, 8002]"
+        },
+        {
+          "title": "友好数组",
+          "description": "TOML 字符串",
+          "code": "array1 = [ \"Don't mix\", \"different\", \"types\" ]\narray2 = [ [ 1.2, 2.4 ], [\"all\", 'strings', \"\"\"are the same\"\"\", '''type'''] ]\narray3 = [\n  \"Whitespace\", \"is\", \n  \"ignored\"\n]"
+        }
+      ]
+    },
+    {
+      "title": "TOML 字符串",
+      "entries": [
+        {
+          "title": "基本字符串",
+          "description": "",
+          "code": "str1 = \"I'm a string.\"\nstr2 = \"You can \\\"quote\\\" me.\"\nstr3 = \"Name\\tJos\\u00E9\\nLoc\\tSF.\""
+        },
+        {
+          "title": "多行基本字符串",
+          "description": "用行末反斜杠自动剔除非空白字符前的任何空白字符",
+          "code": "str1 = \"\"\"\nRoses are red\nViolets are blue\"\"\"\n\nstr2 = \"\"\"\\\n  The quick brown \\\n  fox jumps over \\\n  the lazy dog.\\\n  \"\"\""
+        },
+        {
+          "title": "多行文字字符串",
+          "description": "由于没有转义，无法在由单引号包裹的字面量字符串中写入单引号",
+          "code": "re = '''\\d{2} apps is t[wo]o many'''\nlines = '''\nThe first newline is\ntrimmed in raw strings.\nAll other whitespace\nis preserved.\n'''"
+        },
+        {
+          "title": "字面量字符串",
+          "description": "用单引号括起来。不允许转义。\nTOML 数字",
+          "code": "path = 'C:\\Users\\nodejs\\templates'\npath2 = '\\\\User\\admin$\\system32'\nquoted = 'Tom \"Dubs\" Preston-Werner'\nregex = '<\\i\\c*\\s*>'"
+        }
+      ]
+    },
+    {
+      "title": "TOML 数字",
+      "entries": [
+        {
+          "title": "整数",
+          "description": "",
+          "code": "int1 = +99\nint2 = 42\nint3 = 0\nint4 = -17"
+        },
+        {
+          "title": "十六进制带有前缀 `0x`",
+          "description": "",
+          "code": "hex1 = 0xDEADBEEF\nhex2 = 0xdeadbeef\nhex3 = 0xdead_beef"
+        },
+        {
+          "title": "八进制带有前缀 `0o`",
+          "description": "",
+          "code": "oct1 = 0o01234567\noct2 = 0o755"
+        },
+        {
+          "title": "二进制带有前缀 `0b`",
+          "description": "",
+          "code": "bin1 = 0b11010110"
+        },
+        {
+          "title": "both",
+          "description": "",
+          "code": "float7 = 6.626e-34"
+        },
+        {
+          "title": "分隔符",
+          "description": "",
+          "code": "float8 = 224_617.445_991_228"
+        },
+        {
+          "title": "小数",
+          "description": "",
+          "code": "float1 = +1.0\nfloat2 = 3.1415\nfloat3 = -0.01"
+        },
+        {
+          "title": "指数",
+          "description": "",
+          "code": "float4 = 5e+22\nfloat5 = 1e06\nfloat6 = -2E-2"
+        },
+        {
+          "title": "无穷",
+          "description": "",
+          "code": "infinite1 = inf  # 正无穷\ninfinite2 = +inf # 正无穷\ninfinite3 = -inf # 负无穷"
+        },
+        {
+          "title": "非数",
+          "description": "TOML 日期与时刻",
+          "code": "not1 = nan\nnot2 = +nan\nnot3 = -nan"
+        }
+      ]
+    },
+    {
+      "title": "TOML 日期与时刻",
+      "entries": [
+        {
+          "title": "坐标日期时刻",
+          "description": "",
+          "code": "odt1 = 1979-05-27T07:32:00Z\nodt2 = 1979-05-27T00:32:00-07:00\nodt3 = 1979-05-27T00:32:00.999999-07:00"
+        },
+        {
+          "title": "各地日期时刻",
+          "description": "",
+          "code": "ldt1 = 1979-05-27T07:32:00\nldt2 = 1979-05-27T00:32:00.999999"
+        },
+        {
+          "title": "各地日期",
+          "description": "",
+          "code": "ld1 = 1979-05-27"
+        },
+        {
+          "title": "各地时刻",
+          "description": "TOML Tables",
+          "code": "lt1 = 07:32:00\nlt2 = 00:32:00.999999"
+        }
+      ]
+    },
+    {
+      "title": "TOML Tables",
+      "entries": [
+        {
+          "title": "基本的",
+          "description": "`foo` 和 `bar` 是名为`name` 的表中的键",
+          "code": "[name]\nfoo = 1\nbar = 2"
+        },
+        {
+          "title": "嵌套",
+          "description": "",
+          "code": "[table1]\nfoo = \"bar\"\n[table1.nested_table]\nbaz = \"bat\""
+        },
+        {
+          "title": "类数组",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"comments\" : [\n    {\n      \"author\" : \"Nate\",\n      \"text\" : \"Great Article!\"\n    },\n    {\n      \"author\" : \"Anonymous\",\n      \"text\" : \"Love It!\"\n    }\n  ]\n}"
+        },
+        {
+          "title": "点分隔",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"dog\": {\n    \"tater.man\": {\n      \"type\": \"pug\"\n    }\n  }\n}"
+        },
+        {
+          "title": "多嵌套",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n \"foo\" : {\n  \"bar\" : {\n   \"baz\" : {\n    \"bat\" : \"hi\"\n   }\n  }\n }\n}"
+        },
+        {
+          "title": "忽略空格",
+          "description": "",
+          "code": "[a.b.c]          # this is best practice\n[ d.e.f ]        # same as [d.e.f]\n[ g .  h  .i ]   # same as [g.h.i]\n[ j . \"ʞ\" .'l' ] # same as [j.\"ʞ\".'l']"
+        },
+        {
+          "title": "内联表",
+          "description": "另见",
+          "code": "name = { first = \"Tom\", last = \"Preston-Werner\" }\npoint = { x = 1, y = 2 }\nanimal = { type.name = \"pug\" }"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/toml.md"
+}

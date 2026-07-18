@@ -1,0 +1,244 @@
+{
+  "name": "Oracle",
+  "description": "Oracle 快速参考",
+  "category": "",
+  "count": 42,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "SELECT 语句",
+          "description": "",
+          "code": "SELECT * \nFROM beverages \nWHERE field1 = 'Kona' \n  AND field2 = 'coffee' \n  AND field3 = 122;"
+        },
+        {
+          "title": "SELECT INTO 语句",
+          "description": "",
+          "code": "SELECT name, address, phone_number \nINTO v_employee_name, v_employee_address, v_employee_phone_number \nFROM employee \nWHERE employee_id = 6;"
+        },
+        {
+          "title": "INSERT 语句",
+          "description": "使用 VALUES 关键字插入\n使用 SELECT 语句插入",
+          "code": "INSERT INTO table_name\nSELECT Value1, Value2, ...\nFROM table_name;\n\nINSERT INTO table_name (Column1, Column2, ...)\nSELECT Value1, Value2, ...\nFROM table_name;"
+        },
+        {
+          "title": "DELETE 语句",
+          "description": "",
+          "code": "DELETE FROM table_name \nWHERE some_column = some_value;\n\nDELETE FROM customer \nWHERE sold = 0;"
+        },
+        {
+          "title": "UPDATE 语句",
+          "description": "SEQUENCES",
+          "code": "-- 更新该表的整个列，设置 `state` 列所有值为 `CA`\nUPDATE customer SET state='CA';\n-- 更新表的具体记录eg：\nUPDATE customer SET name='Joe' WHERE customer_id=10;\n-- 当 `paid` 列大于零时，将列 `invoice` 更新为 `paid`\nUPDATE movies SET invoice='paid' WHERE paid > 0;"
+        }
+      ]
+    },
+    {
+      "title": "SEQUENCES",
+      "entries": [
+        {
+          "title": "CREATE SEQUENCE",
+          "description": "序列的语法是\n例如",
+          "code": "CREATE SEQUENCE supplier_seq\n    MINVALUE 1\n    MAXVALUE 999999999999999999999999999\n    START WITH 1\n    INCREMENT BY 1\n    CACHE 20;"
+        },
+        {
+          "title": "ALTER SEQUENCE",
+          "description": "将序列增加一定数量\n改变序列的最大值\n设置序列循环或不循环\n配置序列以缓存值\n设置是否按顺序返回值",
+          "code": "ALTER SEQUENCE <sequence_name> <ORDER | NOORDER>;\nALTER SEQUENCE seq_order NOORDER;\nALTER SEQUENCE seq_order;"
+        },
+        {
+          "title": "从字符串生成查询",
+          "description": "有时需要从字符串创建查询\n这是一个如何完成动态查询的非常简单的示例",
+          "code": "PROCEDURE oracle_runtime_query_pcd IS\n    TYPE ref_cursor IS REF CURSOR;\n    l_cursor        ref_cursor;\n\n    v_query         varchar2(5000);\n    v_name          varchar2(64);\nBEGIN\n    v_query := 'SELECT name FROM employee WHERE employee_id=5';\n    OPEN l_cursor FOR v_query;\n    LOOP\n      FETCH l_cursor INTO v_name;\n      EXIT WHEN l_cursor%NOTFOUND;\n    END LOOP;\n    CLOSE l_cursor;\nEND;"
+        },
+        {
+          "title": "字符串操作",
+          "description": "这将返回 11，因为参数由 11 个字符组成，包括空格\n这些也返回 `11`，因为调用的函数是等价的",
+          "code": "SELECT lengthb('hello world') FROM dual;\nSELECT lengthc('hello world') FROM dual;\nSELECT length2('hello world') FROM dual;\nSELECT length4('hello world') FROM dual;"
+        },
+        {
+          "title": "Instr",
+          "description": "`Instr`（在字符串中）返回一个整数，该整数指定字符串中子字符串的位置。程序员可以指定他们想要检测的字符串的外观以及起始位置。不成功的搜索返回 `0`\n这将返回 `10`，因为第一次出现的 `/` 是第十个字符\n这将返回 `17`，因为第二次出现的 `e` 是第 `17` 个字符\n这将返回 `0`，因为第一次出现的 `/` 在起点之前，即第 `12` 个字符",
+          "code": "instr( 'oracle pl/sql cheatsheet', '/', 12, 1);"
+        },
+        {
+          "title": "Replace",
+          "description": "这返回 `i am not here`",
+          "code": "replace(string1, string_to_replace, [ replacement_string ] );\n\nreplace('i am here','am','am not');"
+        },
+        {
+          "title": "Substr",
+          "description": "返回 `pl/sql`，因为 `pl/sql` 中的 `p` 在字符串中的第 `8` 个位置（从 `oracle` 中的 `o` 处的 `1` 开始计算）\n返回 `cheatsheet`，因为 `c` 在字符串中的第 `15` 个位置，`t`是字符串中的最后一个字符。\n返回 `cheat`，因为 `c` 是字符串中的第 `10` 个字符，从字符串末尾以 `t` 作为位置 `1` 开始计算。",
+          "code": "SELECT substr('oracle pl/sql cheatsheet', -10, 5) FROM dual;"
+        },
+        {
+          "title": "Trim",
+          "description": "这些函数可用于从字符串中过滤不需要的字符。默认情况下，它们会删除空格，但也可以指定要删除的字符集\n这将返回“`删除两侧的空格`”\n这将返回“`删除左侧的空格`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;”\n这将返回“&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`删除右侧的空格`”\nDDL SQL",
+          "code": "rtrim ( string-to-be-trimmed [, trimming-char-set ] );\nrtrim ('   删除右侧的空格     ');"
+        }
+      ]
+    },
+    {
+      "title": "DDL SQL",
+      "entries": [
+        {
+          "title": "创建表",
+          "description": "创建表的语法\n示例：",
+          "code": "CREATE TABLE employee\n       (id int, name varchar(20));"
+        },
+        {
+          "title": "添加列",
+          "description": "添加列的语法\n示例：",
+          "code": "ALTER TABLE employee\n    ADD (id int)"
+        },
+        {
+          "title": "修改列",
+          "description": "修改列的语法\n`ALTER` 表语法和示例：",
+          "code": "ALTER TABLE employee\n    MODIFY( sickHours s float );"
+        },
+        {
+          "title": "删除列",
+          "description": "删除列的语法\n示例：",
+          "code": "ALTER TABLE employee\n    DROP COLUMN vacationPay;"
+        },
+        {
+          "title": "约束类型和代码",
+          "description": "类型代码 | 类型描述 | 作用于级别\n:-- | -- | --\n`C` | 检查表 | Column\n`O` | 在视图上只读 | Object\n`P` | 首要的关键 | Object\n`R` | 参考 AKA 外键 | Column\n`U` | 唯一键 | Column\n`V` | 检查视图上的选项 | Object",
+          "code": ""
+        },
+        {
+          "title": "显示约束",
+          "description": "以下语句显示了系统中的所有约束：",
+          "code": "SELECT\n    table_name,\n    constraint_name,\n    constraint_type\nFROM user_constraints;"
+        },
+        {
+          "title": "选择参照约束",
+          "description": "以下语句显示了源和目标表/列对的所有引用约束（外键）：",
+          "code": "SELECT\n    c_list.CONSTRAINT_NAME as NAME,\n    c_src.TABLE_NAME as SRC_TABLE,\n    c_src.COLUMN_NAME as SRC_COLUMN,\n    c_dest.TABLE_NAME as DEST_TABLE,\n    c_dest.COLUMN_NAME as DEST_COLUMN\nFROM ALL_CONSTRAINTS c_list,\n    ALL_CONS_COLUMNS c_src,\n    ALL_CONS_COLUMNS c_dest\nWHERE c_list.CONSTRAINT_NAME = c_src.CONSTRAINT_NAME\n    AND c_list.R_CONSTRAINT_NAME = c_dest.CONSTRAINT_NAME\n    AND c_list.CONSTRAINT_TYPE = 'R'"
+        },
+        {
+          "title": "对表设置约束",
+          "description": "使用 `CREATE TABLE` 语句创建检查约束的语法是：\n例如：",
+          "code": "CREATE TABLE suppliers\n(\n    supplier_id  numeric(4),\n    supplier_name  varchar2(50),\n    CONSTRAINT check_supplier_id\n    CHECK (supplier_id BETWEEN 100 and 9999)\n);"
+        },
+        {
+          "title": "表上的唯一索引",
+          "description": "使用 `CREATE TABLE` 语句创建唯一约束的语法是：\n例如：",
+          "code": "CREATE TABLE customer\n(\n    id   integer not null,\n    name varchar2(20),\n    CONSTRAINT customer_id_constraint\n    UNIQUE (id)\n);"
+        },
+        {
+          "title": "添加唯一约束",
+          "description": "唯一约束的语法是：\n例如：",
+          "code": "ALTER TABLE employee\n    ADD CONSTRAINT uniqueEmployeeId \n    UNIQUE(employeeId) \n    USING INDEX ourcompanyIndx_tbs;"
+        },
+        {
+          "title": "添加外部约束",
+          "description": "foregin 约束的语法是：\n例如：",
+          "code": "ALTER TABLE employee\n    ADD CONSTRAINT fk_departament \n    FOREIGN KEY (departmentId) \n    REFERENCES departments(Id);"
+        },
+        {
+          "title": "删除约束",
+          "description": "删除（删除）约束的语法是：\n例如：\nINDEXES",
+          "code": "ALTER TABLE employee\n    DROP CONSTRAINT uniqueEmployeeId;"
+        }
+      ]
+    },
+    {
+      "title": "INDEXES",
+      "entries": [
+        {
+          "title": "创建索引",
+          "description": "创建索引的语法是：\n- `UNIQUE` 表示索引列中值的组合必须是唯一的\n- `COMPUTE STATISTICS` 告诉 Oracle 在创建索引期间收集统计信息。然后优化器使用这些统计信息来选择执行语句时的最佳执行计划。例如：\n在此示例中，已在名为 `customer_idx` 的客户表上创建了一个索引。它仅包含 `customer_name` 字段\n下面创建一个包含多个字段的索引：\n以下内容在创建索引时收集统计信息：",
+          "code": "CREATE INDEX customer_idx\n    ON supplier (customer_name, country)\n    COMPUTE STATISTICS;"
+        },
+        {
+          "title": "创建基于函数的索引",
+          "description": "在 `Oracle` 中，您不仅限于在列上创建索引。您可以创建基于函数的索引\n创建基于函数的索引的语法是：\n例如：\n为确保 `Oracle` 优化器在执行 SQL 语句时使用此索引，请确保 `UPPER(customer_name)` 的计算结果不为 `NULL` 值。 为确保这一点，请将 `UPPER(customer_name) IS NOT NULL` 添加到 `WHERE` 子句中，如下所示：",
+          "code": "SELECT customer_id, customer_name, UPPER(customer_name)\nFROM customer\nWHERE UPPER(customer_name) IS NOT NULL\nORDER BY UPPER(customer_name);"
+        },
+        {
+          "title": "重命名索引",
+          "description": "重命名索引的语法是：\n例如：\n在此示例中，`customer_id` 重命名为 `new_customer_id`",
+          "code": "ALTER INDEX customer_id\n    RENAME TO new_customer_id;"
+        },
+        {
+          "title": "收集索引的统计信息",
+          "description": "如果您需要在索引首次创建后收集统计信息或者您想要更新统计信息，您总是可以使用 ALTER INDEX 命令来收集统计信息。 您收集统计信息以便 `oracle` 可以有效地使用索引。 这将重新计算表大小、行数、块数、段数并更新字典表，以便 `oracle` 在选择执行计划时可以有效地使用数据。\n收集索引统计信息的语法是：\n例如：\n在此示例中，为名为 `customer_idx` 的索引收集统计信息",
+          "code": "ALTER INDEX customer_idx\n    REBUILD COMPUTE STATISTICS;"
+        },
+        {
+          "title": "删除索引",
+          "description": "删除索引的语法是：\n例如：\n在此示例中，删除了 `customer_idx`\nDBA 相关",
+          "code": "DROP INDEX customer_idx;"
+        }
+      ]
+    },
+    {
+      "title": "DBA 相关",
+      "entries": [
+        {
+          "title": "创建用户",
+          "description": "创建用户的语法是：\n例如：",
+          "code": "CREATE USER brian IDENTIFIED BY brianpass;"
+        },
+        {
+          "title": "授予特权",
+          "description": "授予权限的语法是：\n例如：",
+          "code": "GRANT dba TO brian;"
+        },
+        {
+          "title": "更改密码",
+          "description": "更改用户密码的语法是：\n例如：",
+          "code": "ALTER USER brian IDENTIFIED BY brianpassword;"
+        },
+        {
+          "title": "查看表空间的名称以及大小",
+          "description": "",
+          "code": "SELECT t.table_name,\n       ROUND(SUM(bytes / (1024 * 1024)), 0) AS ts_size\nFROM dba_tablespaces t,\n     dba_data_files d\nWHERE t.table_name = d.table_name\nGROUP BY t.table_name;"
+        },
+        {
+          "title": "查看还没提交的事务",
+          "description": "",
+          "code": "select * from v$locked_object;\nselect * from v$transaction;"
+        },
+        {
+          "title": "查看数据库库对象",
+          "description": "",
+          "code": "SELECT owner, object_type, status, COUNT(*) AS count#\nFROM all_objects\nGROUP BY owner, object_type, status;"
+        },
+        {
+          "title": "查看数据库的版本",
+          "description": "",
+          "code": "SELECT version\nFROM Product_component_version\nWHERE SUBSTR(PRODUCT, 1, 6) = 'Oracle';"
+        },
+        {
+          "title": "查看数据库的创建日期和归档方式",
+          "description": "",
+          "code": "SELECT created, Log_Mode, Log_Mode \nFROM v$Database;"
+        },
+        {
+          "title": "查看控制文件",
+          "description": "",
+          "code": "select name from v$controlfile;"
+        },
+        {
+          "title": "查看日志文件",
+          "description": "",
+          "code": "select member from v$logfile;"
+        },
+        {
+          "title": "查看表空间的使用情況",
+          "description": "",
+          "code": "SELECT SUM(bytes)/(1024*1024) AS free_space,\n       tablespace_name\nFROM dba_free_space\nGROUP BY tablespace_name;"
+        },
+        {
+          "title": "捕捉运行很久的SOL",
+          "description": "另见",
+          "code": "COLUMN username FORMAT A12\nCOLUMN opname FORMAT A16\nCOLUMN progress FORMAT A8\n\nSELECT username,\n       sid,\n       opname,\n       ROUND(sofar * 100 / totalwork, 0) || '%' AS progress,\n       time_remaining,\n       sql_text\nFROM v$session_longops, v$sql\nWHERE time_remaining <> 0\n  AND sql_address = address\n  AND sql_hash_value = hash_value;"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/oracle.md"
+}

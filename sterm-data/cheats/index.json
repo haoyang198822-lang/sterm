@@ -1,0 +1,1262 @@
+[
+  {
+    "file": "dotnet-cli.json",
+    "name": ".NET CLI",
+    "category": "",
+    "count": 25
+  },
+  {
+    "file": "7zip.json",
+    "name": "7zip",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "ai-tools.json",
+    "name": "AI 工具",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "apt.json",
+    "name": "APT",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "ascii-code.json",
+    "name": "ASCII Code",
+    "category": "",
+    "count": 1
+  },
+  {
+    "file": "adobe-ae.json",
+    "name": "Adobe After Effects 键盘快捷键",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "adobe-illustrator.json",
+    "name": "Adobe Illustrator 键盘快捷键",
+    "category": "",
+    "count": 21
+  },
+  {
+    "file": "adobe-lightroom.json",
+    "name": "Adobe Lightroom 键盘快捷键",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "adobe-photoshop.json",
+    "name": "Adobe Photoshop 键盘快捷键",
+    "category": "",
+    "count": 22
+  },
+  {
+    "file": "adobe-pr.json",
+    "name": "Adobe Premiere 键盘快捷键",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "adobe-xd.json",
+    "name": "Adobe XD 键盘快捷键",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "adb.json",
+    "name": "Android Debug Bridge",
+    "category": "移动端",
+    "count": 19
+  },
+  {
+    "file": "android-studio.json",
+    "name": "Android Studio 键盘快捷键",
+    "category": "移动端",
+    "count": 10
+  },
+  {
+    "file": "ansible.json",
+    "name": "Ansible",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "aspect-ratio.json",
+    "name": "Aspect Ratio",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "awk.json",
+    "name": "Awk",
+    "category": "",
+    "count": 41
+  },
+  {
+    "file": "bash.json",
+    "name": "Bash",
+    "category": "Shell",
+    "count": 74
+  },
+  {
+    "file": "blender.json",
+    "name": "Blender 键盘快捷键",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "bun.json",
+    "name": "Bun",
+    "category": "",
+    "count": 23
+  },
+  {
+    "file": "c.json",
+    "name": "C",
+    "category": "",
+    "count": 79
+  },
+  {
+    "file": "cs.json",
+    "name": "C#",
+    "category": "",
+    "count": 86
+  },
+  {
+    "file": "cpp.json",
+    "name": "C++",
+    "category": "",
+    "count": 62
+  },
+  {
+    "file": "cmake.json",
+    "name": "CMake",
+    "category": "构建",
+    "count": 35
+  },
+  {
+    "file": "css.json",
+    "name": "CSS",
+    "category": "前端",
+    "count": 133
+  },
+  {
+    "file": "cargo.json",
+    "name": "Cargo",
+    "category": "Rust",
+    "count": 19
+  },
+  {
+    "file": "chatgpt.json",
+    "name": "ChatGPT",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "chmod.json",
+    "name": "Chmod",
+    "category": "",
+    "count": 19
+  },
+  {
+    "file": "chown.json",
+    "name": "Chown",
+    "category": "",
+    "count": 20
+  },
+  {
+    "file": "cisco-devices.json",
+    "name": "Cisco 网络设备",
+    "category": "",
+    "count": 85
+  },
+  {
+    "file": "claude.json",
+    "name": "ClaudeCode",
+    "category": "",
+    "count": 27
+  },
+  {
+    "file": "cmd.json",
+    "name": "Cmd",
+    "category": "",
+    "count": 16
+  },
+  {
+    "file": "cocoapods.json",
+    "name": "CocoaPods",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "codex-cli.json",
+    "name": "Codex CLI",
+    "category": "",
+    "count": 28
+  },
+  {
+    "file": "colors-named.json",
+    "name": "Colors Named",
+    "category": "",
+    "count": 13
+  },
+  {
+    "file": "conan.json",
+    "name": "Conan",
+    "category": "",
+    "count": 9
+  },
+  {
+    "file": "conda.json",
+    "name": "Conda",
+    "category": "",
+    "count": 6
+  },
+  {
+    "file": "coreldraw.json",
+    "name": "CorelDRAW 键盘快捷键",
+    "category": "",
+    "count": 31
+  },
+  {
+    "file": "cron.json",
+    "name": "Cron",
+    "category": "",
+    "count": 5
+  },
+  {
+    "file": "curl.json",
+    "name": "Curl",
+    "category": "网络",
+    "count": 26
+  },
+  {
+    "file": "cursor-cli.json",
+    "name": "Cursor CLI",
+    "category": "",
+    "count": 24
+  },
+  {
+    "file": "dart.json",
+    "name": "Dart",
+    "category": "",
+    "count": 49
+  },
+  {
+    "file": "django.json",
+    "name": "Django",
+    "category": "编程语言",
+    "count": 44
+  },
+  {
+    "file": "docker.json",
+    "name": "Docker",
+    "category": "容器",
+    "count": 48
+  },
+  {
+    "file": "docker-compose.json",
+    "name": "Docker Compose",
+    "category": "容器",
+    "count": 27
+  },
+  {
+    "file": "dockerfile.json",
+    "name": "Dockerfile",
+    "category": "容器",
+    "count": 14
+  },
+  {
+    "file": "es6.json",
+    "name": "ES2015+",
+    "category": "",
+    "count": 43
+  },
+  {
+    "file": "ejs.json",
+    "name": "Ejs",
+    "category": "编程语言",
+    "count": 19
+  },
+  {
+    "file": "elasticsearch.json",
+    "name": "Elasticsearch",
+    "category": "",
+    "count": 23
+  },
+  {
+    "file": "electron.json",
+    "name": "Electron",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "elixir.json",
+    "name": "Elixir",
+    "category": "",
+    "count": 45
+  },
+  {
+    "file": "emacs.json",
+    "name": "Emacs",
+    "category": "",
+    "count": 32
+  },
+  {
+    "file": "emmet.json",
+    "name": "Emmet",
+    "category": "",
+    "count": 35
+  },
+  {
+    "file": "emoji.json",
+    "name": "Emoji",
+    "category": "",
+    "count": 22
+  },
+  {
+    "file": "erlang.json",
+    "name": "Erlang",
+    "category": "",
+    "count": 46
+  },
+  {
+    "file": "excel-fn.json",
+    "name": "Excel 函数",
+    "category": "",
+    "count": 30
+  },
+  {
+    "file": "expressjs.json",
+    "name": "Express",
+    "category": "",
+    "count": 21
+  },
+  {
+    "file": "feds.json",
+    "name": "FED 前端导航",
+    "category": "",
+    "count": 0
+  },
+  {
+    "file": "ffmpeg.json",
+    "name": "FFmpeg",
+    "category": "",
+    "count": 62
+  },
+  {
+    "file": "fastapi.json",
+    "name": "FastAPI",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "figma.json",
+    "name": "Figma",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "find.json",
+    "name": "Find",
+    "category": "",
+    "count": 23
+  },
+  {
+    "file": "finder.json",
+    "name": "Finder",
+    "category": "",
+    "count": 3
+  },
+  {
+    "file": "firefox.json",
+    "name": "Firefox 键盘快捷键",
+    "category": "",
+    "count": 11
+  },
+  {
+    "file": "flask.json",
+    "name": "Flask",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "flutter.json",
+    "name": "Flutter",
+    "category": "移动端",
+    "count": 38
+  },
+  {
+    "file": "gdb.json",
+    "name": "GDB",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "gemini-cli.json",
+    "name": "Gemini CLI",
+    "category": "",
+    "count": 35
+  },
+  {
+    "file": "gemma4.json",
+    "name": "Gemma 4",
+    "category": "",
+    "count": 30
+  },
+  {
+    "file": "git.json",
+    "name": "Git",
+    "category": "版本控制",
+    "count": 98
+  },
+  {
+    "file": "gitlab-ci.json",
+    "name": "GitLab CI/CD",
+    "category": "版本控制",
+    "count": 85
+  },
+  {
+    "file": "gitlab.json",
+    "name": "GitLab 键盘快捷键",
+    "category": "版本控制",
+    "count": 9
+  },
+  {
+    "file": "github.json",
+    "name": "Github",
+    "category": "版本控制",
+    "count": 21
+  },
+  {
+    "file": "github-actions.json",
+    "name": "Github Actions",
+    "category": "版本控制",
+    "count": 56
+  },
+  {
+    "file": "github-cli.json",
+    "name": "Github CLI",
+    "category": "版本控制",
+    "count": 9
+  },
+  {
+    "file": "github-copilot.json",
+    "name": "Github Copilot",
+    "category": "版本控制",
+    "count": 27
+  },
+  {
+    "file": "glances.json",
+    "name": "Glances",
+    "category": "",
+    "count": 38
+  },
+  {
+    "file": "gmail.json",
+    "name": "Gmail",
+    "category": "",
+    "count": 7
+  },
+  {
+    "file": "golang.json",
+    "name": "Golang",
+    "category": "编程语言",
+    "count": 72
+  },
+  {
+    "file": "google-chrome.json",
+    "name": "Google Chrome 键盘快捷键",
+    "category": "编程语言",
+    "count": 14
+  },
+  {
+    "file": "google-search.json",
+    "name": "Google 搜索",
+    "category": "编程语言",
+    "count": 8
+  },
+  {
+    "file": "graphql.json",
+    "name": "GraphQL",
+    "category": "",
+    "count": 25
+  },
+  {
+    "file": "grep.json",
+    "name": "Grep",
+    "category": "",
+    "count": 15
+  },
+  {
+    "file": "grok-cli.json",
+    "name": "Grok CLI",
+    "category": "",
+    "count": 21
+  },
+  {
+    "file": "grok.json",
+    "name": "Grok CLI",
+    "category": "",
+    "count": 29
+  },
+  {
+    "file": "html.json",
+    "name": "HTML",
+    "category": "前端",
+    "count": 51
+  },
+  {
+    "file": "canvas.json",
+    "name": "HTML Canvas",
+    "category": "前端",
+    "count": 20
+  },
+  {
+    "file": "html-char.json",
+    "name": "HTML 字符实体",
+    "category": "前端",
+    "count": 11
+  },
+  {
+    "file": "http-status-code.json",
+    "name": "HTTP 状态码",
+    "category": "",
+    "count": 8
+  },
+  {
+    "file": "homebrew.json",
+    "name": "Homebrew",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "hook.json",
+    "name": "Hook",
+    "category": "",
+    "count": 0
+  },
+  {
+    "file": "huawei-devices.json",
+    "name": "Huawei 网络设备",
+    "category": "",
+    "count": 33
+  },
+  {
+    "file": "ini.json",
+    "name": "INI",
+    "category": "",
+    "count": 8
+  },
+  {
+    "file": "iso-3166-1.json",
+    "name": "ISO 3166-1 国家代码",
+    "category": "",
+    "count": 1
+  },
+  {
+    "file": "iso-639-1.json",
+    "name": "ISO 639-1 Language Code",
+    "category": "",
+    "count": 3
+  },
+  {
+    "file": "intelli-j-idea.json",
+    "name": "IntelliJ IDEA 键盘快捷键",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "json.json",
+    "name": "JSON",
+    "category": "编程语言",
+    "count": 21
+  },
+  {
+    "file": "java.json",
+    "name": "Java",
+    "category": "编程语言",
+    "count": 92
+  },
+  {
+    "file": "javascript.json",
+    "name": "JavaScript",
+    "category": "编程语言",
+    "count": 115
+  },
+  {
+    "file": "jest.json",
+    "name": "Jest",
+    "category": "",
+    "count": 52
+  },
+  {
+    "file": "julia.json",
+    "name": "Julia",
+    "category": "",
+    "count": 45
+  },
+  {
+    "file": "jupyter.json",
+    "name": "Jupyter",
+    "category": "",
+    "count": 11
+  },
+  {
+    "file": "justfile.json",
+    "name": "Justfile",
+    "category": "",
+    "count": 20
+  },
+  {
+    "file": "koajs.json",
+    "name": "Koajs",
+    "category": "编程语言",
+    "count": 21
+  },
+  {
+    "file": "kotlin.json",
+    "name": "Kotlin",
+    "category": "编程语言",
+    "count": 64
+  },
+  {
+    "file": "kubernetes.json",
+    "name": "Kubernetes",
+    "category": "",
+    "count": 36
+  },
+  {
+    "file": "latex.json",
+    "name": "LaTeX",
+    "category": "",
+    "count": 48
+  },
+  {
+    "file": "laravel.json",
+    "name": "Laravel 8",
+    "category": "",
+    "count": 74
+  },
+  {
+    "file": "leaf.json",
+    "name": "Leaf",
+    "category": "",
+    "count": 25
+  },
+  {
+    "file": "lerna.json",
+    "name": "Lerna",
+    "category": "",
+    "count": 20
+  },
+  {
+    "file": "lessjs.json",
+    "name": "Less",
+    "category": "",
+    "count": 31
+  },
+  {
+    "file": "linux-command.json",
+    "name": "Linux 命令速查表",
+    "category": "系统",
+    "count": 23
+  },
+  {
+    "file": "lsof.json",
+    "name": "Lsof",
+    "category": "",
+    "count": 19
+  },
+  {
+    "file": "lua.json",
+    "name": "Lua",
+    "category": "",
+    "count": 36
+  },
+  {
+    "file": "matlab.json",
+    "name": "MATLAB",
+    "category": "",
+    "count": 93
+  },
+  {
+    "file": "mime.json",
+    "name": "MIME 类型",
+    "category": "",
+    "count": 2
+  },
+  {
+    "file": "markdown.json",
+    "name": "Markdown",
+    "category": "",
+    "count": 28
+  },
+  {
+    "file": "minio.json",
+    "name": "MinIO",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "mitmproxy.json",
+    "name": "Mitmproxy",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "mongodb.json",
+    "name": "MongoDB",
+    "category": "数据库",
+    "count": 21
+  },
+  {
+    "file": "mysql.json",
+    "name": "MySQL",
+    "category": "数据库",
+    "count": 24
+  },
+  {
+    "file": "nginx.json",
+    "name": "NGINX",
+    "category": "服务器",
+    "count": 53
+  },
+  {
+    "file": "neo4j.json",
+    "name": "Neo4j",
+    "category": "",
+    "count": 56
+  },
+  {
+    "file": "nestjs.json",
+    "name": "NestJS",
+    "category": "编程语言",
+    "count": 5
+  },
+  {
+    "file": "netcat.json",
+    "name": "Netcat",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "netstat.json",
+    "name": "Netstat",
+    "category": "",
+    "count": 21
+  },
+  {
+    "file": "nextjs.json",
+    "name": "Next.js",
+    "category": "编程语言",
+    "count": 67
+  },
+  {
+    "file": "nix.json",
+    "name": "Nix",
+    "category": "",
+    "count": 43
+  },
+  {
+    "file": "openssl.json",
+    "name": "OpenSSL",
+    "category": "",
+    "count": 44
+  },
+  {
+    "file": "oracle.json",
+    "name": "Oracle",
+    "category": "",
+    "count": 42
+  },
+  {
+    "file": "php.json",
+    "name": "PHP",
+    "category": "编程语言",
+    "count": 68
+  },
+  {
+    "file": "pm2.json",
+    "name": "PM2",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "pacman.json",
+    "name": "Pacman",
+    "category": "",
+    "count": 9
+  },
+  {
+    "file": "pandoc.json",
+    "name": "Pandoc",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "phpstorm.json",
+    "name": "PhpStorm 键盘快捷键",
+    "category": "编程语言",
+    "count": 11
+  },
+  {
+    "file": "pinia.json",
+    "name": "Pinia",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "postgres.json",
+    "name": "PostgreSQL",
+    "category": "数据库",
+    "count": 25
+  },
+  {
+    "file": "powershell.json",
+    "name": "PowerShell",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "pycharm.json",
+    "name": "PyCharm 键盘快捷键",
+    "category": "",
+    "count": 9
+  },
+  {
+    "file": "python.json",
+    "name": "Python 3",
+    "category": "编程语言",
+    "count": 127
+  },
+  {
+    "file": "pytorch.json",
+    "name": "Pytorch",
+    "category": "",
+    "count": 25
+  },
+  {
+    "file": "quickreference.json",
+    "name": "Quick Reference",
+    "category": "",
+    "count": 135
+  },
+  {
+    "file": "r.json",
+    "name": "R",
+    "category": "",
+    "count": 22
+  },
+  {
+    "file": "react.json",
+    "name": "React",
+    "category": "前端",
+    "count": 89
+  },
+  {
+    "file": "react-native.json",
+    "name": "React Native",
+    "category": "前端",
+    "count": 41
+  },
+  {
+    "file": "reactrouter.json",
+    "name": "React Router",
+    "category": "前端",
+    "count": 33
+  },
+  {
+    "file": "redis.json",
+    "name": "Redis",
+    "category": "数据库",
+    "count": 157
+  },
+  {
+    "file": "regex.json",
+    "name": "RegEX",
+    "category": "",
+    "count": 78
+  },
+  {
+    "file": "resolutions.json",
+    "name": "Resolutions",
+    "category": "",
+    "count": 8
+  },
+  {
+    "file": "ruby.json",
+    "name": "Ruby",
+    "category": "编程语言",
+    "count": 150
+  },
+  {
+    "file": "rust.json",
+    "name": "Rust",
+    "category": "编程语言",
+    "count": 86
+  },
+  {
+    "file": "rxjs.json",
+    "name": "RxJS",
+    "category": "编程语言",
+    "count": 2
+  },
+  {
+    "file": "sdkman.json",
+    "name": "SDKMAN",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "sqlite.json",
+    "name": "SQLite",
+    "category": "数据库",
+    "count": 15
+  },
+  {
+    "file": "ssh.json",
+    "name": "SSH",
+    "category": "网络",
+    "count": 17
+  },
+  {
+    "file": "sass.json",
+    "name": "Sass",
+    "category": "",
+    "count": 33
+  },
+  {
+    "file": "scala.json",
+    "name": "Scala",
+    "category": "",
+    "count": 34
+  },
+  {
+    "file": "screen.json",
+    "name": "Screen",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "sed.json",
+    "name": "Sed",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "semver.json",
+    "name": "Semver",
+    "category": "",
+    "count": 9
+  },
+  {
+    "file": "sketch.json",
+    "name": "Sketch",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "springboot.json",
+    "name": "Spring Boot",
+    "category": "",
+    "count": 38
+  },
+  {
+    "file": "stylex.json",
+    "name": "StyleX",
+    "category": "",
+    "count": 42
+  },
+  {
+    "file": "styled-components.json",
+    "name": "Styled Components",
+    "category": "",
+    "count": 39
+  },
+  {
+    "file": "stylus.json",
+    "name": "Stylus",
+    "category": "",
+    "count": 33
+  },
+  {
+    "file": "sublime-text.json",
+    "name": "Sublime Text",
+    "category": "",
+    "count": 0
+  },
+  {
+    "file": "subversion.json",
+    "name": "Subversion",
+    "category": "",
+    "count": 18
+  },
+  {
+    "file": "swift.json",
+    "name": "Swift",
+    "category": "编程语言",
+    "count": 138
+  },
+  {
+    "file": "swiftui.json",
+    "name": "SwiftUI 2.0",
+    "category": "编程语言",
+    "count": 56
+  },
+  {
+    "file": "symbol-code.json",
+    "name": "Symbol Code",
+    "category": "",
+    "count": 44
+  },
+  {
+    "file": "sysdig.json",
+    "name": "Sysdig",
+    "category": "",
+    "count": 17
+  },
+  {
+    "file": "systemd.json",
+    "name": "Systemd",
+    "category": "",
+    "count": 7
+  },
+  {
+    "file": "toml.json",
+    "name": "TOML",
+    "category": "",
+    "count": 36
+  },
+  {
+    "file": "tailwindcss.json",
+    "name": "Tailwind CSS",
+    "category": "前端",
+    "count": 151
+  },
+  {
+    "file": "taskset.json",
+    "name": "Taskset",
+    "category": "",
+    "count": 16
+  },
+  {
+    "file": "tmux.json",
+    "name": "Tmux",
+    "category": "终端",
+    "count": 16
+  },
+  {
+    "file": "twitter.json",
+    "name": "Twitter(X)",
+    "category": "",
+    "count": 8
+  },
+  {
+    "file": "typescript.json",
+    "name": "TypeScript",
+    "category": "编程语言",
+    "count": 110
+  },
+  {
+    "file": "vscode.json",
+    "name": "VSCode",
+    "category": "",
+    "count": 0
+  },
+  {
+    "file": "vim.json",
+    "name": "Vim",
+    "category": "编辑器",
+    "count": 51
+  },
+  {
+    "file": "vimium.json",
+    "name": "Vimium",
+    "category": "编辑器",
+    "count": 12
+  },
+  {
+    "file": "vue2.json",
+    "name": "Vue 2",
+    "category": "前端",
+    "count": 100
+  },
+  {
+    "file": "vue.json",
+    "name": "Vue 3",
+    "category": "前端",
+    "count": 96
+  },
+  {
+    "file": "wails.json",
+    "name": "Wails V2",
+    "category": "",
+    "count": 9
+  },
+  {
+    "file": "webstorm.json",
+    "name": "WebStorm",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "xpath.json",
+    "name": "XPath",
+    "category": "",
+    "count": 31
+  },
+  {
+    "file": "xcode.json",
+    "name": "Xcode",
+    "category": "",
+    "count": 8
+  },
+  {
+    "file": "yaml.json",
+    "name": "YAML",
+    "category": "",
+    "count": 30
+  },
+  {
+    "file": "yum.json",
+    "name": "YUM",
+    "category": "",
+    "count": 10
+  },
+  {
+    "file": "yarn.json",
+    "name": "Yarn",
+    "category": "",
+    "count": 12
+  },
+  {
+    "file": "yazi.json",
+    "name": "Yazi",
+    "category": "",
+    "count": 27
+  },
+  {
+    "file": "zed.json",
+    "name": "Zed",
+    "category": "",
+    "count": 0
+  },
+  {
+    "file": "zip.json",
+    "name": "Zip",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "htmx.json",
+    "name": "\\</> htmx",
+    "category": "",
+    "count": 24
+  },
+  {
+    "file": "ftp.json",
+    "name": "ftp",
+    "category": "",
+    "count": 6
+  },
+  {
+    "file": "htop.json",
+    "name": "htop",
+    "category": "",
+    "count": 6
+  },
+  {
+    "file": "iptables.json",
+    "name": "iptables",
+    "category": "",
+    "count": 77
+  },
+  {
+    "file": "jquery.json",
+    "name": "jQuery",
+    "category": "",
+    "count": 48
+  },
+  {
+    "file": "jq.json",
+    "name": "jq",
+    "category": "",
+    "count": 15
+  },
+  {
+    "file": "make.json",
+    "name": "make",
+    "category": "构建",
+    "count": 40
+  },
+  {
+    "file": "npm.json",
+    "name": "npm",
+    "category": "",
+    "count": 26
+  },
+  {
+    "file": "nvm.json",
+    "name": "nvm",
+    "category": "",
+    "count": 14
+  },
+  {
+    "file": "package.json.json",
+    "name": "package.json",
+    "category": "编程语言",
+    "count": 45
+  },
+  {
+    "file": "pip.json",
+    "name": "pip",
+    "category": "",
+    "count": 5
+  },
+  {
+    "file": "pnpm.json",
+    "name": "pnpm",
+    "category": "",
+    "count": 23
+  },
+  {
+    "file": "ps.json",
+    "name": "ps",
+    "category": "",
+    "count": 20
+  },
+  {
+    "file": "tar.json",
+    "name": "tar",
+    "category": "",
+    "count": 13
+  },
+  {
+    "file": "tauri.json",
+    "name": "tauri",
+    "category": "",
+    "count": 31
+  },
+  {
+    "file": "uv.json",
+    "name": "uv",
+    "category": "",
+    "count": 6
+  },
+  {
+    "file": "ports.json",
+    "name": "常用端口",
+    "category": "",
+    "count": 6
+  },
+  {
+    "file": "time-zones.json",
+    "name": "时区列表",
+    "category": "",
+    "count": 1
+  }
+]

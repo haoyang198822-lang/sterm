@@ -1,0 +1,89 @@
+{
+  "name": "PowerShell",
+  "description": "PowerShell 快速参考",
+  "category": "",
+  "count": 14,
+  "sections": [
+    {
+      "title": "常用操作",
+      "entries": [
+        {
+          "title": "辅助命令",
+          "description": "**_PowerShell 的命令遵循动词-名词格式_** 一些常见的动词:\n| 动词    | 描述                     |\n| ------- | ------------------------ |\n| Get     | 用于检索信息             |\n| Set     | 用于配置或更改设置       |\n| New     | 用于创建新对象实例       |\n| Remove  | 用于删除或移除项目       |\n| Invoke  | 用于执行特定的操作或动作 |\n| Start   | 用于启动进程或操作       |\n| Stop    | 用于停止或终止进程或操作 |\n| Enable  | 用于激活或启用功能       |\n| Disable | 用于停用或禁用功能       |\n| Test    | 用于执行测试或检查       |\n| Update  | 用于更新或刷新数据或配置 |\n列出可用模块\n列出可用的 cmdlet 和函数\n列出别名及其对应的 cmdlet 名称\n获取帮助\n**Get-Member:** 显示对象的属性和方法",
+          "code": "Get-Process | Get-Member"
+        },
+        {
+          "title": "对象操作",
+          "description": "**Select-Object:** 选择对象的特定属性或自定义其显示\n**Where-Object:** 根据指定条件过滤对象\n**Measure-Object:** 计算对象属性的统计信息，如总和、平均值和计数\n**ForEach-Object:** 对集合中的每个对象执行操作（注意：以下命令将为当前目录中的文件/文件夹添加前缀）\n**Sort-Object:** 按指定属性对对象进行排序\n**Format-Table:** 将输出格式化为带有指定列的表格\n**Format-List:** 将输出格式化为属性和值的列表",
+          "code": "Get-Process | Format-List -Property Name, CPU  # fl alias"
+        },
+        {
+          "title": "文件系统",
+          "description": "系统管理",
+          "code": "New-Item -path file.txt -type 'file' -value 'contents'\nNew-Item -path file.txt -type 'dir'\nCopy-Item <src> -destination <dest>\nMove-Item -path  <src> -destination <dest>\nRemove-Item <file>\nTest-Path <path>\nRename-Item -path <path> -newname <newname>\n\n# using .NET Base Class Library\n[System.IO.File]::WriteAllText('test.txt', '')\n[System.IO.File]::Delete('test.txt')\n\nGet-Content -Path \"test.txt\"\nGet-Process | Out-File -FilePath \"processes.txt\"# 输出到文件\nGet-Process | Export-Csv -Path \"processes.csv\"  # 输出到 CSV\n$data = Import-Csv -Path \"data.csv\"             # 从 CSV 导入"
+        }
+      ]
+    },
+    {
+      "title": "系统管理",
+      "entries": [
+        {
+          "title": "获取信息",
+          "description": "",
+          "code": "# 获取 BIOS 信息\nGet-CimInstance -ClassName Win32_BIOS\n# 获取本地连接的物理磁盘设备信息\nGet-CimInstance -ClassName Win32_DiskDrive\n# 获取安装的物理内存（RAM）信息\nGet-CimInstance -ClassName Win32_PhysicalMemory\n# 获取安装的网络适配器（物理 + 虚拟）信息\nGet-CimInstance -ClassName Win32_NetworkAdapter\n# 获取安装的图形/显卡（GPU）信息\nGet-CimInstance -ClassName Win32_VideoController"
+        },
+        {
+          "title": "命名空间 & 类",
+          "description": "列出所有类名\n探索 root\\cimv2 命名空间中的各种 WMI 类\n探索 root\\cimv2 命名空间下的子 WMI 命名空间",
+          "code": "Get-CimInstance -Namespace root -ClassName __NAMESPACE"
+        },
+        {
+          "title": "网络管理",
+          "description": "",
+          "code": "# 测试与远程主机的网络连接\nTest-Connection -ComputerName google.com\n\n# 获取网络适配器信息\nGet-NetAdapter\n\n# 获取 IP 地址信息\nGet-NetIPAddress\n\n# 获取路由表信息\nGet-NetRoute\n\n# 测试远程主机上的端口是否开放\nTest-NetConnection google.com -Port 80"
+        },
+        {
+          "title": "用户和组管理",
+          "description": "",
+          "code": "# 获取本地用户账户信息\nGet-LocalUser\n\n# 创建新的本地用户账户\nNew-LocalUser -Name NewUser -Password (ConvertTo-SecureString \"Password123\" -AsPlainText -Force)\n\n# 删除本地用户账户\nRemove-LocalUser -Name UserToRemove\n\n# 获取本地组信息\nGet-LocalGroup\n\n# 将成员添加到本地组\nAdd-LocalGroupMember -Group Administrators -Member UserToAdd"
+        },
+        {
+          "title": "安全性和权限",
+          "description": "获取文件/目录的访问控制列表\n设置文件/目录的访问控制列表",
+          "code": "Set-Acl -Path C:\\Path\\To\\File.txt -AclObject $aclObject"
+        },
+        {
+          "title": "注册表管理",
+          "description": "## 脚本",
+          "code": "# 获取注册表键值\nGet-ItemProperty -Path \"HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*\" | Select DisplayName, DisplayVersion\n\n# 设置注册表键值\nSet-ItemProperty -Path \"HKLM:\\Software\\MyApp\" -Name \"SettingName\" -Value \"NewValue\"\n\n# 创建新的注册表键值\nNew-ItemProperty -Path \"HKCU:\\Software\\MyApp\" -Name \"NewSetting\" -Value \"NewValue\" -PropertyType String\n\n# 删除注册表键值\nRemove-ItemProperty -Path \"HKCU:\\Software\\MyApp\" -Name \"SettingToRemove\"\n\n# 检查注册表键是否存在\nTest-Path \"HKLM:\\Software\\MyApp\""
+        },
+        {
+          "title": "变量",
+          "description": "初始化变量，指定或不指定类型：\n变量命令\n变量类型：int32, int64, string, bool",
+          "code": "New-Variable -Name FirstName -Value Trevor\nNew-Variable FirstName -Value Trevor -Option <ReadOnly/Constant>\n\nGet-Variable\nGet-Variable | ? { $PSItem.Options -contains 'constant' }\nGet-Variable | ? { $PSItem.Options -contains 'readonly' }\n\nRemove-Variable -Name firstname\n# 删除只读变量\nRemove-Variable -Name firstname -Force"
+        },
+        {
+          "title": "运算符",
+          "description": "",
+          "code": "# 运算符\n# (a <op> b)\n\n= , += / -= , ++ / --\n-eq / -ne , -lt / -gt , -le / -ge\n\n$FirstName = 'Trevor'\n$FirstName -like 'T*'\n$true; $false # 布尔值 true/false\n\n# 三元运算符\n$FoodToEat = $BaconIsYummy ? 'bacon' : 'beets'\n\n# -notin 或 -in\n'Celery' -in @('Bacon', 'Sausage', 'Steak')\n\n# 输出: True\n5 -is [int32]\n\n# 正则表达式匹配，可以使用数组\n'Trevor' -match '^T\\w*'\n\n# 查找多个匹配项\n$regex = [regex]'(\\w*)'\n$regex.Matches('this is test').Value"
+        },
+        {
+          "title": "Structure",
+          "description": "**输入输出操作**\n\n**流控制**",
+          "code": "IF(<#Condition#>){\n<#Commands#>}ELSEIF(){}ELSE{}\n\nSwitch($var){\n  \"val1\"{<#Commands#>; break}\n    \"val2\"{<#Commands#>; break}\n}\n\nFor($ct=0;$ct -le 3;$ct++){}\n\nForEach($var in $arr){}\n\nwhile($var -ne 0){}\n\nDo{}While()"
+        },
+        {
+          "title": "函数 / 模块",
+          "description": "**示例 1**\n\n**示例 2**\n\n**模块**",
+          "code": "# PowerShell 在路径中查找模块\n$env:PSModulePath\n\n# 列出系统上安装的所有模块\nGet-Module -ListAvailable\n# 列出当前会话中导入的模块\nGet-Module\n\nImport-Module <moduleName>\nRemove-Module <moduleName>\n\nFind-Module -Tag cloud\nFind-Module -Name ps*\n\n# 创建一个内存中的 PowerShell 模块\nNew-Module -Name trevor -ScriptBlock {\n  function Add($a,$b) { $a + $b } }"
+        },
+        {
+          "title": "注意",
+          "description": "- 在大多数语言中，转义字符是反斜杠 **\\\\**，而在 PowerShell 中是反引号 **`**\n## 参考\n- [Microsoft PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration?view=powershell-7.3) _(learn.microsoft.com)_\n- [cheatsheets](https://cheatsheets.zip/powershell)",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/powershell.md"
+}

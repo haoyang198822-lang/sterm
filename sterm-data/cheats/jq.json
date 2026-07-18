@@ -1,0 +1,94 @@
+{
+  "name": "jq",
+  "description": "jq 快速参考",
+  "category": "",
+  "count": 15,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "jq 就像用于 JSON 数据的 [sed](./sed.md) - 您可以使用它来切片、过滤、映射和转换结构化数据\n- [jq 官网](https://stedolan.github.io/jq/) _(stedolan.github.io)_\n- [jq 命令使用](https://jaywcjlove.github.io/linux-command/c/jq.html) _(jaywcjlove.github.io)_\n安装\n语法",
+          "code": "$ jq [options] <jq filter> [file...]\n$ jq [options] --args <jq filter> [strings...]\n$ jq [options] --jsonargs <jq filter> [JSON_TEXTS...]"
+        },
+        {
+          "title": "选项",
+          "description": ":- | -\n:- | -\n`-c`               | 紧凑而不是漂亮的输出\n`-n`               | 使用`null`作为单个输入值\n`-e`               | 根据输出设置退出状态代码\n`-s`               | 将所有输入读取（吸取）到数组中；应用过滤器\n`-r`               | 输出原始字符串，而不是JSON文本\n`-R`               | 读取原始字符串，而不是JSON文本\n`-C`               | 为 JSON 着色\n`-M`               | 单色（不要为JSON着色）\n`-S`               | 在输出上排序对象的键\n`--tab`            | 使用制表符进行缩进\n`--arg a v`        | 将变量 `$a` 设置为 value `<v>`\n`--argjson a v`    | 将变量 `$a` 设置为 JSON value `<v>`\n`--slurpfile a f`  | 将变量 `$a` 设置为从`<f>`读取的JSON文本数组\n`--rawfile a f`    | 将变量 `$a` 设置为包含`<f>`内容的字符串\n`--args`           | 其余参数是字符串参数，而不是文件\n`--jsonargs`       | 其余的参数是JSON参数，而不是文件\n`--`               | 终止参数处理\n学习示例",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "学习示例",
+      "entries": [
+        {
+          "title": "获取一个键的值",
+          "description": "输出结果",
+          "code": "42"
+        },
+        {
+          "title": "数组运算",
+          "description": "输出结果",
+          "code": "{\n  \"name\": \"XML\",\n  \"good\": false\n}"
+        },
+        {
+          "title": "构造一个数组/对象",
+          "description": "输出结果",
+          "code": "{\n  \"user\": \"stedolan\",\n  \"title\": \"JQ Primer\"\n}\n{\n  \"user\": \"stedolan\",\n  \"title\": \"More JQ\"\n}"
+        },
+        {
+          "title": "计算一个值的长度",
+          "description": "输出结果",
+          "code": "2\n6\n1\n0"
+        },
+        {
+          "title": "取出数组中的键",
+          "description": "输出结果",
+          "code": "[\n  \"Foo\",\n  \"abc\",\n  \"abcd\"\n]"
+        },
+        {
+          "title": "使用多个过滤器",
+          "description": "输出结果",
+          "code": "42\n\"something else\""
+        },
+        {
+          "title": "管道传递给下一个过滤器",
+          "description": "输出结果",
+          "code": "\"JSON\"\n\"XML\""
+        },
+        {
+          "title": "条件语句判断",
+          "description": "输出结果",
+          "code": "[\n  5,\n  3,\n  7\n]"
+        },
+        {
+          "title": "每个输入调用过滤器",
+          "description": "输出结果",
+          "code": "[\n  2,\n  3,\n  4\n]"
+        },
+        {
+          "title": "条件判断",
+          "description": "输出结果",
+          "code": "\"many\""
+        },
+        {
+          "title": "字符串插入值并进行运算",
+          "description": "输出结果",
+          "code": "\"The input was 42, which is one less than 43\""
+        },
+        {
+          "title": "字符串转 JSON 数组",
+          "description": "输出结果",
+          "code": "[\n  \"a\",\n  \"b\",\n  \"c\",\n  \"d\"\n]"
+        },
+        {
+          "title": "更改发布注册表",
+          "description": "将组织范围添加到包名称\n另见",
+          "code": "echo \"$(jq '.name = \"@scope/package\"' package.json)\" > package.json"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/jq.md"
+}

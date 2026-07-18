@@ -1,0 +1,104 @@
+{
+  "name": "SDKMAN",
+  "description": "SDKMAN 快速参考",
+  "category": "",
+  "count": 18,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装",
+          "description": "macOS/Linux\nWindows 需要 (WSL Approach) 或者 (Git Bash Approach)\n初始化 SDKMAN\n查看 sdkman 是否安装成功",
+          "code": "$ sdk version"
+        },
+        {
+          "title": "获取帮助",
+          "description": "您可以通过运行以下命令获得基本帮助：\n这将提供一个有用的顶级帮助页面。您可以向该命令添加限定符以获得有关特定子命令的帮助",
+          "code": "$ sdk help install"
+        },
+        {
+          "title": "查看",
+          "description": "列出所有可用的 SDKs\n查看当前使用的 SDK\n查看特定 SDK 的版本列表（例如，Java）",
+          "code": "$ sdk list java"
+        },
+        {
+          "title": "安装卸载",
+          "description": "安装特定版本的 SDK（例如，Java）\n使用已安装的 SDK（例如，Java）\n使用已安装的 SDK（例如，Java）\n卸载 SDK（例如，Java）\n列出所有已安装的 SDKs\n删除一个指定版本",
+          "code": "$ sdk uninstall scala 3.4.1"
+        },
+        {
+          "title": "更新",
+          "description": "更新 SDKMAN 自身\n更新已安装的 SDKs\n设置默认的 SDK 版本（例如，Java）",
+          "code": "$ sdk default java <version>"
+        },
+        {
+          "title": "帮助",
+          "description": "查看 SDKMAN 所有可用的命令\n这些命令可以帮助你安装、管理和使用不同版本的 SDK，如 Java、Groovy、Gradle、Maven 等。",
+          "code": "$ sdk help"
+        },
+        {
+          "title": "安装本地版本",
+          "description": "使用快照版本？已经在本地安装了吗？通过指定本地安装的路径来安装本地版本：",
+          "code": "$ sdk install java 17-zulu /Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
+        },
+        {
+          "title": "使用版本",
+          "description": "查看已安装的 SDKs**：\n切换使用特定版本的 SDK（例如，Java）：\n设置默认使用的 SDK 版本（例如，Java）：",
+          "code": "$ sdk default java <version>\n$ sdk default scala 3.4.1"
+        },
+        {
+          "title": "查看当前使用的版本",
+          "description": "要查 sdk 当前使用的版本：\n要查看所有 sdk 当前使用的版本：",
+          "code": "$ sdk current\nUsing:\ngroovy: 4.0.20\njava: 21.0.2-tem\nscala: 3.4.1"
+        },
+        {
+          "title": "配置 ENV",
+          "description": "切换到特定的 JDK 或 SDK，通过项目基本目录中的 `.sdkmanrc` 文件来实现。执行下面命令自动生配置文件：\n现在已经在当前目录中创建了一个包含以下内容的配置文件：\n切换到 `.sdkmanrc`文件中的配置，只需发出以下命令：\n通过下面命令，将 SDK 重置为默认版本\n安装 `.sdkmanrc` 配置文件中指定丢失的 SDK\n在 cd 到目录中时自动切换 SDK 版本，可以通过在 sdkman 配置中设置 `sdkman_auto_env=true` 来实现。请注意，这也会在离开目录时将任何特定于项目的SDK重置为默认版本。",
+          "code": "$ sdk env install"
+        },
+        {
+          "title": "升级版本",
+          "description": "升级特定 SDK 到最新版本\n要查看所有 SDK 的过时内容：",
+          "code": "$ sdk upgrade"
+        },
+        {
+          "title": "SDKMAN 版本",
+          "description": "",
+          "code": "$ sdk version\n\nSDKMAN!\nscript: 5.7.0\nnative: 0.1.3"
+        },
+        {
+          "title": "自动更新",
+          "description": "安装新版本的 `SDKMAN` 如果可用\n通过将 force 参数传递给命令强制重新安装：\n自动每日检查新版本的SDKMAN！也将代表用户执行。",
+          "code": "$ sdk selfupdate force"
+        },
+        {
+          "title": "Home",
+          "description": "获取 SDK 所在位置的绝对路径",
+          "code": "$ sdk home java 21.0.2-tem\n\n# /home/myuser/.sdkman/candidates/java/21.0.2-tem"
+        },
+        {
+          "title": "Flush",
+          "description": "应该很少需要刷新 `SDKMAN` 。flush 命令有助于实现这一点，因此您不需要删除任何目录。\n手动删除像 `.sdkman/tmp` 目录这样的目录会破坏 sdkman！请始终使用 flush 命令！",
+          "code": "$ sdk flush"
+        },
+        {
+          "title": "离线模式",
+          "description": "启用强制脱机模式\n重新启用联机模式\n离线模式下显示当前安装的和活动的版本：\n当互联网可用/不可用时，离线模式也将自动禁用/启用。当然，需要互联网连接的命令不会起作用，但会发出警告。",
+          "code": "$ sdk list groovy\n# ---------------------------\n# \n# 离线模式：仅显示已安装的groovy版本\n# --------------------------\n# >\n# > 2.4.4\n# \n# - 2.4.3\n# \n# --------------------------\n# \n# - - installed\n# >\n# > - currently in use\n# >\n# ---------------------------"
+        },
+        {
+          "title": "更新",
+          "description": "当 SDK 元数据可能变得过时时，会显示一条警告，并说明如何更新。\n只需运行以下命令，就可以刷新 SDK 缓存，并且可以安装新的 SDK 缓存：\n定期更新 `SDKMAN` 需要更新以了解新的（或已删除的）SDK。",
+          "code": "$ sdk update\n# Adding new candidates(s): kotlin"
+        },
+        {
+          "title": "配置",
+          "description": "可以在 `~/.sdkman/etc/config` 文件中找到配置。要编辑配置，可以发出 `sdk-config` 命令在系统编辑器中编辑此文件。以下配置可用：",
+          "code": "# 使 sdkman 成为非交互式的，适用于 CI 环境\nsdkman_auto_answer=true|false\n\n# 检查更新版本并提示更新\nsdkman_selfupdate_feature=true|false\n\n# 禁用 SSL 证书验证\n# https://github.com/sdkman/sdkman-cli/issues/327\n# HERE BE DRAGONS....\nsdkman_insecure_ssl=true|false\n\n# 配置 curl 超时\nsdkman_curl_connect_timeout=5\nsdkman_curl_continue=true\nsdkman_curl_max_time=10\n\n# 订阅测试版频道\nsdkman_beta_channel=true|false\n\n# 启用详细调试\nsdkman_debug_mode=true|false\n\n# 启用色彩模式\nsdkman_colour_enable=true|false\n\n# 启用自动环境\nsdkman_auto_env=true|false\n\n# 启用 bash 或 zsh 自动完成功能\nsdkman_auto_complete=true|false"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/sdkman.md"
+}

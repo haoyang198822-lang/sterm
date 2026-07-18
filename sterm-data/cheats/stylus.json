@@ -1,0 +1,204 @@
+{
+  "name": "Stylus",
+  "description": "Stylus 快速参考",
+  "category": "",
+  "count": 33,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "为 Node.js 构建的富有表现力、健壮、功能丰富的 [CSS](./css.md) 语言\n- [CSS 备忘清单](./css.md) _(jaywcjlove.github.io)_\n- [在线编译预览](https://stylus-lang.com/try.html) _(stylus-lang.com)_\n在 Node.js 环境中使用 `stylus`\n转换 CSS，输出 `*.styl` 文件",
+          "code": "$ stylus --css < test.css > test.styl\n$ stylus --css test.css /tmp/out.styl"
+        },
+        {
+          "title": "支持 CSS 嵌套语法",
+          "description": "Stylus 是一个 CSS 预处理器。另见: [stylus-lang.com](http://stylus-lang.com/)",
+          "code": ".box {\n  color: blue;\n  .button {\n    color: red;\n  }\n}"
+        },
+        {
+          "title": "支持类 python 缩进语法",
+          "description": "也有效！冒号也是可选的。这通常用于 Stylus 文档的语法",
+          "code": ".box\n  color: blue\n  .button\n    color: red"
+        },
+        {
+          "title": "混合 Mixins",
+          "description": "编译 css 为：\n另见：下面[Mixins](#混合-Mixins)",
+          "code": "h5 {\n  letter-spacing: 0.05em;\n}"
+        },
+        {
+          "title": "变量 Variables",
+          "description": "标识符（变量名、函数等）也可以包括 `$` 字符\n另见：[变量 Variables](https://stylus-lang.com/docs/variables.html)\n混合 Mixins",
+          "code": "$font-size = 14px\nbody {\n  font: $font-size sans-serif;\n}"
+        }
+      ]
+    },
+    {
+      "title": "混合 Mixins",
+      "entries": [
+        {
+          "title": "没有参数",
+          "description": "另见: [Mixins](http://stylus-lang.com/docs/mixins.html)",
+          "code": "div\n  red-border()"
+        },
+        {
+          "title": "有参数",
+          "description": "Mixins can be applied in two different ways.",
+          "code": "div\n  border-radius: 2px\n  border-radius(2px)"
+        },
+        {
+          "title": "参数默认值",
+          "description": "",
+          "code": "border-radius(n = 2px)\n  -webkit-border-radius: n"
+        },
+        {
+          "title": "块混合",
+          "description": "另见: [块混合](http://stylus-lang.com/docs/mixins.html#block-mixins)",
+          "code": "+mobile()\n  width: 10px"
+        },
+        {
+          "title": "Rest 参数",
+          "description": "另见: [Rest 参数](http://stylus-lang.com/docs/vargs.html)\n函数 Functions",
+          "code": "#login\n  shadow: 1px 2px 5px #eee"
+        }
+      ]
+    },
+    {
+      "title": "函数 Functions",
+      "entries": [
+        {
+          "title": "函数 Functions",
+          "description": "另见: [Functions](http://stylus-lang.com/docs/functions.html)",
+          "code": "body\n  padding: add(10px, 5)"
+        },
+        {
+          "title": "参数默认值",
+          "description": "另见: [参数默认值](http://stylus-lang.com/docs/functions.html#argument-defaults)",
+          "code": "add(a, b = 2)\n  a + b"
+        },
+        {
+          "title": "命名参数",
+          "description": "另见: [命名参数](http://stylus-lang.com/docs/functions.html#named-parameters)",
+          "code": ".button\n  box-shadow: shadow(x: 2, y: 4)"
+        },
+        {
+          "title": "多个返回值",
+          "description": "另见: [多个返回值](http://stylus-lang.com/docs/functions.html#multiple-return-values)",
+          "code": "sizes()[0]  // → 8px\nsizes()[1]  // → 16px"
+        },
+        {
+          "title": "arguments",
+          "description": "参数 local 可用于所有函数体，并包含所有传递的参数",
+          "code": "sum(1,2,3,4,5) // => 15"
+        },
+        {
+          "title": "hash 示例",
+          "description": "值 Values",
+          "code": "get(hash, key)\n  return pair[1] if pair[0] == key for pair in hash\n\nhash = (one 1) (two 2) (three 3)\n\nget(hash, two)\n// => 2"
+        }
+      ]
+    },
+    {
+      "title": "值 Values",
+      "entries": [
+        {
+          "title": "条件赋值",
+          "description": "`?=` 只会在之前未设置的情况下设置变量\n另见: [条件赋值](https://stylus-lang.com/docs/operators.html#conditional-assignment--)",
+          "code": "div\n  color: royal-blue  // #36a"
+        },
+        {
+          "title": "属性查找",
+          "description": "另见: [属性查找](https://stylus-lang.com/docs/variables.html#property-lookup)",
+          "code": ".logo\n  width: w = 150\n  margin-left: -(w / 2)\n  // or\n  height: 80px\n  margin-top: -(@height / 2)"
+        },
+        {
+          "title": "插值",
+          "description": "另见: [Interpolation](https://stylus-lang.com/docs/interpolation.html)",
+          "code": "-{prefix}-border-radius: 2px"
+        },
+        {
+          "title": "Color operators",
+          "description": "",
+          "code": "#888 + 50%    // → #c3c3c3 (lighten)\n#888 - 50%    // → #444 (darken)\n#f00 + 50deg  // → #ffd500 (hue)"
+        },
+        {
+          "title": "Casting",
+          "description": "",
+          "code": "foo: (n)em\nfoo: (n * 5)%"
+        },
+        {
+          "title": "Lookup",
+          "description": "另见: [lookup](https://stylus-lang.com/docs/bifs.html#lookupname)\n高级功能",
+          "code": "light-blue = #3bd\nname = 'blue'\nlookup('light-' + name)"
+        }
+      ]
+    },
+    {
+      "title": "高级功能",
+      "entries": [
+        {
+          "title": "有条件的",
+          "description": "别名:\n:- | :-\n:- | :-\n| `==` | `is` |\n| `!=` | `is not` |\n| `!=` | `isnt` |\n另见: [Conditionals](https://stylus-lang.com/docs/functions.html#conditionals)",
+          "code": "if color == blue\n  display: block\nelse if true and true\n  display: inline\nelse if 'hey' is not 'bye'\n  display: flex\nelse\n  display: none"
+        },
+        {
+          "title": "对于循环",
+          "description": "",
+          "code": "font-size-1 = 10px\nfont-size-2 = 20px\nfont-size-3 = 30px\nfor i in 1..3\n  .text-{i}\n    font-size: lookup('font-size-' + i)"
+        },
+        {
+          "title": "定义检查",
+          "description": "另见: [is defined](https://stylus-lang.com/docs/operators.html#variable-definition-is-defined)",
+          "code": "if ohnoes is defined\n  color: blue"
+        },
+        {
+          "title": "False 值",
+          "description": "",
+          "code": "0\nnull\nfalse\n''"
+        },
+        {
+          "title": "类型检查",
+          "description": "另见: [Instance check](https://stylus-lang.com/docs/operators.html#instance-check-is-a)\n内置函数",
+          "code": "if val is a 'string'\nif val is a 'ident'\nif #fff is a 'rgba'    // → true"
+        }
+      ]
+    },
+    {
+      "title": "内置函数",
+      "entries": [
+        {
+          "title": "颜色函数",
+          "description": "另见: [Built-in functions](http://stylus-lang.com/docs/bifs.html)",
+          "code": "unquote(string)"
+        },
+        {
+          "title": "图片尺寸",
+          "description": "返回给定图像的宽度和高度\n另见: [image-size](http://stylus-lang.com/docs/bifs.html#image-sizepath)",
+          "code": "width:  image-size('tux.png')[0]\nheight: image-size('tux.png')[1]"
+        },
+        {
+          "title": "缓存 Caching",
+          "description": "在第一次调用时将其内容应用于给定的选择器，但会在第二次调用时使用相同的参数 `@extend` 第一次调用的选择器。另见: [cache](http://stylus-lang.com/docs/bifs.html#cachekeys)",
+          "code": "// 输出: .a, b { width: 10px }"
+        },
+        {
+          "title": "Embed URL",
+          "description": "另见: [embedurl](http://stylus-lang.com/docs/bifs.html#embedurlpath-encoding)",
+          "code": "background: embedurl('logo.png')\n// → background: url(\"data:image/png;base64,…\")"
+        },
+        {
+          "title": "添加属性",
+          "description": "另见: [add-property](http://stylus-lang.com/docs/bifs.html#add-propertyname-expr)",
+          "code": "body\n  background: gradient(red)"
+        },
+        {
+          "title": "sprintf",
+          "description": "另见: [s](http://stylus-lang.com/docs/bifs.html#sfmt-)\n另见",
+          "code": "s(\"rgba(0, 0, 0, %s)\", 0.3)"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/stylus.md"
+}

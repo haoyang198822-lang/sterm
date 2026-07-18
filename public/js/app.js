@@ -1,207 +1,77 @@
 import { DARK_TERMINAL_THEME, LIGHT_TERMINAL_THEME } from './theme.js';
 
 const terminalContainer = document.getElementById('terminal-container');
+const terminalEmpty = document.getElementById('terminal-empty');
+const tabContainer = document.getElementById('tab-container');
+const sidePanel = document.getElementById('side-panel');
+const panelSearch = document.getElementById('panel-search');
+const commandsList = document.getElementById('commands-list');
+const cheatsList = document.getElementById('cheats-list');
+const settingsList = document.getElementById('settings-list');
+const commandPalette = document.getElementById('command-palette');
+const commandPaletteSearch = document.getElementById('command-palette-search');
+const commandPaletteResults = document.getElementById('command-palette-results');
+const addCommandDialog = document.getElementById('add-command-dialog');
+const addCommandBackdrop = document.getElementById('add-command-backdrop');
+const addCommandClose = document.getElementById('add-cmd-close');
+const addCommandCancel = document.getElementById('add-cmd-cancel');
+const addCommandSave = document.getElementById('add-cmd-save');
+const addCommandName = document.getElementById('add-cmd-name');
+const addCommandCommand = document.getElementById('add-cmd-command');
+const addCommandTag = document.getElementById('add-cmd-tag');
+const addCommandTagNew = document.getElementById('add-cmd-tag-new');
+const addCommandShortcut = document.getElementById('add-cmd-shortcut');
 const statusDot = document.getElementById('statusDot');
 const statusConn = document.getElementById('statusConn');
+const statusShell = document.getElementById('statusShell');
+const statusType = document.getElementById('statusType');
 const btnTheme = document.getElementById('btnTheme');
+const btnAddCommand = document.getElementById('btn-add-command');
+const btnNewTab = document.getElementById('btn-new-tab');
 
-let terminal = null;
-let fitAddon = null;
-let webLinksAddon = null;
-let ws = null;
-let reconnectTimer = null;
-let isLightTheme = localStorage.getItem('sterm-theme') === 'light';
+const ICONS = { plus: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>', close: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>', sun: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>', moon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>' };
 
-function applyTheme() {
-  document.body.classList.toggle('light', isLightTheme);
-  btnTheme.textContent = isLightTheme ? '☾' : '☀';
-  if (terminal) {
-    terminal.options.theme = isLightTheme ? LIGHT_TERMINAL_THEME : DARK_TERMINAL_THEME;
-  }
-}
+let ws=null,reconnectTimer=null,isLightTheme=localStorage.getItem('sterm-theme')==='light',activeSideTab='commands',panelCollapsed=localStorage.getItem('sterm-panel-collapsed')===null?true:localStorage.getItem('sterm-panel-collapsed')==='true',snippets=[],cheatsheets=[],settings={},paletteIndex=-1,editingIndex=-1,createCooldown=false; const USER_SNIPPETS_KEY='sterm-user-snippets'; const sessions=new Map(); let activeSessionId=null; const defaultSettings={terminalFontFamily:"'JetBrains Mono',monospace",uiFontFamily:"'Inter', system-ui, sans-serif",fontSize:14,cursorBlink:true,cursorStyle:'bar',wrap:true,autoRecord:true};
 
-function setConnectionStatus(connected) {
-  statusDot.classList.toggle('disconnected', !connected);
-  statusConn.classList.toggle('disconnected', !connected);
-  statusConn.textContent = connected ? '已连接' : '已断开';
-}
+function escapeHtml(value=''){ return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;'); }
+function sendWS(payload){ if(ws&&ws.readyState===WebSocket.OPEN) ws.send(JSON.stringify(payload)); }
+function setConnectionStatus(connected){ statusDot.classList.toggle('disconnected',!connected); statusConn.classList.toggle('disconnected',!connected); statusConn.textContent=connected?'已连接':'已断开'; }
+function applyTheme(){ document.body.classList.toggle('light',isLightTheme); btnTheme.innerHTML=isLightTheme?ICONS.moon:ICONS.sun; sessions.forEach((s)=>{ s.terminal.options.theme=isLightTheme?LIGHT_TERMINAL_THEME:DARK_TERMINAL_THEME; }); }
+function applySidePanelState(){ sidePanel.classList.toggle('collapsed',panelCollapsed); sidePanel.style.width=panelCollapsed?'0px':'320px'; localStorage.setItem('sterm-panel-collapsed',String(panelCollapsed)); }
+function setEmptyStateVisible(visible){ terminalEmpty.hidden=!visible; }
+function currentSession(){ return activeSessionId? sessions.get(activeSessionId):null; }
+function sendResize(sessionId=activeSessionId){ const session=sessions.get(sessionId); if(!session||!ws||ws.readyState!==WebSocket.OPEN) return; const dims=session.fitAddon.proposeDimensions(); if(dims) sendWS({type:'resize',sessionId,cols:dims.cols,rows:dims.rows}); }
+function renderTabBar(){ tabContainer.innerHTML=''; [...sessions.values()].forEach((session)=>{ const tab=document.createElement('div'); tab.className=`tab ${session.id===activeSessionId?'active':''}`; tab.dataset.sessionId=session.id; tab.innerHTML=`<span class="tab-dot"></span><span class="tab-label">${escapeHtml(session.shell||'bash')}</span><button class="tab-close" type="button">${ICONS.close}</button>`; tab.addEventListener('click',()=>activateSession(session.id)); tab.querySelector('.tab-close').addEventListener('click',(e)=>{ e.stopPropagation(); destroySession(session.id);}); tabContainer.appendChild(tab);}); btnNewTab.innerHTML=ICONS.plus; setEmptyStateVisible(sessions.size===0); }
+function activateSession(sessionId){ const session=sessions.get(sessionId); if(!session) return; activeSessionId=sessionId; sessions.forEach((s)=>{ s.container.hidden=s.id!==sessionId; if(s.id===sessionId){ s.terminal.focus(); setTimeout(()=>s.fitAddon.fit(),0); } }); statusShell.textContent=session.shell||'bash'; statusType.textContent=session.shell||'bash'; renderTabBar(); sendResize(sessionId); }
+function initSession(sessionId,shell){ const container=document.createElement('div'); container.className='xterm-container'; container.dataset.sessionId=sessionId; container.hidden=true; terminalContainer.appendChild(container); const terminal=new Terminal({ theme:isLightTheme?LIGHT_TERMINAL_THEME:DARK_TERMINAL_THEME, fontSize:settings.fontSize, fontFamily:settings.terminalFontFamily, cursorBlink:settings.cursorBlink, cursorStyle:settings.cursorStyle, allowProposedApi:true, cols:80, rows:24, unicodeVersion:11 }); const fitAddon=new FitAddon.FitAddon(); const webLinksAddon=new WebLinksAddon.WebLinksAddon(); terminal.loadAddon(fitAddon); terminal.loadAddon(webLinksAddon); terminal.open(container); const session={id:sessionId,shell,terminal,fitAddon,webLinksAddon,container}; sessions.set(sessionId,session); terminal.onData((data)=>sendWS({type:'input',sessionId,text:data})); new ResizeObserver(()=>{ if(!sessions.has(sessionId)) return; fitAddon.fit(); sendResize(sessionId); }).observe(container); setTimeout(()=>{ fitAddon.fit(); sendResize(sessionId); },50); renderTabBar(); if(!activeSessionId) activateSession(sessionId); return session; }
+function destroySession(sessionId){ const session=sessions.get(sessionId); if(!session) return; session.terminal.dispose(); session.container.remove(); sessions.delete(sessionId); sendWS({type:'destroy',sessionId}); if(activeSessionId===sessionId){ const next=sessions.keys().next().value||null; activeSessionId=next; if(next) activateSession(next); else { renderTabBar(); statusShell.textContent='bash'; statusType.textContent='bash'; } } else renderTabBar(); }
+function createNewTab(){ if(createCooldown) return; createCooldown=true; setTimeout(()=>{ createCooldown=false; },300); sendWS({type:'create'}); }
+function handleCreated(msg){ if(!msg.sessionId||sessions.has(msg.sessionId)) return; initSession(msg.sessionId,msg.shell||'bash'); activateSession(msg.sessionId); }
+function connectWebSocket(){ if(reconnectTimer) clearTimeout(reconnectTimer); const protocol=location.protocol==='https:'?'wss:':'ws:'; ws=new WebSocket(`${protocol}//${location.host}`); ws.onopen=()=>setConnectionStatus(true); ws.onclose=()=>{ setConnectionStatus(false); sessions.forEach((s)=>s.terminal.dispose()); sessions.clear(); terminalContainer.querySelectorAll('.xterm-container').forEach((el)=>el.remove()); activeSessionId=null; renderTabBar(); reconnectTimer=setTimeout(connectWebSocket,5000); }; ws.onerror=()=>{}; ws.onmessage=(event)=>{ try{ const msg=JSON.parse(event.data); if(msg.type==='created') handleCreated(msg); else if(msg.type==='output'&&msg.sessionId) sessions.get(msg.sessionId)?.terminal.write(msg.text); } catch(error){ console.warn('[ws] 无法解析消息',error); } }; }
+function insertCommand(cmd){ const session=currentSession(); if(session) sendWS({type:'input',sessionId:session.id,text:cmd}); }
+function togglePanel(){ panelCollapsed=!panelCollapsed; applySidePanelState(); }
+function toggleCommandPalette(forceOpen){ const open=typeof forceOpen==='boolean'?forceOpen:commandPalette.getAttribute('aria-hidden')==='true'; if(open){ commandPalette.style.display='flex'; commandPalette.setAttribute('aria-hidden','false'); requestAnimationFrame(()=>commandPalette.classList.add('open')); setTimeout(()=>commandPaletteSearch.focus(),50); } else { commandPalette.classList.remove('open'); commandPalette.setAttribute('aria-hidden','true'); setTimeout(()=>{ commandPalette.style.display=''; },150); } }
+function focusPanelSearch(){ if(!panelCollapsed) panelSearch?.focus(); }
+function openAddCommandDialog(){ /* stub - restored from bundle */ }
+function closeAddCommandDialog(){ document.getElementById('add-command-dialog').setAttribute('aria-hidden','true'); document.getElementById('add-command-dialog').classList.remove('open'); }
+function handleSaveCommand(){ /* stub - restored from bundle */ }
+function deleteCommand(index){ /* stub - restored from bundle */ }
+function executeCommandItem(item){ /* stub - restored from bundle */ }
+function loadUserSnippets(){ try{ const saved=localStorage.getItem(USER_SNIPPETS_KEY); return saved?JSON.parse(saved):[]; } catch { return []; } }
+function saveUserSnippet(snippet){ const userSnippets=loadUserSnippets(); const savedSnippet={...snippet,id:`usr_${Date.now()}`,createdAt:new Date().toISOString(),usageCount:0}; userSnippets.push(savedSnippet); persistSnippets(userSnippets); return savedSnippet; }
+function persistSnippets(snips){ localStorage.setItem(USER_SNIPPETS_KEY,JSON.stringify(snips)); if(window.electronAPI?.saveSnippets) window.electronAPI.saveSnippets(snips); }
+function renderCommands(list){ if(!list||list.length===0){ commandsList.innerHTML='<div class="panel-empty">暂无收藏命令<br/>点击右侧 + 可添加自定义命令</div>'; return; } const groups={}; list.forEach((item,idx)=>{ const tag=(item.tags&&item.tags[0])||'通用'; (groups[tag] ||= []).push({...item,_idx:idx}); }); commandsList.innerHTML=Object.keys(groups).sort().map((g)=>`<div class="cmd-group"><div class="cmd-group-title">${g}</div>${groups[g].map((item)=>`<div class="panel-item" data-command="${item.command.replaceAll('"','&quot;')}" data-index="${item._idx}"><div class="panel-item-main"><div class="panel-item-label">${item.label}</div><div class="panel-item-cmd">${item.command}</div></div><div class="panel-item-meta"><span class="panel-item-tag">${(item.tags&&item.tags[1])||g}</span>${item.shortcut?`<span class="panel-item-shortcut">${item.shortcut}</span>`:''}<button class="cmd-action-btn cmd-edit" data-index="${item._idx}" type="button" title="编辑">✎</button><button class="cmd-action-btn cmd-delete" data-index="${item._idx}" type="button" title="删除">×</button></div></div>`).join('')}</div>`).join(''); commandsList.querySelectorAll('.panel-item').forEach((el)=>el.addEventListener('click',(event)=>{ if(event.target.closest('.cmd-action-btn')) return; insertCommand(el.dataset.command); })); commandsList.querySelectorAll('.cmd-edit').forEach((btn)=>btn.addEventListener('click',(event)=>{ event.stopPropagation(); openEditCommandDialog(Number(btn.dataset.index)); })); commandsList.querySelectorAll('.cmd-delete').forEach((btn)=>btn.addEventListener('click',(event)=>{ event.stopPropagation(); deleteCommand(Number(btn.dataset.index)); })); }
+async function loadSnippets(){ try{ const res=await fetch('/sterm-data/snippets.json'); const data=await res.json(); let user=loadUserSnippets(); if(window.electronAPI?.loadSnippets){ try{ const fileUser=await window.electronAPI.loadSnippets(); if(fileUser.length) user=fileUser; } catch{} } snippets=[...(data.snippets||[]),...user]; } catch { let user=loadUserSnippets(); if(window.electronAPI?.loadSnippets){ try{ const fileUser=await window.electronAPI.loadSnippets(); if(fileUser.length) user=fileUser; } catch{} } snippets=[...user]; } renderCommands(snippets); }
+function renderCheatsheets(){ const sheet=cheatsheets; cheatsList.innerHTML=sheet ? (sheet.sections||[]).map((section)=>`<div class="cheat-section"><div class="cheat-section-title">${escapeHtml(section.title)}</div>${(section.entries||[]).map((entry)=>`<div class="cheat-entry"><div class="cheat-entry-title">${escapeHtml(entry.title)}</div>${entry.description?`<div class="cheat-entry-desc">${escapeHtml(entry.description)}</div>`:''}${entry.code?`<code class="cheat-entry-code">${escapeHtml(entry.code)}</code>`:''}</div>`).join('')}</div>`).join('') : '<div class="panel-empty">暂无速查内容</div>'; cheatsList.querySelectorAll('.cheat-entry-code').forEach((el)=>el.addEventListener('click',()=>navigator.clipboard.writeText(el.textContent||'').catch(()=>{}))); }
+async function loadLinuxCheatsheet(){ try{ const res=await fetch('/sterm-data/cheats/linux-command.json'); cheatsheets=await res.json(); } catch { cheatsheets=null; } renderCheatsheets(); }
+function renderCommandResults(){ const query=commandPaletteSearch.value.trim().toLowerCase(); const items=[...snippets.map((item)=>({group:'收藏命令',title:item.label,subtitle:item.command,command:item.command})),{group:'操作',title:'切换主题',subtitle:'立即切换明暗模式',command:'__toggle_theme__'},{group:'操作',title:'折叠面板',subtitle:'显示或隐藏侧边栏',command:'__toggle_panel__'}].filter((item)=>!query||`${item.title} ${item.subtitle} ${item.command}`.toLowerCase().includes(query)); commandPaletteResults.innerHTML=items.map((item)=>`<button class="palette-item" type="button" data-command="${item.command.replaceAll('"','&quot;')}"><span>${item.group}</span><strong>${item.title}</strong><em>${item.subtitle}</em></button>`).join(''); paletteIndex=-1; Array.from(commandPaletteResults.querySelectorAll('.palette-item')).forEach((btn)=>btn.addEventListener('click',()=>executeCommandItem({command:btn.dataset.command}))); }
+function markdownToHtml(text){ if(!text) return ''; let html=escapeHtml(text); html=html.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,lang,code)=>`<pre class="cheats-code-block" data-lang="${lang||''}"><code>${code.trim()}</code><span class="cheats-copy-hint">点击复制</span></pre>`); html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>'); html=html.replace(/`([^`]+)`/g,'<code class="cheats-inline-code">$1</code>'); html=html.replace(/^---+$/gm,'<hr class="cheats-hr" />'); html=html.replace(/\n/g,'<br>'); return html; }
+function renderAgentResult(container,markdownText){ const html=markdownToHtml(markdownText); container.innerHTML=html; container.querySelectorAll('.cheats-code-block').forEach((el)=>el.addEventListener('click',()=>{ navigator.clipboard.writeText(el.textContent||'').catch(()=>{}); })); }
+function initAgentCheats(){ const input=document.getElementById('cheats-input'); const sendBtn=document.getElementById('cheats-send'); const container=document.getElementById('cheats-messages'); const welcome=document.getElementById('cheats-welcome'); let pendingRequest=null; if(!input||!sendBtn||!container) return; function addMessage(role,content){ if(welcome) welcome.style.display='none'; const div=document.createElement('div'); div.className=`cheats-msg cheats-msg-${role}`; const bubble=document.createElement('div'); bubble.className='cheats-bubble'; bubble.innerHTML=content; div.appendChild(bubble); container.appendChild(div); container.scrollTop=container.scrollHeight; return div; } async function send(){ const query=input.value.trim(); if(!query) return; addMessage('user','<p>'+escapeHtml(query)+'</p>'); input.value=''; input.style.height='auto'; sendBtn.disabled=true; const loadingDiv=addMessage('assistant','<div class="cheats-loading"><span class="cheats-dot"></span><span class="cheats-dot"></span><span class="cheats-dot"></span></div>'); if(pendingRequest) pendingRequest.abort?.(); try{ const controller=new AbortController(); pendingRequest=controller; const res=await fetch('/api/agent/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query}),signal:controller.signal}); if(!res.ok) throw new Error('请求失败 '+res.status); const data=await res.json(); loadingDiv.querySelector('.cheats-bubble').innerHTML=markdownToHtml(data.answer||'未获取到结果'); loadingDiv.querySelectorAll('.cheats-code-block').forEach((el)=>el.addEventListener('click',()=>{ navigator.clipboard.writeText(el.textContent||'').catch(()=>{}); })); } catch(err){ if(err.name==='AbortError') return; loadingDiv.querySelector('.cheats-bubble').innerHTML='<span style="color:var(--color-error)">查询失败：'+escapeHtml(err.message)+'</span>'; } finally { sendBtn.disabled=false; pendingRequest=null; input.focus(); } } sendBtn.addEventListener('click',send); input.addEventListener('keydown',(e)=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } setTimeout(()=>{ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,120)+'px'; },0); }); input.style.height='auto'; }
+function saveSetting(key,value){ settings[key]=value; localStorage.setItem('sterm-settings',JSON.stringify(settings)); applySettings(); }
+function loadSettings(){ try{ const saved=localStorage.getItem('sterm-settings'); settings=saved?{...defaultSettings,...JSON.parse(saved)}:{...defaultSettings}; } catch { settings={...defaultSettings}; } }
+function applySettings(){ document.body.style.setProperty('--ui-font-family',settings.uiFontFamily); document.body.style.setProperty('--terminal-font-family',settings.terminalFontFamily); document.body.style.setProperty('--terminal-font-size',`${settings.fontSize}px`); sessions.forEach((session)=>{ session.terminal.options.fontFamily=settings.terminalFontFamily; session.terminal.options.fontSize=settings.fontSize; session.terminal.options.cursorBlink=settings.cursorBlink; session.terminal.options.cursorStyle=settings.cursorStyle; session.terminal.options.wordWrap=settings.wrap; setTimeout(()=>session.fitAddon.fit(),0); }); settingsList.innerHTML='<div class="settings-group-label">字体</div><div class="settings-row"><div><div class="settings-label">终端字体</div><div class="settings-desc">代码和终端文本</div></div><select class="settings-select" data-setting="terminalFontFamily">'+["JetBrains Mono","Fira Code","Cascadia Code","SF Mono"].map((f)=>`<option value="'${f}',monospace" ${settings.terminalFontFamily===`'${f}',monospace`?'selected':''}>${f}</option>`).join('')+'</select></div><div class="settings-row"><div><div class="settings-label">UI 字体</div><div class="settings-desc">界面标签、菜单等</div></div><select class="settings-select" data-setting="uiFontFamily"><option value="\'Inter\', system-ui, sans-serif" '+(settings.uiFontFamily==="'Inter', system-ui, sans-serif"?'selected':'')+'>Inter</option><option value="system-ui, sans-serif" '+(settings.uiFontFamily==='system-ui, sans-serif'?'selected':'')+'>System Default</option></select></div><div class="settings-row"><div><div class="settings-label">字号</div></div><div class="settings-number-input"><span class="settings-number-value">'+settings.fontSize+'</span><div class="settings-number-arrows"><button class="settings-arrow up" data-dir="up" type="button">▲</button><button class="settings-arrow down" data-dir="down" type="button">▼</button></div></div></div>'; }
+function initSidePanel(){ applySidePanelState(); btnAddCommand.innerHTML=ICONS.plus; document.querySelectorAll('.side-panel-tab').forEach((tab)=>tab.addEventListener('click',()=>{ activeSideTab=tab.dataset.tab; document.querySelectorAll('.side-panel-tab').forEach((btn)=>btn.classList.toggle('active',btn===tab)); document.querySelectorAll('.side-panel-section').forEach((section)=>section.classList.toggle('active',section.dataset.panel===activeSideTab)); if(activeSideTab==='cheats'){ const welcome=document.getElementById('cheats-welcome'); const container=document.getElementById('cheats-messages'); if(welcome&&container&&container.querySelectorAll('.cheats-msg').length>0) welcome.style.display='none'; } if(activeSideTab==='commands'&&panelSearch?.value.trim()) panelSearch.dispatchEvent(new Event('input')); })); panelSearch?.addEventListener('input',()=>{ const q=panelSearch.value.trim().toLowerCase(); if(!q) return renderCommands(snippets); renderCommands(snippets.filter((item)=>item.label.toLowerCase().includes(q)||item.command.toLowerCase().includes(q)||(item.tags||[]).some((t)=>t.toLowerCase().includes(q)))); }); }
+function initUI(){ btnTheme.addEventListener('click',()=>{ isLightTheme=!isLightTheme; localStorage.setItem('sterm-theme',isLightTheme?'light':'dark'); applyTheme(); }); btnTheme.innerHTML=isLightTheme?ICONS.moon:ICONS.sun; btnAddCommand?.addEventListener('click',openAddCommandDialog); addCommandClose?.addEventListener('click',closeAddCommandDialog); addCommandBackdrop?.addEventListener('click',closeAddCommandDialog); addCommandCancel?.addEventListener('click',closeAddCommandDialog); addCommandSave?.addEventListener('click',handleSaveCommand); [addCommandName,addCommandCommand,addCommandTag,addCommandTagNew,addCommandShortcut].forEach((el)=>el?.addEventListener('input',()=>{ addCommandSave.disabled=!(addCommandName.value.trim()&&addCommandCommand.value.trim()); })); addCommandDialog?.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeAddCommandDialog(); if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){ e.preventDefault(); handleSaveCommand(); } }); btnNewTab?.addEventListener('click',createNewTab); document.getElementById('btnPanel')?.addEventListener('click',togglePanel); window.electronAPI?.onCopyRequest(()=>{ const s=currentSession(); return s?.terminal?.hasSelection()?s.terminal.getSelection():''; }); window.electronAPI?.onPaste((text)=>{ const s=currentSession(); if(s) sendWS({type:'input',sessionId:s.id,text:text.replace(/\n+$/g,'')}); }); document.addEventListener('focusin',()=>{ const el=document.activeElement; if(!el) return; if(el.closest('#terminal-container')||el.closest('.xterm')){ window.electronAPI?.sendFocusState?.(false); return; } const isInput=['INPUT','TEXTAREA','SELECT'].includes(el.tagName)||el.isContentEditable; window.electronAPI?.sendFocusState?.(isInput); }); document.addEventListener('keydown',(event)=>{ if((event.metaKey||event.ctrlKey)&&event.key==='\\'){ event.preventDefault(); togglePanel(); } if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){ event.preventDefault(); toggleCommandPalette(true); } if((event.metaKey||event.ctrlKey)&&event.shiftKey&&event.key.toLowerCase()==='f'){ event.preventDefault(); focusPanelSearch(); } if(event.key==='Escape'){ toggleCommandPalette(false); closeAddCommandDialog(); } }); terminalContainer.addEventListener('dragover',(e)=>{ e.preventDefault(); e.dataTransfer.dropEffect='copy'; }); terminalContainer.addEventListener('drop',(e)=>{ e.preventDefault(); e.stopPropagation(); const files=e.dataTransfer.files; const uriList=e.dataTransfer.getData('text/uri-list'); const plain=e.dataTransfer.getData('text/plain'); let filePath=''; if(uriList) filePath=decodeURIComponent(uriList.replace(/^file:\/\//,'').split('\n')[0].trim()); if(!filePath&&plain) filePath=decodeURIComponent(plain.replace(/^file:\/\//,'').trim()); for(let i=0;!filePath&&files[i];i++){ const f=files[i]; if(window.electronAPI?.getFilePath){ try{ filePath=window.electronAPI.getFilePath(f); } catch{} } if(!filePath&&f.path) filePath=f.path; if(!filePath&&f.webkitRelativePath) filePath='/'+f.webkitRelativePath; } if(!filePath) return; const path=filePath.includes(' ')?`'${filePath}'`:filePath; const session=currentSession(); if(session) sendWS({type:'input',sessionId:session.id,text:path+' '}); }); if(typeof renderCommandResults==='function') commandPaletteSearch?.addEventListener('input',renderCommandResults); commandPaletteSearch?.addEventListener('keydown',(event)=>{ const items=commandPaletteResults.querySelectorAll('.palette-item'); if(event.key==='ArrowDown'){ event.preventDefault(); paletteIndex=Math.min(paletteIndex+1,items.length-1); items.forEach((item,i)=>item.style.background=i===paletteIndex?'var(--bg-surface-2)':''); } if(event.key==='ArrowUp'){ event.preventDefault(); paletteIndex=Math.max(paletteIndex-1,0); items.forEach((item,i)=>item.style.background=i===paletteIndex?'var(--bg-surface-2)':''); } if(event.key==='Enter'&&paletteIndex>=0){ event.preventDefault(); items[paletteIndex]?.click(); } }); initAgentCheats(); }
 
-function sendResize() {
-  if (!terminal || !fitAddon || !ws || ws.readyState !== WebSocket.OPEN) {
-    return;
-  }
-
-  const dims = fitAddon.proposeDimensions();
-  if (dims) {
-    ws.send(JSON.stringify({ type: 'resize', cols: dims.cols, rows: dims.rows }));
-  }
-}
-
-function connectWebSocket() {
-  if (reconnectTimer) {
-    clearTimeout(reconnectTimer);
-    reconnectTimer = null;
-  }
-
-  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  ws = new WebSocket(`${protocol}//${location.host}`);
-
-  ws.onopen = () => {
-    setConnectionStatus(true);
-    sendResize();
-  };
-
-  ws.onclose = () => {
-    setConnectionStatus(false);
-    reconnectTimer = setTimeout(connectWebSocket, 5000);
-  };
-
-  ws.onerror = () => {};
-
-  ws.onmessage = (event) => {
-    if (!terminal) {
-      return;
-    }
-
-    try {
-      const msg = JSON.parse(event.data);
-      if (msg.type === 'data') {
-        terminal.write(msg.text);
-      } else if (msg.type === 'exit') {
-        terminal.write(`\r\n\x1b[31m[进程退出，代码: ${msg.code}]\x1b[0m\r\n`);
-      }
-    } catch (error) {
-      console.warn('[ws] 无法解析消息', error);
-    }
-  };
-}
-
-function initTerminal() {
-  terminal = new Terminal({
-    theme: isLightTheme ? LIGHT_TERMINAL_THEME : DARK_TERMINAL_THEME,
-    fontSize: 14,
-    fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Consolas', monospace",
-    cursorBlink: true,
-    cursorStyle: 'bar',
-    allowProposedApi: true,
-    cols: 80,
-    rows: 24,
-    unicodeVersion: 11,
-  });
-
-  fitAddon = new FitAddon.FitAddon();
-  webLinksAddon = new WebLinksAddon.WebLinksAddon();
-
-  terminal.loadAddon(fitAddon);
-  terminal.loadAddon(webLinksAddon);
-  terminal.open(terminalContainer);
-
-  setTimeout(() => {
-    fitAddon.fit();
-    sendResize();
-  }, 50);
-
-  const resizeObserver = new ResizeObserver(() => {
-    fitAddon.fit();
-    sendResize();
-  });
-  resizeObserver.observe(terminalContainer);
-
-  terminal.onData((data) => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: 'input', text: data }));
-    }
-  });
-
-  window.addEventListener('resize', () => {
-    if (fitAddon) {
-      fitAddon.fit();
-      sendResize();
-    }
-  });
-
-  if (window.electronAPI && window.electronAPI.onPaste) {
-    window.electronAPI.onPaste((text) => {
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ type: 'input', text }));
-      }
-    });
-  }
-
-  if (window.electronAPI && window.electronAPI.onCopyRequest) {
-    window.electronAPI.onCopyRequest(() => {
-      return terminal && terminal.hasSelection() ? terminal.getSelection() : '';
-    });
-  }
-}
-
-function initUI() {
-  btnTheme.addEventListener('click', () => {
-    isLightTheme = !isLightTheme;
-    localStorage.setItem('sterm-theme', isLightTheme ? 'light' : 'dark');
-    applyTheme();
-  });
-
-  document.getElementById('btn-new-tab').addEventListener('click', () => {
-    if (terminal) {
-      terminal.write('\r\n$ ');
-    }
-  });
-
-  document.querySelectorAll('.tab-close').forEach((btn) => {
-    btn.addEventListener('click', (event) => {
-      event.stopPropagation();
-      if (terminal) {
-        terminal.dispose();
-      }
-      if (ws) {
-        ws.close();
-      }
-    });
-  });
-
-  // 拖放文件 — 从 Finder 拖入自动输入路径
-  document.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-  });
-
-  document.addEventListener('drop', async (e) => {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
-    const uriList = e.dataTransfer.getData('text/uri-list');
-    const plain = e.dataTransfer.getData('text/plain');
-
-    // 诊断：打印可用信息
-    const debug = `[drop] files=${files.length} uri=${uriList} plain=${plain}`;
-    console.log(debug);
-
-    // 取路径
-    let filePath = '';
-    if (files[0] && window.electronAPI && window.electronAPI.getFilePath) {
-      filePath = window.electronAPI.getFilePath(files[0]);
-    }
-    if (!filePath && uriList) {
-      filePath = decodeURIComponent(uriList.replace(/^file:\/\//, '').split('\n')[0].trim());
-    }
-    if (!filePath && plain) {
-      filePath = decodeURIComponent(plain.replace(/^file:\/\//, '').trim());
-    }
-
-    if (!filePath) return;
-
-    const path = filePath.includes(' ') ? `'${filePath}'` : filePath;
-    console.log('[sterm] sending:', path);
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: 'input', text: path }));
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  applyTheme();
-  setConnectionStatus(false);
-  initTerminal();
-  initUI();
-  connectWebSocket();
-});
+document.addEventListener('DOMContentLoaded',async()=>{ loadSettings(); applyTheme(); applySettings(); setConnectionStatus(false); initSidePanel(); initUI(); await loadSnippets(); await loadLinuxCheatsheet(); typeof renderCommandResults==='function'&&renderCommandResults(); connectWebSocket(); });

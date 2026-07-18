@@ -1,0 +1,199 @@
+{
+  "name": "Gemma 4",
+  "description": "Gemma 4 快速参考",
+  "category": "",
+  "count": 30,
+  "sections": [
+    {
+      "title": "快速开始",
+      "entries": [
+        {
+          "title": "快速上手",
+          "description": "",
+          "code": "from transformers import AutoProcessor, AutoModelForCausalLM\nimport torch\n\nMODEL_ID = \"google/gemma-4-E4B-it\"\n\nprocessor = AutoProcessor.from_pretrained(MODEL_ID)\nmodel = AutoModelForCausalLM.from_pretrained(\n    MODEL_ID,\n    dtype=torch.bfloat16,\n    device_map=\"auto\"\n)\n\nmessages = [\n    {\"role\": \"system\", \"content\": \"You are helpful.\"},\n    {\"role\": \"user\",   \"content\": \"Explain MoE briefly.\"},\n]\n\ntext = processor.apply_chat_template(\n    messages,\n    tokenize=False,\n    add_generation_prompt=True,\n    enable_thinking=False\n)\ninputs = processor(\n    text=text, return_tensors=\"pt\"\n).to(model.device)\ninput_len = inputs[\"input_ids\"].shape[-1]\n\noutputs = model.generate(**inputs, max_new_tokens=512)\nresponse = processor.decode(\n    outputs[0][input_len:], skip_special_tokens=False\n)\nresult = processor.parse_response(response)\n# result[\"thinking\"]  → 内部推理链\n# result[\"response\"] → 展示给用户的最终回答"
+        },
+        {
+          "title": "简介",
+          "description": "- [文档](https://ai.google.dev/gemma/docs/core) _(ai.google.dev)_\n- [模型卡](https://ai.google.dev/gemma/docs/core/model_card_4) _(ai.google.dev)_\n- [HuggingFace](https://huggingface.co/google) _(huggingface.co)_\n- [实战手册](https://github.com/google-gemma/gemma-cookbook) _(github.com)_\n发布于 2026-03-31 · Apache 2.0 · 基于 Gemini 3 研究构建 · 支持 140+ 语言",
+          "code": ""
+        },
+        {
+          "title": "安装",
+          "description": "全部模型均可在 HuggingFace 通过 `google/<model-id>` 获取\n| 规格    | Model ID             |\n| ------- | -------------------- |\n| E2B     | `gemma-4-E2B-it`     |\n| E4B     | `gemma-4-E4B-it`     |\n| 31B     | `gemma-4-31b-it`     |\n| 26B A4B | `gemma-4-26b-a4b-it` |",
+          "code": "$ pip install -U transformers torch accelerate"
+        },
+        {
+          "title": "采样参数",
+          "description": "| 参数          | 值     |\n| ------------- | ------ |\n| `temperature` | `1.0`  |\n| `top_p`       | `0.95` |\n| `top_k`       | `64`   |",
+          "code": ""
+        },
+        {
+          "title": "最佳实践",
+          "description": "- 任意提示中都应将图片/音频放在文本**之前**\n- 多轮对话时：在历史中省略思考块（thought blocks）\n- 训练数据中包含 75%+ 的 CoT 数据以保持推理能力\n- 仅文本微调时冻结视觉层\n模型家族",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "模型家族",
+      "entries": [
+        {
+          "title": "模型规格",
+          "description": "| 模型    | 架构      | 总参数          | 每 Token 激活 | 层数   | 上下文  | 模态             |\n| ------- | --------- | --------------- | ------------ | ------ | ------- | ---------------- |\n| E2B     | Dense+PLE | 5.1B (2.3B eff) | 2.3B         | 35     | 128K    | Text+Image+Audio |\n| E4B     | Dense+PLE | 8B (4.5B eff)   | 4.5B         | 42     | 128K    | Text+Image+Audio |\n| 31B     | Dense     | 30.7B           | 30.7B        | 60     | 256K    | Text+Image       |\n| 26B A4B | MoE       | 25.2B           | 3.8B         | 30     | 256K    | Text+Image       |\n滑动窗口：512 tokens（E2B/E4B）· 1024 tokens（31B/26B）· 词表：262K（全模型一致）",
+          "code": ""
+        },
+        {
+          "title": "架构特性",
+          "description": "**混合注意力**\n- **Local** 层：滑动窗口（512 或 1024 tokens）\n- **Global** 层：全局上下文，与 local 层交错排列\n- 最后一层始终是 global attention 层\n\n**PLE — 边缘模型（E2B/E4B）**\n- Per-Layer Embeddings：每个解码层都有自己的小型 embedding 表\n- 大型静态表通过快速查表，不走稠密矩阵乘法\n- 有效计算参数远小于加载总参数\n- 可在 1.5 GB 以下 VRAM（4-bit 量化）进行推理\n\n**p-RoPE & Shared KV Cache**\n- 在 global 层使用 Proportional RoPE（p-RoPE）提升长程一致性\n- global 层共享 KV Cache，降低峰值显存占用\n- 在 256K 上下文下保持稳定性能\n\n**MoE — 26B A4B**\n- 128 个专家 + 1 个始终激活的共享专家\n- 推理时每个 token 激活 8 个专家\n- 速度接近 4B 稠密模型，质量接近 30B\n- 视觉编码器约 5.5 亿参数（与 31B 相同）",
+          "code": ""
+        },
+        {
+          "title": "显存需求",
+          "description": "| 模型    | BF16（16-bit） | 8-bit   | 4-bit   |\n| ------- | ------------- | ------- | ------- |\n| E2B     | 9.6 GB        | 4.6 GB  | 3.2 GB  |\n| E4B     | 15 GB         | 7.5 GB  | 5 GB    |\n| 31B     | 58.3 GB       | 30.4 GB | 17.4 GB |\n| 26B A4B | 48 GB         | 25 GB   | 15.6 GB |\n仅为基础权重显存，不含 KV cache 额外占用。",
+          "code": ""
+        },
+        {
+          "title": "选型建议",
+          "description": "| 可用 VRAM       | 推荐模型    |\n| --------------- | ----------- |\n| < 5 GB          | E2B (4-bit) |\n| 5–8 GB          | E4B (4-bit) |\n| 15–20 GB        | E4B (BF16)  |\n| 24–32 GB        | 31B (4-bit) |\n| 48–80 GB        | 31B (BF16)  |\n| 高吞吐场景      | 26B A4B     |\n基准测试",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "基准测试",
+      "entries": [
+        {
+          "title": "核心基准",
+          "description": "| 基准项              | 31B   | 26B A4B | E4B   | E2B   | Gemma 3 27B |\n| -------------------- | ----- | ------- | ----- | ----- | ----------- |\n| MMLU Pro             | 85.2% | 82.6%   | 69.4% | 60.0% | 67.6%       |\n| MMMLU (multilingual) | 88.4% | 86.3%   | 76.6% | 67.4% | 70.7%       |\n| AIME 2026 (math)     | 89.2% | 88.3%   | 42.5% | 37.5% | 20.8%       |\n| GPQA Diamond         | 84.3% | 82.3%   | 58.6% | 43.4% | 42.4%       |\n| LiveCodeBench v6     | 80.0% | 77.1%   | 52.0% | 44.0% | 29.1%       |\n| Codeforces ELO       | 2150  | 1718    | 940   | 633   | 110         |\n| BigBench Extra Hard  | 74.4% | 64.8%   | 33.1% | 21.9% | 19.3%       |\n| Tau2 avg (agentic)   | 76.9% | 68.2%   | 42.2% | 24.5% | 16.2%       |\n| HLE no tools         | 19.5% | 8.7%    | —     | —     | —           |\n| HLE with search      | 26.5% | 17.2%   | —     | —     | —           |\n以上结果均基于启用 thinking 模式的指令微调模型。",
+          "code": ""
+        },
+        {
+          "title": "视觉基准",
+          "description": "| 基准项        | 31B   | 26B A4B | E4B   | E2B   |\n| ------------- | ----- | ------- | ----- | ----- |\n| MMMU Pro      | 76.9% | 73.8%   | 52.6% | 44.2% |\n| MATH-Vision   | 85.6% | 82.4%   | 59.5% | 52.4% |\n| MedXPertQA MM | 61.3% | 58.1%   | 28.7% | 23.5% |\n| OmniDocBench↓ | 0.131 | 0.149   | 0.181 | 0.290 |\nOmniDocBench = 文档编辑距离（越低越好）。",
+          "code": ""
+        },
+        {
+          "title": "长上下文",
+          "description": "| 基准项       | 31B   | 26B A4B | E4B   | E2B   |\n| ------------ | ----- | ------- | ----- | ----- |\n| MRCR v2 128K | 66.4% | 44.1%   | 25.4% | 19.1% |\n\n**Arena AI (LMSYS ELO)**\n| Model           | ELO  | Open Rank |\n| --------------- | ---- | --------- |\n| Gemma 4 31B     | 1452 | #3        |\n| Gemma 4 26B A4B | 1441 | #6        |\nThinking 模式",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Thinking 模式",
+      "entries": [
+        {
+          "title": "Thinking 控制",
+          "description": "在 system prompt **开头**加上 `<|think|>`：\n\n**Thinking 输出结构**\n\n**关闭 thinking 时的行为**\n对 31B/26B A4B 来说，即使 `enable_thinking=False`，仍会输出空标签：\nE2B/E4B 在关闭时会完全跳过空标签。",
+          "code": "<|channel>thought\n<channel|>\n[最终回答]"
+        },
+        {
+          "title": "控制 Token",
+          "description": "| Token                  | 作用                             |\n| ---------------------- | -------------------------------- |\n| `<\\|think\\|>`          | 在 system prompt 启用 thinking   |\n| `<\\|channel>thought\\n` | 打开内部思考块                   |\n| `<channel\\|>`          | 关闭思考块                       |\n| `<\\|turn>`             | 打开一轮对话                     |\n| `<turn\\|>`             | 关闭一轮对话                     |",
+          "code": ""
+        },
+        {
+          "title": "多轮对话规则",
+          "description": "- **不要**把 thought 内容写入会话历史\n- 仅将 `result[\"response\"]` 作为模型轮次内容传回\n- 复杂推理任务建议提高 `max_new_tokens`\n- AIME、证明题、调试等任务建议 `enable_thinking=True`\n多模态",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "多模态",
+      "entries": [
+        {
+          "title": "图片输入",
+          "description": "支持可变宽高比 + 可配置的**视觉 token 预算**：\n| 预算   | 适用场景                          |\n| ------ | --------------------------------- |\n| 70     | 快速分类、视频帧                  |\n| 140    | 图像描述、缩略图                  |\n| 280    | 通用图像理解                      |\n| 560    | 图表、示意图                      |\n| 1120   | OCR、PDF 解析、细节识别           |\n视觉编码器：约 1.5 亿参数（E2B/E4B）· 约 5.5 亿参数（31B/26B）",
+          "code": "# 图片必须在文本之前（硬性要求）\nmessages = [{\"role\": \"user\", \"content\": [\n  {\"type\": \"image\", \"image\": image},\n  {\"type\": \"text\",  \"text\": \"Describe this chart.\"},\n]}]\ninputs = processor(\n  text=text,\n  images=image,\n  return_tensors=\"pt\"\n).to(model.device)"
+        },
+        {
+          "title": "音频输入",
+          "description": "**仅 E2B 与 E4B 支持**（约 3 亿参数音频编码器）\n- 音频最长：**30 秒**\n- 支持任务：ASR 与语音翻译\n\n**ASR 提示词**\n\n**翻译提示词**",
+          "code": "Transcribe in {SRC_LANG}, then\ntranslate to {TARGET_LANG}."
+        },
+        {
+          "title": "视频输入",
+          "description": "按**连续图像帧**处理：\n- 最大：**60 秒**，1 fps 即 60 帧\n- 每帧建议使用**低 token 预算**（70-140）\n- E2B/E4B 可同时处理音轨",
+          "code": "# 将帧作为图像列表传入\ninputs = processor(\n    text=text,\n    images=[frame1, frame2, ..., frame60],\n    return_tensors=\"pt\"\n)"
+        },
+        {
+          "title": "模态顺序",
+          "description": "内容中始终将**图片/音频放在文本前面**：\n部署",
+          "code": "# ✅ 正确顺序\ncontent = [\n    {\"type\": \"image\", \"image\": img},\n    {\"type\": \"text\",  \"text\": \"Describe it.\"},\n]\n\n# ❌ 文本在前会导致对齐问题\ncontent = [\n    {\"type\": \"text\",  \"text\": \"Describe it.\"},\n    {\"type\": \"image\", \"image\": img},\n]"
+        }
+      ]
+    },
+    {
+      "title": "部署",
+      "entries": [
+        {
+          "title": "HuggingFace",
+          "description": "**BF16（默认）**\n\n**4-bit 量化**",
+          "code": "from transformers import BitsAndBytesConfig\n\nbnb = BitsAndBytesConfig(load_in_4bit=True)\nmodel = AutoModelForCausalLM.from_pretrained(\n    mid,\n    quantization_config=bnb,\n    device_map=\"auto\"\n)"
+        },
+        {
+          "title": "Ollama",
+          "description": "**自定义 GGUF（Modelfile）**",
+          "code": "$ ollama create mygemma -f Modelfile\n$ ollama run mygemma"
+        },
+        {
+          "title": "vLLM Server",
+          "description": "OpenAI 兼容 API 地址：`http://localhost:8000/v1`",
+          "code": "$ vllm serve google/gemma-4-31B-it \\\n  --max-model-len 8192 \\\n  --enable-auto-tool-choice \\\n  --tool-call-parser gemma4 \\\n  --reasoning-parser gemma4"
+        },
+        {
+          "title": "Cloud & API",
+          "description": "| 平台       | 说明               |\n| ---------- | ------------------ |\n| Gemini API | `gemma-4-31b-it`   |\n| AI Studio  | 浏览器 Playground  |\n| Vertex AI  | 自定义端点         |\n| Cloud Run  | Serverless GPU     |\n| GKE + vLLM | 自动伸缩           |",
+          "code": ""
+        },
+        {
+          "title": "边缘与移动端",
+          "description": "| 运行时           | 适用场景          |\n| ---------------- | ----------------- |\n| AICore (Android) | 系统级 API        |\n| LiteRT-LM        | IoT、Raspberry Pi |\n| AI Edge Gallery  | 端侧评测          |\n| LM Studio        | 桌面图形界面      |\n| llama.cpp        | CPU/GPU 混合      |\n微调",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "微调",
+      "entries": [
+        {
+          "title": "QLoRA 配置",
+          "description": "单张 **16 GB GPU**（T4 / 免费 Colab / Kaggle）即可：\n\n**视觉微调（E2B / E4B）**",
+          "code": "from unsloth import FastVisionModel\n\nmodel, tokenizer = FastVisionModel.from_pretrained(\n    \"google/gemma-4-E4B-it\",\n    finetune_vision_layers=False,   # 冻结视觉编码器\n    finetune_language_layers=True,\n    load_in_4bit=True,\n)"
+        },
+        {
+          "title": "MoE 微调",
+          "description": "对于 **26B A4B**，全量微调会破坏专家路由：\n- 仅使用 **LoRA bf16**（不要做 FFT）\n- 建议从 `r=16`、`lora_alpha=16` 起步\n- 在 loss 收敛后再逐步增大上下文长度\n- 避免训练专家路由相关权重矩阵",
+          "code": ""
+        },
+        {
+          "title": "数据要求",
+          "description": "| 要求             | 建议值                        |\n| ---------------- | ----------------------------- |\n| CoT 数据占比     | ≥ 75% 的训练集                |\n| Thinking 格式    | 包含 `<\\|think\\|>` 触发标记 |\n| 多模态顺序       | 图片/音频在文本前             |\n| Chat 模板        | ShareGPT 或 OpenAI 格式       |\n| RL 奖励          | 可验证的最终答案              |",
+          "code": ""
+        },
+        {
+          "title": "视觉微调建议",
+          "description": "1. **先冻结视觉层** — `finetune_vision_layers=False`\n2. 仅微调 LLM + attention + MLP projector\n3. 解冻前先验证文本域质量\n4. 仅在领域图像任务中解冻视觉层\n5. 训练时使用较低 token 预算（70–280）可节省 VRAM\nGemmaverse",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Gemmaverse",
+      "entries": [
+        {
+          "title": "专项模型",
+          "description": "| 模型          | 领域            | 说明                                |\n| ------------- | --------------- | ----------------------------------- |\n| MedGemma 4B   | 医学影像        | 多模态 X-ray/MRI 分析               |\n| MedGemma 27B  | 临床文本        | EHR + 医疗报告推理                  |\n| CodeGemma     | 编程            | 代码补全与重构                      |\n| PaliGemma 2   | 视觉语言        | 细粒度 VLM 与视觉推理               |\n| ShieldGemma   | 安全            | LLM 输出安全分类器                  |\n| DataGemma     | 事实数据        | 基于 Google Data Commons 对齐       |\n| FunctionGemma | 工具调用        | 低资源函数调用解析                  |",
+          "code": ""
+        },
+        {
+          "title": "生态",
+          "description": "**库与框架**\n- ADK (Agent Development Kit)\n- JAX Gemma Library (`google-deepmind/gemma`)\n- Gemma Cookbook (`google-gemma/gemma-cookbook`)\n- `google/adk-samples` starter agents\n**社区变体**\n- 100K+ 社区微调衍生模型\n- RecurrentGemma (Griffin architecture)\n- EmbeddingGemma, T5Gemma 2\n- VaultGemma (differential privacy)\n延伸阅读",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/gemma4.md"
+}

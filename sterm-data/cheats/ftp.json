@@ -1,0 +1,49 @@
+{
+  "name": "ftp",
+  "description": "ftp 快速参考",
+  "category": "",
+  "count": 6,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "- FTP 命令允许用户通过FTP（File Transfer Protocol）协议在本地计算机和远程服务器之间传输文件。\n- FTP 是一种在网络上交换文件的标准协议，是 ARPANet 的标准文件传输协议，ARPANet 网络就是现今 Internet 的前身。\n- 使用 FTP 协议时，一方充当客户端，另一方充当服务器，客户端可以上传、下载、删除、重命名文件和目录，以及执行其他文件传输相关的操作。",
+          "code": ""
+        },
+        {
+          "title": "选项",
+          "description": "`-v`：启用或禁用详细模式。在详细模式下，`ftp`命令会显示所有来自服务器的响应消息。默认情况下，该选项为开启状态。\n`-d`：启用调试模式。该选项会显示所有FTP传输过程中发送和接收到的命令，有助于调试连接问题。\n`-n`：禁止自动登录。默认情况下，`ftp`命令会在连接到远程服务器后尝试自动登录。使用该选项可以禁止该行为，通常与`.netrc`文件联合使用。\n禁用文件名通配符扩展。`ftp`命令默认会展开文件名中的通配符。使用该选项可以关闭这一行为。\n`-p`：使用被动模式（PASV）进行数据连接。被动模式在客户端位于防火墙或NAT后面时非常有用。\n:warning: Windows 上使用`-s`选项指定`script.txt`脚本执行 ftp 命令。Linux 上可以使用重定向实现。",
+          "code": "ftp -s:script.txt ftp.example.com # Windows\nftp -n ftp.example.com < script # Linux"
+        },
+        {
+          "title": "目录操作",
+          "description": "| 命令                 | 描述                       |\n| -------------------- | -------------------------- |\n| `cd`                 | 更改当前工作目录到指定目录 |\n| `ls`或`dir`          | 列出当前目录下的内容       |\n| `pwd`                | 显示当前目录的绝对路径     |\n| `mkdir`              | 创建目录                   |\n| `rmdir`              | 删除一个目录               |\n| `rename <old> <new>` | 重命名一个目录             |",
+          "code": ""
+        },
+        {
+          "title": "快速开始",
+          "description": "使用匿名模式访问远程 FTP 服务器\nftp 会启动交互式命令行\n连接成功后进入交互式会话.\n查看所有命令，使用 `helm` 或 `?`",
+          "code": "ftp> help\n# 或者\nftp> ?"
+        },
+        {
+          "title": "文件操作",
+          "description": "| 命令                   | 描述                 |\n| ---------------------- | -------------------- |\n| `get <remote> <local>` | 下载一个文件到本地   |\n| `mget`                 | 下载多个文件到本地   |\n| `put <local> <remote>` | 上传一个文件到服务器 |\n| `mput`                 | 上传多个文件到服务器 |\n| `delete <remote>`      | 删除一个文件         |\n| `rename <old> <new>`   | 重命名一个文件       |\n脚本",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "脚本",
+      "entries": [
+        {
+          "title": "样例",
+          "description": "以匿名登录为例，将下列脚本代码放入文件 `script` 中：\n使用 `ftp` 命令执行脚本文件：",
+          "code": "ftp -n ftp.example.com < script     # 使用 -n 选项禁止自动登录，这样会继续执行 user 指令，而不是启动交互式命令行。"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/ftp.md"
+}

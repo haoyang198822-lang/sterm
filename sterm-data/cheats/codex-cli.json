@@ -1,0 +1,209 @@
+{
+  "name": "Codex CLI",
+  "description": "Codex CLI 快速参考",
+  "category": "",
+  "count": 28,
+  "sections": [
+    {
+      "title": "快速开始",
+      "entries": [
+        {
+          "title": "安装与运行",
+          "description": "**npm（推荐）**\n\n**Homebrew（macOS）**\n\n**首次运行**\n首次运行时会提示你通过 ChatGPT 账号或 API key 登录。\n\n**Shell 自动补全**",
+          "code": "# Zsh - 添加到 ~/.zshrc\n$ eval \"$(codex completion zsh)\"\n\n# Bash - 添加到 ~/.bashrc\n$ eval \"$(codex completion bash)\"\n\n# Fish\n$ codex completion fish | source"
+        },
+        {
+          "title": "平台支持",
+          "description": "| 平台             | 状态         |\n| ---------------- | ------------ |\n| macOS            | 稳定         |\n| Linux            | 稳定         |\n| Windows (WSL)    | 推荐         |\n| Windows（原生）  | 实验性       |",
+          "code": ""
+        },
+        {
+          "title": "身份认证",
+          "description": "从环境变量管道传入 API key\n子命令",
+          "code": "$ printenv OPENAI_API_KEY | codex login --with-api-key\n$ codex login status         # 检查登录状态\n$ codex logout               # 移除凭据"
+        }
+      ]
+    },
+    {
+      "title": "子命令",
+      "entries": [
+        {
+          "title": "命令参考",
+          "description": "| 命令               | 别名      | 状态         | 说明                              |\n| ------------------ | --------- | ------------ | --------------------------------- |\n| `codex`            |           | 稳定         | 启动交互式 TUI                    |\n| `codex exec`       | `codex e` | 稳定         | 以非交互模式运行（脚本化）        |\n| `codex review`     |           | 稳定         | 非交互代码审查                    |\n| `codex resume`     |           | 稳定         | 恢复历史会话                      |\n| `codex fork`       |           | 稳定         | 分叉会话到新线程                  |\n| `codex apply`      | `codex a` | 稳定         | 将 Cloud 任务 diff 应用到本地     |\n| `codex login`      |           | 稳定         | 登录 Codex                        |\n| `codex logout`     |           | 稳定         | 删除已保存凭据                    |\n| `codex completion` |           | 稳定         | 生成 shell 自动补全               |\n| `codex features`   |           | 稳定         | 管理特性开关                      |\n| `codex app`        |           | 稳定         | 启动 Codex 桌面应用               |\n| `codex mcp`        |           | 实验性       | 管理 MCP 服务器                   |\n| `codex mcp-server` |           | 实验性       | 将 Codex 作为 MCP 服务器运行      |\n| `codex cloud`      |           | 实验性       | 浏览并执行 Cloud 任务             |\n| `codex sandbox`    |           | 实验性       | 在沙箱中运行命令                  |\n| `codex debug`      |           | 实验性       | 调试工具                          |",
+          "code": ""
+        },
+        {
+          "title": "Exec（非交互）",
+          "description": "从 stdin 读取提示词\nPrompt-plus-stdin（0.118+）：既传入管道数据，也传入提示词\n输出选项\n恢复之前的 exec 会话\n全局选项",
+          "code": "$ codex exec resume --last \"Fix the bugs\"\n$ codex exec resume <SESSION_ID> \"Implement\""
+        }
+      ]
+    },
+    {
+      "title": "全局选项",
+      "entries": [
+        {
+          "title": "全部参数",
+          "description": "| 参数                      | 取值            | 说明                               |\n| ------------------------- | --------------- | ---------------------------------- |\n| `-m, --model`             | string          | 覆盖模型（例如 `gpt-5.4`）         |\n| `-s, --sandbox`           | 见下文          | 沙箱策略                           |\n| `-a, --ask-for-approval`  | 见下文          | 审批策略                           |\n| `--full-auto`             | flag            | workspace-write + on-request       |\n| `--yolo`                  | flag            | 跳过全部审批和沙箱                 |\n| `-i, --image`             | path            | 给初始提示附加图片                 |\n| `-c, --config`            | `key=val`       | 覆盖配置项                         |\n| `-C, --cd`                | path            | Agent 工作目录                     |\n| `-p, --profile`           | string          | 配置档名称                         |\n| `--search`                | flag            | 启用实时网页搜索                   |\n| `--add-dir`               | path            | 追加可写目录权限                   |\n| `--oss`                   | flag            | 使用本地 OSS provider              |\n| `--local-provider`        | lmstudio/ollama | 指定 OSS provider                  |\n| `--enable`                | feature         | 启用特性开关                       |\n| `--disable`               | feature         | 禁用特性开关                       |\n| `--no-alt-screen`         | flag            | 内联 TUI 模式（禁用 alt screen）   |\n| `--remote`                | ws://host:port  | 连接远程 app server                |\n| `--remote-auth-token-env` | ENV_VAR         | 远程 WS 的 Bearer Token 环境变量   |\n| `-V, --version`           |                 | 输出版本                           |\n| `-h, --help`              |                 | 输出帮助                           |",
+          "code": ""
+        },
+        {
+          "title": "使用示例",
+          "description": "沙箱与审批",
+          "code": "# 指定模型\n$ codex -m gpt-5.4 \"Refactor the auth module\"\n\n# 自动模式（低摩擦）\n$ codex --full-auto \"Run tests and fix failures\"\n\n# 附加截图\n$ codex -i mockup.png \"Implement this UI\"\n\n# 命令行临时覆盖配置\n$ codex -c model=\"gpt-5.4-mini\" \"Quick scan\"\n\n# 实时网页搜索\n$ codex --search \"Find the latest async syntax\"\n\n# 设置工作目录\n$ codex -C ~/projects/api \"Review this codebase\""
+        }
+      ]
+    },
+    {
+      "title": "沙箱与审批",
+      "entries": [
+        {
+          "title": "沙箱模式",
+          "description": "| 模式                 | 说明                                    |\n| -------------------- | --------------------------------------- |\n| `read-only`          | 仅查看，不经批准不修改                  |\n| `workspace-write`    | 可改工作区并运行本地命令                |\n| `danger-full-access` | 无限制（仅建议在强化隔离环境中使用）    |",
+          "code": ""
+        },
+        {
+          "title": "审批策略",
+          "description": "| 策略         | 说明                                      |\n| ------------ | ----------------------------------------- |\n| `untrusted`  | 所有非可信命令执行前都询问                |\n| `on-request` | 超出沙箱边界时询问                        |\n| `never`      | 从不询问；所有命令自动执行                |",
+          "code": ""
+        },
+        {
+          "title": "预设",
+          "description": "| 预设          | 等价设置                         |\n| ------------- | -------------------------------- |\n| `--full-auto` | `workspace-write` + `on-request` |\n| `--yolo`      | 无沙箱 + 无审批                  |\n可在 TUI 中使用 `/permissions` 在会话中途切换模式。\nSlash 命令",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Slash 命令",
+      "entries": [
+        {
+          "title": "会话控制",
+          "description": "| 命令              | 说明                            |\n| ----------------- | ------------------------------- |\n| `/model`          | 切换模型/推理强度               |\n| `/fast`           | 切换 GPT-5.4 Fast 模式          |\n| `/permissions`    | 调整审批模式                    |\n| `/personality`    | 设置响应风格                    |\n| `/plan`           | 进入计划模式                    |\n| `/status`         | 显示模型、tokens、配置          |\n| `/compact`        | 压缩总结以释放上下文            |\n| `/clear`          | 清空聊天并重新开始              |\n| `/new`            | 新建聊天，保留 CLI 会话         |\n| `/fork`           | 分叉当前会话                    |\n| `/resume`         | 恢复已保存会话                  |\n| `/exit` / `/quit` | 退出 CLI                        |",
+          "code": ""
+        },
+        {
+          "title": "审查与代码",
+          "description": "| 命令       | 说明                        |\n| ---------- | --------------------------- |\n| `/review`  | 启动代码审查                |\n| `/diff`    | 显示 Git diff               |\n| `/copy`    | 复制最新 Codex 输出         |\n| `/mention` | 向会话附加文件              |\n| `/init`    | 生成 AGENTS.md 模板         |",
+          "code": ""
+        },
+        {
+          "title": "工具与调试",
+          "description": "| 命令                    | 说明                           |\n| ----------------------- | ------------------------------ |\n| `/agent`                | 切换当前 agent 线程            |\n| `/mcp`                  | 列出 MCP 工具                  |\n| `/apps`                 | 浏览连接器应用                 |\n| `/experimental`         | 切换实验性特性                 |\n| `/statusline`           | 配置 TUI 底栏                  |\n| `/ps`                   | 显示后台终端                   |\n| `/sandbox-add-read-dir` | 添加可读目录（Windows）        |\n| `/feedback`             | 向维护者发送日志               |\n| `/plugins`              | 浏览并管理插件                 |\n| `/title`                | 为当前会话设置终端标题         |\n| `/debug-config`         | 输出配置诊断信息               |\n| `/logout`               | 退出 Codex 登录                |\n模型",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "模型",
+      "entries": [
+        {
+          "title": "可用模型",
+          "description": "| 模型                  | 速度  | 适用场景                                 |\n| --------------------- | ----- | ---------------------------------------- |\n| `gpt-5.4`             | ★★★   | 默认：编码 + 推理 + 工作流               |\n| `gpt-5.4-mini`        | ★★★★★ | 子代理、轻量任务、更高配额               |\n| `gpt-5.3-codex`       | ★★★★  | 复杂软件工程任务                         |\n| `gpt-5.3-codex-spark` | ★★★★★ | 近实时迭代（仅 Pro）                     |",
+          "code": ""
+        },
+        {
+          "title": "选择模型",
+          "description": "配置",
+          "code": "$ codex -m gpt-5.4 \"Your prompt\"\n$ codex -m gpt-5.4-mini \"Quick task\"\n$ codex --oss    # local Ollama / LM Studio\n# 会话中途可在 TUI 输入 /model"
+        }
+      ]
+    },
+    {
+      "title": "配置",
+      "entries": [
+        {
+          "title": "config.toml 关键项",
+          "description": "使用 `-p ci` 启用该配置档。",
+          "code": "# ~/.codex/config.toml\n\n# 模型设置\nmodel = \"gpt-5.4\"\nmodel_provider = \"openai\"\nmodel_reasoning_effort = \"medium\"  # low | medium | high\n\n# 沙箱与审批\nsandbox_mode = \"workspace-write\"\napproval_policy = \"on-request\"\n\n# 网页搜索：cached | live | disabled\nweb_search = \"cached\"\n\n# 审查模型覆盖\nreview_model = \"gpt-5.4\"\n\n# TUI 外观\n[tui]\ntheme = \"dark\"\nalternate_screen = true\n\n# 配置档示例\n[profile.ci]\nmodel = \"gpt-5.4-mini\"\napproval_policy = \"never\"\nsandbox_mode = \"workspace-write\""
+        },
+        {
+          "title": "特性开关",
+          "description": "",
+          "code": "$ codex features list\n$ codex features enable unified_exec\n$ codex features disable shell_snapshot\n\n# 仅当前会话生效（不持久化）\n$ codex --enable unified_exec\n$ codex --disable shell_snapshot"
+        },
+        {
+          "title": "配置位置",
+          "description": "| 文件                   | 用途                  |\n| ---------------------- | --------------------- |\n| `~/.codex/config.toml` | 全局默认配置          |\n| `~/.codex/AGENTS.md`   | 个人指令              |\n| `~/.agents/skills/`    | 个人技能              |\n| `.agents/skills/`      | 仓库级技能            |\n| `AGENTS.md`            | 仓库指令              |\n自定义",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "自定义",
+      "entries": [
+        {
+          "title": "AGENTS.md",
+          "description": "可随代码一同提交的仓库级持久指令：\n建议添加规则的场景：\n- Agent 重复犯错\n- PR 审查反馈反复出现\n- 在 GitHub 使用 `@codex add to AGENTS.md` 标签",
+          "code": "## 构建与测试命令\n\n- 安装：`npm install`\n- 测试：`npm test`\n- Lint：`npm run lint`\n\n## 约定\n\n- TypeScript 严格模式\n- 日志中不得包含 PII\n- 所有路由都需鉴权中间件\n\n## 审查准则\n\n- 标记未处理的 Promise rejection"
+        },
+        {
+          "title": "Skills",
+          "description": "可复用工作流可打包为 `SKILL.md`：\n`SKILL.md` 示例：",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "description: 按语义分组暂存并提交变更。",
+      "entries": [
+        {
+          "title": "MCP Servers",
+          "description": "会话管理",
+          "code": "# 添加 stdio 服务器\n$ codex mcp add myserver -- npx my-mcp-server\n\n# 添加 HTTP 服务器\n$ codex mcp add myserver \\\n    --url https://api.example.com/mcp\n\n# 带认证 token\n$ codex mcp add myserver \\\n    --url https://api.example.com/mcp \\\n    --bearer-token-env-var MY_TOKEN\n\n# 列出 / 删除\n$ codex mcp list\n$ codex mcp remove myserver\n\n# 将 Codex 自身作为 MCP 服务器运行\n$ codex mcp-server"
+        }
+      ]
+    },
+    {
+      "title": "会话管理",
+      "entries": [
+        {
+          "title": "恢复会话",
+          "description": "会话保存在 `~/.codex/sessions/`",
+          "code": "$ codex resume        # 会话选择器\n$ codex resume --last # 最近一次会话\n$ codex resume --all  # 跨目录查找\n$ codex resume <ID> \"Continue fixing tests\""
+        },
+        {
+          "title": "分叉会话",
+          "description": "分叉会保留原始会话记录，并开启一条新分支。",
+          "code": "$ codex fork             # 从选择器分叉\n$ codex fork --last      # 分叉最近一次\n$ codex fork <SESSION_ID> \"New direction\""
+        },
+        {
+          "title": "图片输入",
+          "description": "支持 PNG、JPEG 等常见格式。\nCloud 与 GitHub",
+          "code": "# 单张图片\n$ codex -i screenshot.png \"Fix this error\"\n\n# 多张图片\n$ codex --image img1.png,img2.jpg \"Compare\"\n\n# 或将图片直接拖入 TUI 输入框"
+        }
+      ]
+    },
+    {
+      "title": "Cloud 与 GitHub",
+      "entries": [
+        {
+          "title": "Cloud 任务",
+          "description": "",
+          "code": "# 浏览 Cloud 环境\n$ codex cloud\n\n# 提交 Cloud 任务\n$ codex cloud exec --env <ENV_ID> \"Fix bug\"\n\n# 多次尝试（best-of-N）\n$ codex cloud exec --env <ENV_ID> \\\n    --attempts 3 \"Write failing tests\"\n\n# 列出最近任务\n$ codex cloud list\n\n# 查看任务状态\n$ codex cloud status <TASK_ID>\n\n# 查看任务 diff\n$ codex cloud diff <TASK_ID>\n\n# 将 diff 应用到本地工作树\n$ codex apply <TASK_ID>"
+        },
+        {
+          "title": "GitHub 集成",
+          "description": "在 Codex Settings → Code review → 你的仓库中启用；开启 Automatic reviews 后，可自动审查每个新 PR。\n子代理工作流",
+          "code": "# 在 PR 评论中触发代码审查：\n@codex review\n\n# 自定义关注点：\n@codex review for security regressions\n\n# 基于 PR 上下文委派任意任务：\n@codex fix the CI failures\n@codex add tests for the new endpoint"
+        }
+      ]
+    },
+    {
+      "title": "子代理工作流",
+      "entries": [
+        {
+          "title": "子代理指南",
+          "description": "将噪声任务分发给并行代理，以避免**上下文污染**和**上下文老化**：\n- 适用于：探索、测试、分诊、日志分析\n- 避免并行执行大量写入任务（易冲突）\n- 每个子代理都会额外消耗 tokens\n**子代理模型建议：**\n| 角色                    | 模型           | 推理强度  |\n| ----------------------- | -------------- | --------- |\n| 主协调代理              | `gpt-5.4`      | medium    |\n| 快速探索代理            | `gpt-5.4-mini` | low       |\n| 安全/逻辑审查代理       | `gpt-5.4`      | high      |",
+          "code": "codex \"Review this branch with parallel agents.\nSpawn one for security risks, one for test gaps,\nand one for maintainability. Wait for all three,\nthen summarize findings with file references.\""
+        },
+        {
+          "title": "推理强度",
+          "description": "| 等级     | 适用场景                       |\n| -------- | ------------------------------ |\n| `high`   | 复杂逻辑、安全审计             |\n| `medium` | 通用任务（默认）               |\n| `low`    | 简单任务或对速度敏感的任务     |\n可在 `config.toml` 中设置：\n也可命令行临时指定：`-c model_reasoning_effort=\"high\"`\n延伸阅读",
+          "code": "model_reasoning_effort = \"medium\""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/codex-cli.md"
+}

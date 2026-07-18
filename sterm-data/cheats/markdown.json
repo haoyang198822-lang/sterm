@@ -1,0 +1,169 @@
+{
+  "name": "Markdown",
+  "description": "Markdown 快速参考",
+  "category": "",
+  "count": 28,
+  "sections": [
+    {
+      "title": "Markdown 快速参考",
+      "entries": [
+        {
+          "title": "标题 (atx 风格)",
+          "description": "",
+          "code": "# h1\n## h2"
+        },
+        {
+          "title": "h3",
+          "description": "**h4**\n##### h5\n###### h6",
+          "code": ""
+        },
+        {
+          "title": "标题 (setext 风格)",
+          "description": "",
+          "code": "Header 2"
+        }
+      ]
+    },
+    {
+      "title": "Header 2",
+      "entries": [
+        {
+          "title": "块引用",
+          "description": "",
+          "code": "> 这是一个\n> 块引用\n>\n> > 嵌套\n> > 块引用"
+        },
+        {
+          "title": "无序列表",
+          "description": "或者\n或者\n或者**任务**列表",
+          "code": "- [ ] Checkbox off\n- [x] Checkbox on"
+        },
+        {
+          "title": "有序列表",
+          "description": "",
+          "code": "1. Item 1\n2. Item 2\n    a. item 3a\n    b. item 3b"
+        },
+        {
+          "title": "链接",
+          "description": "",
+          "code": "[link](http://google.com)\n\n[link][google]\n[google]: http://google.com\n\n<http://google.com>"
+        },
+        {
+          "title": "强调",
+          "description": "",
+          "code": "*斜体*    _斜体_    **粗体**   __粗体__\n\n`内联代码`  ~~删除~~"
+        },
+        {
+          "title": "水平线",
+          "description": "连字符",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "```markdown",
+      "entries": [
+        {
+          "title": "换行",
+          "description": "尾部添加两个空格，或者添加 `\\` 反斜杠",
+          "code": "在当前行的结尾加 2 个空格··\n这行就会新起一行\\\n反斜杠也可以换行"
+        },
+        {
+          "title": "代码",
+          "description": "console.log(\"This is a block code\")\n\n**内联代码**",
+          "code": "`Inline code` 周围有反引号"
+        },
+        {
+          "title": "表格",
+          "description": "简单的风格\n增加 `:` 改变文字对齐方式\nMarkdown 表格生成器：[tableconvert.com](https://tableconvert.com/)",
+          "code": "左栏     |  中间栏  |   右栏 \n:------- | :------: | -----: \n左对齐   |   居中   | 右对齐"
+        },
+        {
+          "title": "脚注 (Footnotes)",
+          "description": "",
+          "code": "这是一个简单的脚注[^1]。\n\n一个脚注也可以有多行[^2]。\n\n你也可以使用文字，更贴合你的写作风格[^note]。\n\n[^1]：我的参考。\n[^2]：每个新行都应以 2 个空格为前缀。\n  这允许你有一个多行的脚注。\n[^note]：\n    推荐使用数字命名脚注，但文本更容易识别和链接。\n    脚注使用了不同的语法，使用 4 个空格作为新行。"
+        },
+        {
+          "title": "图片",
+          "description": "**带链接的图片**\n\n**参考风格**",
+          "code": "![替代文字][logo]\n\n[logo]: /images/logo.png \"Logo Title\""
+        },
+        {
+          "title": "反斜杠转义",
+          "description": "| 字符 | 转义 | 描述 |\n|------------|--------|-------------|\n| <pur>\\\\</pur>         | \\\\\\\\   | backslash 反斜杠             |\n| <pur>\\`</pur>         | \\\\\\`   | backtick 反引号              |\n| <pur>\\*</pur>         | \\\\\\*   | asterisk 星号                |\n| <pur>\\_</pur>         | \\\\\\_   | underscore 下划线            |\n| <pur>\\{\\}</pur>       | \\\\\\{\\} | curly braces 花括号          |\n| <pur>\\[\\]</pur>       | \\\\\\[\\] | square brackets 方括号       |\n| <pur>\\(\\)</pur>       | \\\\\\(\\) | parentheses 圆括号           |\n| <pur>\\#</pur>         | \\\\\\#   | hash mark 哈希标记           |\n| <pur>\\+</pur>         | \\\\\\+   | plus sign 加号               |\n| <pur>\\-</pur>         | \\\\\\-   | minus sign \\(hyphen\\) 减号(连字符) |\n| <pur>\\.</pur>         | \\\\\\.   | dot 点                      |\n| <pur>\\!</pur>         | \\\\\\!   | exclamation mark 感叹号      |",
+          "code": ""
+        },
+        {
+          "title": "行内 HTML 元素",
+          "description": "Github 相关语法",
+          "code": "目前只支持部分段内 HTML 元素效果，包括 <kbd>, <b>, <i>, <em>, <sup>, <sub>, <br>"
+        }
+      ]
+    },
+    {
+      "title": "Github 相关语法",
+      "entries": [
+        {
+          "title": "代码语法高亮",
+          "description": "function hello() {\nconsole.log(\"Hello, GitHub!\");\n}",
+          "code": ""
+        },
+        {
+          "title": "任务列表",
+          "description": "",
+          "code": "- [x] 已完成的任务\n- [ ] 未完成的任务\n- [x] @mentions, #refs, [链接](), **格式**, 和 <del>标签</del> 支持\n- [x] 列表语法必填 (任何无序或有序列表支持)\n- [x] 这是一个完整项目\n- [ ] 这是一个未完成项目"
+        },
+        {
+          "title": "删除线",
+          "description": "",
+          "code": "任何用两个波浪号包裹的词语 (例如 ~~这样~~) 都会出现删除线。"
+        },
+        {
+          "title": "自动链接",
+          "description": "",
+          "code": "http://www.github.com/ 和 https://help.github.com/ 会自动转换为链接。"
+        },
+        {
+          "title": "@提及 和 Issues 引用",
+          "description": "",
+          "code": "@username 会通知用户来查看评论\n#123 会引用仓库中的 issue 或 pull request"
+        },
+        {
+          "title": "表情符号",
+          "description": "",
+          "code": "GitHub 支持表情符号！ :+1: :sparkles: :camel: :tada:\n:rocket: :metal: :octocat:"
+        },
+        {
+          "title": "警告框",
+          "description": "",
+          "code": "> [!NOTE]\n> 有用的信息，用户需要知道，即使浏览时也是如此。\n\n> [!TIP]\n> 有用的建议，可以帮助用户做得更好。\n\n> [!IMPORTANT]\n> 用户成功所需的关键信息。\n\n> [!WARNING]\n> 用户需要立即关注的重要内容，以避免问题。\n\n> [!CAUTION]  \n> 有关可能有风险或负面结果的行为的建议。"
+        },
+        {
+          "title": "脚注",
+          "description": "",
+          "code": "一个简单的脚注[^1]，一个更长的脚注[^bignote]。\n\n[^1]: 这是第一个脚注。\n[^bignote]: 这里是一个有多行的脚注。"
+        },
+        {
+          "title": "数学公式",
+          "description": "\\left( \\sum_{k=1}^n a_k b_k \\right)^2 \\leq \\left( \\sum_{k=1}^n a_k^2 \\right) \\left( \\sum_{k=1}^n b_k^2 \\right)\nGitHub 的数学呈现功能使用 MathJax，请参阅 [MathJax](http://docs.mathjax.org/en/latest/input/tex/index.html#tex-and-latex-support) 文档和 [MathJax](https://mathjax.github.io/MathJax-a11y/docs/#reader-guide) 辅助功能扩展文档。",
+          "code": ""
+        },
+        {
+          "title": "折叠块",
+          "description": "",
+          "code": "<details>\n<summary>点击展开更多详情</summary>\n\n这是折叠的内容。\n\n- 代码块\n- 其他任何 Markdown 内容\n\n</details>"
+        },
+        {
+          "title": "代码块中的差异",
+          "description": "function addTwoNumbers (num1, num2) {\n-  return 1 + 2\n+  return num1 + num2\n}",
+          "code": ""
+        },
+        {
+          "title": "创建 Mermaid 图表",
+          "description": "graph TD;\nA-->B;\nA-->C;\nB-->D;\nC-->D;\n有关语法文档，请参阅 [Mermaid 文档](https://mermaid.js.org)\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/markdown.md"
+}

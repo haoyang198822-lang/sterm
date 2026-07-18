@@ -1,0 +1,114 @@
+{
+  "name": "ps",
+  "description": "ps 快速参考",
+  "category": "",
+  "count": 20,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "语法",
+          "description": "命令运行示例，列出当前 shell 中的所有进程：\n:-- | --\n:-- | --\n`PID` | 唯一的进程 ID\n`TTY` | 用户登录的终端类型\n`TIME` | 进程运行的 CPU 数量，以分钟和秒为单位\n`CMD` | 启动进程的命令的名称\n注意：有时当我们执行 `ps` 命令时，它显示 `TIME` 为 `00:00:00`\nps 命令支持 3 种使用语法风格\n- `Unix` 可以分组并以连字符开头\n- `BSD` 可以分组但前面没有连字符\n- `GNU` 长选项，前面有双连字符",
+          "code": "$ ps\n\n  PID TTY          TIME CMD\n12330 pts/0    00:00:00 bash\n21621 pts/0    00:00:00 ps"
+        },
+        {
+          "title": "示例",
+          "description": "Option | Function\n:-- | --\n`ps -ef / -aux` | 以完整格式列出当前正在运行的进程\n`ps -ax` | 列出当前正在运行的进程\n`ps -u <username>` | 列出特定用户的进程\n`ps -C <command>` | 列出给定命令的进程\n`ps -p <PID>` | 列出具有给定 PID 的进程\n`ps -ppid <PPID>` | 列出具有给定 ppid 的进程\n`pstree` | 在层次结构中显示过程\n`ps -L` | 列出特定进程的所有线程\n`ps --sort pmem` | 查找内存泄漏\n`ps -eo` | 显示安全信息\n`ps T` | 允许您仅选择与此终端关联的所有进程\n`ps -U root -u root u` | 显示由 root 运行的进程",
+          "code": ""
+        },
+        {
+          "title": "查看系统上的每个进程",
+          "description": "要使用标准语法查看系统上的每个进程：\n要使用 BSD 语法查看系统上的每个进程：",
+          "code": "$ ps ax   # 以 BSD 格式列出所有进程\n$ ps axu"
+        },
+        {
+          "title": "打印进程树",
+          "description": "",
+          "code": "$ ps -ejH\n$ ps axjf"
+        },
+        {
+          "title": "仅打印 PID 42 的名称",
+          "description": "",
+          "code": "$ ps -q 42 -o comm="
+        },
+        {
+          "title": "获取有关线程的信息",
+          "description": "",
+          "code": "$ ps -eLf\n$ ps axms"
+        },
+        {
+          "title": "列出当前用户拥有的所有进程",
+          "description": "",
+          "code": "$ ps x"
+        },
+        {
+          "title": "获取安全信息",
+          "description": "",
+          "code": "$ ps -eo euser,ruser,suser,fuser,f,comm,label\n$ ps axZ\n$ ps -eM"
+        },
+        {
+          "title": "查看以 root 身份运行的每个进程",
+          "description": "查看以 root 身份运行的每个进程（真实且有效的 ID）用户格式：",
+          "code": "$ ps -U root -u root u"
+        },
+        {
+          "title": "查看具有用户定义格式的每个进程",
+          "description": "",
+          "code": "$ ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm\n$ ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm\n$ ps -Ao pid,tt,user,fname,tmout,f,wchan"
+        },
+        {
+          "title": "仅打印 syslogd 的进程 ID",
+          "description": "",
+          "code": "$ ps -C syslogd -o pid="
+        },
+        {
+          "title": "显示面向用户的格式",
+          "description": "",
+          "code": "$ ps u\n\nUSER   PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND\nrefs 11400   1.1  0.0 34853544   5816 s025  Ss   Tue02PM   0:02.82 /bin/zsh --login\nrefs 34561   0.6  0.0 34822644   3152 s016  S+   14Dec22 115:59.28 zsh (figterm)\nrefs 21377   0.5  0.0 34973972   7076 s028  S+   Wed09AM   4:32.19 zsh (figterm)\nrefs 78881   0.5  0.0 34843484   3256 s015  S+   17Dec22  90:27.10 zsh (figterm)"
+        },
+        {
+          "title": "列出具有完整格式的进程",
+          "description": "",
+          "code": "$ ps f\n$ ps -F"
+        },
+        {
+          "title": "显示虚拟内存格式",
+          "description": "",
+          "code": "$ ps v"
+        },
+        {
+          "title": "按有效用户 ID 或名称显示进程",
+          "description": "按**真实**用户 ID 或名称显示进程",
+          "code": "$ ps -U user[name or id]\n# OR\n$ ps --User user[name or id]"
+        },
+        {
+          "title": "按实际组 ID 或名称显示进程",
+          "description": "",
+          "code": "$ ps -G group[name or id]\n# OR\n$ ps --Group group[name or id]"
+        },
+        {
+          "title": "隐藏 ps 命令输出的标题",
+          "description": "",
+          "code": "$ ps h\n\n  PID   TT  STAT      TIME COMMAND\n33790 s000  S+   104:10.45 zsh (figterm)\n33800 s001  Ss+    0:02.76 /bin/zsh --login\n77830 s002  S+    90:22.51 zsh (figterm)\n77840 s003  Ss     0:00.66 /bin/zsh --login"
+        },
+        {
+          "title": "显示命令后的环境",
+          "description": "",
+          "code": "$ ps e\n\n  PID TTY      STAT   TIME COMMAND\n  886 tty2     Ssl+   0:00 /usr/li...."
+        },
+        {
+          "title": "重复 ps 命令输出的标题行",
+          "description": "",
+          "code": "$ ps --headers -A\n    PID TTY          TIME CMD\n      1 ?        00:00:01 systemd\n      2 ?        00:00:00 kthreadd\n      3 ?        00:00:00 rcu_gp"
+        },
+        {
+          "title": "显示进程树",
+          "description": "您可以使用 -H 选项打印进程层次结构",
+          "code": "$ ps -H -A\nPID TTY          TIME CMD\n  2 ?        00:00:00 kthreadd\n  3 ?        00:00:00   rcu_gp\n1832 ?        00:00:37     gnome-terminal-\n1840 pts/0    00:00:00       bash\n1925 pts/1    00:00:00       bash\n2867 pts/1    00:00:00         su\n2868 pts/1    00:00:00           bash"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/ps.md"
+}

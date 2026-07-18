@@ -1,0 +1,119 @@
+{
+  "name": "Chmod",
+  "description": "Chmod 快速参考",
+  "category": "",
+  "count": 19,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "语法",
+          "description": "**示例**\n\n**递归更改文件和目录**\n`chmod` 命令代表“更改模式”",
+          "code": "$ chmod -R 755 my_directory"
+        },
+        {
+          "title": "Chmod 生成器",
+          "description": "&nbsp; | User | Group | Other\n:- | :- | :- | :-\n读 _(Read)_ | <input checked id=\"1\" type=\"checkbox\"></input> | <input checked id=\"4\" type=\"checkbox\"></input> | <input checked id=\"7\" type=\"checkbox\"></input>\n写 _(Write)_ | <input checked id=\"2\" type=\"checkbox\"></input> | <input checked id=\"5\" type=\"checkbox\"></input> | <input checked id=\"8\" type=\"checkbox\"></input>\n执行 _(Execute)_ | <input checked id=\"3\" type=\"checkbox\"></input> | <input checked id=\"6\" type=\"checkbox\"></input> | <input checked id=\"9\" type=\"checkbox\"></input>\nChmod 生成器允许您以数字和符号的形式快速、直观地生成权限。",
+          "code": "<div>\n权限：<input type=\"text\" id=\"num\" placeholder=\"777\" maxlength=\"3\" style=\"padding: 0.3rem 0.3rem;\" /> <input type=\"text\" id=\"let\" placeholder=\"rwxrwxrwx\" maxlength=\"9\" style=\"padding: 0.3rem 0.3rem;\" />\n</div>"
+        },
+        {
+          "title": "通用权限",
+          "description": "命令 | s | 含义\n:-|:-|:-\n`400`   | r-------- | 仅所有者可读\n`500`   | r-x------ | 避免改变\n`600`   | rw------- | 可由用户更改\n`644`   | rw-r--r-- | 由用户读取和更改\n`660`   | rw-rw---- | 可由用户和组更改\n`700`   | rwx------ | 只有用户具有完全访问权限\n`755`   | rwxr-xr-x | 只能由用户更改\n`775`   | rwxrwxr-x | 群组共享模式\n`777`   | rwxrwxrwx | 每个人都可以做任何事",
+          "code": ""
+        },
+        {
+          "title": "解释",
+          "description": "**`dir` 的权限分析**",
+          "code": "d  rwx  r-x  r-x\n┬  ─┬─  ─┬─  ─┬─  \n┆   ┆    ┆    ┆  \n┆   ┆    ┆    ╰─ 4. Other｜5 (4+0+1)\n┆   ┆    ╰────── 3. Group｜5 (4+0+1)\n┆   ╰─────────── 2. User ｜7 (4+2+1)\n╰─────────────── 1. File Type | directory"
+        },
+        {
+          "title": "权限模式",
+          "description": "| 权限 | 描述             | 八进制 | 十进制   |\n|------------|-------------------------|-------|-----------|\n`---`      | 没有权限        | 000   | 0 (0+0+0)\n`--x`      | 执行           | 001   | 1 (0+0+1)\n`-w-`      | 写             | 010   | 2 (0+2+0)\n`-wx`      | 执行和写入      | 011   | 3 (0+2+1)\n`r--`      | 读             | 100   | 4 (4+0+0)\n`r-x`      | 读取和执行      | 101   | 5 (4+0+1)\n`rw-`      | 读和写          | 110   | 6 (4+2+0)\n`rwx`      | 读取、写入和执行 | 111   | 7 (4+2+1)",
+          "code": ""
+        },
+        {
+          "title": "Objects",
+          "description": "| 谁（缩写）    | 含义            |\n|-------------|--------------------|\n| `u`         | 用户             |\n| `g`         | 组            |\n| `o`         | 其它           |\n| `a`         | 全部，和 ugo 一样 |",
+          "code": ""
+        },
+        {
+          "title": "权限",
+          "description": "| 缩写 | 权限    | 值 |\n|--------------|---------------|-------|\n| `r`          | 读      | 4     |\n| `w`          | 写      | 2     |\n| `x`          | 执行     | 1     |\n| `-`          | 没有权限  | 0     |",
+          "code": ""
+        },
+        {
+          "title": "文件类型",
+          "description": "| 缩写 | 文件类型    |\n|--------------|----------|\n| `d`          | 目录      |\n| `-`          | 常规文件   |\n| `l`          | 符号链接   |\nChmod 示例",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Chmod 示例",
+      "entries": [
+        {
+          "title": "操作符",
+          "description": "| Symbol | Description |\n|--------|-------------|\n| `+`    | 添加         |\n| `-`    | 删除      |\n| `=`    | 设置        |",
+          "code": ""
+        },
+        {
+          "title": "chmod 600",
+          "description": "",
+          "code": "$ chmod 600 example.txt\n$ chmod u=rw,g=,o= example.txt\n$ chmod a+rwx,u-x,g-rwx,o-rwx example.txt"
+        },
+        {
+          "title": "chmod 664",
+          "description": "",
+          "code": "$ chmod 664 example.txt\n$ chmod u=rw,g=rw,o=r example.txt\n$ chmod a+rwx,u-x,g-x,o-wx example.txt"
+        },
+        {
+          "title": "chmod 777",
+          "description": "",
+          "code": "$ chmod 777 example.txt\n$ chmod u=rwx,g=rwx,o=rwx example.txt\n$ chmod a=rwx example.txt"
+        },
+        {
+          "title": "符号模式",
+          "description": "拒绝所有人的执行权限。\n向所有人授予读取权限。\n使文件可由组和其他人读写。\n使用户/所有者可执行 shell。\n允许每个人读取、写入和执行文件并打开设置的 group-ID。",
+          "code": "$ chmod =rwx,g+s chmodExampleScript.sh"
+        },
+        {
+          "title": "删除权限",
+          "description": "要删除赋予文件的读写权限，请使用以下语法：\n对于我们的文件 example.txt，我们可以通过运行以下命令使用 chmod for group 删除读写权限：\n要从组中删除 chmod 读写权限，同时向 public/others 添加读写权限，我们可以使用以下命令：\n但是，如果你想删除组和其他人的所有权限，你可以使用 go= 来代替：",
+          "code": "$ chmod go= example.txt"
+        },
+        {
+          "title": "可执行文件",
+          "description": "",
+          "code": "$ chmod +x ~/example.py\n$ chmod u+x ~/example.py\n$ chmod a+x ~/example.py"
+        },
+        {
+          "title": "chmod 754",
+          "description": "Chmod 实践",
+          "code": "$ chmod 754 foo.sh\n$ chmod u=rwx,g=rx,o=r foo.sh"
+        }
+      ]
+    },
+    {
+      "title": "Chmod 实践",
+      "entries": [
+        {
+          "title": "SSH 权限",
+          "description": "",
+          "code": "$ chmod 700 ~/.ssh\n$ chmod 600 ~/.ssh/authorized_keys\n$ chmod 600 ~/.ssh/id_rsa\n$ chmod 600 ~/.ssh/id_rsa.pub\n$ chmod 400 /path/to/access_key.pem"
+        },
+        {
+          "title": "网络权限",
+          "description": "",
+          "code": "$ chmod -R 644 /var/www/html/\n$ chmod 644 .htaccess\n$ chmod 644 robots.txt\n$ chmod 755 /var/www/uploads/\n$ find /var/www/html -type d -exec chmod 755 {} \\;"
+        },
+        {
+          "title": "批量更改",
+          "description": "请参阅：[命令替换](https://tldp.org/LDP/abs/html/commandsub.html)\n另见",
+          "code": "$ chmod -R 644 /your_path\n$ find /path -type d -exec chmod 755 {} \\;\n$ find /path -type f -exec chmod 644 {} \\;"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/chmod.md"
+}

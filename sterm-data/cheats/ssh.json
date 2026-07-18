@@ -1,0 +1,109 @@
+{
+  "name": "SSH",
+  "description": "SSH 快速参考",
+  "category": "网络",
+  "count": 17,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "连接",
+          "description": "连接到服务器（默认端口 22）\n在特定端口上连接\n通过 pem 文件连接（0400 权限）\n请参阅：[SSH 权限](./chmod.md#ssh-权限)",
+          "code": "$ ssh -i /path/file.pem root@192.168.1.5"
+        },
+        {
+          "title": "执行",
+          "description": "执行远程命令\n调用本地脚本\n从服务器压缩和下载",
+          "code": "$ ssh root@192.168.1.5 \"tar cvzf - ~/source\" > output.tgz"
+        },
+        {
+          "title": "SCP",
+          "description": "从远程复制到本地\n两台服务器之间的副本\n从本地复制到远程\n复制整个文件夹\n复制文件夹中的所有文件\n从服务器文件夹复制到当前文件夹",
+          "code": "$ scp user@server:/dir/* ."
+        },
+        {
+          "title": "配置位置",
+          "description": "文件路径 | 说明\n:-|-\n`/etc/ssh/ssh_config`    | 系统范围的配置\n`~/.ssh/config`          | 用户特定的配置\n`~/.ssh/id_{type}`       | 私钥\n`~/.ssh/id_{type}.pub`   | 公钥\n`~/.ssh/known_hosts`     | 登录主机\n`~/.ssh/authorized_keys` | 授权登录密钥",
+          "code": ""
+        },
+        {
+          "title": "SCP 选项",
+          "description": "选项 | 说明\n:-|-\nscp `-r`      | 递归复制整个目录\nscp `-C`      | 压缩数据\nscp `-v`      | 打印详细信息\nscp `-P` 8080 | 使用特定端口\nscp `-B`      | 批处理模式_（防止密码）_\nscp `-p`      | 保留时间和模式",
+          "code": ""
+        },
+        {
+          "title": "配置示例",
+          "description": "通过别名启动\n请参阅：完整 [配置选项](https://linux.die.net/man/5/ssh_config)",
+          "code": "$ ssh server1"
+        },
+        {
+          "title": "ProxyJump",
+          "description": "多次跳跃",
+          "code": "$ ssh -J user@proxy_host1:port1,user@proxy_host2:port2 user@remote_host3"
+        },
+        {
+          "title": "ssh-copy-id",
+          "description": "复制到别名服务器\n复制特定密钥\nSSH keygen",
+          "code": "$ ssh-copy-id -i ~/.ssh/id_rsa.pub user@server"
+        }
+      ]
+    },
+    {
+      "title": "SSH keygen",
+      "entries": [
+        {
+          "title": "ssh-keygen",
+          "description": "| - | -    | -                             |\n|---|------|-------------------------------|\n|   | `-t` | [类型](#钥匙类型) 键 |\n|   | `-b` | 密钥中的位数 |\n|   | `-C` | 提供新评论 |\n生成带有电子邮件作为注释的 RSA 4096 位密钥",
+          "code": "$ ssh-keygen -t rsa -b 4096 -C \"your@mail.com\""
+        },
+        {
+          "title": "产生",
+          "description": "以交互方式生成密钥\n指定文件名\n从私钥生成公钥\n更改评论\n更改私钥密码",
+          "code": "$ ssh-keygen -p -f ~/.ssh/id_rsa"
+        },
+        {
+          "title": "钥匙类型",
+          "description": "- rsa\n- ed25519\n- dsa\n- ecdsa",
+          "code": ""
+        },
+        {
+          "title": "known_hosts",
+          "description": "从 known_hosts 搜索\n从 known_hosts 中删除",
+          "code": "$ ssh-keygen -R <ip/hostname>"
+        },
+        {
+          "title": "密钥格式",
+          "description": "- PEM\n- PKCS8\n端口转发",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "端口转发",
+      "entries": [
+        {
+          "title": "动态端口转发语法",
+          "description": "将本地端口变成一个 SOCKS 代理，自动转发任意目标地址的请求（适用于代理上网）。\n示例：开启本地 1080 端口作为 SOCKS5 代理：",
+          "code": "$ ssh -D 1080 -N user@example.com"
+        },
+        {
+          "title": "验证 SOCKS5 代理",
+          "description": "使用 curl 命令验证 SOCKS5 代理是否工作正常：\n如果返回的是 `example.com` 服务器的公网 IP，说明 SOCKS5 代理正常工作。",
+          "code": "# 设置\n$ ssh -D 1080 -N user@example.com\n# 验证\n$ curl --socks5 127.0.0.1:1080 https://ifconfig.me"
+        },
+        {
+          "title": "本地端口转发",
+          "description": "将本地端口的流量通过 SSH 隧道转发到目标服务器（适用于访问远程/内网服务）。\n示例：将本地的 `4000` 端口转发到远程内网服务器 192.168.1.10:80：\n其中 `-N` 表示不执行远程命令，只是建立隧道。",
+          "code": "$ ssh -L 4000:192.168.1.10:80 user@example.com -N"
+        },
+        {
+          "title": "远程端口转发",
+          "description": "让远程 SSH 服务器上的端口转发到本地的某个服务（适用于让外部访问你本地服务）。\n示例：将远程服务器的 5000 端口映射到你本地的 localhost:3306（MySQL）：\n另见",
+          "code": "$ ssh -R 5000:localhost:3306 user@example.com -N"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/ssh.md"
+}

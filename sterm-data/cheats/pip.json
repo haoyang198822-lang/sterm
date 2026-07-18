@@ -1,0 +1,39 @@
+{
+  "name": "pip",
+  "description": "pip 快速参考",
+  "category": "",
+  "count": 5,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "基础命令",
+          "description": "命令 | 说明\n:- | :-\n`pip install package_name`   | 安装指定的包\n`pip install requests-2.22.0-py2.py3-none-any.whl`   | 从本地的 wheel 文件安装包\n`pip install git+https://github.com/psf/requests.git`   | 从 Git 仓库安装包\n`pip install /home/user/src/requests`   | 从目录中安装包\n`pip uninstall package_name` | 卸载指定的包\n`pip list`                   | 查看已安装的包列表\n`pip show package_name`      | 查看某个包的详细信息\n`pip search keyword`         | 搜索 PyPI 包（新版 pip 已弃用，建议用 [pypi.org](https://pypi.org)）",
+          "code": ""
+        },
+        {
+          "title": "版本控制",
+          "description": "命令 | 说明\n:- | :-\n`pip install package==1.2.3`      | 安装指定版本\n`pip install \"package>=1.0,<2.0\"` | 安装满足条件的版本\n`pip install package!=2.21.0` | 安装包，但排除某个特定版本\n`pip install --upgrade package`   | 升级包到最新版本",
+          "code": ""
+        },
+        {
+          "title": "依赖文件操作",
+          "description": "命令 | 说明\n:- | :-\n`pip freeze`                      | 导出当前环境的所有包及版本\n`pip freeze > requirements.txt`   | 保存依赖列表到文件\n`pip install -r requirements.txt` | 从文件安装依赖",
+          "code": ""
+        },
+        {
+          "title": "高级选项",
+          "description": "命令 | 说明\n:- | :-\n`pip install .`    | 安装当前目录中的包（`setup.py` 或 `pyproject.toml`）\n`pip install -e .` | 安装当前项目为可编辑模式（开发用）\n`pip cache dir`    | 查看 pip 缓存目录\n`pip cache purge`  | 清除 pip 缓存\n`pip check`        | 检查依赖冲突",
+          "code": ""
+        },
+        {
+          "title": "使用镜像源",
+          "description": "命令 | 说明\n:- | :-\n`pip install -i https://pypi.org/simple package`                           | 使用官方源安装\n`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple package`          | 使用清华镜像安装\n`pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple` | 永久设置默认镜像\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/pip.md"
+}

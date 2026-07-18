@@ -1,0 +1,154 @@
+{
+  "name": "Pytorch",
+  "description": "Pytorch 快速参考",
+  "category": "",
+  "count": 25,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "- [Pytorch 官网](https://pytorch.org/) _(pytorch.org)_\n- [Pytorch 官方备忘清单](https://pytorch.org/tutorials/beginner/ptcheat.html) _(pytorch.org)_",
+          "code": ""
+        },
+        {
+          "title": "认识 Pytorch",
+          "description": "Tensors 张量: 张量的概念类似于Numpy中的ndarray数据结构, 最大的区别在于Tensor可以利用GPU的加速功能.",
+          "code": "from __future__ import print_function\nimport torch\nx = torch.empty(5, 3)\n>>> print(x)\ntensor([\n    [2.4835e+27, 2.5428e+30, 1.0877e-19],\n    [1.5163e+23, 2.2012e+12, 3.7899e+22],\n    [5.2480e+05, 1.0175e+31, 9.7056e+24],\n    [1.6283e+32, 3.7913e+22, 3.9653e+28],\n    [1.0876e-19, 6.2027e+26, 2.3685e+21]\n])"
+        },
+        {
+          "title": "创建一个全零矩阵",
+          "description": "创建一个全零矩阵并可指定数据元素的类型为long",
+          "code": "x = torch.zeros(5, 3, dtype=torch.long)\n>>> print(x)\ntensor([[0, 0, 0],\n        [0, 0, 0],\n        [0, 0, 0],\n        [0, 0, 0],\n        [0, 0, 0]])"
+        },
+        {
+          "title": "数据创建张量",
+          "description": "Pytorch 的基本语法",
+          "code": "x = torch.tensor([2.5, 3.5])\n>>> print(x)\ntensor([2.5000, 3.3000])"
+        }
+      ]
+    },
+    {
+      "title": "Pytorch 的基本语法",
+      "entries": [
+        {
+          "title": "加法操作(1)",
+          "description": "",
+          "code": "y = torch.rand(5, 3)\n>>> print(x + y)\ntensor([[ 1.6978, -1.6979,  0.3093],\n        [ 0.4953,  0.3954,  0.0595],\n        [-0.9540,  0.3353,  0.1251],\n        [ 0.6883,  0.9775,  1.1764],\n        [ 2.6784,  0.1209,  1.5542]])"
+        },
+        {
+          "title": "加法操作(2)",
+          "description": "",
+          "code": ">>> print(torch.add(x, y))\ntensor([[ 1.6978, -1.6979,  0.3093],\n        [ 0.4953,  0.3954,  0.0595],\n        [-0.9540,  0.3353,  0.1251],\n        [ 0.6883,  0.9775,  1.1764],\n        [ 2.6784,  0.1209,  1.5542]])"
+        },
+        {
+          "title": "加法操作(3)",
+          "description": "",
+          "code": "# 提前设定一个空的张量\nresult = torch.empty(5, 3)\n# 将空的张量作为加法的结果存储张量\n torch.add(x, y, out=result)\n>>> print(result)\ntensor([[ 1.6978, -1.6979,  0.3093],\n        [ 0.4953,  0.3954,  0.0595],\n        [-0.9540,  0.3353,  0.1251],\n        [ 0.6883,  0.9775,  1.1764],\n        [ 2.6784,  0.1209,  1.5542]])"
+        },
+        {
+          "title": "加法操作(4)",
+          "description": "注意: 所有 `in-place` 的操作函数都有一个下划线的后缀。\n比如 `x.copy_(y)`, `x.add_(y)`, 都会直接改变x的值",
+          "code": "y.add_(x)\n>>> print(y)\ntensor([[ 1.6978, -1.6979,  0.3093],\n        [ 0.4953,  0.3954,  0.0595],\n        [-0.9540,  0.3353,  0.1251],\n        [ 0.6883,  0.9775,  1.1764],\n        [ 2.6784,  0.1209,  1.5542]])"
+        },
+        {
+          "title": "张量操作",
+          "description": "",
+          "code": ">>> print(x[:, 1])\ntensor([-2.0902, -0.4489, -0.1441,  0.8035, -0.8341])"
+        },
+        {
+          "title": "张量形状",
+          "description": "",
+          "code": "x = torch.randn(4, 4)\n# tensor.view()操作需要保证数据元素的总数量不变\ny = x.view(16)\n# -1代表自动匹配个数\nz = x.view(-1, 8)\n>>> print(x.size(), y.size(), z.size())\ntorch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])"
+        },
+        {
+          "title": "取张量元素",
+          "description": "",
+          "code": "x = torch.randn(1)\n>>> print(x)\n>>> print(x.item())\ntensor([-0.3531])\n-0.3530771732330322"
+        },
+        {
+          "title": "Torch Tensor 和 Numpy array互换",
+          "description": "Torch Tensor和Numpy array共享底层的内存空间, 因此改变其中一个的值, 另一个也会随之被改变",
+          "code": "a = torch.ones(5)\n>>> print(a)\ntensor([1., 1., 1., 1., 1.])"
+        },
+        {
+          "title": "Torch Tensor 转换为 Numpy array",
+          "description": "",
+          "code": "b = a.numpy()\n>>> print(b)\n[1. 1. 1. 1. 1.]"
+        },
+        {
+          "title": "Numpy array转换为Torch Tensor",
+          "description": "注意: 所有在CPU上的Tensors, 除了CharTensor, 都可以转换为Numpy array并可以反向转换.",
+          "code": "import numpy as np\na = np.ones(5)\nb = torch.from_numpy(a)\nnp.add(a, 1, out=a)\n>>> print(a)\n>>> print(b)\n[2. 2. 2. 2. 2.]\ntensor([2., 2., 2., 2., 2.], dtype=torch.float64)"
+        },
+        {
+          "title": "squeeze函数",
+          "description": "",
+          "code": ">>> x = torch.rand(1, 2, 1, 28, 1)\n\n# squeeze不加参数，默认去除所有为1的维度\n>>> x.squeeze().shape\ntorch.Size([2, 28])\n\n# squeeze加参数，去除指定为1的维度\n>>> x.squeeze(dim=0).shape\ntorch.Size([2, 1, 28, 1])\n\n# squeeze加参数，如果不为1，则不变\n>>> x.squeeze(1).shape\ntorch.Size([1, 2, 1, 28, 1])\n\n# 既可以是函数，也可以是方法\n>>> torch.squeeze(x,-1).shape\ntorch.Size([1, 2, 1, 28])"
+        },
+        {
+          "title": "unsqueeze函数",
+          "description": "Cuda 相关",
+          "code": ">>> x = torch.rand(2, 28)\n# unsqueeze必须加参数，    _ 2 _ 28 _\n>>> x.unsqueeze(0).shape  \n# 参数代表在哪里添加维度    0   1    2\ntorch.Size([1, 2, 28])        \n# 既可以是函数，也可以是方法\n>>> torch.unsqueeze(x, -1).shape\ntorch.Size([2, 28, 1])"
+        }
+      ]
+    },
+    {
+      "title": "Cuda 相关",
+      "entries": [
+        {
+          "title": "检查 Cuda 是否可用",
+          "description": "",
+          "code": ">>> import torch.cuda\n>>> torch.cuda.is_available()\n>>> True"
+        },
+        {
+          "title": "列出 GPU 设备",
+          "description": "",
+          "code": "import torch\n\ndevice_count = torch.cuda.device_count()\nprint(\"CUDA 设备\")\n\nfor i in range(device_count):\n    device_name = torch.cuda.get_device_name(i)\n    total_memory = torch.cuda.get_device_properties(i).total_memory / (1024 ** 3)\n    print(f\"├── 设备 {i}: {device_name}, 容量: {total_memory:.2f} GiB\")\n\nprint(\"└── (结束)\")"
+        },
+        {
+          "title": "将模型、张量等数据在 GPU 和内存之间进行搬运",
+          "description": "导入 Imports",
+          "code": "import torch\n# 将 0 替换为您的 GPU 设备索引或者直接使用 \"cuda\"\ndevice = f\"cuda:0\"\n# 移动到GPU\ntensor_m = torch.tensor([1, 2, 3])\ntensor_g = tensor_m.to(device)\nmodel_m = torch.nn.Linear(1, 1)\nmodel_g = model_m.to(device)\n# 向后移动\ntensor_m = tensor_g.cpu()\nmodel_m = model_g.cpu()"
+        }
+      ]
+    },
+    {
+      "title": "导入 Imports",
+      "entries": [
+        {
+          "title": "一般",
+          "description": "数据集表示和加载",
+          "code": "from torch.utils.data import Dataset, DataLoader"
+        },
+        {
+          "title": "神经网络 API",
+          "description": "神经网络\n混合前端装饰器和跟踪 jit",
+          "code": "from torch.jit import script, trace"
+        },
+        {
+          "title": "ONNX",
+          "description": "加载 ONNX 模型\n检查模型，IT 是否结构良好\n打印一个人类可读的，图的表示",
+          "code": "onnx.helper.printable_graph(model.graph)"
+        },
+        {
+          "title": "Torchscript 和 JIT",
+          "description": "使用你的模块或函数和一个例子，数据输入，并追溯计算步骤，数据在模型中前进时遇到的情况\n装饰器用于指示被跟踪代码中的数据相关控制流",
+          "code": "@script"
+        },
+        {
+          "title": "Vision",
+          "description": "",
+          "code": "# 视觉数据集，架构 & 变换\nfrom torchvision import datasets, models, transforms\n# 组合转换\nimport torchvision.transforms as transforms"
+        },
+        {
+          "title": "分布式训练",
+          "description": "另见",
+          "code": "# 分布式通信\nimport torch.distributed as dist\n# 内存共享进程\nfrom torch.multiprocessing import Process"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/pytorch.md"
+}

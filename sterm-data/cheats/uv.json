@@ -1,0 +1,49 @@
+{
+  "name": "uv",
+  "description": "uv 快速参考",
+  "category": "",
+  "count": 6,
+  "sections": [
+    {
+      "title": "安装",
+      "entries": [
+        {
+          "title": "使用独立安装程序安装",
+          "description": "**macOS or Linux**\n\n**Windows**",
+          "code": "powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\""
+        },
+        {
+          "title": "通过PyPI",
+          "description": "入门",
+          "code": "# pipx\npipx install uv"
+        }
+      ]
+    },
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "创建新项目",
+          "description": "**项目的结构**",
+          "code": ".\n├── .venv/           # 虚拟环境目录\n│   ├── bin/         # 可执行文件\n│   ├── lib/         # 安装的库\n│   └── pyvenv.cfg   # 虚拟环境配置\n├── .python-version  # 指定 Python 版本\n├── README.md        # 项目说明文档\n├── main.py          # 主程序入口\n├── pyproject.toml   # 项目配置与依赖声明\n└── uv.lock          # 依赖锁定文件（自动生成）"
+        },
+        {
+          "title": "管理项目依赖",
+          "description": "**添加依赖**\n\n**指定依赖版本或替代来源**\n\n**从`requirements.txt`迁移**\n\n**删除一个包**\n\n**升级一个包**",
+          "code": "uv lock --upgrade-package requests"
+        },
+        {
+          "title": "运行脚本",
+          "description": "指定脚本运行\n指定Python版本运行",
+          "code": "uv run --python 3.10 main.py"
+        },
+        {
+          "title": "构建项目",
+          "description": "构建结果存储在`dist`目录下",
+          "code": "uv build"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/uv.md"
+}

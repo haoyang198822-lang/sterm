@@ -1,0 +1,164 @@
+{
+  "name": ".NET CLI",
+  "description": ".NET CLI 快速参考",
+  "category": "",
+  "count": 25,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "`.NET CLI` 是随 .NET SDK 提供的跨平台工具链，用于开发、构建、运行、测试和发布 .NET 应用。\n`dotnet` 既可以运行 .NET 应用，也可以执行项目相关命令。所有命令都支持 `--help` 查看简要帮助。",
+          "code": "$ dotnet --info\n$ dotnet --version\n$ dotnet --list-sdks\n$ dotnet --list-runtimes"
+        },
+        {
+          "title": "命令结构",
+          "description": "常见短选项包括 `-c|--configuration`、`-f|--framework`、`-o|--output`、`-r|--runtime`。",
+          "code": "$ dotnet <command> [arguments] [options]\n$ dotnet build --configuration Release\n$ dotnet run --project src/MyApp\n$ dotnet MyApp.dll"
+        },
+        {
+          "title": "常用流程",
+          "description": "多数命令会按需触发还原。CI 或离线场景中可显式使用 `dotnet restore` 并在后续命令中配合 `--no-restore`。\n项目命令",
+          "code": "$ dotnet new console -n HelloCli\n$ cd HelloCli\n$ dotnet restore\n$ dotnet build\n$ dotnet run\n$ dotnet test\n$ dotnet publish -c Release -o ./publish"
+        }
+      ]
+    },
+    {
+      "title": "项目命令",
+      "entries": [
+        {
+          "title": "基础命令",
+          "description": "命令 | 说明 | 示例\n:- | :- | :-\n`new` | 基于模板创建项目或文件 | `dotnet new webapi -n Api`\n`restore` | 还原项目依赖 | `dotnet restore`\n`build` | 构建项目、解决方案或文件应用 | `dotnet build -c Release`\n`run` | 从源码构建并运行项目 | `dotnet run --project src/App`\n`test` | 运行测试项目 | `dotnet test --logger trx`\n`publish` | 生成可部署输出 | `dotnet publish -c Release -o ./publish`\n`pack` | 创建 NuGet 包 | `dotnet pack -c Release`\n`clean` | 清理构建输出 | `dotnet clean`\n`sln` | 管理解决方案文件 | `dotnet sln add src/App/App.csproj`\n`format` | 格式化代码 | `dotnet format`\n`watch` | 监听文件变化并执行命令 | `dotnet watch run`\n`vstest` | 运行已编译测试程序集 | `dotnet vstest tests.dll`\n`dotnet run` 适合开发迭代，不推荐作为生产运行方式。部署时应使用 `dotnet publish` 输出。",
+          "code": ""
+        },
+        {
+          "title": "创建项目",
+          "description": "`dotnet new` 使用模板引擎创建项目或其他文件。可通过 `dotnet new search <关键字>` 查找模板。",
+          "code": "$ dotnet new list\n$ dotnet new console -n HelloCli\n$ dotnet new webapi -n Api\n$ dotnet new classlib -n Core\n$ dotnet new gitignore"
+        },
+        {
+          "title": "构建",
+          "description": "`dotnet build` 使用 MSBuild 构建项目并支持 MSBuild 属性，例如 `-p:Version=1.2.3`。",
+          "code": "$ dotnet build\n$ dotnet build MyApp.sln -c Release\n$ dotnet build src/App/App.csproj -f net8.0\n$ dotnet build --no-restore"
+        },
+        {
+          "title": "发布",
+          "description": "`dotnet publish` 会编译应用、读取依赖并生成可部署输出，是官方支持的部署准备方式。\n单文件、裁剪和 ReadyToRun 等选项会影响输出大小、启动速度和兼容性，发布前应在目标环境测试。",
+          "code": "$ dotnet publish -c Release -p:PublishSingleFile=true\n$ dotnet publish -c Release -p:PublishTrimmed=true\n$ dotnet publish -c Release -p:PublishReadyToRun=true"
+        },
+        {
+          "title": "运行",
+          "description": "应用参数放在 `--` 后面，避免与 `dotnet run` 自身选项混淆。",
+          "code": "$ dotnet run\n$ dotnet run --project src/App\n$ dotnet run --configuration Release -- arg1 arg2\n$ dotnet run --no-build"
+        },
+        {
+          "title": "测试",
+          "description": "`dotnet test` 会运行测试项目，并把参数传递给测试平台。\n包与引用",
+          "code": "$ dotnet test\n$ dotnet test -c Release\n$ dotnet test --filter FullyQualifiedName~Unit\n$ dotnet test --collect \"XPlat Code Coverage\""
+        }
+      ]
+    },
+    {
+      "title": "包与引用",
+      "entries": [
+        {
+          "title": "NuGet 包引用",
+          "description": "命令 | 说明 | 示例\n:- | :- | :-\n`dotnet add package` | .NET 9 及更早版本添加包 | `dotnet add package Newtonsoft.Json`\n`dotnet package add` | .NET 10 起添加或更新包 | `dotnet package add Newtonsoft.Json`\n`dotnet list package` | .NET 9 及更早版本列出包 | `dotnet list package`\n`dotnet package list` | .NET 10 起列出包 | `dotnet package list`\n`dotnet remove package` | 移除包引用 | `dotnet remove package Newtonsoft.Json`\n`dotnet package search` | 搜索 NuGet 包 | `dotnet package search Newtonsoft.Json`\n.NET 10 引入了更一致的“名词优先”命令顺序。维护旧项目时仍常见 `dotnet add package` 和 `dotnet list package`。",
+          "code": ""
+        },
+        {
+          "title": "包版本与源",
+          "description": "添加包时 CLI 会检查包与项目目标框架的兼容性，并把 `PackageReference` 写入项目文件。",
+          "code": "$ dotnet add package Serilog --version 4.0.0\n$ dotnet package add Serilog --version 4.0.0\n$ dotnet restore --source https://api.nuget.org/v3/index.json"
+        },
+        {
+          "title": "项目引用",
+          "description": "项目引用会在 `.csproj` 中生成 `ProjectReference`。CLI 不提供添加任意程序集引用的命令，需手动编辑项目文件。",
+          "code": "$ dotnet add app/app.csproj reference lib/lib.csproj\n$ dotnet reference add lib/lib.csproj --project app/app.csproj\n$ dotnet list reference\n$ dotnet reference list --project app/app.csproj\n$ dotnet remove reference lib/lib.csproj"
+        },
+        {
+          "title": "NuGet 源",
+          "description": "命令 | 说明 | 示例\n:- | :- | :-\n`nuget list source` | 列出源 | `dotnet nuget list source`\n`nuget add source` | 添加源 | `dotnet nuget add source <url> -n Private`\n`nuget update source` | 更新源 | `dotnet nuget update source Private -s <url>`\n`nuget enable source` | 启用源 | `dotnet nuget enable source Private`\n`nuget disable source` | 禁用源 | `dotnet nuget disable source Private`\n`nuget remove source` | 移除源 | `dotnet nuget remove source Private`\n`nuget locals` | 查看或清理缓存 | `dotnet nuget locals all --clear`",
+          "code": ""
+        },
+        {
+          "title": "包发布与签名",
+          "description": "发布到 nuget.org 时建议使用 scoped API key，并避免把密钥写入仓库。\n解决方案与工具",
+          "code": "$ dotnet pack -c Release\n$ dotnet nuget push bin/Release/MyLib.1.0.0.nupkg -k API_KEY -s https://api.nuget.org/v3/index.json\n$ dotnet nuget delete MyLib 1.0.0 -s https://api.nuget.org/v3/index.json -k API_KEY\n$ dotnet nuget verify MyLib.1.0.0.nupkg\n$ dotnet nuget sign MyLib.1.0.0.nupkg --certificate-path cert.pfx"
+        }
+      ]
+    },
+    {
+      "title": "解决方案与工具",
+      "entries": [
+        {
+          "title": "解决方案",
+          "description": "解决方案文件用于组织多个项目，方便统一构建和测试。",
+          "code": "$ dotnet new sln -n MySolution\n$ dotnet sln add src/App/App.csproj\n$ dotnet sln add tests/App.Tests/App.Tests.csproj\n$ dotnet sln list\n$ dotnet sln remove tests/App.Tests/App.Tests.csproj"
+        },
+        {
+          "title": ".NET 工具",
+          "description": "命令 | 说明 | 示例\n:- | :- | :-\n`tool install -g` | 安装全局工具 | `dotnet tool install -g dotnet-ef`\n`tool install --local` | 安装本地工具 | `dotnet tool install --local dotnet-ef`\n`tool list` | 列出工具 | `dotnet tool list -g`\n`tool update` | 更新工具 | `dotnet tool update -g dotnet-ef`\n`tool restore` | 还原本地工具 | `dotnet tool restore`\n`tool run` | 运行本地工具 | `dotnet tool run dotnet-ef`\n`tool uninstall` | 卸载工具 | `dotnet tool uninstall -g dotnet-ef`\n`tool search` | 搜索工具 | `dotnet tool search format`\n本地工具依赖 `.config/dotnet-tools.json` manifest，适合团队项目固定工具版本。",
+          "code": ""
+        },
+        {
+          "title": "工作负荷",
+          "description": "工作负荷用于安装 MAUI、Android、iOS、WebAssembly 等 SDK 扩展。\n诊断与高级",
+          "code": "$ dotnet workload list\n$ dotnet workload search maui\n$ dotnet workload install maui\n$ dotnet workload update\n$ dotnet workload restore\n$ dotnet workload repair\n$ dotnet workload uninstall maui"
+        }
+      ]
+    },
+    {
+      "title": "诊断与高级",
+      "entries": [
+        {
+          "title": "SDK 与运行时",
+          "description": "`dotnet sdk check` 会显示已安装 SDK/运行时以及可用更新。",
+          "code": "$ dotnet --info\n$ dotnet --list-sdks\n$ dotnet --list-runtimes\n$ dotnet sdk check"
+        },
+        {
+          "title": "MSBuild",
+          "description": "`dotnet build` 内部使用 MSBuild；需要更细粒度控制时可直接使用 `dotnet msbuild`。",
+          "code": "$ dotnet msbuild\n$ dotnet msbuild /t:Clean,Build /p:Configuration=Release\n$ dotnet build -p:TreatWarningsAsErrors=true"
+        },
+        {
+          "title": "构建服务器",
+          "description": "构建服务器缓存可能影响诊断结果。遇到奇怪的构建缓存问题时，可以先关闭构建服务器后重试。",
+          "code": "$ dotnet build-server list\n$ dotnet build-server shutdown"
+        },
+        {
+          "title": "安装脚本",
+          "description": "安装脚本适合 CI 或用户级安装。生产机器更推荐使用系统包管理器或官方安装程序。",
+          "code": "$ curl -sSL https://dot.net/v1/dotnet-install.sh | bash\n$ powershell -ExecutionPolicy Bypass -File dotnet-install.ps1 -Channel 8.0"
+        },
+        {
+          "title": "开发证书",
+          "description": "HTTPS 开发证书常用于 ASP.NET Core 本地开发。\n常见场景",
+          "code": "$ dotnet dev-certs https --check\n$ dotnet dev-certs https --trust\n$ dotnet dev-certs https --clean"
+        }
+      ]
+    },
+    {
+      "title": "常见场景",
+      "entries": [
+        {
+          "title": "CI 构建",
+          "description": "把还原、构建、测试和发布拆开，能减少重复工作并让失败位置更清晰。",
+          "code": "$ dotnet restore\n$ dotnet build --no-restore -c Release\n$ dotnet test --no-build -c Release\n$ dotnet publish --no-build -c Release -o ./publish"
+        },
+        {
+          "title": "多目标框架",
+          "description": "当项目配置多个目标框架时，可用 `-f|--framework` 指定要构建或测试的目标框架。",
+          "code": "$ dotnet build -f net8.0\n$ dotnet test -f net8.0"
+        },
+        {
+          "title": "指定运行时",
+          "description": "`-r|--runtime` 使用 Runtime Identifier。自包含发布会把 .NET 运行时一起带上。\n另见",
+          "code": "$ dotnet publish -r win-x64\n$ dotnet publish -r linux-arm64 --self-contained true"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/dotnet-cli.md"
+}

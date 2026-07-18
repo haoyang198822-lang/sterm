@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sterm — Designer Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,510;14..32,590&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================
+   Linear Design Tokens
+   ============================ */
+:root {
+  --bg-canvas: #08090a;
+  --bg-panel: #0f1011;
+  --bg-surface-1: #191a1b;
+  --bg-surface-2: #28282c;
+  --bg-surface-3: #323236;
+
+  --text-primary: #f7f8f8;
+  --text-secondary: #d0d6e0;
+  --text-tertiary: #8a8f98;
+  --text-quaternary: #62666d;
+
+  --color-brand: #5e6ad2;
+  --color-accent: #7170ff;
+  --color-accent-hover: #828fff;
+  --color-success: #27a644;
+  --color-error: #ef4444;
+
+  --border-subtle: rgba(255,255,255,0.05);
+  --border-standard: rgba(255,255,255,0.08);
+  --border-solid-1: #23252a;
+  --border-solid-2: #34343a;
+
+  --radius-micro: 2px;
+  --radius-small: 4px;
+  --radius-default: 6px;
+  --radius-card: 8px;
+  --radius-panel: 12px;
+
+  --font-sans: "Inter Variable", "PingFang SC", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "PingFang SC", ui-monospace, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv01", "ss03";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* ============================
+   Main Window Frame
+   ============================ */
+.app-frame {
+  width: 1060px;
+  height: 680px;
+  background: var(--bg-canvas);
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-standard);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ============================
+   Title Bar (hiddenInset style)
+   ============================ */
+.titlebar {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  gap: var(--space-2);
+  -webkit-app-region: drag;
+  flex-shrink: 0;
+}
+
+.titlebar-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  -webkit-app-region: no-drag;
+}
+.titlebar-dot.close { background: #ff5f56; }
+.titlebar-dot.minimize { background: #ffbd2e; }
+.titlebar-dot.maximize { background: #27c93f; }
+
+.titlebar-title {
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--text-quaternary);
+  margin-left: var(--space-3);
+  letter-spacing: 0.3px;
+}
+
+.titlebar-spacer { flex: 1; }
+
+.titlebar-icon {
+  width: 20px; height: 20px;
+  border-radius: var(--radius-small);
+  background: var(--bg-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  -webkit-app-region: no-drag;
+}
+
+/* ============================
+   Body: Terminal + Side Panel
+   ============================ */
+.app-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ============================
+   Terminal Area
+   ============================ */
+.terminal-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-standard);
+  min-width: 0;
+}
+
+/* Terminal Tab Bar */
+.terminal-tabs {
+  height: 36px;
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-standard);
+  padding: 0 var(--space-1);
+  gap: 0;
+}
+
+.terminal-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  font-size: 12px;
+  font-weight: 510;
+  color: var(--text-quaternary);
+  border-bottom: 2px solid transparent;
+  cursor: default;
+  position: relative;
+  user-select: none;
+  min-width: 80px;
+  max-width: 160px;
+}
+
+.terminal-tab.active {
+  color: var(--text-secondary);
+  border-bottom-color: var(--color-accent);
+}
+
+.terminal-tab .tab-indicator {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  flex-shrink: 0;
+}
+
+.terminal-tab .tab-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.terminal-tab .tab-close {
+  width: 16px; height: 16px;
+  border-radius: var(--radius-micro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.1s;
+  cursor: default;
+  flex-shrink: 0;
+}
+.terminal-tab:hover .tab-close { opacity: 1; }
+.terminal-tab .tab-close:hover { background: var(--bg-surface-2); }
+
+.terminal-tab.new-tab-btn {
+  min-width: 28px;
+  justify-content: center;
+  padding: 0 var(--space-2);
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+.terminal-tab.new-tab-btn:hover { color: var(--text-primary); }
+
+/* Terminal Screen */
+.terminal-screen {
+  flex: 1;
+  background: var(--bg-canvas);
+  padding: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  overflow-y: auto;
+  position: relative;
+}
+
+.terminal-line { white-space: pre-wrap; word-break: break-all; }
+.terminal-line .prompt { color: var(--color-success); }
+.terminal-line .cmd { color: var(--text-primary); }
+.terminal-line .output { color: var(--text-tertiary); }
+.terminal-line .error { color: var(--color-error); }
+.terminal-cursor {
+  display: inline-block;
+  width: 7px; height: 14px;
+  background: var(--text-primary);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Terminal Bottom Bar */
+.terminal-statusbar {
+  height: 24px;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-standard);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  gap: var(--space-3);
+  font-size: 11px;
+  color: var(--text-quaternary);
+  flex-shrink: 0;
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.status-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--border-solid-1);
+}
+
+/* ============================
+   Side Panel
+   ============================ */
+.side-panel {
+  width: 320px;
+  background: var(--bg-panel);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Panel Header Tabs */
+.panel-tabs {
+  height: 36px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-standard);
+  flex-shrink: 0;
+}
+
+.panel-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  font-size: 12px;
+  font-weight: 510;
+  color: var(--text-tertiary);
+  border-bottom: 2px solid transparent;
+  cursor: default;
+  user-select: none;
+  padding: 0 var(--space-2);
+  transition: none;
+}
+
+.panel-tab.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--color-accent);
+}
+.panel-tab:not(.active):hover {
+  color: var(--text-secondary);
+}
+
+.panel-tab .tab-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Panel Content */
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  display: none;
+}
+.panel-content.active {
+  display: block;
+}
+
+/* ============================
+   Commands Panel
+   ============================ */
+.panel-search {
+  margin: var(--space-3) var(--space-3) 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-default);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  width: calc(100% - var(--space-6));
+}
+.panel-search::placeholder { color: var(--text-quaternary); }
+.panel-search:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface-2);
+}
+
+.command-group {
+  margin-top: var(--space-2);
+  padding: 0 var(--space-3);
+}
+
+.command-group-title {
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--space-2) var(--space-2);
+}
+
+.command-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2);
+  border-radius: var(--radius-small);
+  cursor: default;
+  transition: none;
+}
+.command-item:hover { background: var(--bg-surface-1); }
+
+.command-item .cmd-icon {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-small);
+  background: var(--bg-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.command-item .cmd-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 510;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-item .cmd-shortcut {
+  font-size: 11px;
+  color: var(--text-quaternary);
+  font-family: var(--font-sans);
+  flex-shrink: 0;
+}
+
+.command-item .cmd-desc {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+}
+
+.command-item .cmd-tag {
+  font-size: 10px;
+  color: var(--color-accent);
+  background: rgba(113,112,255,0.1);
+  padding: 1px 6px;
+  border-radius: var(--radius-micro);
+  margin-left: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* ============================
+   Cheatsheet Panel
+   ============================ */
+.cheatsheet-section {
+  padding: 0 var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.cheatsheet-section-title {
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--space-2) var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.cheatsheet-section-title .count {
+  font-size: 10px;
+  color: var(--text-quaternary);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.cheatsheet-card {
+  background: var(--bg-surface-1);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  cursor: default;
+}
+.cheatsheet-card:hover {
+  background: var(--bg-surface-2);
+  border-color: var(--border-standard);
+}
+
+.cheatsheet-card .cs-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.cheatsheet-card .cs-icon {
+  width: 20px; height: 20px;
+  border-radius: var(--radius-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.cheatsheet-card .cs-icon.python { background: #306998; color: #fff; }
+.cheatsheet-card .cs-icon.git { background: #f05032; color: #fff; }
+.cheatsheet-card .cs-icon.linux { background: #222; color: #fff; border: 1px solid var(--border-standard); }
+.cheatsheet-card .cs-icon.docker { background: #2496ed; color: #fff; }
+
+.cheatsheet-card .cs-name {
+  font-size: 13px;
+  font-weight: 510;
+  color: var(--text-primary);
+}
+
+.cheatsheet-card .cs-desc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-2);
+}
+
+.cheatsheet-card .cs-preview {
+  background: var(--bg-canvas);
+  border-radius: var(--radius-small);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+
+.cheatsheet-card .cs-preview .hl { color: var(--color-accent); }
+.cheatsheet-card .cs-preview .hl-keyword { color: var(--color-success); }
+.cheatsheet-card .cs-preview .hl-comment { color: var(--text-quaternary); font-style: italic; }
+.cheatsheet-card .cs-preview .hl-string { color: #e2a76f; }
+
+/* ============================
+   Settings Panel
+   ============================ */
+.settings-section {
+  padding: var(--space-4) var(--space-3);
+}
+
+.settings-group {
+  margin-bottom: var(--space-5);
+}
+
+.settings-group-title {
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-3);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+}
+
+.settings-row .label {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.settings-row .label-desc {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+}
+
+.settings-select {
+  padding: var(--space-1) var(--space-2);
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-default);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-primary);
+  outline: none;
+}
+.settings-select:focus {
+  border-color: var(--color-accent);
+}
+
+.toggle-switch {
+  width: 32px; height: 18px;
+  border-radius: 9px;
+  background: var(--bg-surface-2);
+  position: relative;
+  cursor: default;
+  flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--color-brand); }
+.toggle-switch .knob {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.15s;
+}
+.toggle-switch.on .knob { left: 16px; }
+
+/* Font Preview */
+.font-preview-box {
+  background: var(--bg-surface-1);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+  margin-top: var(--space-3);
+}
+.font-preview-box .preview-title {
+  font-size: 10px;
+  color: var(--text-quaternary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-2);
+}
+.font-preview-box .preview-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.font-preview-box .preview-text.sample-mono { font-family: var(--font-mono); }
+
+/* Color Scheme Preview */
+.color-swatch {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.color-swatch .swatch {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-default);
+  border: 1px solid var(--border-standard);
+}
+
+/* ============================
+   Drag-overlay (command insertion animation)
+   ============================ */
+.drag-hint {
+  position: absolute;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-default);
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0.8;
+}
+
+/* ============================
+   Annotation Labels
+   ============================ */
+.annotate {
+  position: relative;
+}
+.annotate::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 510;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  background: var(--bg-canvas);
+  padding: 1px 6px;
+  border-radius: var(--radius-micro);
+  border: 1px solid var(--color-accent);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.annotate:hover::after { opacity: 1; }
+
+/* Float annotations for screenshot */
+.annotation-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.annotation-overlay .anno-label {
+  position: absolute;
+  font-size: 11px;
+  font-weight: 510;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  background: var(--bg-canvas);
+  padding: 2px 8px;
+  border-radius: var(--radius-small);
+  border: 1px solid var(--color-accent);
+  pointer-events: none;
+}
+.anno-label .arrow {
+  display: block;
+  position: absolute;
+  border: 6px solid transparent;
+}
+.anno-label .arrow.down {
+  border-top-color: var(--color-accent);
+  bottom: -12px; left: 50%; margin-left: -6px;
+}
+
+/* ============================
+   Legend / Design spec footer
+   ============================ */
+.spec-footer {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  background: var(--bg-surface-1);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-standard);
+  max-width: 1060px;
+}
+.spec-footer h3 {
+  font-size: 13px;
+  font-weight: 510;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+.spec-footer table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.spec-footer td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.spec-footer td:first-child {
+  color: var(--text-primary);
+  font-weight: 510;
+  width: 120px;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================
+     MAIN APP FRAME
+     ============================ -->
+<div class="app-frame" style="position:relative;">
+
+  <!-- Title Bar -->
+  <div class="titlebar">
+    <div class="titlebar-dot close"></div>
+    <div class="titlebar-dot minimize"></div>
+    <div class="titlebar-dot maximize"></div>
+    <div class="titlebar-title">sterm</div>
+    <div class="titlebar-spacer"></div>
+    <div class="titlebar-icon">Cmd</div>
+  </div>
+
+  <!-- Body: Terminal + Side Panel -->
+  <div class="app-body">
+
+    <!-- Terminal Area -->
+    <div class="terminal-area">
+      <!-- Tab Bar -->
+      <div class="terminal-tabs">
+        <div class="terminal-tab active">
+          <span class="tab-indicator"></span>
+          <span class="tab-name">zsh</span>
+          <span class="tab-close">×</span>
+        </div>
+        <div class="terminal-tab new-tab-btn">+</div>
+      </div>
+
+      <!-- Terminal Screen -->
+      <div class="terminal-screen">
+        <div class="terminal-line"><span class="prompt">~/projects/sterm </span><span class="cmd">git status</span></div>
+        <div class="terminal-line"><span class="output">On branch main</span></div>
+        <div class="terminal-line"><span class="output">nothing to commit, working tree clean</span></div>
+        <div class="terminal-line">&nbsp;</div>
+        <div class="terminal-line"><span class="prompt">~/projects/sterm </span><span class="cmd">npm run dev</span></div>
+        <div class="terminal-line"><span class="output">&gt; sterm@1.0.0 dev</span></div>
+        <div class="terminal-line"><span class="output">[2026-07-14] [INFO] [sterm] 服务启动 {"port":3000}</span></div>
+        <div class="terminal-line"><span class="prompt">~/projects/sterm </span><span class="cmd">curl -s http://localhost:3000 | head -5</span></div>
+        <div class="terminal-line"><span class="output">&lt;!DOCTYPE html&gt;</span></div>
+        <div class="terminal-line"><span class="output">&lt;html&gt;</span></div>
+        <div class="terminal-line"><span class="output">&lt;head&gt;</span></div>
+        <div class="terminal-line"><span class="prompt">~/projects/sterm </span>deploy<span class="terminal-cursor"></span></div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="terminal-statusbar">
+        <span class="status-dot"></span>
+        <span>已连接 · zsh</span>
+        <span class="status-sep"></span>
+        <span>3000 × 30</span>
+        <span class="status-sep"></span>
+        <span style="flex:1;"></span>
+        <span style="font-size:10px; color:var(--text-quaternary);">CmdK 命令面板</span>
+        <span class="status-sep"></span>
+        <span style="font-size:10px; color:var(--text-quaternary);">? 快捷键</span>
+      </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="side-panel">
+
+      <!-- Panel Tab Bar -->
+      <div class="panel-tabs">
+        <div class="panel-tab active" onclick="switchPanel(this,'commands')">
+          <span class="tab-icon">▸</span> 命令
+        </div>
+        <div class="panel-tab" onclick="switchPanel(this,'cheatsheet')">
+          <span class="tab-icon">□</span> 速查
+        </div>
+        <div class="panel-tab" onclick="switchPanel(this,'settings')">
+          <span class="tab-icon">◇</span> 设置
+        </div>
+      </div>
+
+      <!-- Panel Content: Commands -->
+      <div class="panel-content active" id="panel-commands">
+        <input class="panel-search" placeholder="搜索命令..." autofocus>
+
+        <div class="command-group">
+          <div class="command-group-title">收藏命令 · 12</div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">查看服务器日志</div>
+              <div class="cmd-desc">ssh sg-lucerna "journalctl -u lucerna -n 50 --no-pager"</div>
+            </div>
+            <span class="cmd-tag">服务器</span>
+            <span class="cmd-shortcut">Cmd⇧L</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">端口占用检查</div>
+              <div class="cmd-desc">lsof -i :3000</div>
+            </div>
+            <span class="cmd-tag">网络</span>
+            <span class="cmd-shortcut">Cmd⇧P</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">构建 sterm 发布版</div>
+              <div class="cmd-desc">export HERMES_BUILD_VER=$(cat package.json | jq -r .version) ...</div>
+            </div>
+            <span class="cmd-tag">构建</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">重启后端服务</div>
+              <div class="cmd-desc">pm2 restart starcomic-backend</div>
+            </div>
+            <span class="cmd-tag">服务器</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">部署到新加坡</div>
+              <div class="cmd-desc">rsync -avz --exclude=node_modules . root@47.84.13.122:/root/sterm/</div>
+            </div>
+            <span class="cmd-tag">部署</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">磁盘使用情况</div>
+              <div class="cmd-desc">du -sh ./* | sort -rh</div>
+            </div>
+            <span class="cmd-tag">系统</span>
+          </div>
+        </div>
+
+        <div class="command-group">
+          <div class="command-group-title">最近使用 · 3</div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">端口占用检查</div>
+              <div class="cmd-desc">lsof -i :3000</div>
+            </div>
+            <span class="cmd-shortcut">Cmd⇧P</span>
+          </div>
+
+          <div class="command-item">
+            <div class="cmd-icon">></div>
+            <div style="flex:1;min-width:0;">
+              <div class="cmd-label">查看服务器日志</div>
+              <div class="cmd-desc">ssh sg-lucerna "journalctl -u lucerna -n 50 --no-pager"</div>
+            </div>
+            <span class="cmd-shortcut">Cmd⇧L</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Content: Cheatsheet -->
+      <div class="panel-content" id="panel-cheatsheet">
+        <input class="panel-search" placeholder="搜索速查表..." style="margin-top:var(--space-3);">
+
+        <div class="cheatsheet-section">
+          <div class="cheatsheet-section-title">
+            Python <span class="count">· 32 条</span>
+          </div>
+
+          <div class="cheatsheet-card">
+            <div class="cs-header">
+              <div class="cs-icon python">Py</div>
+              <span class="cs-name">List Comprehension</span>
+            </div>
+            <div class="cs-desc">列表推导式：快速生成和过滤列表</div>
+            <div class="cs-preview">
+              <span class="hl-keyword">[</span>x**2 <span class="hl-keyword">for</span> x <span class="hl-keyword">in</span> range(10) <span class="hl-keyword">if</span> x % 2 == 0<span class="hl-keyword">]</span>
+              <span class="hl-comment"># → [0, 4, 16, 36, 64]</span>
+            </div>
+          </div>
+
+          <div class="cheatsheet-card">
+            <div class="cs-header">
+              <div class="cs-icon python">Py</div>
+              <span class="cs-name">Lambda & Map/Filter</span>
+            </div>
+            <div class="cs-desc">匿名函数配合高阶函数</div>
+            <div class="cs-preview">
+              <span class="hl">list</span>(<span class="hl">map</span>(<span class="hl-keyword">lambda</span> x: x * 2, [1, 2, 3]))
+              <span class="hl-comment"># → [2, 4, 6]</span>
+            </div>
+          </div>
+
+          <div class="cheatsheet-card">
+            <div class="cs-header">
+              <div class="cs-icon python">Py</div>
+              <span class="cs-name">Pathlib 操作</span>
+            </div>
+            <div class="cs-desc">现代文件路径操作</div>
+            <div class="cs-preview">
+              <span class="hl-keyword">from</span> pathlib <span class="hl-keyword">import</span> Path<br>
+              p = Path(<span class="hl-string">"/tmp/test.txt"</span>)<br>
+              p.<span class="hl">read_text</span>()  <span class="hl-comment"># 读文件</span><br>
+              p.<span class="hl">suffix</span>           <span class="hl-comment"># → ".txt"</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cheatsheet-section">
+          <div class="cheatsheet-section-title">
+            Git <span class="count">· 18 条</span>
+          </div>
+
+          <div class="cheatsheet-card">
+            <div class="cs-header">
+              <div class="cs-icon git">Git</div>
+              <span class="cs-name">交互式 Rebase</span>
+            </div>
+            <div class="cs-desc">合并/编辑最近的 N 个提交</div>
+            <div class="cs-preview">
+              git rebase -i HEAD~3
+            </div>
+          </div>
+        </div>
+
+        <div class="cheatsheet-section">
+          <div class="cheatsheet-section-title">
+            Docker <span class="count">· 12 条</span>
+          </div>
+
+          <div class="cheatsheet-card">
+            <div class="cs-header">
+              <div class="cs-icon docker">Dc</div>
+              <span class="cs-name">镜像清理</span>
+            </div>
+            <div class="cs-desc">删除所有未使用的镜像和容器</div>
+            <div class="cs-preview">
+              docker system prune -a --volumes
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Content: Settings -->
+      <div class="panel-content" id="panel-settings">
+
+        <!-- Font Settings -->
+        <div class="settings-section">
+          <div class="settings-group">
+            <div class="settings-group-title">字体</div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">终端字体</div>
+                <div class="label-desc">代码和终端文本</div>
+              </div>
+              <select class="settings-select">
+                <option>JetBrains Mono</option>
+                <option selected>Berkeley Mono</option>
+                <option>Fira Code</option>
+                <option>Cascadia Code</option>
+                <option>SF Mono</option>
+              </select>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">UI 字体</div>
+                <div class="label-desc">界面标签、菜单等</div>
+              </div>
+              <select class="settings-select">
+                <option selected>Inter Variable</option>
+                <option>SF Pro Display</option>
+                <option>System Default</option>
+              </select>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">字号</div>
+              </div>
+              <select class="settings-select">
+                <option>12</option>
+                <option>13</option>
+                <option selected>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>18</option>
+                <option>20</option>
+              </select>
+            </div>
+
+            <div class="font-preview-box">
+              <div class="preview-title">字体预览</div>
+              <div class="preview-text">The quick brown fox jumps over the lazy dog 0123456789</div>
+              <div class="preview-text sample-mono" style="margin-top:var(--space-2);">def fibonacci(n): return n if n <= 1 else fibonacci(n-1) + fibonacci(n-2)</div>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="settings-group">
+            <div class="settings-group-title">主题</div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">深色模式</div>
+              </div>
+              <div class="toggle-switch on"><div class="knob"></div></div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">配色方案</div>
+              </div>
+              <div class="color-swatch">
+                <div class="swatch" style="background:#08090a;"></div>
+                <div class="swatch" style="background:#191a1b;"></div>
+                <div class="swatch" style="background:#5e6ad2;"></div>
+                <div class="swatch" style="background:#27a644;"></div>
+                <div class="swatch" style="background:#ef4444;"></div>
+                <div class="swatch" style="background:#f7f8f8;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Behavior -->
+          <div class="settings-group">
+            <div class="settings-group-title">行为</div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">光标闪烁</div>
+              </div>
+              <div class="toggle-switch on"><div class="knob"></div></div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">自动换行</div>
+              </div>
+              <div class="toggle-switch"><div class="knob"></div></div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="label">命令自动记录</div>
+                <div class="label-desc">常用命令自动加入收藏</div>
+              </div>
+              <div class="toggle-switch on"><div class="knob"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /side-panel -->
+  </div><!-- /app-body -->
+
+  <!-- Annotation overlays -->
+  <div class="annotation-overlay">
+    <div class="anno-label" style="top:-28px;left:240px;">A — 终端区域</div>
+    <div class="anno-label" style="top:-28px;right:160px;">B — 侧边面板</div>
+    <div class="anno-label" style="bottom:40px;right:340px;">C — 命令收藏<br><span style="font-size:9px;color:var(--text-tertiary);font-weight:400;">点击即输入到终端</span></div>
+    <div class="anno-label" style="bottom:-30px;right:340px;">D — 速查参考</div>
+    <div class="anno-label" style="bottom:-30px;left:340px;">E — 字体/主题设置</div>
+  </div>
+
+</div><!-- /app-frame -->
+
+<!-- Spec Footer -->
+<div class="spec-footer">
+  <h3>sterm 扩展设计 — 技术概要</h3>
+  <table>
+    <tr><td>图层</td><td>终端（主） + 侧边面板（可折叠） + 命令面板（CmdK 覆盖层）</td></tr>
+    <tr><td>设计体系</td><td>Linear Design Tokens（暗色画布 #08090a、510 字重、8px Grid）</td></tr>
+    <tr><td>数据存储</td><td>全部本地：命令 JSON → ~/.sterm/snippets.json · 速查 JSON → ~/.sterm/cheats/*.json · 设置 → localStorage</td></tr>
+    <tr><td>不需要后端</td><td>改的是 app.js + index.html，不动 server.js / lib/</td></tr>
+    <tr><td>快捷键</td><td>CmdK 命令面板 · Cmd⇧S 收藏当前命令 · Cmd⇧L/P 快速插入</td></tr>
+    <tr><td>核心交互</td><td>命令按钮 → ws.send() 模拟终端输入 · 搜索 → 前端模糊过滤 · 速查 → 卡片内嵌 iframe/预览片段</td></tr>
+    <tr><td>依赖</td><td>零新增 npm 包（fuse.js 可选项，用于模糊搜索命令）</td></tr>
+  </table>
+</div>
+
+<script>
+function switchPanel(tab, id) {
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+</script>
+
+</body>
+</html>

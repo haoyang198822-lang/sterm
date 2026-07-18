@@ -1,0 +1,144 @@
+{
+  "name": "GraphQL",
+  "description": "GraphQL 快速参考",
+  "category": "",
+  "count": 25,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "概述",
+          "description": "- RESTful API 的另一种方法\n- GraphQL 是一种 API 查询语言\n- 使用清晰的共享术语轻松描述 GraphQL API 的形状。\n- 客户端发出查询/突变以读取和更新数据\n- GraphQL 语法可以表达复杂的实体关系\n- 用 [不同语言](https://graphql.org/code/) 实现 GraphQL 的库\n[GraphQL](https://graphql.org/)",
+          "code": ""
+        },
+        {
+          "title": "Schema",
+          "description": ":-|-\n:-|-\n`schema`       | GraphQL 架构定义\n`query`        | 读取和遍历数据\n`mutation`     | 修改数据或触发动作\n`subscription` | 发生事件时运行查询",
+          "code": ""
+        },
+        {
+          "title": "内置标量类型",
+          "description": ":-|-\n:-|-\n`Int`     | 有符号 32 位整数\n`Float`   | 有符号双精度浮点值\n`String`  | UTF-8 字符序列\n`Boolean` | 对或错布尔值类型\n`ID`      | 唯一标识符",
+          "code": ""
+        },
+        {
+          "title": "类型定义",
+          "description": ":-|-\n:-|-\n`scalar`    | 标量类型\n`type`      | 对象类型\n`interface` | 接口类型\n`union`     | 联合类型\n`enum`      | 枚举类型\n`input`     | 输入对象类型",
+          "code": ""
+        },
+        {
+          "title": "类型修饰符",
+          "description": ":-|-\n:-|-\n`String`     | 可空字符串\n`String!`    | 非空字符串\n`[String]`   | 可空字符串列表\n`[String]!`  | 可空字符串的非空列表\n`[String!]!` | 非空字符串的非空列表",
+          "code": ""
+        },
+        {
+          "title": "输入参数",
+          "description": "**基本输入**\n\n**输入默认值**\n\n**具有多个参数的输入**\n\n**具有多个参数和默认值的输入**",
+          "code": "type Query {\n  users(limit: Int = 10, sort: String): [User]\n}\ntype Query {\n  users(limit: Int, sort: String = \"asc\"): [User]\n}\ntype Query {\n  users(limit: Int = 10, sort: String = \"asc\"): [User]\n}"
+        },
+        {
+          "title": "输入类型",
+          "description": "",
+          "code": "type Mutation {\n  users(params: ListUsersInput): [User]!\n}"
+        },
+        {
+          "title": "自定义标量",
+          "description": "",
+          "code": "scalar Url\ntype User {\n  name: String\n  homepage: Url\n}"
+        },
+        {
+          "title": "接口",
+          "description": "实现一个或多个接口的对象",
+          "code": "interface Foo {\n  is_foo: Boolean\n}\ninterface Goo {\n  is_goo: Boolean\n}\ntype Bar implements Foo {\n  is_foo: Boolean\n  is_bar: Boolean\n}\ntype Baz implements Foo, Goo {\n  is_foo: Boolean\n  is_goo: Boolean\n  is_baz: Boolean\n}"
+        },
+        {
+          "title": "联合",
+          "description": "一个或多个对象的联合",
+          "code": "type Foo {\n  name: String\n}\ntype Bar {\n  is_bar: String\n}\nunion SingleUnion = Foo\nunion MultipleUnion = Foo | Bar\ntype Root {\n  single: SingleUnion\n  multiple: MultipleUnion\n}"
+        },
+        {
+          "title": "枚举",
+          "description": "查询和变更(Mutations)",
+          "code": "enum USER_STATE {\n  NOT_FOUND\n  ACTIVE\n  INACTIVE\n  SUSPENDED\n}\ntype Root {\n  stateForUser(userID: ID!): USER_STATE!\n  users(state: USER_STATE, limit: Int = 10): [User]\n}"
+        }
+      ]
+    },
+    {
+      "title": "查询和变更(Mutations)",
+      "entries": [
+        {
+          "title": "字段",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"hero\": {\n      \"name\": \"R2-D2\"\n    }\n  }\n}"
+        },
+        {
+          "title": "查询可以有注释",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"hero\": {\n      \"name\": \"R2-D2\",\n      \"friends\": [\n        { \"name\": \"Luke Skywalker\" },\n        { \"name\": \"Han Solo\" }\n      ]\n    }\n  }\n}"
+        },
+        {
+          "title": "参数 Arguments",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"human\": {\n      \"name\": \"Luke Skywalker\",\n      \"height\": 1.72\n    }\n  }\n}"
+        },
+        {
+          "title": "不同类型的参数",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"human\": {\n      \"name\": \"Luke Skywalker\",\n      \"height\": 5.6430448\n    }\n  }\n}"
+        },
+        {
+          "title": "别名(Aliases)",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"empireHero\": {\n      \"name\": \"Luke Skywalker\"\n    },\n    \"jediHero\": {\n      \"name\": \"R2-D2\"\n    }\n  }\n}"
+        },
+        {
+          "title": "片段(Fragments)",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"leftComparison\": {\n      \"name\": \"Luke Skywalker\",\n      \"appearsIn\": [\n        \"NEWHOPE\",\n        \"EMPIRE\",\n        \"JEDI\"\n      ],\n      \"friends\": [\n        { \"name\": \"Han Solo\" },\n        { \"name\": \"Leia Organa\" },\n        { \"name\": \"C-3PO\" },\n        { \"name\": \"R2-D2\" }\n      ]\n    },\n    \"rightComparison\": {\n      \"name\": \"R2-D2\",\n      \"appearsIn\": [\n        \"NEWHOPE\",\n        \"EMPIRE\",\n        \"JEDI\"\n      ],\n      \"friends\": [\n        { \"name\": \"Luke Skywalker\" },\n        { \"name\": \"Han Solo\" },\n        { \"name\": \"Leia Organa\" }\n      ]\n    }\n  }\n}"
+        },
+        {
+          "title": "在片段内使用变量",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"leftComparison\": {\n      \"name\": \"Luke Skywalker\",\n      \"friendsConnection\": {\n        \"totalCount\": 4,\n        \"edges\": [\n          {\n            \"node\": {\n              \"name\": \"Han Solo\"\n            }\n          },\n          {\n            \"node\": {\n              \"name\": \"Leia Organa\"\n            }\n          }\n        ]\n      }\n    },\n    \"rightComparison\": {\n      \"name\": \"R2-D2\",\n      \"friendsConnection\": {\n        \"totalCount\": 3,\n        \"edges\": [\n          {\n            \"node\": {\n              \"name\": \"Luke Skywalker\"\n            }\n          },\n          {\n            \"node\": {\n              \"name\": \"Han Solo\"\n            }\n          }\n        ]\n      }\n    }\n  }\n}"
+        },
+        {
+          "title": "操作名称(Operation name)",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"hero\": {\n      \"name\": \"R2-D2\",\n      \"friends\": [\n        { \"name\": \"Luke Skywalker\" },\n        { \"name\": \"Han Solo\" },\n        { \"name\": \"Leia Organa\" }\n      ]\n    }\n  }\n}"
+        },
+        {
+          "title": "变量(Variables)",
+          "description": "变量前缀必须为 `$`，后跟其类型",
+          "code": "# { \"graphiql\": true, \"variables\": { \"episode\": JEDI } }\nquery HeroNameAndFriends($episode: Episode) {\n  hero(episode: $episode) {\n    name\n    friends {\n      name\n    }\n  }\n}"
+        },
+        {
+          "title": "默认变量(Default variables)",
+          "description": "",
+          "code": "query HeroNameAndFriends($episode: Episode = \"JEDI\") {\n  hero(episode: $episode) {\n    name\n    friends {\n      name\n    }\n  }\n}"
+        },
+        {
+          "title": "指令(Directives)",
+          "description": "结果:\n- `@include(if: Boolean)` 仅在参数为 `true` 时，包含此字段\n- `@skip(if: Boolean)` 如果参数为 `true`，跳过此字段",
+          "code": "{\n  \"data\": { \"hero\": { \"name\": \"R2-D2\" } }\n}"
+        },
+        {
+          "title": "变更(Mutations)",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"createReview\": {\n      \"stars\": 5,\n      \"commentary\": \"This is a great movie!\"\n    }\n  }\n}"
+        },
+        {
+          "title": "内联片段(Inline Fragments)",
+          "description": "结果:",
+          "code": "{\n  \"data\": {\n    \"hero\": {\n      \"name\": \"R2-D2\",\n      \"primaryFunction\": \"Astromech\"\n    }\n  }\n}"
+        },
+        {
+          "title": "元字段(Meta fields)",
+          "description": "结果:\n另见",
+          "code": "{\n  \"data\": {\n    \"search\": [\n      {\n        \"__typename\": \"Human\",\n        \"name\": \"Han Solo\"\n      },\n      {\n        \"__typename\": \"Human\",\n        \"name\": \"Leia Organa\"\n      },\n      {\n        \"__typename\": \"Starship\",\n        \"name\": \"TIE Advanced x1\"\n      }\n    ]\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/graphql.md"
+}

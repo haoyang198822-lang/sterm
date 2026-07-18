@@ -1,0 +1,79 @@
+{
+  "name": "Vimium",
+  "description": "Vimium 快速参考",
+  "category": "编辑器",
+  "count": 12,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "功能特点",
+          "description": "**键盘导航**\n- 使用类似 Vim 的快捷键进行网页滚动、打开链接、管理标签页等操作\n\n**快捷键自定义**\n- 用户可根据个人习惯自定义快捷键，提升使用体验\n\n**无鼠标操作**\n- 通过键盘快捷键完成几乎所有浏览器操作，减少对鼠标的依赖，提高效率",
+          "code": ""
+        },
+        {
+          "title": "安装",
+          "description": "**Chrome 浏览器**\n- [Chrome web store](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)\n**Edge 浏览器**\n- [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/vimium/djmieaghokpkpjfbpelnlkfgfjapaopa)\n**Firefox 浏览器**\n- [Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/vimium-ff/)",
+          "code": ""
+        },
+        {
+          "title": "快捷键自定义",
+          "description": "键盘快捷键",
+          "code": "{\n  \"customKeybindings\": {\n    \"scrollUp\": \"k\",\n    \"scrollDown\": \"j\",\n    \"scrollLeft\": \"h\",\n    \"scrollRight\": \"l\",\n    \"reload\": \"r\",\n    \"openLinkInCurrentTab\": \"f\",\n    \"openLinkInNewTab\": \"F\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "title": "键盘快捷键",
+      "entries": [
+        {
+          "title": "基本导航",
+          "description": "快捷键     | 功能\n:-- | ---\n`?` |       显示帮助对话框，列出所有可用按键\n`h` |       向左滚动\n`j` |       向下滚动\n`k` |       向上滚动\n`l` |       向右滚动\n`gg` |      滚动到页面顶部\n`G` |       滚动到页面底部\n`d` |       向下滚动半页\n`u` |       向上滚动半页\n`f` |       在当前标签页中打开链接\n`F` |       在新标签页中打开链接\n`r` |       重新加载页面\n`gs` |      查看页面源代码\n`I` |       进入插入模式 -- 所有命令将被忽略，直到你按下 Esc 退出\n`yy` |      复制当前网址到剪贴板\n`yf` |      复制链接地址到剪贴板\n`gf` |      向前切换到下一个框架\n`gF` |      聚焦主框架/顶部框架",
+          "code": ""
+        },
+        {
+          "title": "导航到新页面",
+          "description": "快捷键     | 功能\n:-- | ---\n`o` | 打开网址、书签或历史记录条目\n`O` | 在新标签页中打开网址、书签或历史记录条目\n`b` | 打开书签\n`B` | 在新标签页中打开书签",
+          "code": ""
+        },
+        {
+          "title": "浏览您的历史",
+          "description": "快捷键 | 功能\n:-- | ---\n`H`  |     后退到历史记录\n`L`  |     前进到历史记录",
+          "code": ""
+        },
+        {
+          "title": "操作选项卡",
+          "description": "快捷键 | 功能\n:-- | ---\n`J, gT`  | 向左切换一个标签页\n`K, gt`  | 向右切换一个标签页\n`g0`     | 跳转到第一个标签页</br>使用 ng0 跳转到第 n 个标签页\n`g$`     | 跳转到最后一个标签页\n`^`      | 访问上一个访问过的标签页\n`t`      | 创建新标签页\n`yt`     | 复制当前标签页\n`x`      | 关闭当前标签页\n`X`      | 恢复关闭的标签页（撤销 'x' 命令）\n`T`      | 搜索打开的标签页\n`W`      | 将当前标签页移动到新窗口\n`<a-p>` | 固定/取消固定当前标签页",
+          "code": ""
+        },
+        {
+          "title": "链接操作",
+          "description": "| 快捷键     | 功能                       |\n| -------- | -------------------------- |\n| `f`      | 打开链接                   |\n| `F`      | 在新标签页中打开链接       |\n| `gf`     | 打开下一个框架             |\n| `gu`     | 进入当前URL的父级路径      |\n| `gU`     | 进入当前URL的根路径        |",
+          "code": ""
+        },
+        {
+          "title": "标签页操作",
+          "description": "| 快捷键     | 功能                       |\n| -------- | -------------------------- |\n| `J`      | 切换到左边的标签页         |\n| `K`      | 切换到右边的标签页         |\n| `t`      | 创建新标签页               |\n| `x`      | 关闭当前标签页             |\n| `X`      | 恢复最近关闭的标签页       |\n| `T`      | 搜索打开的标签页           |",
+          "code": ""
+        },
+        {
+          "title": "搜索与复制",
+          "description": "| 快捷键     | 功能                       |\n| -------- | -------------------------- |\n| `/`      | 在页面中搜索               |\n| `n`      | 下一个搜索结果             |\n| `N`      | 上一个搜索结果             |\n| `yy`     | 复制当前页面的URL          |\n| `yf`     | 复制链接                   |",
+          "code": ""
+        },
+        {
+          "title": "插入模式",
+          "description": "| 快捷键     | 功能                       |\n| -------- | -------------------------- |\n| `i`      | 进入插入模式               |\n| `I`      | 进入插入模式（已聚焦元素） |",
+          "code": ""
+        },
+        {
+          "title": "开发者工具",
+          "description": "| 快捷键     | 功能                       |\n| -------- | -------------------------- |\n| `gi`     | 聚焦第一个输入框           |\n| `gI`     | 聚焦最后一个输入框         |\n| `gs`     | 查看页面源代码             |\n| `gf`     | 打开下一个框架             |\n| `gF`     | 打开所有框架               |\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/vimium.md"
+}

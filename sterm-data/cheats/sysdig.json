@@ -1,0 +1,99 @@
+{
+  "name": "Sysdig",
+  "description": "Sysdig 快速参考",
+  "category": "",
+  "count": 17,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "命令安装",
+          "description": "",
+          "code": "sudo rpm --import https://download.sysdig.com/DRAIOS-GPG-KEY.public  \nsudo curl -s -o /etc/yum.repos.d/draios.repo https://download.sysdig.com/stable/rpm/draios.repo\nsudo yum -y install sysdig"
+        },
+        {
+          "title": "常用参数",
+          "description": "参数 | 说明\n:--|:---\n`-C 5` | 每个文件不超过5M\n`-W 10` | 保留不超过10个文件\n`-G 60` | 每个文件只保留一分钟内的系统活动\n`-w  dump.pcap` | 保存到文件\n`-e 1000` | 每个文件只有1000个事件\n`-z` | 参数对保存的内容进行压缩\n`-A --print-ascii` |  把buffer中数据按照ASCII格式打印，方便阅读\n`-x --print-hex`  |  把buffer中数据按照十六进制打印\n`-X --printhex-ascii` | 把buffer中数据同时按照ASCII格式和十六进制打印\n`-s 1024` | 捕获buffer的数据大小，默认为80，设置过大，文件会很大\n`-N` | 不用把端口号转成可读名字\n`-r` | 从文件读取",
+          "code": ""
+        },
+        {
+          "title": "输出含义",
+          "description": "事件 | 说明\n:--|:---\n`evt.num` | 递增的事件号\n`evt.time` | 事件发生的时间\n`evt.cpu` | 事件被捕获时所在cpu\n`proc.name` | 生成事件的进程名字\n`thread.tid` | 线程id，单线程则为进程id\n`evt.dir` | 事件方向(direction), > 代表进入事件， < 代表退出事件\n`evt.type` | 事件的名称，比如open、stat等，一般为系统调用\n`evt.args` | 事件的参数。如果为系统调用，则对应系统调用的参数",
+          "code": ""
+        },
+        {
+          "title": "chisels常用工具",
+          "description": "事件 | 说明\n:--|:---\n`httplog`  |  输出所有的http请求\n`topprocs_cpu` |  输出按照cpu使用率排序\n`topprocs_net` |  按照网络使用情况对进程排序\n`fdcount_by` |  按照建立连接书对进程排序\n`echo_fds`  |     输出进程读写数据\n`netsata`   |    列出网络连接情况\n`spy_file`  |   输出文件的读写数据，可以提供某个文件名作为参数\n`spy_ip`    |   抓取给定ip的数据交换\n`spy_port`  |   抓取给定端口的数据交换",
+          "code": ""
+        },
+        {
+          "title": "命令帮助",
+          "description": "",
+          "code": "sysdig -l   #事件类型\nsysdig -cl  #chisels工具类型"
+        },
+        {
+          "title": "捕获每个系统事件并将其写入标准输出",
+          "description": "",
+          "code": "$ sysdig"
+        },
+        {
+          "title": "自定义输出",
+          "description": "字段必须用 `%` 作为前缀，所有 `sysdig -l` 列出来的字段都可以使用\n如果某个字段在时间中不存在，默认这个事件会过滤掉，在这个字符串最前面加上 `*` 符号，会打印所有事件，不存在的字段会变成 `<NA>`",
+          "code": "$ sysdig -p\"*%evt.type %evt.dir %evt.arg.name\" evt.type=open\nopen > <NA>\nopen < /proc/1285/task/1399/stat\nopen > <NA>\nopen < /proc/1285/task/1400/io\nopen > <NA>\nopen < /proc/1285/task/1400/statm\nopen > <NA>"
+        },
+        {
+          "title": "抓取 `kubernetes pod` 客户端 `ip` 的 `udp` 请求",
+          "description": "抓取 `kubernetes pod` 客户端 `ip` 为 `172.119.100.16` 的 `udp` 请求",
+          "code": "# 列出容器监听端口\n$ sudo sysdig -pc -A -c netstat container.name=aaa\n\n# 抓取kubernetes pod 的客户端ip为172.119.100.16，3000端口的的请求内容\n$ sudo sysdig -A -c echo_fds  k8s.pod.name contains datacenter-web-dev  and fd.port=3000 and evt.type=read and fd.cip=172.119.100.16 fd.proto=UDP\n\n# 按照建立连接数量对进程排序 并保存到sysdig.pcap文件中\n$ sysdig  -c fdcount_by fd.sport \"evt.type=accept\"  -w sysdig.pcap"
+        },
+        {
+          "title": "io案例",
+          "description": "查看 io 错误最多的进程\n查看io错误最多的文件\n查看磁盘io失败的调用\n查看httpd打开失败的文件\n查看最花费时间的系统调用\n查看系统调用失败返回最多的系统调用\n查看打开文件失败\n打印延迟大于1ms的文件I/O调用\n查看使用硬盘带宽最多的进程\n列出大量使用文件描述符的进程\n查看读写bytes最多的文件\n打印httpd进程已经读取中和写入中的文件\n基本 opensnoop:snoop 文件在发生时打开\n查看活跃中的读和写最多的目录\n查看目录/tmp活跃中的读写最多的文件\n查看所有文件名为passwd的i/O活动\n展示FD类型的活跃I/O",
+          "code": "sysdig -c fdbytes_by fd.type"
+        },
+        {
+          "title": "网络",
+          "description": "抓取 `kubernetes pod` 的客户端 `ip` 为 `172.119.100.17`，`3000` 端口的的请求内容\n查看占用网络带宽最多的进程\n查看连接最多的服务器端口\n查看客户端连接最多的ip\n列出所有不是访问apache服务的访问连接\n显示 wordpress1 容器在端口 80 上发送和接收的数据：\n实时打印 `mysql` 容器接收的所有新连接",
+          "code": "$ sysdig -p\"%fd.name\" container.name=mysql and evt.type=accept"
+        },
+        {
+          "title": "进程",
+          "description": "查看哪些文件花费时间做多\n查看httpd进程哪些文件花费最多时间\n查看io错误最多的进程\n查看io错误最多的文件\n查看磁盘io失败的调用\n查看httpd打开失败的文件\n查看最花费时间的系统调用\n查看系统调用失败返回最多的系统调用\n查看打开文件失败\n打印延迟大于1ms的文件I/O调用",
+          "code": "$ sysdig -c fileslower 1"
+        },
+        {
+          "title": "基本用法",
+          "description": "将事件捕获到跟踪文件以供以后分析\n从跟踪文件中读取事件\n根据特定字段过滤事件\n运行凿子以获得高级功能\n列出所有可用字段\n列出所有可用的凿子",
+          "code": "$ sysdig -cl"
+        },
+        {
+          "title": "容器",
+          "description": "查看具有容器上下文的进程列表\n查看 `wordpress1` 容器中运行的进程的CPU使用率\n查看对基于 `Kubernetes` 的 `mySQL` 服务发出的热门 `HTTP` 请求",
+          "code": "$ sysdig -k http://127.0.0.1:8080 -c httptop k8s.svc.name=mysql"
+        },
+        {
+          "title": "文件系统",
+          "description": "列出使用最多文件数的进程\n观察名为“passwd”的所有文件的 I/O 活动",
+          "code": "$ sysdig -A -c echo_fds \"fd.filename=passwd\""
+        },
+        {
+          "title": "安全",
+          "description": "显示 `root` 访问的目录\n观察 `ssh` 活动",
+          "code": "$ sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd"
+        },
+        {
+          "title": "日志",
+          "description": "显示来自 python 的所有系统日志消息\n超尾系统中的所有日志文件",
+          "code": "$ sysdig -c spy_logs"
+        },
+        {
+          "title": "CSysdig",
+          "description": "使用 Mesos 元数据运行 Csysdig，Sysdig 基于 curses 的 UI\n另见",
+          "code": "$ csysdig -m http://127.0.0.1:8080"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/sysdig.md"
+}

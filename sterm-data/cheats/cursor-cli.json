@@ -1,0 +1,179 @@
+{
+  "name": "Cursor CLI",
+  "description": "Cursor CLI 快速参考",
+  "category": "",
+  "count": 24,
+  "sections": [
+    {
+      "title": "快速开始",
+      "entries": [
+        {
+          "title": "Hello World",
+          "description": "",
+          "code": "# 交互式代理会话\n$ agent\n\n# 单次提示（打印模式）\n$ agent -p \"List all TODO comments in this repo\"\n\n# 提问（只读）\n$ agent --mode=ask \"How does auth work here?\"\n\n# 仅规划（不改代码）\n$ agent --plan \"Refactor the payment module\""
+        },
+        {
+          "title": "安装",
+          "description": "**macOS / Linux / WSL**\n\n**Windows (PowerShell)**\n\n**安装后**",
+          "code": "# 如有需要，加入 PATH\nexport PATH=\"$HOME/.local/bin:$PATH\"\n\n# 验证\n$ agent --version\n\n# 更新\n$ agent update"
+        },
+        {
+          "title": "核心概念",
+          "description": "| 概念        | 说明                                |\n| ----------- | ----------------------------------- |\n| Agent mode  | 完整权限：读、写、执行 shell        |\n| Plan mode   | 只读分析，不进行编辑                |\n| Ask mode    | 问答 / 解释，仅只读                 |\n| Cloud agent | 委派到远端 Cursor 云端执行          |\n| Session     | 带历史记录的已保存会话              |\n| Worktree    | 隔离的 git 分支环境                 |\n| ACP         | Agent Client Protocol（JSON-RPC）   |\n| MCP         | 外部工具 / 数据集成                 |\nCLI 参数",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "CLI 参数",
+      "entries": [
+        {
+          "title": "会话与模式",
+          "description": "| 参数                 | 说明                                  |\n| -------------------- | ------------------------------------- |\n| `--mode=plan`        | Plan 模式（只读，不编辑）             |\n| `--mode=ask`         | Ask 模式（问答，只读）                |\n| `--plan`             | `--mode=plan` 的简写                  |\n| `-p, --print`        | 无头/打印模式（非交互）               |\n| `-c, --cloud`        | 以云端代理模式启动                    |\n| `--continue`         | 继续上一次会话                        |\n| `--resume [chatId]`  | 恢复指定会话                          |\n| `-n, --name`         | 设置会话名称                          |\n| `--workspace <path>` | 设置工作区目录                        |\n| `--model <model>`    | 指定模型（如 `sonnet-4`）             |\n| `--list-models`      | 列出可用模型并退出                    |",
+          "code": ""
+        },
+        {
+          "title": "Worktree 与沙箱",
+          "description": "| 参数                    | 说明                                  |\n| ----------------------- | ------------------------------------- |\n| `-w, --worktree [name]` | 在隔离的 git worktree 中启动          |\n| `--worktree-base <ref>` | 指定 worktree 基于的分支/引用         |\n| `--skip-worktree-setup` | 跳过 `.cursor/worktrees.json` 脚本    |\n| `--sandbox <mode>`      | `enabled` 或 `disabled`               |\n| `--trust`               | 信任工作区且不再提示确认              |\n| `--approve-mcps`        | 自动批准全部 MCP 服务器               |",
+          "code": ""
+        },
+        {
+          "title": "输出与权限",
+          "description": "| 参数                      | 说明                                    |\n| ------------------------- | --------------------------------------- |\n| `--output-format <fmt>`   | `text` \\| `json` \\| `stream-json`       |\n| `--stream-partial-output` | 流式输出文本增量（仅 stream-json）      |\n| `-f, --force`             | 除非明确拒绝，否则允许执行命令          |\n| `--yolo`                  | `--force` 的别名                        |\n| `--api-key <key>`         | 认证密钥（或 `CURSOR_API_KEY`）         |\n| `-H, --header <h>`        | 自定义请求头（`Name: Value`）           |\n命令",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "命令",
+      "entries": [
+        {
+          "title": "全部子命令",
+          "description": "| 命令                                | 说明                                    |\n| ----------------------------------- | --------------------------------------- |\n| `agent [prompt]`                    | 启动交互会话或打印会话                  |\n| `agent ls`                          | 列出可恢复的会话                        |\n| `agent resume`                      | 恢复最近一次聊天会话                    |\n| `agent login`                       | 登录 Cursor                             |\n| `agent logout`                      | 退出登录并清理认证信息                  |\n| `agent status`                      | 查看认证状态 / whoami                   |\n| `agent update`                      | 更新到最新版本                          |\n| `agent about`                       | 显示版本、系统、账号信息                |\n| `agent models`                      | 列出可用模型                            |\n| `agent create-chat`                 | 创建新的空聊天并返回 ID                 |\n| `agent rule`                        | 交互式生成新的 Cursor 规则              |\n| `agent mcp`                         | 管理 MCP 服务器                         |\n| `agent mcp list`                    | 列出已配置的 MCP 服务器                 |\n| `agent mcp list-tools <id>`         | 列出指定 MCP 服务器的工具               |\n| `agent mcp enable <id>`             | 将 MCP 服务器加入批准列表               |\n| `agent mcp disable <id>`            | 禁用 MCP 服务器                         |\n| `agent mcp login <id>`              | 对 MCP 服务器进行认证                   |\n| `agent install-shell-integration`   | 安装 shell 集成到 `~/.zshrc`            |\n| `agent uninstall-shell-integration` | 移除 shell 集成                         |\n| `agent acp`                         | 启动 ACP 服务器（stdio 上的 JSON-RPC）  |",
+          "code": ""
+        },
+        {
+          "title": "会话管理",
+          "description": "",
+          "code": "# 列出可恢复会话\n$ agent ls\n\n# 继续上一次会话\n$ agent --continue\n\n# 按 ID 恢复指定会话\n$ agent --resume abc123\n\n# 恢复最近会话\n$ agent resume"
+        },
+        {
+          "title": "认证与账号",
+          "description": "执行模式",
+          "code": "$ agent login\n$ agent logout\n$ agent status     # 或：agent whoami\n$ agent about      # 版本 + 账号信息\n$ agent models     # 列出可用模型"
+        }
+      ]
+    },
+    {
+      "title": "执行模式",
+      "entries": [
+        {
+          "title": "Agent 模式",
+          "description": "具备完整代理权限，可读取文件、编写代码、执行 shell 命令，并使用全部工具。\n未指定 `--mode` 时默认使用该模式。",
+          "code": "$ agent\n$ agent \"Fix the bug in auth.ts\""
+        },
+        {
+          "title": "Plan Mode",
+          "description": "只读分析。仅给出规划，不会对代码库做任何修改。\n不能修改文件，也不能执行命令。",
+          "code": "$ agent --plan\n$ agent --mode=plan \"Refactor auth\""
+        },
+        {
+          "title": "Ask Mode",
+          "description": "问答模式。用于解释代码、回答问题，不编辑文件，也不执行 shell。\n适合在零改动风险下理解代码。\n无头模式与脚本化",
+          "code": "$ agent --mode=ask\n$ agent --mode=ask \"How does caching work?\""
+        }
+      ]
+    },
+    {
+      "title": "无头模式与脚本化",
+      "entries": [
+        {
+          "title": "管道与脚本用法",
+          "description": "输出格式：",
+          "code": "# 纯文本（默认）\n$ agent -p \"task\" --output-format text\n\n# 完整 JSON 响应\n$ agent -p \"task\" --output-format json\n\n# 流式 JSON 增量\n$ agent -p \"task\" --output-format stream-json\n\n# 按到达顺序流式输出文本片段\n$ agent -p \"task\" --output-format stream-json \\\n    --stream-partial-output"
+        },
+        {
+          "title": "CI / CD 用法",
+          "description": "批处理：\nWorktree",
+          "code": "for f in src/**/*.ts; do\n  agent -p \"Add JSDoc to $f\" --force\ndone"
+        }
+      ]
+    },
+    {
+      "title": "Worktree",
+      "entries": [
+        {
+          "title": "隔离环境",
+          "description": "Worktree 会在 `~/.cursor/worktrees/<repo>/<name>` 创建隔离的 git 分支环境，从而保持主工作区干净。\n`.cursor/worktrees.json` 中的 worktree 配置：",
+          "code": "{\n  \"setup\": [\"npm install\", \"cp .env.example .env\"]\n}"
+        },
+        {
+          "title": "Worktree 文件",
+          "description": "控制哪些文件会被复制到新 worktree：\n创建新 worktree 时，匹配这些模式的文件会从主工作区复制过去。\nShell 模式",
+          "code": "# .worktreeinclude（glob 模式）\n.env\n.env.local\nsecrets/\nnode_modules/"
+        }
+      ]
+    },
+    {
+      "title": "Shell 模式",
+      "entries": [
+        {
+          "title": "Shell 执行",
+          "description": "Shell 模式在 `$SHELL` 中执行。可通过 `cd` 与命令链式切换目录：\nShell 快捷键：\n| 按键     | 操作                         |\n| -------- | ---------------------------- |\n| `Ctrl+C` | 取消当前 shell 命令          |\n| `Ctrl+O` | 展开 / 查看完整输出          |\n| `Tab`    | 将命令加入允许列表           |",
+          "code": "# 先切目录再执行\ncd /my/project && agent \"optimize this\"\n\n# 会话中的 shell 命令\n$ ls -la              # 在 $SHELL 中运行\n$ npm test            # 运行测试\n$ git status          # git 操作"
+        },
+        {
+          "title": "Shell 说明",
+          "description": "- 每条命令都在 `$SHELL`（zsh/bash/fish）中执行\n- 每条命令默认 30 秒超时\n- 对目录敏感的命令建议用 `cd dir && cmd`\n- 安装 shell 集成可增强上下文感知：\nMCP 服务器",
+          "code": "$ agent install-shell-integration\n# 会向 ~/.zshrc 写入 hooks"
+        }
+      ]
+    },
+    {
+      "title": "MCP 服务器",
+      "entries": [
+        {
+          "title": "配置 MCP",
+          "description": "用户级配置位于 `~/.cursor/mcp.json`，项目级配置位于 `.cursor/mcp.json`：\n\n**stdio 服务器（Node.js）**\n\n**stdio 服务器（Python）**\n\n**HTTP / SSE 服务器**",
+          "code": "{\n  \"mcpServers\": {\n    \"remote-tool\": {\n      \"url\": \"https://my-server.com/mcp\"\n    }\n  }\n}"
+        },
+        {
+          "title": "MCP 命令",
+          "description": "ACP 协议",
+          "code": "# 列出全部已配置服务器\n$ agent mcp list\n\n# 列出某个服务器的工具\n$ agent mcp list-tools my-tool\n\n# 批准一个服务器\n$ agent mcp enable my-tool\n\n# 禁用一个服务器\n$ agent mcp disable my-tool\n\n# 对服务器进行认证\n$ agent mcp login my-tool\n\n# 在当前会话中自动批准全部\n$ agent --approve-mcps"
+        }
+      ]
+    },
+    {
+      "title": "ACP 协议",
+      "entries": [
+        {
+          "title": "ACP 概览",
+          "description": "ACP（Agent Client Protocol）通过 **stdio** 将 Cursor 代理暴露为 JSON-RPC 2.0 服务，可用于构建自定义 IDE 集成或无头客户端。\n**请求流程：**\n权限返回结果：\n| 响应           | 效果                     |\n| -------------- | ------------------------ |\n| `allow-once`   | 仅本次批准               |\n| `allow-always` | 始终批准该工具           |\n| `reject-once`  | 仅本次拒绝               |",
+          "code": "initialize\nauthenticate (cursor_login)\nsession/new  or  session/load\nsession/prompt\n  → session/update（流式分片）\n  → session/request_permission（工具审批）\nsession/cancel（可选）"
+        },
+        {
+          "title": "ACP 扩展方法",
+          "description": "通过 ACP 发送的 Cursor 扩展方法：\n| 方法                    | 类型     | 用途                   |\n| ----------------------- | -------- | ---------------------- |\n| `cursor/ask_question`   | Blocking | 多选提问               |\n| `cursor/create_plan`    | Blocking | 请求计划审批           |\n| `cursor/update_todos`   | Notify   | 更新待办列表状态       |\n| `cursor/task`           | Notify   | 子代理任务状态         |\n| `cursor/generate_image` | Notify   | 图片生成事件           |\n最小 Node.js 客户端示例：\n**通过 ACP 可集成到以下 IDE：**\n- JetBrains（IntelliJ、WebStorm、PyCharm）\n- Neovim（通过 `avante.nvim` 插件）\n- Zed 编辑器扩展\n- 任何支持扩展机制的编辑器\n云端代理",
+          "code": "const agent = spawn('agent', ['acp'], {\n    stdio: ['pipe', 'pipe', 'inherit']\n});\n// 发送 initialize → authenticate → session/new → session/prompt"
+        }
+      ]
+    },
+    {
+      "title": "云端代理",
+      "entries": [
+        {
+          "title": "云端模式",
+          "description": "云端代理会在 Cursor 基础设施上远程执行任务，适合长耗时或并行工作负载。\n云端代理支持：\n- 远程执行（不占本地资源）\n- 并行任务委派\n- 更长时长的工作流",
+          "code": "# 打开云端代理选择器\n$ agent -c\n$ agent --cloud\n\n# 携带提示词启动云端代理\n$ agent -c \"Migrate all tests to Vitest\""
+        },
+        {
+          "title": "子代理类型",
+          "description": "使用 ACP 或云端模式时，可指定子代理类型：\n| 类型                 | 说明                    |\n| -------------------- | ----------------------- |\n| `explore`            | 代码库探索              |\n| `browser_use`        | 网页浏览器自动化        |\n| `computer_use`       | 桌面 GUI 操作           |\n| `shell`              | Shell 命令执行          |\n| `video_review`       | 视频内容分析            |\n| `{ custom: \"type\" }` | 自定义子代理类型        |\n延伸阅读",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/cursor-cli.md"
+}

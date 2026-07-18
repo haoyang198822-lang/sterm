@@ -1,0 +1,104 @@
+{
+  "name": "Tmux",
+  "description": "Tmux 快速参考",
+  "category": "终端",
+  "count": 16,
+  "sections": [
+    {
+      "title": "Tmux CLI",
+      "entries": [
+        {
+          "title": "新会话",
+          "description": "开始一个新的会话\n开始一个名为 myname 的新会话\n显示所有会话，或者 <kbd>Ctrl</kbd> + <kbd>b</kbd> + <kbd>s</kbd> 快捷键",
+          "code": "$ tmux ls\n$ tmux list-sessions"
+        },
+        {
+          "title": "附加会话",
+          "description": "附加到上一个会话\n附加到命名\n附加到名为 myname 的会话",
+          "code": "$ tmux a -t myname\n$ tmux at -t myname\n$ tmux attach -t myname\n$ tmux attach-session -t myname"
+        },
+        {
+          "title": "终止会话",
+          "description": "按名称终止会话\n杀死/删除除当前会话之外的所有会话\n杀死/删除除 myname 之外的所有会话",
+          "code": "$ tmux kill-ses -a -t myname"
+        },
+        {
+          "title": "Tmux 帮助",
+          "description": "",
+          "code": "$ tmux info"
+        },
+        {
+          "title": "配置",
+          "description": "重新加载配置\n显示配置",
+          "code": "$ tmux show-options -g"
+        },
+        {
+          "title": "复制模式",
+          "description": "命令 | 描述\n:- | -\n`Ctrl+b` `[` | 进入复制模式\n`<Space>`    | 开始选择\n`Enter`      | 复制选择\n`q`          | 退出复制模式\n`Ctrl+b` `]` | 粘贴 buffer_0 的内容\n主要作用类似于在 [Vim](./vim.md#动作) 中选择文本\nTmux 快捷键",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Tmux 快捷键",
+      "entries": [
+        {
+          "title": "入门",
+          "description": "快捷键/命令 | 描述\n:- | -\n| `Ctrl+b` `?` | List all shortcuts |\n显示每个会话、窗口、窗格等",
+          "code": "$ tmux info"
+        },
+        {
+          "title": "窗格（拆分）",
+          "description": "快捷键/命令 | 描述\n:- | -\n`Ctrl+b` `\"` _/_ `%`   | 水平分割/垂直\n`Ctrl+b` `!`           | 窗格 -> 窗口\n`Ctrl+b` `x`           | 杀死窗格\n`Ctrl+b` \\<Arrow>      | 导航窗格\n`Ctrl+b` \\<Space>      | 切换布局\n`Ctrl+b` `{` _/_ `}`   | 向左/向右移动\n`Ctrl+b` `o`           | 转到下一个窗格\n`Ctrl+b` `z`           | 切换全屏\n`Ctrl+b` `;`           | 切换最后一个窗格\n`Ctrl+b` `q`           | 显示号码\n`Ctrl+b` `q` `0`...`9` | 转到 # 窗格",
+          "code": ""
+        },
+        {
+          "title": "Window (Tabs)",
+          "description": "快捷键/命令 | 描述\n:- | -\n`Ctrl+b` `c`         | 创建窗口\n`Ctrl+b` `p` _/_ `n` | 上一个/下一个窗口\n`Ctrl+b` `\"` _/_ `%` | 水平分割/垂直\n`Ctrl+b` `w`         | 列表窗口\n`Ctrl+b` `,`         | 重命名窗口\n`Ctrl+b` `f`         | 查找窗口\n`Ctrl+b` `l`         | 最后一个窗口\n`Ctrl+b` `.`         | 移动窗口\n`Ctrl+b` `&`         | 关闭窗口\n`Ctrl+b` `0`...`9`   | 转到#窗口",
+          "code": ""
+        },
+        {
+          "title": "会话（Windows 组）",
+          "description": "快捷键/命令 | 描述\n:- | -\n`Ctrl+b` `d`         | <red>从会话中分离</red>\n`Ctrl+b` `s`         | 显示所有会话\n`Ctrl+b` `$`         | 重命名会话\n`Ctrl+b` `(` _/_ `)` | 上一届/下一届\nTmux 命令模式",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Tmux 命令模式",
+      "entries": [
+        {
+          "title": "用法",
+          "description": "快捷键/命令 | 描述\n:- | -\n`Ctrl+b` `:` | 进入命令模式",
+          "code": ""
+        },
+        {
+          "title": "调整大小",
+          "description": "快捷键/命令 | 描述\n:- | -\n`resize-pane -D 20` | 缩小尺寸\n`resize-pane -U 20` | 调整大小\n`resize-pane -L 20` | 向左调整大小\n`resize-pane -R 20` | 向右调整大小",
+          "code": ""
+        },
+        {
+          "title": "清单",
+          "description": "快捷键/命令 | 描述\n:- | -\n`list-keys`    | 所有命令\n`list-panes`   | 所有窗格\n`list-windows` | 所有窗口",
+          "code": ""
+        },
+        {
+          "title": "复印",
+          "description": "快捷键/命令 | 描述\n:- | -\n`list-buffers`       | 列出所有缓冲区\n`show-buffer`        | 显示 #0 内容\n`capture-pane`       | 窗格的副本\n`choose-buffer`      | 显示和粘贴\n`save-buffer a.txt`  | 保存到文件\n`delete-buffer -b 1` | 删除缓冲区 1",
+          "code": ""
+        },
+        {
+          "title": "环境",
+          "description": "快捷键/命令 | 描述\n:- | -\n`set -g OPTION`        | 为所有会话设置\n`setw -g OPTION`       | 为所有窗口设置\n`setw -g mode-keys vi` | 启用 vi 模式\n`set -g prefix C-a`    | 设置前缀",
+          "code": ""
+        },
+        {
+          "title": "杂项",
+          "description": "快捷键/命令 | 描述\n:- | -\n`swap-pane -s 3 -t 1`    | 交换窗格\n`swap-window -t -1`      | 向左移动\n`setw synchronize-panes` | 同步窗格\n`join-pane -t :#`        | 加入窗格\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/tmux.md"
+}

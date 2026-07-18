@@ -1,0 +1,174 @@
+{
+  "name": "Less",
+  "description": "Less 快速参考",
+  "category": "",
+  "count": 31,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "Less(Leaner Style Sheets 的缩写)是一门向后兼容的 [`CSS`](./css.md) 扩展语言\n- [CSS 备忘清单](./css.md) _(jaywcjlove.github.io)_\n- [在线编译预览](http://lesscss.org/less-preview/#eyJjb2RlIjoiI2xpYigpIHtcbiAgICAuY29sb3JzKCkge1xuICAgICAgQHByaW1hcnk6IGJsdWU7XG4gICAgICBAc2Vjb25kYXJ5OiBncmVlbjtcbiAgICB9XG4gICAgLnJ1bGVzKEBzaXplKSB7XG4gICAgICBib3JkZXI6IEBzaXplIHNvbGlkIHdoaXRlO1xuICAgIH1cbiAgfVxuICBcbiAgLmJveCB3aGVuICgjbGliLmNvbG9yc1tAcHJpbWFyeV0gPSBibHVlKSB7XG4gICAgd2lkdGg6IDEwMHB4O1xuICAgIGhlaWdodDogKCR3aWR0aCAvIDIpO1xuICB9XG4gIFxuICAuYmFyOmV4dGVuZCguYm94KSB7XG4gICAgQG1lZGlhIChtaW4td2lkdGg6IDYwMHB4KSB7XG4gICAgICB3aWR0aDogMjAwcHg7XG4gICAgICAjbGliLnJ1bGVzKDFweCk7XG4gICAgfVxuICB9IiwiYWN0aXZlVmVyc2lvbiI6IjQueCJ9) _(lesscss.org)_\n在 Node.js 环境中使用 `Less`\n在浏览器环境中使用 `Less`",
+          "code": "<link rel=\"stylesheet/less\" type=\"text/css\" href=\"styles.less\" />\n<script src=\"https://cdn.jsdelivr.net/npm/less@4\" ></script>"
+        },
+        {
+          "title": "变量(Variables)",
+          "description": "编译 css 为：\n另见: [变量的更多信息](https://lesscss.org/features/#variables-feature)",
+          "code": "#header {\n  width: 10px;\n  height: 20px;\n}"
+        },
+        {
+          "title": "混合(Mixins)",
+          "description": "另见: [混合(Mixin)的更多信息](https://lesscss.org/features/#mixins-feature)",
+          "code": ".bordered {\n  border-top: dotted 1px black;\n  border-bottom: solid 2px black;\n}\n\n#menu a {\n  color: #111;\n  .bordered();\n}\n\n.post a {\n  color: red;\n  .bordered();\n}"
+        },
+        {
+          "title": "嵌套(Nesting)",
+          "description": "👇👇 更改为 less 的写法 ✅ 👇👇",
+          "code": "#header {\n  color: black;\n  .navigation {\n    font-size: 12px;\n  }\n  .logo {\n    width: 300px;\n  }\n}"
+        },
+        {
+          "title": "父选择器 &",
+          "description": "编译 css 为：",
+          "code": ".button {\n  color: blue;\n}\n.button-ok {\n  background-image: url(\"ok.png\");\n}\n.button:hover {\n  color: green;\n}"
+        },
+        {
+          "title": "@规则嵌套和冒泡",
+          "description": "编译 css 为：",
+          "code": ".component {\n  width: 300px;\n}\n@media (min-width: 768px) {\n  .component {\n    width: 600px;\n  }\n}\n@media (min-width: 768px) and (min-resolution: 192dpi) {\n  .component {\n    background-image: url(/img/icon2x.png);\n  }\n}\n@media (min-width: 1280px) {\n  .component {\n    width: 800px;\n  }\n}"
+        },
+        {
+          "title": "运算(Operations)",
+          "description": "算术运算符 `+`、`-`、`*`、`/` 对任何数字、颜色或变量进行运算\n\n**calc() 特例**\n为了与 `CSS` 保持兼容，`calc()` 并不对数学表达式进行计算，但是在嵌套函数中会计算变量和数学公式的值",
+          "code": "@var: 50vh/2;\nwidth: calc(50% + (@var - 20px));\n// 结果是 calc(50% + (25vh - 20px))"
+        },
+        {
+          "title": "转义(Escaping)",
+          "description": "编译 css 为：\n从 Less 3.5 开始，可以简写为\n在 Less 3.5+ 版本中，许多以前需要“引号转义”的情况就不再需要了",
+          "code": "@min768: (min-width: 768px);\n.element {\n  @media @min768 {\n    font-size: 1.2rem;\n  }\n}"
+        },
+        {
+          "title": "函数(Functions)",
+          "description": "Less 内置了多种函数用于转换颜色、处理字符串、算术运算等",
+          "code": "@base: #f04615;\n@width: 0.5;\n\n.class {\n  width: percentage(@width); // 返回 `50%`\n  color: saturate(@base, 5%);\n  background-color: \n      spin(lighten(@base, 25%), 8);\n}"
+        },
+        {
+          "title": "命名空间和访问符",
+          "description": "把 `.button` 类混合到 `#header a` 中，我们可以这样做",
+          "code": "#header a {\n  color: orange;\n  #bundle.button();\n  // 还可以书写为 #bundle > .button 形式\n}"
+        },
+        {
+          "title": "映射(Maps)",
+          "description": "输出符合预期(css)：\n另见：[映射(Maps)](https://lesscss.org/features/#maps-feature)",
+          "code": ".button {\n  color: blue;\n  border: 1px solid green;\n}"
+        },
+        {
+          "title": "作用域（Scope）",
+          "description": "和上面实例代码相同\n另见：[懒加载](https://lesscss.org/features/#variables-feature-lazy-loading)",
+          "code": "@var: red;\n\n#page {\n  #header {\n    color: @var; // white\n  }\n  @var: white;\n}"
+        },
+        {
+          "title": "注释（Comments）",
+          "description": "块注释和行注释都可以使用",
+          "code": "/* 一个块注释\n * style comment! */\n@var: red;\n\n// 这一行被注释掉了！\n@var: white;"
+        },
+        {
+          "title": "导入（Importing）",
+          "description": "另见：[导入(Importing)的知识](https://lesscss.org/features/#imports-feature)",
+          "code": "@import \"library\"; // library.less\n@import \"typo.css\";"
+        },
+        {
+          "title": "Extend",
+          "description": "编译 css 为：\n函数",
+          "code": "nav ul {\n  background: blue;\n}\n.inline,\nnav ul {\n  color: red;\n}"
+        }
+      ]
+    },
+    {
+      "title": "函数",
+      "entries": [
+        {
+          "title": "逻辑函数 if & boolean",
+          "description": "编译 css 为：",
+          "code": "div {\n  background: black;\n  color: white;\n}"
+        },
+        {
+          "title": "字符串函数",
+          "description": ":- | :-\n:- | :-\n`escape` | 将 [URL 编码](http://en.wikipedia.org/wiki/Percent-encoding)应用于输入字符串中的特殊字符\n`e` | 字符串转义\n`%` | 第一个参数是带有占位符的字符串",
+          "code": "escape('a=1') // 输出 a%3D1\n\n@mscode: \"ms:alwaysHasItsOwnSyntax.For.Stuff()\" \nfilter: e(@mscode);\n// 输出 filter: ms:alwaysHasItsOwnSyntax.For.Stuff();\n\nformat-a-d: %(\"repetitions: %a file: %d\", 1 + 2, \"directory/file.less\");\n// 输出 format-a-d: \"repetitions: 3 file: \"directory/file.less\"\";"
+        },
+        {
+          "title": "替换字符串 replace",
+          "description": "预期输出",
+          "code": "\"Hello, Earth!\";\n\"2 + 2 = 4\";\n'This is a new string.';\nbar-2;"
+        },
+        {
+          "title": "length",
+          "description": "预期输出\n返回值列表中的元素数",
+          "code": "n: 4;"
+        },
+        {
+          "title": "extract",
+          "description": "预期输出\n返回列表中指定位置的值",
+          "code": "value: coconut;"
+        },
+        {
+          "title": "range",
+          "description": "生成跨越一系列值的列表",
+          "code": "value: range(4);\n// 输出 value: 1 2 3 4;\nvalue: range(10px, 30px, 10);\n// 输出 value: 10px 20px 30px;"
+        },
+        {
+          "title": "each",
+          "description": "预期输出\n每个列表成员的每个规则集都绑定到 `@value`、`@key` 和 `@index` 变量\n预期输出\n将规则集的评估绑定到列表的每个成员",
+          "code": ".set {\n  one-1: blue;\n  two-2: green;\n  three-3: red;\n}"
+        },
+        {
+          "title": "each()",
+          "description": "预期输出",
+          "code": ".set-2 {\n  one-1: blue;\n  two-2: green;\n  three-3: red;\n}"
+        },
+        {
+          "title": "使用 `range` 和 `each` 创建一个 `for` 循环",
+          "description": "预期输出",
+          "code": ".col-1 {\n  height: 50px;\n}\n.col-2 {\n  height: 100px;\n}\n.col-3 {\n  height: 150px;\n}\n.col-4 {\n  height: 200px;\n}"
+        },
+        {
+          "title": "数学函数",
+          "description": ":- | :-\n:- | :-\n`ceil(2.4)` _(输出 3)_ | 向上舍入到下一个最大整数 [#](https://lesscss.org/functions/#math-functions-ceil)\n`floor(2.6)` _(输出 2)_ | 向下舍入到下一个最小整数 [#](https://lesscss.org/functions/#math-functions-floor)\n`percentage(0.5)` _(输出 50%)_ | 将浮点数转换为百分比字符串 [#](https://lesscss.org/functions/#math-functions-floor)\n`round(1.67)` _(输出 2)_ | 应用舍入 [#](https://lesscss.org/functions/#math-functions-round)\n`sqrt(25cm)` _(输出 5cm)_ | 计算数字的平方根。保持单位不变 [#](https://lesscss.org/functions/#math-functions-sqrt)\n`abs(25cm)` _(输出 25cm)_ | 计算数字的绝对值。 保持单位不变 [#](https://lesscss.org/functions/#math-functions-abs)\n`sin(1deg)` _(输出 0.01745240643728351)_ | 计算正弦函数 [#](https://lesscss.org/functions/#math-functions-sin)\n`asin(-0.8414709848078965)` _(输出 -1rad)_ | 计算反正弦（正弦的倒数）函数 [#](https://lesscss.org/functions/#math-functions-asin)\n`cos(1deg)` _(输出 0.9998476951563913)_ | 计算余弦函数 [#](https://lesscss.org/functions/#math-functions-cos)\n`acos(0.5403023058681398)` _(输出 1rad)_ | 计算反余弦（余弦的倒数）函数 [#](https://lesscss.org/functions/#math-functions-acos)\n`tan(1deg)` _(输出 0.017455064928217585)_ | 计算正切函数 [#](https://lesscss.org/functions/#math-functions-tan)\n`atan(-1.5574077246549023)` _(输出 -1rad)_ | 计算反正切（正切的倒数）函数 [#](https://lesscss.org/functions/#math-functions-atan)\n`pi()` _(输出 3.141592653589793)_ | π (pi) [#](https://lesscss.org/functions/#math-functions-pi)\n`pow(0cm, 0px)` _(输出 1cm)_ | 返回第一个参数的第二个参数次幂的值 [#](https://lesscss.org/functions/#math-functions-pow)\n`mod(11cm, 6px)` _(输出 5cm)_ | 返回第一个参数模数第二个参数的值 [#](https://lesscss.org/functions/#math-functions-mod)\n`min(5, 10)` _(输出 5)_ | 返回一个或多个值中的最小值 [#](https://lesscss.org/functions/#math-functions-min)\n`max(5, 10)` _(输出 10)_ | 返回一个或多个值中的最大值 [#](https://lesscss.org/functions/#math-functions-min)",
+          "code": ""
+        },
+        {
+          "title": "颜色定义函数",
+          "description": ":- | :-\n:- | :-\n`rgb`| [#](https://lesscss.org/functions/#color-definition-rgb)\n`rgba`| [#](https://lesscss.org/functions/#color-definition-rgba)\n`argb`| [#](https://lesscss.org/functions/#color-definition-argb)\n`hsl`| [#](https://lesscss.org/functions/#color-definition-hsl)\n`hsla`| [#](https://lesscss.org/functions/#color-definition-hsla)\n`hsv`| [#](https://lesscss.org/functions/#color-definition-hsv)\n`hsva`| [#](https://lesscss.org/functions/#color-definition-hsva)",
+          "code": ""
+        },
+        {
+          "title": "类型函数",
+          "description": ":- | :-\n:- | :-\n`isnumber`| 值是否为数字 [#](https://lesscss.org/functions/#type-functions-isnumber)\n`isstring`| 值是否为字符串 [#](https://lesscss.org/functions/#type-functions-isstring)\n`iscolor`| 值是否为颜色值 [#](https://lesscss.org/functions/#type-functions-iscolor)\n`iskeyword`| 值是否为 keyword [#](https://lesscss.org/functions/#type-functions-iskeyword)\n`isurl`| 值是否为 url 值 [#](https://lesscss.org/functions/#type-functions-isurl)\n`ispixel`| 值是否为像素值 [#](https://lesscss.org/functions/#type-functions-ispixel)\n`isem`| 值是否为 em 值 [#](https://lesscss.org/functions/#type-functions-isem)\n`ispercentage`| 值是否为 百分百 值 [#](https://lesscss.org/functions/#type-functions-ispercentage)\n`isunit`| 值是是否为指定单位的数字 [#](https://lesscss.org/functions/#type-functions-isunit)\n`isruleset`| 值是否为规则集 [#](https://lesscss.org/functions/#type-functions-isruleset)\n`isdefined`| 值是否为 defined [#](https://lesscss.org/functions/#type-functions-isdefined)",
+          "code": ""
+        },
+        {
+          "title": "杂项函数",
+          "description": ":- | :-\n:- | :-\n`color`| [#](https://lesscss.org/functions/#misc-functions-color)\n`image-size`| [#](https://lesscss.org/functions/#misc-functions-image-size)\n`image-width`| [#](https://lesscss.org/functions/#misc-functions-image-width)\n`image-height`| [#](https://lesscss.org/functions/#misc-functions-image-height)\n`convert`| [#](https://lesscss.org/functions/#misc-functions-convert)\n`data-uri`| [#](https://lesscss.org/functions/#misc-functions-data-uri)\n`default`| [#](https://lesscss.org/functions/#misc-functions-default)\n`unit`| [#](https://lesscss.org/functions/#misc-functions-unit)\n`get-unit`| [#](https://lesscss.org/functions/#misc-functions-get-unit)\n`svg-gradient`| [#](https://lesscss.org/functions/#misc-functions-svg-gradient)",
+          "code": ""
+        },
+        {
+          "title": "颜色通道函数",
+          "description": ":- | :-\n:- | :-\n`hue`| [#](https://lesscss.org/functions/#color-channel-hue)\n`saturation`| [#](https://lesscss.org/functions/#color-channel-saturation)\n`lightness`| [#](https://lesscss.org/functions/#color-channel-lightness)\n`hsvhue`| [#](https://lesscss.org/functions/#color-channel-hsvhue)\n`hsvsaturation`| [#](https://lesscss.org/functions/#color-channel-hsvsaturation)\n`hsvvalue`| [#](https://lesscss.org/functions/#color-channel-hsvvalue)\n`red`| [#](https://lesscss.org/functions/#color-channel-red)\n`green`| [#](https://lesscss.org/functions/#color-channel-green)\n`blue`| [#](https://lesscss.org/functions/#color-channel-blue)\n`alpha`| [#](https://lesscss.org/functions/#color-channel-alpha)\n`luma`| [#](https://lesscss.org/functions/#color-channel-luma)\n`luminance`| [#](https://lesscss.org/functions/#color-channel-luminance)",
+          "code": ""
+        },
+        {
+          "title": "色彩运算函数",
+          "description": ":- | :-\n:- | :-\n`saturate`| [#](https://lesscss.org/functions/#color-operations-saturate)\n`desaturate`| [#](https://lesscss.org/functions/#color-operations-desaturate)\n`lighten`| [#](https://lesscss.org/functions/#color-operations-lighten)\n`darken`| [#](https://lesscss.org/functions/#color-operations-darken)\n`fadein`| [#](https://lesscss.org/functions/#color-operations-fadein)\n`fadeout`| [#](https://lesscss.org/functions/#color-operations-fadeout)\n`fade`| [#](https://lesscss.org/functions/#color-operations-fade)\n`spin`| [#](https://lesscss.org/functions/#color-operations-spin)\n`mix`| [#](https://lesscss.org/functions/#color-operations-mix)\n`tint`| [#](https://lesscss.org/functions/#color-operations-tint)\n`shade`| [#](https://lesscss.org/functions/#color-operations-shade)\n`greyscale`| [#](https://lesscss.org/functions/#color-operations-greyscale)\n`contrast`| [#](https://lesscss.org/functions/#color-operations-contrast)",
+          "code": ""
+        },
+        {
+          "title": "颜色混合功能",
+          "description": ":- | :-\n:- | :-\n`multiply`| [#](https://lesscss.org/functions/#color-blending-multiply)\n`screen`| [#](https://lesscss.org/functions/#color-blending-screen)\n`overlay`| [#](https://lesscss.org/functions/#color-blending-overlay)\n`softlight`| [#](https://lesscss.org/functions/#color-blending-softlight)\n`hardlight`| [#](https://lesscss.org/functions/#color-blending-hardlight)\n`difference`| [#](https://lesscss.org/functions/#color-blending-difference)\n`exclusion`| [#](https://lesscss.org/functions/#color-blending-exclusion)\n`average`| [#](https://lesscss.org/functions/#color-blending-average)\n`negation`| [#](https://lesscss.org/functions/#color-blending-negation)\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/lessjs.md"
+}

@@ -1,0 +1,129 @@
+{
+  "name": "JSON",
+  "description": "JSON 快速参考",
+  "category": "编程语言",
+  "count": 21,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "[JSON](https://json.org/) 是一种基于文本的轻量级开放标准，专为人类可读的数据交换而设计。\n- JSON 代表 JavaScript 对象表示法\n- JSON 易于读写。\n- JSON 是与语言无关的数据交换格式\n- JSON 文件扩展名为 `.json`\n- JSON Internet 媒体类型为 `application/json`",
+          "code": ""
+        },
+        {
+          "title": "示例",
+          "description": "",
+          "code": "{\n  \"name\": \"Jason\",\n  \"age\": 39,\n  \"height\": 1.92,\n  \"gender\": \"M\",\n  \"salary\": 70000,\n  \"married\": true,\n  \"children\": [\n    {\"name\": \"Tom\", \"age\": 9},\n    {\"name\": \"Ava\", \"age\": 7}\n  ]\n}"
+        },
+        {
+          "title": "类型",
+          "description": "| 类型      | 描述                             |\n|-----------|---------------------------------|\n| `Number`  | 双精度浮点                       |\n| `String`  | 字符系列                         |\n| `Boolean` | “true”或“false”                 |\n| `Array`   | 有序的值序列                      |\n| `Value`   | 字符串、数字、布尔值、空值等         |\n| `Object`  | 键/值对的无序集合                 |\n| `null`    | Null 或 Empty                   |",
+          "code": ""
+        },
+        {
+          "title": "字符串",
+          "description": "|      |                            |\n|------|----------------------------|\n| `\\\"` | 双引号 Double quote         |\n| `\\\\` | 反斜杠 Backslash            |\n| `\\/` | 正斜杠 Forward slash        |\n| `\\b` | 退格 Backspace              |\n| `\\f` | 换页 Form feed              |\n| `\\n` | 换行 Newline                |\n| `\\r` | 回车 Carriage return        |\n| `\\t` | 标签 Tab                    |\n| `\\u` | 后跟四个十六进制数字           |\n\n**示例**\n\n**无效字符串**\nHave to be delimited by double quotes",
+          "code": "{ \"foo\": 'bar' }"
+        },
+        {
+          "title": "数字",
+          "description": "类型 | 说明\n-----|------\n`Integer`  | 数字 1-9、0 和正数或负数\n`Fraction` | 0.3、3.9 等分数\n`Exponent` | 指数，如 e、e+、e-、E、E+、E\n\n**示例**\n\n**无效的数字**\n在JSON中，只能使用十进制文字",
+          "code": "{ \"foo\": 0xFF }"
+        },
+        {
+          "title": "对象 Objects",
+          "description": "用逗号分隔的多个键/值对",
+          "code": "{\n  \"color\": \"Purple\",\n  \"id\": \"210\",\n  \"composition\": {\n    \"R\": 70,\n    \"G\": 39,\n    \"B\": 89\n  },\n  \"empty_object\": {}\n}"
+        },
+        {
+          "title": "数组 Arrays",
+          "description": "以 `[` 开始并以 `]` 结束",
+          "code": "[1, 2, 3, 4, 5]"
+        },
+        {
+          "title": "对象数组",
+          "description": "",
+          "code": "{\n  \"children\": [\n    { \"name\": \"Jimmy Smith\", \"age\": 15 },\n    { \"name\": \"Sammy Sosa\", \"age\": 12 }\n  ]\n}"
+        },
+        {
+          "title": "数组对象",
+          "description": "",
+          "code": "{\n  \"attributes\": [\"a1\", \"a2\"],\n  \"methods\": [\"getter\", \"setter\"],\n  \"empty_array\": []\n}"
+        },
+        {
+          "title": "二维阵列",
+          "description": "",
+          "code": "{\n  \"my_sequences\": [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9, 0],\n    [10, 11]\n  ]\n}"
+        },
+        {
+          "title": "对象的对象",
+          "description": "",
+          "code": "{\n  \"Mark McGwire\": {\n    \"hr\": 65,\n    \"avg\": 0.278\n  },\n  \"Sammy Sosa\": {\n    \"hr\": 63,\n    \"avg\": 0.288\n  }\n}"
+        },
+        {
+          "title": "嵌套",
+          "description": "JSON 5",
+          "code": "{\n  \"Jack\": {\n    \"id\": 1,\n    \"name\": \"Franc\",\n    \"salary\": 25000,\n    \"hobby\": [\"a\", \"b\"],\n    \"location\": {\n        \"country\": \"A\", \"city\": \"A-A\"\n    }\n  }\n}"
+        }
+      ]
+    },
+    {
+      "title": "JSON 5",
+      "entries": [
+        {
+          "title": "Objects",
+          "description": "对象键可以是 ECMAScript 5.1 [IdentifierName](https://www.ecma-international.org/ecma-262/5.1/#sec-7.6)\n数组可以有一个尾随逗号",
+          "code": "[\n    1,\n    true,\n    'three',\n]"
+        },
+        {
+          "title": "允许单行和多行注释",
+          "description": "多行注释",
+          "code": "{\n/* 这是一个\n   多行注释 */\n  \"name\": \"Kenny\"\n}"
+        },
+        {
+          "title": "允许附加空白字符",
+          "description": "代码点 | 描述\n:-- | ---\n`U+0009` | 水平制表符\n`U+000A` | 换行符\n`U+000B` | 垂直制表符\n`U+000C` | 换页符\n`U+000D` | 回车符\n`U+0020` | 空格\n`U+00A0` | 不间断空格\n`U+2028` | 行分隔符\n`U+2029` | 段落分隔符\n`U+FEFF` | 字节顺序标记\nUnicode Zs 类别 | 空格分隔符 Unicode 类别中的任何其他字符",
+          "code": ""
+        },
+        {
+          "title": "数字",
+          "description": "数字可能有前导或尾随小数点\n数字可以是十六进制\n数字可以是正无穷大、负无穷大和 NaN。\n数字可以以明确的加号开头",
+          "code": "{\n    positiveInfinity: Infinity,\n    negativeInfinity: -Infinity,\n    notANumber: NaN,\n}"
+        },
+        {
+          "title": "字符串",
+          "description": "以下是代表相同的意思\n以下是代表相同的意思\n在 JavaScript 中访问 JSON",
+          "code": "'AC/DC'"
+        }
+      ]
+    },
+    {
+      "title": "在 JavaScript 中访问 JSON",
+      "entries": [
+        {
+          "title": "访问对象",
+          "description": "|                    |           |\n|--------------------|-----------|\n| `myObject.name`    | \"Jason\"   |\n| `myObject[\"name\"]` | \"Jason\"   |\n| `myObject.age`     | 39        |\n| `myObject.other`   | undefined |\n| `myObject[0]`      | undefined |",
+          "code": "let myObject = {\n  \"name\": \"Jason\",\n  \"last\": \"Doe\",\n  \"age\": 39,\n  \"gender\": \"M\",\n  \"salary\": 70000,\n  \"married\": true\n};"
+        },
+        {
+          "title": "访问嵌套",
+          "description": "|                          |                          |\n|--------------------------|--------------------------|\n| `myObject.ref.age`       | 2                        |\n| `myObject[\"ref\"][\"age\"]` | 2                        |\n| `myObject.jdoe`          | [\"Jason\", \"Doe\", 39 ...] |\n| `myObject.jsmith[3]`     | \"F\"                      |\n| `myObject[1]`            | undefined                |",
+          "code": "let myObject = {\n    \"ref\": {\n        \"name\": 0,\n        \"last\": 1,\n        \"age\": 2,\n        \"gender\": 3,\n        \"salary\": 4,\n        \"married\": 5\n    },\n    \"jdoe\": [\n        \"Jason\",\n        \"Doe\",\n        39,\n        \"M\",\n        70000,\n        true\n    ],\n    \"jsmith\": [\n        \"Tom\",\n        \"Smith\",\n        42,\n        \"F\",\n        80000,\n        true\n    ]\n};"
+        },
+        {
+          "title": "访问对象数组",
+          "description": "|                     |                            |\n|---------------------|----------------------------|\n| `myArray[0]`        | `{`\"name\": \"Jason\", ...`}` |\n| `myArray[1].name`   | \"Tom\"                      |\n| `myArray[1][2]`     | 42                         |\n| `myArray[3]`        | undefined                  |\n| `myArray[3].gender` | TypeError: Cannot read...  |",
+          "code": "let myArray = [\n  {\n    \"name\": \"Jason\",\n    \"last\": \"Doe\",\n    \"age\": 39,\n    \"gender\": \"M\",\n    \"salary\": 70000,\n    \"married\": true\n  },\n  {\n    \"name\": \"Tom\",\n    \"last\": \"Smith\",\n    \"age\": 42,\n    \"gender\": \"F\",\n    \"salary\": 80000,\n    \"married\": true\n  },\n  {\n    \"name\": \"Amy\",\n    \"last\": \"Burnquist\",\n    \"age\": 29,\n    \"gender\": \"F\",\n    \"salary\": 60000,\n    \"married\": false\n  }\n];"
+        },
+        {
+          "title": "访问阵列",
+          "description": "|              |           |\n|--------------|-----------|\n| `myArray[1]` | \"Doe\"     |\n| `myArray[5]` | true      |\n| `myArray[6]` | undefined |\n另见",
+          "code": "let myArray = [\n  \"Jason\",\n  \"Doe\",\n  39,\n  \"M\",\n  70000,\n  true\n];"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/json.md"
+}

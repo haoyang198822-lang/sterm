@@ -1,0 +1,59 @@
+{
+  "name": "Twitter(X)",
+  "description": "Twitter(X) 快速参考",
+  "category": "",
+  "count": 8,
+  "sections": [
+    {
+      "title": "键盘快捷键",
+      "entries": [
+        {
+          "title": "动作",
+          "description": "快捷键 | 动作\n---|---\n`N`  | 新推文\n`L`  | 喜欢推文\n`R`  | 回复推文\n`T`  | 转推\n`M`  | 直接消息\n`U`  | 静音账号\n`B`  | 屏蔽账号\n`Enter`  | 打开推文详情\n`O`  | 展开图片\n`/`  | 搜索\n`Ctrl` `Enter`  | 发送推文",
+          "code": ""
+        },
+        {
+          "title": "导航",
+          "description": "快捷键 | 动作\n---|---\n`?`  | 完整键盘菜单\n`J`  | 下一个推文\n`K`  | 上一个推文\n`Space`  | 向下翻页\n`.`  | 加载新推文",
+          "code": ""
+        },
+        {
+          "title": "时间线",
+          "description": "快捷键 | 动作\n---|---\n`G` `N`  | 主页时间线\n`G` `O`  | 瞬间\n`G` `N`  | 通知选项卡\n`G` `R`  | 提及\n`G` `P`  | 个人资料\n`G` `L`  | 喜欢选项卡\n`G` `I`  | 列表选项卡\n`G` `M`  | 直接消息\n`G` `S`  | 设置和隐私\n`G` `U`  | 访问某人的资料\n高级搜索",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "高级搜索",
+      "entries": [
+        {
+          "title": "搜索词",
+          "description": "搜索词 | 搜索结果\n---|---\n`watching now` |  同时包含 “watching” 和 “now” 的推文（默认搜索模式）\n`\"happy hour\"` | 包含完整的短语 “happy hour” 的推文\n`love OR hate` | 包含 \"love” 或 \"hate”，或同时包含两个词的推文\n`beer -root` | 包含 \"beer\"，但不包含 \"root” 的推文\n`#haiku` | 包含 Twitter 话题 “haiku” 的推文\n`from:interior` | 由 Twitter 账户 “interior” 发布的推文（用于抓取指定用户的推文）\n`list: NASA/astronauts-in-space-now` |  由 NASA 列表 astronauts-in-space-now 中的 Twitter 账户发布的推文\n`to: NASA` | 回复Twitter账户 “NASA” 的推文\n`@NASA` | 提到 Twitter 账户 “NASA” 的推文（即@指定Twitter账户的推文）",
+          "code": ""
+        },
+        {
+          "title": "内容筛选",
+          "description": "内容条件 | 搜索结果\n---|---\n`politics filter:safe` |  包含“puppy”，且过滤被可能包含潜在敏感信息的推文\n`puppy filter:media` |  包含“puppy”，且包含图片或视频\n`puppy -filter:retweets` | 包含“puppy”，且不包含转推(用于过滤转推推文)\n`puppy filter:native_video` | 包含“puppy”，且包含一个上传的视频\n`puppy filter:periscope` | 包含“puppy”，且包含一个可展示为视频的链接\n`puppy filter:images` |  包含“puppy ，且包含一个图片\n`puppy filter:links` | 包含“puppy，且包含一个链接\n`puppy url:amazon` | 包含“puppy”，且包含一个内容包括\"amazon”的Url链接",
+          "code": ""
+        },
+        {
+          "title": "导航",
+          "description": "- [Twitter 官网](https://twitter.com)<!--rehype:target=__blank-->\n- [Twitter 的高级搜索](https://twitter.com/search-advanced)<!--rehype:target=__blank-->",
+          "code": ""
+        },
+        {
+          "title": "时间筛选",
+          "description": "Operator | Finds Tweets..\n---|---\n`puppy since:2020-6-4` | 包含“puppy“目发布时间晚于2020.06.04（包含2020.06.04）\n`puppy until: 2020-6-4` | 包含\"puppy目发布时间早于2020,06.04（不包含2020,06.04）",
+          "code": ""
+        },
+        {
+          "title": "其它技巧",
+          "description": "搜索词 | 搜索结果\n---|---\n`关键字+min_faves:10` | 超过 10 个<red>`点赞`</red>有关相应关键字的推文；\n`关键字+min_replies:9` | 超过 9 个<red>`回复`</red>有关相应关键字的推文；\n`关键字+min_retweets:11` | 超过 11 个<red>`转发`</red>有关相应关键字的推文；\n另请参阅",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/twitter.md"
+}

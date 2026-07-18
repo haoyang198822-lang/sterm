@@ -1,0 +1,259 @@
+{
+  "name": "Awk",
+  "description": "Awk 快速参考",
+  "category": "",
+  "count": 41,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "试试",
+          "description": "该程序可用于选择文件中的特定记录并对其执行操作\n| - | -             | -                         |\n|---|---------------|---------------------------|\n|   | `-F:`         | 冒号作为分隔符   |\n|   | `{...}`       | awk 程序       |\n|   | `print`       | 打印当前记录   |\n|   | `$1`          | 第一个字段     |\n|   | `$NF`         | 最后一个字段   |\n|   | `/etc/passwd` | 输入数据文件   |",
+          "code": "$ awk -F: '{print $1, $NF}' /etc/passwd"
+        },
+        {
+          "title": "Awk 程序",
+          "description": "**示例**",
+          "code": "awk '\n    BEGIN { print \"\\n>>>Start\" }\n    !/(login|shutdown)/ { print NR, $0 }\n    END { print \"<<<END\\n\" }\n' /etc/passwd"
+        },
+        {
+          "title": "变量",
+          "description": "查看: [Awk 变量](#awk-变量)",
+          "code": "# 第一个和最后一个字段\nawk -F: '{print $1,$NF}' /etc/passwd\n# 带行号\nawk -F: '{print NR, $0}' /etc/passwd\n# 倒数第二个字段\nawk -F: '{print $(NF-1)}' /etc/passwd\n# 自定义字符串\nawk -F: '{print $1 \"=\" $6}' /etc/passwd"
+        },
+        {
+          "title": "Awk 程序示例",
+          "description": "",
+          "code": "awk 'BEGIN {print \"hello world\"}'        # 打印 \"hello world\"\nawk -F: '{print $1}' /etc/passwd         # -F: 指定字段分隔符\n# /pattern/ 仅对匹配的模式执行操作\nawk -F: '/root/ {print $1}' /etc/passwd                     \n# BEGIN 块在开始时执行一次\nawk -F: 'BEGIN { print \"uid\"} { print $1 }' /etc/passwd     \n# END 块在最后执行一次\nawk -F: '{print $1} END { print \"-done-\"}' /etc/passwd"
+        },
+        {
+          "title": "条件",
+          "description": "查看: [Conditions 条件](#awk-条件)",
+          "code": "awk -F: '$3>30 {print $1}' /etc/passwd"
+        },
+        {
+          "title": "生成 1000 个空格",
+          "description": "查看: [Loops](#awk-循环)",
+          "code": "awk 'BEGIN{\n    while (a++ < 1000)\n        s=s \" \";\n    print s\n}'"
+        },
+        {
+          "title": "数组 Arrays",
+          "description": "查看: [Awk 数组](#awk-数组)",
+          "code": "awk 'BEGIN {\n   fruits[\"mango\"] = \"yellow\";\n   fruits[\"orange\"] = \"orange\"\n   for(fruit in fruits) {\n     print fruit \" 的颜色是 \" fruits[fruit]\n   }\n}'"
+        },
+        {
+          "title": "函数 Functions",
+          "description": "查看: [Functions](#awk-函数)\nAwk 变量",
+          "code": "# => 5\nawk 'BEGIN{print length(\"hello\")}'\n# => HELLO\nawk 'BEGIN{print toupper(\"hello\")}'\n# => hel\nawk 'BEGIN{print substr(\"hello\", 1, 3)}'"
+        }
+      ]
+    },
+    {
+      "title": "Awk 变量",
+      "entries": [
+        {
+          "title": "内置变量",
+          "description": ":- | :-\n:- | :-\n`$0`           | 全线\n`$1, $2...$NF` | 第一个，第二个……最后一个字段\n`NR`           | 记录总数(`N`umber of `R`ecords)\n`NF`           | N个字段(`N`number of `F`ields)\n`OFS`          | `O`utput `F`ield `S`eparator<br> 输出字段分隔符 _(default \" \")_\n`FS`           | input `F`ield `S`eparator <br> 输入字段分隔符 _(default \" \")_\n`ORS`          | `O`utput `R`ecord `S`eparator <br> 输出记录分隔符 _(default \"\\n\")_\n`RS`           | input `R`ecord `S`eparator <br> 输入记录分隔符 _(default \"\\n\")_\n`FILENAME`     | 文件名",
+          "code": ""
+        },
+        {
+          "title": "表达式",
+          "description": ":- | :-\n:- | :-\n`$1 == \"root\"`       | 第一个字段等于根\n`{print $(NF-1)}`    | 倒数第二个字段\n`NR!=1{print $0}`    | 从第 2 条记录开始\n`NR > 3`             | 从第 4 条记录开始\n`NR == 1`            | 第一次记录\n`END{print NR}`      | 总记录\n`BEGIN{print OFMT}`  | 输出格式\n`{print NR, $0}`     | 行号\n`{print NR \"  \" $0}` | 行号(选项卡)\n`{$1 = NR; print}`   | 用行号替换第一个字段\n`$NF > 4`            | 最后一个字段 > 4\n`NR % 2 == 0`        | 甚至记录\n`NR==10, NR==20`     | 记录 10 到 20\n`BEGIN{print ARGC}`  | 总 `arguments`\n`ORS=NR%5?\",\":\"\\n\"`  | 连接记录",
+          "code": ""
+        },
+        {
+          "title": "示例",
+          "description": "打印总和和平均值\n打印参数\n输出字段分隔符为逗号\n匹配位置\n匹配时长",
+          "code": "awk 'BEGIN {\n    if (match(\"One Two Three\", \"re\"))\n        print RLENGTH }'"
+        },
+        {
+          "title": "仅限 GNU awk",
+          "description": ":- | :-\n:- | :-\n`ENVIRON`     | 环境变量\n`IGNORECASE`  | 忽略大小写\n`CONVFMT`     | 转换格式\n`ERRNO`       | 系统错误\n`FIELDWIDTHS` | 固定宽度字段",
+          "code": ""
+        },
+        {
+          "title": "环境变量",
+          "description": ":- | :-\n:- | :-\n`ARGC`    | 数字或参数\n`ARGV`    | 参数数组\n`FNR`     | 文件记录数(`F`ile `N`umber of `R`ecords)\n`OFMT`    | 数字格式 _(default \"%.6g\")_\n`RSTART`  | 字符串中的位置\n`RLENGTH` | 比赛时长\n`SUBSEP`  | 多维数组分隔符 _(default \"\\034\")_\n`ARGIND`  | 参数索引",
+          "code": ""
+        },
+        {
+          "title": "定义变量",
+          "description": "**使用 shell 变量**\nAwk 运算符",
+          "code": "awk -v varName=\"$PWD\" '\n    END {print varName}' </dev/null"
+        }
+      ]
+    },
+    {
+      "title": "Awk 运算符",
+      "entries": [
+        {
+          "title": "运算符",
+          "description": ":- | :-\n:- | :-\n`{print $1}`     | 第一个字段\n`$2 == \"foo\"`    | 等于\n`$2 != \"foo\"`    | 不等于\n`\"foo\" in array` | 在数组中\n\n**正则表达式**\n:- | :-\n:- | :-\n| `/regex/`       | 行匹配|\n| `!/regex/`      | 行不匹配|\n| `$1 ~ /regex/`  | 字段匹配|\n| `$1 !~ /regex/` | 字段不匹配|\n\n**更多条件**\n:- | :-\n:- | :-\n`($2 <= 4 \\|\\| $3 < 20)` | 或者\n`($1 == 4 && $3 < 20)`   | 和",
+          "code": ""
+        },
+        {
+          "title": "运算符",
+          "description": "**算术运算**\n- `+`\n- `-`\n- `*`\n- `/`\n- `%`\n- `++`\n- `--`\n\n**速记作业**\n- `+=`\n- `-=`\n- `*=`\n- `/=`\n- `%=`\n\n**比较运算符**\n- `==`\n- `!=`\n- `<`\n- `>`\n- `<=`\n- `>=`",
+          "code": ""
+        },
+        {
+          "title": "示例",
+          "description": "**不匹配**\n\n**如果在数组中**\nAwk 函数",
+          "code": "awk 'BEGIN {\n    assoc[\"foo\"] = \"bar\";\n    assoc[\"bar\"] = \"baz\";\n    if (\"foo\" in assoc)\n        print \"Fooey!\";\n}'"
+        }
+      ]
+    },
+    {
+      "title": "Awk 函数",
+      "entries": [
+        {
+          "title": "常用功能",
+          "description": "函数 | 描述\n:- | :-\n`index(s,t)`          | 字符串 `s` 中出现字符串 `t` 的位置，如果未找到则为 `0`\n`length(s)`           | 字符串 `s` 的长度(如果没有 `arg`，则为 `$0`)\n`rand`                | `0` 到 `1` 之间的随机数\n`substr(s,index,len)` | 返回从索引开始的 `s` 的 `len-char` 子字符串(从 `1` 开始计数)\n`srand`               | 为 `rand` 设置种子并返回之前的种子\n`int(x)`              | 将 `x` 截断为整数值\n`split(s,a,fs)`       | 将字符串 `s` 拆分为数组 `a` 由 `fs` 拆分，返回 `a` 的长度\n`match(s,r)`          | 字符串 `s` 中出现正则表达式 `r` 的位置，如果未找到，则为 `0`\n`sub(r,t,s)`          | 将 `t` 替换为字符串 `s` 中第一次出现的正则表达式 `r`(如果未给出 `s`，则替换为 `$0`)\n`gsub(r,t,s)`         | 用 `t` 替换字符串 `s` 中所有出现的正则表达式 `r`\n`system(cmd)`         | 执行cmd并返回退出状态\n`tolower(s)`          | 字符串 `s` 转小写\n`toupper(s)`          | 字符串 `s` 转大写\n`getline`             | 将 `$0` 设置为当前输入文件中的下一个输入记录",
+          "code": ""
+        },
+        {
+          "title": "用户定义函数",
+          "description": "Awk 数组",
+          "code": "awk '\n    # 返回最小数量\n    function find_min(num1, num2){\n       if (num1 < num2)\n       return num1\n       return num2\n    }\n    # 返回最大数量\n    function find_max(num1, num2){\n       if (num1 > num2)\n       return num1\n       return num2\n    }\n    # 主功能\n    function main(num1, num2){\n       result = find_min(num1, num2)\n       print \"Minimum =\", result\n      \n       result = find_max(num1, num2)\n       print \"Maximum =\", result\n    }\n    # 脚本执行从这里开始\n    BEGIN {\n       main(10, 60)\n    }\n'"
+        }
+      ]
+    },
+    {
+      "title": "Awk 数组",
+      "entries": [
+        {
+          "title": "带索引的数组",
+          "description": "",
+          "code": "awk 'BEGIN {\n    arr[0] = \"foo\";\n    arr[1] = \"bar\";\n    print(arr[0]); # => foo\n    delete arr[0];\n    print(arr[0]); # => \"\"\n}'"
+        },
+        {
+          "title": "带键的数组",
+          "description": "",
+          "code": "awk 'BEGIN {\n    assoc[\"foo\"] = \"bar\";\n    assoc[\"bar\"] = \"baz\";\n    print(\"baz\" in assoc); # => 0\n    print(\"foo\" in assoc); # => 1\n}'"
+        },
+        {
+          "title": "带拆分的数组",
+          "description": "",
+          "code": "awk 'BEGIN {\n    split(\"foo:bar:baz\", arr, \":\");\n    for (key in arr)\n        print arr[key];\n}'"
+        },
+        {
+          "title": "带有排序的数组",
+          "description": "",
+          "code": "awk 'BEGIN {\n    arr[0] = 3\n    arr[1] = 2\n    arr[2] = 4\n    n = asort(arr)\n    for (i = 1; i <= n ; i++)\n        print(arr[i])\n}'"
+        },
+        {
+          "title": "多维",
+          "description": "",
+          "code": "awk 'BEGIN {\n    multidim[0,0] = \"foo\";\n    multidim[0,1] = \"bar\";\n    multidim[1,0] = \"baz\";\n    multidim[1,1] = \"boo\";\n}'"
+        },
+        {
+          "title": "多维迭代",
+          "description": "Awk 条件",
+          "code": "awk 'BEGIN {\n    array[1,2]=3;\n    array[2,3]=5;\n    for (comb in array) {\n        split(comb,sep,SUBSEP);\n        print sep[1], sep[2], \n        array[sep[1],sep[2]]\n    }\n}'"
+        }
+      ]
+    },
+    {
+      "title": "Awk 条件",
+      "entries": [
+        {
+          "title": "if-else 语句",
+          "description": "**三元运算符**",
+          "code": "awk -v count=2 'BEGIN {\n    print (count==1) ? \"Yes\" : \"Huh?\";\n}'"
+        },
+        {
+          "title": "存在",
+          "description": "**不存在**",
+          "code": "awk 'BEGIN {\n    assoc[\"foo\"] = \"bar\";\n    assoc[\"bar\"] = \"baz\";\n    if (\"Huh\" in assoc == 0 )\n        print \"Huh!\";\n}'"
+        },
+        {
+          "title": "switch",
+          "description": "Awk 循环",
+          "code": "awk -F: '{\n    switch (NR * 2 + 1) {\n        case 3:\n        case \"11\":\n            print NR - 1\n            break\n        case /2[[:digit:]]+/:\n            print NR\n        default:\n            print NR + 1\n        case -1:\n            print NR * -1\n    }\n}' /etc/passwd"
+        }
+      ]
+    },
+    {
+      "title": "Awk 循环",
+      "entries": [
+        {
+          "title": "for...i",
+          "description": "**1 到 100 之间的 2 的幂**",
+          "code": "awk 'BEGIN {\n    for (i = 1; i <= 100; i *= 2)\n        print i\n}'"
+        },
+        {
+          "title": "for...in",
+          "description": "**Arguments**",
+          "code": "awk 'BEGIN {\n    for (argnum in ARGV)\n        print ARGV[argnum];\n}' a b c"
+        },
+        {
+          "title": "示例",
+          "description": "**反向记录**\n\n**反向字段**\n\n**按记录求和**\n\n**总结整个文件**",
+          "code": "awk -F: '\n    {for (i = 1; i <= NF; i++)\n        s += $i;\n    };\n    END{print s}\n' /etc/passwd"
+        },
+        {
+          "title": "while",
+          "description": "**do...while**",
+          "code": "awk '{\n    i = 1\n    do {\n        print $0\n        i++\n    } while (i <= 5)\n}' /etc/passwd"
+        },
+        {
+          "title": "Break",
+          "description": "",
+          "code": "awk 'BEGIN {\n    break_num = 5\n    for (i = 0; i < 10; i++) {\n        print i\n        if (i == break_num)\n            break\n    }\n}'"
+        },
+        {
+          "title": "Continue",
+          "description": "Awk 格式化打印",
+          "code": "awk 'BEGIN {\n    for (x = 0; x <= 10; x++) {\n        if (x == 5 || x == 6)\n            continue\n        printf \"%d \", x\n    }\n    print \"\"\n}'"
+        }
+      ]
+    },
+    {
+      "title": "Awk 格式化打印",
+      "entries": [
+        {
+          "title": "用法",
+          "description": "**右对齐**\n\n**左对齐**",
+          "code": "awk 'BEGIN{printf \"|%-10s|\\n\", \"hello\"}'\n# |hello     |"
+        },
+        {
+          "title": "通用说明符",
+          "description": "特征符 | 描述\n:- | :-\n`c`           | ASCII 字符\n`d`           | 十进制整数\n`e`, `E`, `f` | 浮点格式\n`o`           | 无符号八进制值\n`s`           | 细绳\n`%`           | 文字百分比",
+          "code": ""
+        },
+        {
+          "title": "Space 空间",
+          "description": "输出",
+          "code": "root       /root\nbin        /bin\ndaemon     /sbin"
+        },
+        {
+          "title": "Header 标题头",
+          "description": "输出\n各种各样的",
+          "code": "User       Home\n----       ----\nroot       /root\nbin        /bin\ndaemon     /sbin"
+        }
+      ]
+    },
+    {
+      "title": "各种各样的",
+      "entries": [
+        {
+          "title": "正则表达式元字符",
+          "description": "- `\\`\n- `^`\n- `$`\n- `.`\n- `[`\n- `]`\n- `|`\n- `(`\n- `)`\n- `*`\n- `+`\n- `?`",
+          "code": ""
+        },
+        {
+          "title": "转义序列",
+          "description": ":- | :-\n:- | :-\n`\\b` | 退格\n`\\f` | 换页\n`\\n` | 换行(换行)\n`\\r` | 回车\n`\\t` | 水平选项卡\n`\\v` | 垂直选项卡",
+          "code": ""
+        },
+        {
+          "title": "运行脚本",
+          "description": "另见",
+          "code": "$ cat demo.awk\n#!/usr/bin/awk -f\nBEGIN { x = 23 }\n      { x += 2 }\nEND   { print x }\n$ awk -f demo.awk /etc/passwd\n69"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/awk.md"
+}

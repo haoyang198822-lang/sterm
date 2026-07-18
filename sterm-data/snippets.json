@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "snippets": [
+    {
+      "id": "snp_1720941234567",
+      "label": "查看服务器日志",
+      "command": "ssh sg-lucerna \"journalctl -u lucerna -n 50 --no-pager\"",
+      "tags": [
+        "服务器",
+        "日志"
+      ],
+      "shortcut": "Cmd+Shift+L",
+      "usageCount": 12,
+      "createdAt": "2026-07-14T10:00:00Z",
+      "updatedAt": "2026-07-14T11:00:00Z"
+    },
+    {
+      "id": "snp_1720941234568",
+      "label": "查看端口占用",
+      "command": "lsof -i :3000",
+      "tags": [
+        "端口",
+        "调试"
+      ],
+      "shortcut": "Cmd+Shift+P",
+      "usageCount": 8,
+      "createdAt": "2026-07-14T10:10:00Z",
+      "updatedAt": "2026-07-14T11:05:00Z"
+    }
+  ],
+  "recentCommands": [
+    {
+      "command": "lsof -i :3000",
+      "lastUsed": "2026-07-14T11:20:00Z"
+    }
+  ]
+}

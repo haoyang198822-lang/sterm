@@ -1,0 +1,64 @@
+{
+  "name": "Flask",
+  "description": "Flask 快速参考",
+  "category": "",
+  "count": 10,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "相关链接",
+          "description": "- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) _(developer.mozilla.org)_\n- [Python](https://www.python.org/) _(python.org)_\n- [Flask](https://flask.palletsprojects.com/) _(flask.palletsprojects.com)_\n- [Python 备忘清单](./python.md) _(jaywcjlove.github.io)_",
+          "code": ""
+        },
+        {
+          "title": "Hello World",
+          "description": "**hello.py**",
+          "code": "# 导入 Flask 类\nfrom flask import Flask\n\n# 创建应用实例\napp = Flask(__name__) # 'Flask' 参数是 应用程序模块 或 包 的名称\n                      # __name__是适用于大多数情况的便捷快捷方式\n\n# 路由 (装饰器)\n@app.route('/')           # route()装饰器告诉 Flask 什么路径触发下面的功能\ndef hello():\n   # 该函数返回我们想要在浏览器中显示的消息内容\n   return 'Hello World!'\n   # 默认类型 HTML, 因此字符串中的 HTML 将被浏览器渲染\n# 启动服务\nif __name__ == '__main__':\n   app.run()"
+        },
+        {
+          "title": "运行 `hello.py` 程序",
+          "description": "**或**\n启用调试模式，使用 `--debug` 选项",
+          "code": "$ flask --app hello --debug run"
+        },
+        {
+          "title": "HTML 转义",
+          "description": "",
+          "code": "from markupsafe import escape\n\n@app.route(\"/<name>\")\ndef hello(name):\n    return f\"Hello, {escape(name)}!\""
+        },
+        {
+          "title": "路由",
+          "description": "",
+          "code": "@app.route('/')\ndef index():\n    return 'Index Page'\n\n@app.route('/hello')\ndef hello():\n    return 'Hello, World'"
+        },
+        {
+          "title": "变量规则",
+          "description": "转换器类型：\n:-- | --\n:-- | --\n`string` | （默认）接受任何没有斜杠的文本\n`int` | 接受正整数\n`float` | 接受正浮点值\n`path` | 像字符串但也接受斜线\n`uuid` | 接受 UUID 字符串",
+          "code": "from markupsafe import escape\n\n@app.route('/user/<username>')\ndef show_user_profile(username):\n    # 显示该用户的用户个人资料\n    return f'User {escape(username)}'\n\n@app.route('/post/<int:post_id>')\ndef show_post(post_id):\n    # 显示给定id的帖子，id是一个整数\n    return f'Post {post_id}'\n\n@app.route('/path/<path:subpath>')\ndef show_subpath(subpath):\n    # 在 /path/ 之后显示子路径\n    return f'Subpath {escape(subpath)}'"
+        },
+        {
+          "title": "唯一 URL / 重定向行为",
+          "description": "项目端点的规范 `URL` 有一个尾部斜杠。它类似于文件系统中的文件夹。如果您访问没有尾部斜杠 (`/projects`) 的 `URL`，`Flask` 会将您重定向到带有尾部斜杠 (`/projects/`) 的规范 `URL`",
+          "code": "@app.route('/projects/')\ndef projects():\n    return 'The project page'\n\n@app.route('/about')\ndef about():\n    return 'The about page'"
+        },
+        {
+          "title": "URL 建设",
+          "description": "",
+          "code": "from flask import url_for\n\n@app.route('/')\ndef index():\n    return 'index'\n\n@app.route('/login')\ndef login():\n    return 'login'\n\n@app.route('/user/<username>')\ndef profile(username):\n    return f'{username}\\'s profile'\n\nwith app.test_request_context():\n    print(url_for('index'))\n    print(url_for('login'))\n    print(url_for('login', next='/'))\n    print(url_for('profile', username='John Doe'))"
+        },
+        {
+          "title": "HTTP 方法",
+          "description": "默认路由仅响应 `GET` 请求。可以使用 `route()` 装饰器的方法参数来处理不同的 `HTTP` 方法\n您还可以将不同方法的视图分成不同的函数。 `Flask` 为每个常见的 `HTTP` 方法提供了一种快捷方式，用于使用 `get()`、`post()` 等来装饰此类路由",
+          "code": "@app.get('/login')\ndef login_get():\n    return show_the_login_form()\n\n@app.post('/login')\ndef login_post():\n    return do_the_login()"
+        },
+        {
+          "title": "Blueprint",
+          "description": "创建蓝图Bp1\n创建蓝图Bp2\n在flask app中引用蓝图Bp1和Bp2\n简单测试",
+          "code": "curl http://127.0.0.1:5000/\n>> {\"name\":\"phyger\"}\n\ncurl http://127.0.0.1:5000/img/getimg\n>> {\"name\": \"img\", \"size\": \"100KB\"}\n\ncurl http://127.0.0.1:5000/video/getvideo\n>> {\"name\": \"video\", \"size\": \"100GB\"}"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/flask.md"
+}

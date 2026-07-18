@@ -1,0 +1,59 @@
+{
+  "name": "Wails V2",
+  "description": "Wails V2 快速参考",
+  "category": "",
+  "count": 9,
+  "sections": [
+    {
+      "title": "应用打包与分发",
+      "entries": [
+        {
+          "title": "Windows 打包",
+          "description": "**<red>■</red> 默认生成: `.exe` 可执行文件**\n\n**<red>■</red> 生成 NSIS 安装程序**\n**前提条件**: 需要预先安装 [NSIS (Nullsoft Scriptable Install System)](https://nsis.sourceforge.io/Download)。\n- **下载 NSIS**: 从 [NSIS 官方网站](https://nsis.sourceforge.io/Download) 下载最新版本的 NSIS 安装程序。\n- **安装 NSIS**: 运行安装程序并按照提示完成安装。**确保**在安装过程中选择将 NSIS 添加到系统的 `PATH` 环境变量中，以便 `makensis` 命令可以在命令行中全局访问。\n- **验证安装**:\n如果安装正确，您将看到 NSIS 的版本号输出。\n**生成安装程序**:\n\n**<red>■</red> 处理 WebView2 依赖**\n`download`: 提示用户下载 WebView2。\n`embed`: 将 WebView2 嵌入到应用中（推荐）。\n`browser`: 在浏览器中打开下载页面。",
+          "code": "$ wails build -platform windows/amd64 -webview2 browser"
+        },
+        {
+          "title": "macOS 打包",
+          "description": "**<red>■</red> 默认生成: `.app` 应用程序包**\n\n**<red>■</red> 代码签名与公证**\n需要通过 Apple 开发者账户进行 **代码签名** 和 **公证** 才能分发。\n\n**<red>■</red> 跳过打包成 `.app` 步骤**",
+          "code": "$ wails build -platform darwin/amd64 -skippackage"
+        },
+        {
+          "title": "Linux 打包",
+          "description": "**<red>■</red> 生成可执行文件**\n\n**<red>■</red> 打包成 `.deb`**\n\n**<red>■</red> 打包成 `.rpm`**\n\n**AppImage 支持**\nWails 不直接内置对 AppImage 的支持，但可以使用外部工具手动创建。使用 `appimagetool`:\n**安装 `appimagetool`**:\n- 您可以从 [AppImage 官方网站](https://appimage.org/) 获取 `appimagetool`。\n- 下载后，将其添加到您的 `PATH` 中以便全局访问。\n## 进阶主题与杂项",
+          "code": "appimagetool ./your-app-dir"
+        },
+        {
+          "title": "平台特定构建选项",
+          "description": "在 `main.go` 的 `wails.Run()` 中为不同平台提供细粒度配置。",
+          "code": "err := wails.Run(&options.App{\n    // ...\n    Windows: &windows.Options{\n        WebviewIsTransparent: true, // WebView2 背景透明\n        WindowIsTranslucent:  true, // 窗口背景透明\n        DisableWindowIcon:    false, // 禁用窗口图标\n        Theme:                windows.SystemDefault, // 主题设置\n    },\n    Mac: &mac.Options{\n        TitleBar: &mac.TitleBar{\n            TitlebarAppearsTransparent: true, // 透明标题栏\n            HideTitle:                  false, // 隐藏标题\n            HideTitleBar:               false, // 隐藏标题栏\n            FullSizeContent:            false, // 全尺寸内容\n            UseToolbar:                 false, // 使用工具栏\n        },\n        About: &mac.AboutInfo{\n            Title:   \"My Awesome App\",\n            Message: \"© 2025 Me\",\n            Icon:    icon, // 应用图标\n        },\n        WebviewIsTransparent: true, // WebView 透明\n        WindowIsTranslucent:  false, // 窗口半透明\n    },\n    Linux: &linux.Options{\n        Icon: icon, // Linux 图标\n        WindowIsTranslucent: false, // 窗口半透明\n    },\n})"
+        },
+        {
+          "title": "使用 TypeScript",
+          "description": "Wails 会自动为 Go 绑定的方法生成 TypeScript 定义。",
+          "code": "# wails.json\n\"frontend:build\": \"npm run build\"\n\n# package.json\n\"scripts\": {\n  \"build\": \"tsc && vite build\"\n}"
+        },
+        {
+          "title": "上下文 (Context)",
+          "description": "使用 Go 的 context 进行更好的资源管理和取消操作。",
+          "code": "// app.go\nfunc (a *App) LongRunningTask(ctx context.Context) error {\n    select {\n    case <-time.After(5 * time.Second):\n        return nil\n    case <-ctx.Done():\n        return ctx.Err() // 任务被取消\n    }\n}"
+        },
+        {
+          "title": "调试",
+          "description": "- **Go 部分**: 使用 `wails dev -debug` 启动并附加您的 Go 调试器。\n- **前端部分**: 在 `wails dev` 模式下，右键点击应用，选择“检查”打开浏览器开发者工具。",
+          "code": ""
+        },
+        {
+          "title": "性能优化",
+          "description": "**构建优化**\n\n**前端优化 (wails.json)**",
+          "code": "{\n  \"frontend:build\": \"npm run build:prod\",\n  \"frontend:dev:build\": \"npm run build:dev\"\n}"
+        },
+        {
+          "title": "常见问题与解决方案",
+          "description": "**构建问题**\n\n**开发问题**\n参考资料",
+          "code": "# 重置前端依赖\n$ rm -rf frontend/node_modules\n$ wails dev\n\n# 使用外部开发服务器\n$ wails dev -frontenddevserverurl http://localhost:3000"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/wails.md"
+}

@@ -15,4 +15,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.send('sterm-copy-response', selection || '');
     });
   },
+  sendFocusState: (isInput) => {
+    ipcRenderer.send('sterm-focus-state', isInput);
+  },
+  saveSnippets: (snippets) => ipcRenderer.invoke('sterm-save-snippets', snippets),
+  loadSnippets: () => ipcRenderer.invoke('sterm-load-snippets'),
 });

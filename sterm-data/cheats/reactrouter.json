@@ -1,0 +1,189 @@
+{
+  "name": "React Router",
+  "description": "React Router 快速参考",
+  "category": "前端",
+  "count": 33,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "安装使用",
+          "description": "",
+          "code": "$ npm create vite@latest myApp --\\\n     --template react\n# 按照提示操作\n$ cd <myApp>\n$ npm install react-router-dom \\\n    localforage \\\n    match-sorter \\\n    sort-by\n$ npm run dev"
+        },
+        {
+          "title": "添加路由器",
+          "description": "",
+          "code": "import React from \"react\";\nimport ReactDOM from \"react-dom/client\";\nimport {\n  createBrowserRouter,\n  RouterProvider,\n} from \"react-router-dom\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <div>Hello world!</div>,\n  },\n]);\n\nconst root=document.getElementById('root');\n\nReactDOM.createRoot(root).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);"
+        },
+        {
+          "title": "根路由",
+          "description": "",
+          "code": "import Root from \"./routes/root\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n  },\n]);"
+        },
+        {
+          "title": "处理未找到错误",
+          "description": "",
+          "code": "import ErrorPage from \"./error-page\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n  },\n]);"
+        },
+        {
+          "title": "`contacts` 用户界面",
+          "description": "",
+          "code": "import Contact from \"./routes/contact\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n  },\n  {\n    path: \"contacts/:contactId\",\n    element: <Contact />,\n  },\n]);"
+        },
+        {
+          "title": "嵌套路由",
+          "description": "`src/main.jsx`\n`src/routes/root.jsx`",
+          "code": "import { Outlet } from \"react-router-dom\";\n\nexport default function Root() {\n  return (\n    <>\n      {/* 所有其他元素 */}\n      <div id=\"detail\">\n        <Outlet />\n      </div>\n    </>\n  );\n}"
+        },
+        {
+          "title": "客户端路由",
+          "description": "",
+          "code": "import {\n  Outlet, Link\n} from \"react-router-dom\";\n\nexport default function Root() {\n  return (\n    <ul>\n      <li>\n        <Link to={`contacts/1`}>\n          Your Name\n        </Link>\n      </li>\n      <li>\n        <Link to={`contacts/2`}>\n          Your Friend\n        </Link>\n      </li>\n    </ul>\n  );\n}"
+        },
+        {
+          "title": "创建联系人",
+          "description": "创建动作并将 `<form>` 更改为 `<Form>`\n导入并设置路由上的 `action`",
+          "code": "import Root, {\n  loader as rootLoader,\n  action as rootAction,\n} from \"./routes/root\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n    loader: rootLoader,\n    action: rootAction,\n    children: [\n      {\n        path: \"contacts/:contactId\",\n        element: <Contact />,\n      },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "加载程序中的 URL 参数",
+          "description": "`:contactId` URL 段。 冒号（<pur>:</pur>）具有特殊含义，将其变成“`动态段`”\n在路由上配置 `loader`",
+          "code": "import Contact, {\n  loader as contactLoader,\n} from \"./routes/contact\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n    loader: rootLoader,\n    action: rootAction,\n    children: [\n      {\n        path: \"contacts/:contactId\",\n        element: <Contact />,\n        loader: contactLoader,\n      },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "更新数据",
+          "description": "添加新的编辑路由",
+          "code": "import EditContact from \"./routes/edit\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n    loader: rootLoader,\n    action: rootAction,\n    children: [\n      {\n        path: \"contacts/:contactId\",\n        element: <Contact />,\n        loader: contactLoader,\n      },\n      {\n        path: \"contacts/:contactId/edit\",\n        element: <EditContact />,\n        loader: contactLoader,\n      },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "活动链接样式",
+          "description": "",
+          "code": "import {\n  NavLink,\n} from \"react-router-dom\";\n\n<NavLink\n  to={`contacts/${contact.id}`}\n  className={({ isActive, isPending }) =>\n    isActive\n      ? \"active\"\n      : isPending\n      ? \"pending\"\n      : \"\"\n  }\n>\n  {/* other code */}\n</NavLink>"
+        },
+        {
+          "title": "全局待定用户界面",
+          "description": "",
+          "code": "import {\n  useNavigation,\n} from \"react-router-dom\";\n\nexport default function Root() {\n  const { contacts } = useLoaderData();\n  const navigation = useNavigation();\n\n  return (\n    <div\n      id=\"detail\"\n      className={\n        navigation.state === 'loading'\n          ? 'loading' : ''\n      }\n    >\n      <Outlet />\n    </div>\n  );\n}"
+        },
+        {
+          "title": "使用 FormData 更新联系人",
+          "description": "向编辑模块添加一个动作\n将动作连接到路由",
+          "code": "import EditContact, {\n  action as editAction,\n} from \"./routes/edit\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n    loader: rootLoader,\n    action: rootAction,\n    children: [\n      {\n        path: \"contacts/:contactId\",\n        element: <Contact />,\n        loader: contactLoader,\n      },\n      {\n        path: \"contacts/:contactId/edit\",\n        element: <EditContact />,\n        loader: contactLoader,\n        action: editAction,\n      },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "删除记录",
+          "description": "添加销毁动作\n将 `destroy` 路由添加到路由配置中",
+          "code": "import {\n  action as destroyAction\n} from \"./routes/destroy\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    children: [\n      {\n       path: \"contacts/:contactId/destroy\",\n       action: destroyAction,\n      },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "上下文错误",
+          "description": "让我们为 `destroy` 路由创建上下文错误消息：",
+          "code": "[\n  {\n    path: \"contacts/:contactId/destroy\",\n    action: destroyAction,\n    errorElement: <div>哎呀！有一个错误</div>,\n  },\n];"
+        },
+        {
+          "title": "首页路由",
+          "description": "",
+          "code": "import Index from \"./routes/index\";\n\nconst router = createBrowserRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    errorElement: <ErrorPage />,\n    loader: rootLoader,\n    action: rootAction,\n    children: [\n      { index: true, element: <Index /> },\n    ],\n  },\n]);"
+        },
+        {
+          "title": "取消按钮",
+          "description": "",
+          "code": "import {\n  Form,\n  useLoaderData,\n  redirect,\n  useNavigate,\n} from \"react-router-dom\";\n\nexport default function Edit() {\n  const contact = useLoaderData();\n  const navigate = useNavigate();\n\n  return (\n    <Form method=\"post\" id=\"contact-form\">\n      <div>\n        <button type=\"submit\">保存</button>\n        <button\n          type=\"button\"\n          onClick={() => {\n            navigate(-1);\n          }}\n        >\n          取消\n        </button>\n      </div>\n    </Form>\n  );\n}"
+        },
+        {
+          "title": "使用客户端路由获取提交",
+          "description": "将 `<form>` 更改为 `<Form>`\n如果有 `URLSearchParams` 过滤列表",
+          "code": "export async function loader({ request }) {\n  const url = new URL(request.url);\n  const q = url.searchParams.get(\"q\");\n  const contacts = await getContacts(q);\n  return { contacts };\n}"
+        },
+        {
+          "title": "将 URL 同步到表单状态",
+          "description": "",
+          "code": "export async function loader({ request }) {\n  const url = new URL(request.url);\n  const q = url.searchParams.get(\"q\");\n  const contacts = await getContacts(q);\n  return { contacts, q };\n}\n\nexport default function Root() {\n  const { contacts, q } = useLoaderData();\n  const navigation = useNavigation();\n\n  return (\n    <Form id=\"search-form\" role=\"search\">\n      <input\n        id=\"q\"\n        aria-label=\"Search contacts\"\n        placeholder=\"Search\"\n        type=\"search\"\n        name=\"q\"\n        defaultValue={q}\n      />\n      {/* existing code */}\n    </Form>\n  );\n}"
+        },
+        {
+          "title": "将输入值与 URL 搜索参数同步",
+          "description": "",
+          "code": "import { useEffect } from \"react\";\n\nexport default function Root() {\n  const { contacts, q } = useLoaderData();\n  const navigation = useNavigation();\n\n  useEffect(() => {\n    document.getElementById(\"q\").value = q;\n  }, [q]);\n}"
+        },
+        {
+          "title": "提交变更 Forms",
+          "description": "Routers",
+          "code": "import {\n  useSubmit,\n} from \"react-router-dom\";\n\nexport default function Root() {\n  const { contacts, q } = useLoaderData();\n  const navigation = useNavigation();\n  const submit = useSubmit();\n\n  return (\n    <Form id=\"search-form\" role=\"search\">\n      <input\n        id=\"q\"\n        aria-label=\"Search contacts\"\n        placeholder=\"Search\"\n        type=\"search\"\n        name=\"q\"\n        defaultValue={q}\n        onChange={(event) => {\n          submit(event.currentTarget.form);\n        }}\n      />\n      {/* existing code */}\n    </Form>\n  );\n}"
+        }
+      ]
+    },
+    {
+      "title": "Routers",
+      "entries": [
+        {
+          "title": "挑选路由器",
+          "description": "在 v6.4 中，引入了支持新数据 API 的新路由器：\n:-- | --\n:-- | --\n`createBrowserRouter` | [#](https://reactrouter.com/en/main/routers/create-browser-router)\n`createMemoryRouter` | [#](https://reactrouter.com/en/main/routers/create-memory-router)\n`createHashRouter` | [#](https://reactrouter.com/en/main/routers/create-hash-router)\n以下路由器不支持数据 `data` API：\n:-- | --\n:-- | --\n`<BrowserRouter>` | [#](https://reactrouter.com/en/main/router-components/browser-router)\n`<MemoryRouter>` | [#](https://reactrouter.com/en/main/router-components/memory-router)\n`<HashRouter>` | [#](https://reactrouter.com/en/main/router-components/hash-router)\n`<NativeRouter>` | [#](https://reactrouter.com/en/main/router-components/native-router)\n`<StaticRouter>` | [#](https://reactrouter.com/en/main/router-components/static-router)",
+          "code": ""
+        },
+        {
+          "title": "路由示例",
+          "description": "快速更新到 v6.4 的最简单方法是从 createRoutesFromElements 获得帮助，因此您无需将 `<Route>` 元素转换为路由对象",
+          "code": "import {\n  createBrowserRouter,\n  createRoutesFromElements,\n  Route,\n  RouterProvider,\n} from \"react-router-dom\";\n\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path=\"/\" element={<Root />}>\n      <Route path=\"dashboard\" element={<Dashboard />} />\n      {/* ... etc. */}\n    </Route>\n  )\n);\n\nReactDOM.createRoot(document.getElementById(\"root\")).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);"
+        },
+        {
+          "title": "createBrowserRouter",
+          "description": "Type Declaration\nroutes\n`basename` 用于您无法部署到域的根目录，而是部署到子目录的情况",
+          "code": "createBrowserRouter(routes, {\n  basename: \"/app\",\n});\n\ncreateBrowserRouter(routes, {\n  basename: \"/app\",\n});\n<Link to=\"/\" />;\n// results in <a href=\"/app\" />\n\ncreateBrowserRouter(routes, {\n  basename: \"/app/\",\n});\n<Link to=\"/\" />;\n// results in <a href=\"/app/\" />"
+        },
+        {
+          "title": "createHashRouter",
+          "description": "",
+          "code": "import * as React from \"react\";\nimport * as ReactDOM from \"react-dom\";\nimport {\n  createHashRouter,\n  RouterProvider,\n} from \"react-router-dom\";\n\nimport Root, { rootLoader } from \"./root\";\nimport Team, { teamLoader } from \"./team\";\n\nconst router = createHashRouter([\n  {\n    path: \"/\",\n    element: <Root />,\n    loader: rootLoader,\n    children: [\n      {\n        path: \"team\",\n        element: <Team />,\n        loader: teamLoader,\n      },\n    ],\n  },\n]);\n\nconst root=document.getElementById('root');\n\nReactDOM.createRoot(root).render(\n  <RouterProvider router={router} />\n);"
+        },
+        {
+          "title": "createMemoryRouter",
+          "description": "initialEntries\ninitialIndex",
+          "code": "createMemoryRouter(routes, {\n  initialEntries: [\"/\", \"/events/123\"],\n  initialIndex: 1,\n  // start at \"/events/123\"\n});"
+        },
+        {
+          "title": "\\<RouterProvider>",
+          "description": "`fallbackElement` 如果您不是服务器渲染您的应用程序，DataBrowserRouter 将在安装时启动所有匹配的路由加载器。 在此期间，您可以提供一个 fallbackElement 来向用户表明该应用程序正在运行\nRouter Components",
+          "code": "<RouterProvider\n  router={router}\n  fallbackElement={<SpinnerOfDoom />}\n/>"
+        }
+      ]
+    },
+    {
+      "title": "Router Components",
+      "entries": [
+        {
+          "title": "\\<BrowserRouter>",
+          "description": "`<BrowserRouter>` 使用干净的 `URL` 将当前位置存储在浏览器的地址栏中，并使用浏览器的内置历史堆栈进行导航",
+          "code": "import * as React from \"react\";\nimport * as ReactDOM from \"react-dom\";\nimport {\n  BrowserRouter\n} from \"react-router-dom\";\n\nconst root=document.getElementById('root');\nReactDOM.createRoot(root).render(\n  <HashRouter>\n    {/* 你的应用程序的其余部分在这里 */}\n  </HashRouter>,\n);"
+        },
+        {
+          "title": "\\<HashRouter>",
+          "description": "`<HashRouter>` 用于 Web 浏览器，因为某些原因不应（或不能）将 URL 发送到服务器",
+          "code": "import * as React from \"react\";\nimport * as ReactDOM from \"react-dom\";\nimport {\n  HashRouter\n} from \"react-router-dom\";\n\nconst root=document.getElementById('root');\nReactDOM.createRoot(root).render(\n  <HashRouter>\n    {/* 你的应用程序的其余部分在这里 */}\n  </HashRouter>,\n);"
+        },
+        {
+          "title": "\\<NativeRouter>",
+          "description": "`<NativeRouter>` 是在 React Native 应用程序中运行 React Router 的推荐接口",
+          "code": "import * as React from \"react\";\nimport {\n  NativeRouter\n} from \"react-router-native\";\n\nfunction App() {\n  return (\n    <NativeRouter>\n      {/* 你的应用程序的其余部分在这里 */}\n    </NativeRouter>\n  );\n}"
+        },
+        {
+          "title": "\\<MemoryRouter>",
+          "description": "`<MemoryRouter>` 在内部将其位置存储在一个数组中。 与 `<BrowserHistory>` 和 `<HashHistory>` 不同，它不依赖于外部源，例如浏览器中的历史堆栈。 这使得它非常适合需要完全控制历史堆栈的场景，例如测试",
+          "code": "import * as React from \"react\";\nimport { create } from \"react-test-renderer\";\nimport {\n  MemoryRouter,\n  Routes,\n  Route,\n} from \"react-router-dom\";\n\ndescribe(\"My app\", () => {\n  it(\"renders correctly\", () => {\n    let renderer = create(\n      <MemoryRouter initialEntries={[\"/users/mjackson\"]}>\n        <Routes>\n          <Route path=\"users\" element={<Users />}>\n            <Route path=\":id\" element={<UserProfile />} />\n          </Route>\n        </Routes>\n      </MemoryRouter>\n    );\n\n    expect(renderer.toJSON()).toMatchSnapshot();\n  });\n});"
+        },
+        {
+          "title": "\\<Router>",
+          "description": "`<Router>` 是所有路由器组件（如 `<BrowserRouter>` 和 `<StaticRouter>`）共享的低级接口。 就 React 而言，`<Router>` 是一个上下文提供者，它向应用程序的其余部分提供路由信息",
+          "code": ""
+        },
+        {
+          "title": "\\<StaticRouter>",
+          "description": "另见",
+          "code": "import * as React from \"react\";\nimport * as ReactDOMServer from \"react-dom/server\";\nimport { StaticRouter } from \"react-router-dom/server\";\nimport http from \"http\";\n\nfunction requestHandler(req, res) {\n  let html = ReactDOMServer.renderToString(\n    <StaticRouter location={req.url}>\n      {/* 你的应用程序的其余部分在这里 */}\n    </StaticRouter>\n  );\n\n  res.write(html);\n  res.end();\n}\n\nhttp.createServer(requestHandler)\n    .listen(3000);"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/reactrouter.md"
+}

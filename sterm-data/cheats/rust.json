@@ -1,0 +1,504 @@
+{
+  "name": "Rust",
+  "description": "Rust 快速参考",
+  "category": "编程语言",
+  "count": 86,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "配置 vscode 调试",
+          "description": "[配置参考](https://github.com/vadimcn/vscode-lldb/blob/master/MANUAL.md#source-path-remapping)。下载 CodeLLDB，选择 rust 自动生成 launch.json 文件\n将编译文件与标准库的位置进行映射",
+          "code": "{\n  \"lldb.launch.sourceMap\": {\n    // 你自己的映射 hash 和映射路径\n    \"/rustc/4b91a6ea7258a947e59c6522cd5898e7c0a6a88f\": \"/Users/feiwu/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust\"\n  }\n}"
+        },
+        {
+          "title": "Hello_World.rs",
+          "description": "**编译运行**",
+          "code": "$ rustc Hello_World.rs\n$ ./Hello_World\n\nHello, World!"
+        },
+        {
+          "title": "原始类型",
+          "description": ":-| :-\n:-| :-\n`bool`                    | 布尔值 (`true` _/_ `false`)\n`char`                    | 字符\n`f32`, `f64`              | 32 位、64 位浮点数\n`i64`, `i32`, `i16`, `i8` | 有符号 16- ... 整数\n`u64`, `u32`, `u16`, `u8` | 无符号 16 位，... 整数\n`isize`                   | 指针大小的有符号整数\n`usize`                   | 指针大小的无符号整数\n查看: [Rust 类型](#rust-类型)",
+          "code": ""
+        },
+        {
+          "title": "格式化",
+          "description": "",
+          "code": "// 单个占位符\nprintln!(\"{}\", 1);\n// 多个占位符\nprintln!(\"{} {}\", 1, 3);\n// 位置参数\nprintln!(\"{0} 是 {1} {2}，{0} 也是 {3} 编程语言\", \"Rust\", \"cool\", \"language\", \"safe\");\n// 命名参数\nprintln!(\"{country} 是一个团结的国家\", country = \"China\");\n// 占位符特征 :b 表示二进制， :0x 表示十六进制， :o 表示八进制\nprintln!(\"让我们打印 76 是二进制的 {:b} ，十六进制等价物是 {:0x} 八进制等价物是 {:o}\", 76, 76, 76);\n// 调试特征\nprintln!(\"使用调试特征 {:?} 在此处打印我们想要的任何内容\", (76, 'A', 90));\n\n// 1.58 中的新格式字符串\nlet x = \"world\";\nprintln!(\"Hello {x}!\");"
+        },
+        {
+          "title": "打印风格",
+          "description": "",
+          "code": "// 打印输出\nprint!(\"Hello World\\n\");\n// 打印后追加新行\nprintln!(\"追加新行\");\n// 打印为错误\neprint!(\"这是一个错误\\n\");\n// 打印为新行错误\neprintln!(\"这是新行的错误\");"
+        },
+        {
+          "title": "变量",
+          "description": "",
+          "code": "// 初始化和声明变量\nlet some_variable = \"This_is_a_variable\";\n// 使变量可变\nlet mut mutable_variable = \"Mutable\";\n// 分配多个变量\nlet (name, age) = (\"ElementalX\", 20);\n// （全局）常量\nconst SCREAMING_SNAKE_CASE:i64 = 9;"
+        },
+        {
+          "title": "注释",
+          "description": "另见: [注释](https://doc.rust-lang.org/reference/comments.html) _(doc.rust-lang.org)_",
+          "code": "// 行注释\n/*.............块注释 */\n/// 外部文档注释\n//! 内部文档评论"
+        },
+        {
+          "title": "函数",
+          "description": "查看: [Functions](#rust-函数)",
+          "code": "fn test(){\n  println!(\"这是一个函数!\");\n}\nfn main(){\n  test();\n}"
+        },
+        {
+          "title": "声明宏",
+          "description": "",
+          "code": "macro_rules! foo {\n  ($l:tt) => { bar!($l); }\n}\nmacro_rules! bar {\n  (3) => {}\n}\nfoo!(3);"
+        },
+        {
+          "title": "元变量",
+          "description": ":- | :-\n:- | :-\n`item` | 程序项\n`block` | 块表达式\n`stmt` | 语句<br/> _(注意此选择器不匹配句尾的分号)_\n`pat` | 模式\n`expr` | 表达式\n`ty` | 类型\n`ident` | 标识符或关键字\n`path` | 类型表达式 形式的路径\n`tt` | `token` 树<br/> _(单个 `token` 或宏匹配定界符 `()`、`[]` 或 `{}` 中的标记)_\n`meta` | 属性，属性中的内容\n`lifetime` | 生存期 `token`\n`vis` | 可能为空的可见性限定符\n`literal` | 匹配 `-?` 字面量表达式",
+          "code": ""
+        },
+        {
+          "title": "结构体",
+          "description": "结构体是一个使用关键字 `struct` 定义的标称型(nominal)结构体类型\n\n**元组结构体**\n\n**单元结构体**\n不关心该类型的内容, 只关心它的行为。",
+          "code": "struct Solution;\nimpl Solution{\n    // ...\n}"
+        },
+        {
+          "title": "语句与表达式",
+          "description": "在 rust 中，语句无需返回值，而表达式总要返回值\n\n**语句**\n\n**表达式**",
+          "code": "fn main(){\n    let x = {\n        let a = \"hello\".to_string();\n        a + \" world\"\n    };\n    println!(\"{}\", x);\n    // hello world\n}"
+        },
+        {
+          "title": "区间表达式",
+          "description": "产生式/句法规则         | 句法         | 类型                        | 区间语义\n:-                   | :-           | :-                         | :-\nRangeExpr            | `start..end` | std::ops::Range            | start ≤ x < end\nRangeFromExpr        | `start..`    | std::ops::RangeFrom        | start ≤ x\nRangeToExpr          | `..end`      | std::ops::RangeTo          | x < end\nRangeFullExpr        | `..`         | std::ops::RangeFull        | -\nRangeInclusiveExpr   | `start..=end`| std::ops::RangeInclusive   | start ≤ x ≤ end\nRangeToInclusiveExpr | `..=end`     | std::ops::RangeToInclusive | x ≤ end\nRust 类型",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Rust 类型",
+      "entries": [
+        {
+          "title": "类型别名",
+          "description": "",
+          "code": "type Point = (u8, u8);\nlet p: Point = (41, 68);"
+        },
+        {
+          "title": "整数",
+          "description": "",
+          "code": "let mut a: u32 = 8;\nlet b = 877_u64;\nlet c = 8999i64;\nlet d = -90;"
+        },
+        {
+          "title": "浮点数",
+          "description": "",
+          "code": "let mut sixty_bit_float: f64 = 89.90;\nlet thirty_two_bit_float: f32 = 7.90;\nlet just_a_float = 69.69;"
+        },
+        {
+          "title": "布尔值",
+          "description": "",
+          "code": "let true_val: bool = true;\nlet false_val: bool = false;\nlet just_a_bool = true;\nlet is_true = 8 < 5;  // => false"
+        },
+        {
+          "title": "字符",
+          "description": "",
+          "code": "let first_letter_of_alphabet = 'a';\nlet explicit_char: char = 'F';\nlet implicit_char = '8';\nlet emoji = \"\\u{1f600}\";   // => 😀"
+        },
+        {
+          "title": "字符串字面量",
+          "description": "查看: [字符串](#rust-字符串)",
+          "code": "let community_name = \"AXIAL\";\nlet no_of_members: &str = \"ten\";\nprintln!(\"社区的名称是 {community_name}，它有 {no_of_members} 个成员\");"
+        },
+        {
+          "title": "数组",
+          "description": "这里介绍的是固定长度的数组。rust 中常用的是集合类型 vec 表示的[动态数组](#rust-动态数组)\n使用 `mut` 关键字使其可变",
+          "code": "let mut array: [i32 ; 3] = [2,6,10];\narray[1] = 4;\narray[2] = 6;"
+        },
+        {
+          "title": "切片",
+          "description": "",
+          "code": "let mut array: [ i64; 4] = [1,2,3,4];\n// 下限包括在内，上限不包括在内\nlet mut slices: &[i64] = &array[0..3]\nprintln!(\"切片的元素是：{slices:?}\");"
+        },
+        {
+          "title": "元组",
+          "description": "Rust 字符串",
+          "code": "let tuple = (1, 'A' , \"Cool\", 78, true);"
+        }
+      ]
+    },
+    {
+      "title": "Rust 字符串",
+      "entries": [
+        {
+          "title": "字符串字面量",
+          "description": "",
+          "code": "let cs:&str = \"备忘清单\";\n// => 为开发者分享备忘单\nprintln!(\"为开发者分享 {cs}\");"
+        },
+        {
+          "title": "字符串对象",
+          "description": "",
+          "code": "// 创建一个空字符串对象\nlet my_string = String::new();\n// 转换为字符串对象\nlet S_string = a_string.to_string()\n// 创建一个初始化的字符串对象\nlet lang = String::from(\"Rust\");  \nprintln!(\"First language is {lang}\");"
+        },
+        {
+          "title": ".capacity()",
+          "description": "以字节为单位计算字符串的容量",
+          "code": "let rand = String::from(\"Random String\");\nrand.capacity()  // => 13"
+        },
+        {
+          "title": "with_capacity()",
+          "description": "指定一个足够大的容量值,来减少内存拷贝",
+          "code": "let s = String::with_capacity(10);"
+        },
+        {
+          "title": ".contains()",
+          "description": "检查子字符串是否包含在原始字符串中",
+          "code": "let name = String::from(\"ElementalX\");\nname.contains(\"Element\") // => true"
+        },
+        {
+          "title": "添加单个字符",
+          "description": "",
+          "code": "let mut half_text = String::from(\"Hal\");\nhalf_text.push('f');    // => Half"
+        },
+        {
+          "title": "添加整个字符串",
+          "description": "",
+          "code": "let mut hi = String::from(\"Hey there...\");\nhi.push_str(\"How are you doing??\");\n// => Hey there...How are you doing??\nprintln!(\"{hi}\");"
+        },
+        {
+          "title": "原生字符串",
+          "description": "原生字符串，无需增加转义字符（`\\`）转义",
+          "code": "let str1 = r#\"\\hello\"#;\nprintln!(\"{}\", str1);\n// \\hello"
+        },
+        {
+          "title": "字节和字节串",
+          "description": "Rust 动态数组",
+          "code": "let str2 = b'a';\nprintln!(\"{}\", str2);\n// 97\nlet str3 = b\"\\\\hello\";\nprintln!(\"{:?}\", str3);\n// [92, 104, 101, 108, 108, 111]\nlet str4 = br#\"\\hello\"#;\nprintln!(\"{:?}\", str4);\n// [92, 104, 101, 108, 108, 111]"
+        }
+      ]
+    },
+    {
+      "title": "Rust 动态数组",
+      "entries": [
+        {
+          "title": "创建动态数组",
+          "description": "",
+          "code": "let v: Vec<i32> = Vec::new();\n// 使用宏\nlet v1 = vec![1, 2, 3];"
+        },
+        {
+          "title": "读取元素",
+          "description": "",
+          "code": "let v = vec![1, 2, 3, 4, 5];\n\nlet element = &v[100];\n// panic，越界\nlet element2 = v.get(100);\nprintln!(\"{:?}\", element2);\n//None"
+        },
+        {
+          "title": "遍历数组",
+          "description": "1. 只读取数组中的元素\n2. 遍历的同时修改数组中的元素",
+          "code": "let mut v = vec![1, 2, 3];\n   for i in &mut v {\n       *i += 10\n   }"
+        },
+        {
+          "title": "多维数组",
+          "description": "",
+          "code": "let arr = vec![\n    vec![1, 2, 3, 4, 5, 6],\n    vec![6, 5, 4, 3, 2, 1]\n];"
+        },
+        {
+          "title": "常用方法",
+          "description": "-|:-\n-|:-\n`len()`                   | 返回 `vec` 的长度\n`is_empty()`              | `vec` 是否为空\n`push(value)`             | 在 `vec` 尾部插入元素\n`pop()`                   | 删除并返回 `vec` 尾部的元素或者返回 `None`\n`insert(index,element)`   | 在指定索引处插入元素\n`remove(index)`           | 删除指定索引处的元素并返回被删除的元素，索引越界将 panic 报错退出\n`clear()`                 | 清空 `vec`\n`append(vec)`             | 将另一个 `vec` 中的所有元素追加移入 `vec` 中，移动的 `vec` 变为空\n`truncate(len)`           | 将 `vec` 截断到指定长度,多余的元素被删除\n`retain(f)`               | 根据给定的函数，保留满足条件的元素\n`drain(range)`            | 删除 `vec` 中指定范围的元素,同时返回一个迭代该范围所有元素的迭代器\n`split_off(index)`        | 切分 `vec`，索引左边的元素保留在原 `vec` 中(含索引)，索引右边的元素(不含索引)在返回的 `vec` 中\nRust HashMap\\<K,V>",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Rust HashMap\\<K,V>",
+      "entries": [
+        {
+          "title": "使用",
+          "description": "",
+          "code": "use std::collections::HashMap;\n\nfn main() {\n  let mut map: HashMap<String, i32> = HashMap::new();\n  map.insert(String::from(\"blue\"), 100);\n  // 查询Yellow对应的值，若不存在则插入默认值\n  let v: &mut i32 =\n    map.entry(\"Yellow\".to_string()).or_insert(5);\n  let v: &mut i32 = \n    map.entry(\"Yellow\".to_string()).or_insert(50); // 不会修改值\n}"
+        },
+        {
+          "title": "获取元素",
+          "description": "",
+          "code": "let mut scores = HashMap::new();\n\nscores.insert(String::from(\"Blue\"), 10);\nscores.insert(String::from(\"Yellow\"), 50);\n\nlet team_name = String::from(\"Blue\");\nlet score: Option<&i32> = scores.get(&team_name);"
+        },
+        {
+          "title": "遍历",
+          "description": "",
+          "code": "let mut scores = HashMap::new();\n\nscores.insert(String::from(\"Blue\"), 10);\nscores.insert(String::from(\"Yellow\"), 50);\n\nfor (key, value) in &scores {\n    println!(\"{}: {}\", key, value);\n}"
+        },
+        {
+          "title": "vec -> HashMap",
+          "description": "Option & Result",
+          "code": "let teams = vec![String::from(\"blue\"),String::from(\"red\")];\nlet intial_scores = vec![10,50];\nlet scores:HashMap<_,_> =\n  teams.iter().zip(intial_scores.iter()).collect();"
+        }
+      ]
+    },
+    {
+      "title": "Option & Result",
+      "entries": [
+        {
+          "title": "Option",
+          "description": "**使用**",
+          "code": "fn main(){\n    let a = Some(5);\n    // 直接获取原始值\n    println!(\"{}\", a.unwrap());\n    // 给出错误信息\n    let x: Option<&str> = None;\n    x.expect(\"fruits are healthy\"); // panics 带有 `fruits are healthy`\n}"
+        },
+        {
+          "title": "Result",
+          "description": "**使用**",
+          "code": "use std::fs::File;\n\nfn main() {\n    let f: Result<File,Error> = File::open(\"hello.txt\");\n    let f = match f {\n        Ok(file) => file,\n        Err(error) => {\n            panic!(\"Problem opening the file: {:?}\", error)\n        },\n    };\n}"
+        },
+        {
+          "title": "宏 `?`",
+          "description": "`?` 只能用于返回结果是 Result 或者 Option 的函数,或者实现了 Try 类型\n枚举",
+          "code": "fn first(arr: &[i32]) -> Option<&i32> {\n   let v = arr.get(0)?;\n   Some(v)\n}"
+        }
+      ]
+    },
+    {
+      "title": "枚举",
+      "entries": [
+        {
+          "title": "在结构体中使用枚举",
+          "description": "",
+          "code": "enum IpAddrKind {\n  V4,\n  V6,\n}\nstruct IpAddr {\n  kind: IpAddrKind,\n  address: String,\n}\n\nfn main(){\n    let ip = IpAddr{\n        kind: IpAddrKind::V4,\n        address: String::from(\"127.0.0.1\")\n    };\n}"
+        },
+        {
+          "title": "枚举的变体",
+          "description": "",
+          "code": "enum Message{\n  Quit,\n  Move {x:i32, y:i32},\n  Write(String),\n  ChangeColor(i32, i32, i32),\n}\nfn main(){\n  let q = Message::Quit;\n  let m = Message::Move {x:10, y:20};\n  let w = Message:: Write(String::from(\"hello\"));\n  let c = Message::ChangeColor(10, 20, 30);\n}"
+        },
+        {
+          "title": "模式匹配结构体",
+          "description": "Rust 运算符",
+          "code": "#[derive(Debug)]\nenum Grade {\n    A,\n    B,\n    C,\n}\nenum Subject {\n    Math(Grade),\n    English(Grade),\n}\n\nfn subject_grade(sub: Subject) {\n  match sub {\n    Subject::Math(grade) => println!(\"The Math is {:?}\", grade),\n    Subject::English(grade) => println!(\"The Math is {:?}\", grade),\n  }\n}\n\nfn main() {\n    subject_grade(Subject::Math(Grade::A));\n}"
+        }
+      ]
+    },
+    {
+      "title": "Rust 运算符",
+      "entries": [
+        {
+          "title": "比较运算符",
+          "description": ":-|:-\n:-|:-\n`e == f` | `e` 等于 `f`\n`e != f` | `e` 不等于 `f`\n`e < f`  | `e` 小于 `f`\n`e > f`  | `e` 大于 `f`\n`e <= f` | `e` 小于或等于 `f`\n`e >= f` | `e` 大于或等于 `f`",
+          "code": "let (e, f) = (1, 100);\nlet greater = f > e;        // => true\nlet less = f < e;           // => false\nlet greater_equal = f >= e; // => true\nlet less_equal = e <= f;    // => true\nlet equal_to = e == f;      // => false\nlet not_equal_to = e != f;  // => true"
+        },
+        {
+          "title": "算术运算符",
+          "description": ":-|:-\n:-|:-\n`a +  b` | `a` 被添加到 `b`\n`a -  b` | 从 `a` 中减去`b`\n`a /  b` | `a` 除以 `b`\n`a % b`  | 通过与 `b` 相除得到 `a` 的余数\n`a * b`  | `a` 与 `b` 相乘",
+          "code": "let (a, b) = (4, 5);\nlet sum: i32 = a + b;            // => 9\nlet subtractions: i32 = a - b;   // => -1\nlet multiplication: i32 = a * b; // => 20\nlet division: i32 = a / b;       // => 0\nlet modulus: i32 = a % b;        // => 4"
+        },
+        {
+          "title": "位运算符",
+          "description": "运算符 | 描述\n:- | :-\n`g & h`  | 二进制与\n`g \\| h`  | 二进制或\n`g ^ h`  | 二进制异或\n`g ~ h`  | 二进制补码\n`g << h` | 二进制左移\n`g >> h` | 二进制右移",
+          "code": "let (g, h) = (0x1, 0x2);\nlet bitwise_and = g & h;  // => 0\nlet bitwise_or = g | h;   // => 3\nlet bitwise_xor = g ^ h;  // => 3\nlet right_shift = g >> 2; // => 0\nlet left_shift = h << 4;  // => 32"
+        },
+        {
+          "title": "逻辑运算符",
+          "description": "示例 | 意义\n:- | :-\n`c && d` | 两者都是真的_(AND)_\n`c \\|\\| d` | 要么是真的_(OR)_\n`!c`     | `c` 为假 _(NOT)_",
+          "code": "let (c, d) = (true, false);\nlet and = c && d;  // => false\nlet or  = c || d;  // => true\nlet not = !c;      // => false"
+        },
+        {
+          "title": "复合赋值运算符",
+          "description": "运算符 | 描述\n:- | :-\n`k += l`  | 添加一个值并赋值，然后 `k=9`\n`k -= l`  | `Substrate` 一个值并赋值，然后 `k=18`\n`k /= l`  | 除以一个值并赋值，然后 `k=9`\n`k *= l`  | 乘一个值并赋值，然后 `k=81`\n`k \\|= l`  | 按位或并赋值，则 `k=89`\nRust 流程控制",
+          "code": "let mut k = 9;\nlet mut l = k;"
+        }
+      ]
+    },
+    {
+      "title": "Rust 流程控制",
+      "entries": [
+        {
+          "title": "If 表达式",
+          "description": "",
+          "code": "let foo = 12;\nlet bar = 13;\nif foo == bar {\n  println!(\"foo 等于 bar\");\n} else if foo < bar {\n  println!(\"foo 小于 bar\");\n} else if foo != bar {\n  println!(\"foo 不等于 bar\");\n} else {\n  println!(\"Nothing\");\n}"
+        },
+        {
+          "title": "For 循环",
+          "description": "使用方法                      | 等价使用方式                         | 所有权\n:-|:-:|:-\nfor item in collection      | for item in collection.into_iter() | 转移所有权\nfor item in &collection     | for item in collection.iter()      | 不可变借用\nfor item in &mut collection | for item in collection.iter_mut()  | 可变借用",
+          "code": "let mut vec = [1, 2, 3];\nfor v in &mut vec {\n  *v -= 1;\n  println!(\"v 的值为：{v}\");\n}"
+        },
+        {
+          "title": "While 循环",
+          "description": "",
+          "code": "let mut check =  0;\nwhile check < 11{\n  println!(\"check 是：{check}\");\n  check += 1;\n  println!(\"递增后：{check}\");\n  if check == 10{\n    break; // 停止 while\n  }\n}"
+        },
+        {
+          "title": "Loop 循环",
+          "description": "无限循环表示",
+          "code": "loop {\n  println!(\"你好，世界永远！\");\n}"
+        },
+        {
+          "title": "Continue 继续声明",
+          "description": "",
+          "code": "for (v, c) in (0..10+1).enumerate(){\n  println!(\"{c} 数字循环\");\n  if v == 9{\n    println!(\"我们继续？\");\n    continue;\n  }\n  println!{\"v 的值为：{v}\"};\n}"
+        },
+        {
+          "title": "Break 中断语句",
+          "description": "`break` 可以单独使用，也可以带一个返回值\nRust 模式匹配",
+          "code": "let mut i = 1;\nlet res = loop {\n  println!(\"i 是 {i}\");\n  if i > 100 {\n    break i - 100;\n  }\n  i *= 2;\n}\n\nprintln!(\"{res}\"); // 28"
+        }
+      ]
+    },
+    {
+      "title": "Rust 模式匹配",
+      "entries": [
+        {
+          "title": "match",
+          "description": "match 模式匹配，使用 `a | b` 表示匹配 a **或** b，使用 `_`，表示匹配剩余所有选项\n\n**`matches!` 宏**\n它可以将一个表达式跟模式进行匹配，然后返回匹配的结果 `true` 或 `false`",
+          "code": "assert!(matches!('x' ',A'..='Z' | 'a'..='z'));\nassert!(matches!(Some(101), Some(x) if x > 100));"
+        },
+        {
+          "title": "if let 匹配",
+          "description": "match 表达式需要匹配所有的枚举才能结束，但通常我们只需要匹配我们需要的值\n使用 `if let`",
+          "code": "let x = 3;\nif let Some(3) = Some(x) {\n    println!(\"I guess that x is 3\");\n}"
+        },
+        {
+          "title": "while let",
+          "description": "",
+          "code": "let mut stack = vec![];\n\nstack.push(1);\nstack.push(2);\nstack.push(3);\n\nwhile let Some(top) = stack.pop() {\n    println!(\"{}\", top);\n}"
+        },
+        {
+          "title": "其它模式匹配",
+          "description": "**for 循环迭代器**\n\n**let**",
+          "code": "fn get_count_item(s: &str) -> (&str, &str) {\n    let mut it = s.split(' ');\n    let (Some(str1),Some(str2)) = (it.next(),it.next()) else {\n        panic!(\"Can't segment count item pair\");\n    };\n    (str1, str2)\n}"
+        },
+        {
+          "title": "函数中的模式匹配",
+          "description": "",
+          "code": "fn add((x, y): (i32, i32)) -> i32 {\n    x + y\n}\n\nfn main(){\n  let sum = add(1, 2);\n  println!(\"{sum}\");\n}"
+        },
+        {
+          "title": "忽略参数",
+          "description": "**使用 `..` 忽略剩余参数**\n\n**使用 `_` 忽略部分参数**",
+          "code": "let hello = ('h', 'e', 'l', 'l', 'o');\n\nmatch hello {\n    (h, _, _, l, o) => {\n        println!(\"char: {}, {}, {}\", h, l, o)\n    },\n}"
+        },
+        {
+          "title": "匹配命名变量",
+          "description": "以下代码，只要给定的 x 是 Some 类型，但 Some 中的值不是 1，都会匹配到 y",
+          "code": "let x = Some(10);\nmatch x {\n    Some(1) => println!(\"x = 1\"),\n    Some(y) => println!(\"y = {:?}\", y),\n    _ => println!(\"None\"),\n}// y = 10"
+        },
+        {
+          "title": "`@` 绑定",
+          "description": "`@` 运算符允许为一个字段绑定另外一个变量。\n如果使用 `|`，需要使用 `()`，进行多个模式的绑定",
+          "code": "match 1 {\n    num @ (1 | 2) => {\n        println!(\"{}\", num);\n    }\n    _ => {}\n}"
+        },
+        {
+          "title": "使用匹配守卫",
+          "description": "Rust 函数",
+          "code": "let x = Some(2);\nmatch x {\n    Some(1) => println!(\"x = 1\"),\n    Some(y) if y == 2 => println!(\"y = {:?}\", y),\n    _ => println!(\"No match\"),\n}// y = 2"
+        }
+      ]
+    },
+    {
+      "title": "Rust 函数",
+      "entries": [
+        {
+          "title": "函数命名",
+          "description": "rust 的函数使用蛇形命名法（snake case）",
+          "code": "fn print_message(){\n  println!(\"Hello, Quick Reference!\");\n}"
+        },
+        {
+          "title": "参数值",
+          "description": "rust 需要为函数的参数标明确定的类型",
+          "code": "fn another_fn(a:u8, b: &str){\n    println!(\"我是 u8:{}\", a);\n    println!(\"我是 &str:{}\", b);\n}\n\nfn main(){\n    another_fn(10, \"hello\")\n}"
+        },
+        {
+          "title": "返回值",
+          "description": "如果不指定返回值，rust 默认返回 `()` 类型\n使用 `->` 指定返回值，如果**表达式**在最后一行，无需使用 return",
+          "code": "fn add(a:i32, b:i32) -> i32 {\n    if a + b < 100 {\n        return a - b;\n    }\n    a + b\n}"
+        },
+        {
+          "title": "永不返回 `!`",
+          "description": "惯用转换",
+          "code": "fn dead_end() -> ! {\n    panic!(\"panic!!!!!\");\n}"
+        }
+      ]
+    },
+    {
+      "title": "惯用转换",
+      "entries": [
+        {
+          "title": "&str -> String",
+          "description": "",
+          "code": "String::from(\"str\");\n\"str\".to_string();\n\"str\".to_owned();"
+        },
+        {
+          "title": "&str -> &[u8]",
+          "description": "或者你也可以使用 `b\"\"`",
+          "code": "println!(\"{:?}\", b\"str\");"
+        },
+        {
+          "title": "&str -> Vec<u8>",
+          "description": "",
+          "code": "\"str\".as_bytes().to_vec();\n\"str\".as_bytes().to_owned();"
+        },
+        {
+          "title": "String -> &str",
+          "description": "",
+          "code": "let s = String::from(\"str\");\nlet r = s.as_str();"
+        },
+        {
+          "title": "String -> &[u8]",
+          "description": "",
+          "code": "let s = String::from(\"str\");\nlet v = s.as_bytes();"
+        },
+        {
+          "title": "String -> Vec<u8>",
+          "description": "",
+          "code": "let s = String::from(\"str\");\nlet v = s.into_bytes();"
+        },
+        {
+          "title": "&[u8] -> &str",
+          "description": "",
+          "code": "let b = \"str\".as_bytes();\nlet str = std::str::from_utf8(b).unwrap();"
+        },
+        {
+          "title": "&[u8] -> String",
+          "description": "",
+          "code": "let b = \"str\".as_bytes();\nlet str = String::from_utf8(b.to_vec()).unwrap();"
+        },
+        {
+          "title": "&[u8] -> Vec<u8>",
+          "description": "",
+          "code": "let b = \"str\".as_bytes();\nlet str = b.to_owned();"
+        },
+        {
+          "title": "Vec<u8> -> &str",
+          "description": "",
+          "code": "let b = \"str\".as_bytes().to_vec();\nlet s = std::str::from_utf8(&b).unwrap();"
+        },
+        {
+          "title": "Vec<u8> -> &[u8]",
+          "description": "",
+          "code": "let b = \"str\".as_bytes().to_vec();\nlet s = b.as_slice();"
+        },
+        {
+          "title": "Vec<u8> -> String",
+          "description": "杂项",
+          "code": "let b = \"str\".as_bytes().to_vec();\nlet s = String::from_utf8(b).unwrap();"
+        }
+      ]
+    },
+    {
+      "title": "杂项",
+      "entries": [
+        {
+          "title": "类型断言 type-casting",
+          "description": "要在 `Rust` 中执行类型转换，必须使用 `as` 关键字",
+          "code": "let orginal: char = 'I';\n// char 到 int => 73\nlet type_casted: i64 = orginal as i64;"
+        },
+        {
+          "title": "借用",
+          "description": "这里借用的值使用 `&` 运算符从值一中借用值",
+          "code": "let mut bar = 3;\nlet mut mutable_borrowed_bar = &mut bar;\nprintln!(\"{mutable_borrowed_bar}\");"
+        },
+        {
+          "title": "解引用",
+          "description": "`*` 操作符用于解引用",
+          "code": "let mut borrow = 10;\nlet deref = &mut borrow;\nprintln!(\"{}\", *deref);"
+        },
+        {
+          "title": "作用域",
+          "description": "这将产生错误，因为变量 `a_number` 的生命周期在大括号处结束\n另见",
+          "code": "{\n  // 范围仅限于此大括号\n  let a_number = 1;\n}\nprintln!(\"{a_number}\");"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/rust.md"
+}

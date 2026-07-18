@@ -1,0 +1,719 @@
+{
+  "name": "Python 3",
+  "description": "Python 3 快速参考",
+  "category": "编程语言",
+  "count": 127,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "- [Python 官方网站](https://www.python.org/)  _(python.org)_\n- [Python 文档](https://docs.python.org/zh-cn/3/index.html)  _(docs.python.org)_\n- [Y 分钟学会 Python](https://learnxinyminutes.com/docs/zh-cn/python-cn/) _(learnxinyminutes.com)_\n- [Python 中的正则表达式](./regex.md#python-中的正则表达式) _(jaywcjlove.github.io)_",
+          "code": ""
+        },
+        {
+          "title": "控制台打印",
+          "description": "著名的“Hello World”程序在 Python 中的实现",
+          "code": ">>> print(\"Hello, World!\")\nHello, World!"
+        },
+        {
+          "title": "变量",
+          "description": "- Python 不能在没有赋值的情况下声明变量\n- 变量可以存放不同类型的值",
+          "code": "age = 18       # 年龄是 int 类型\nname = \"John\"  # 名字现在是 str 类型\nprint(name)"
+        },
+        {
+          "title": "内置数据类型",
+          "description": "序列指一批有序的元素，集合指一批无序且不重复的元素\n| :-                                      | :-               |\n|:----------------------------------------|:-----------------|\n| `str`                                   | 文本／字符串（Text）     |\n| `int`, `float`, `complex`               | 数值（Numeric）      |\n| `dict`                                  | 映射／键值对（Mapping）  |\n| `list`, `tuple`, `range`                | 序列（Sequence）     |\n| `set`, `frozenset`                      | 集合（Set）          |\n| `bool`                                  | 布尔值／逻辑值（Boolean） |\n| `bytes`, `bytearray`, <br> `memoryview` | 二进制数据（Binary）    |\n查看: [数据类型](#python-数据类型)",
+          "code": ""
+        },
+        {
+          "title": "字符串切片",
+          "description": "查看: [字符串](#python-字符串)",
+          "code": ">>> msg = \"Hello, World!\"\n>>> print(msg[2:5])\nllo"
+        },
+        {
+          "title": "列表",
+          "description": "查看: [列表](#python-列表)",
+          "code": "mylist = []\nmylist.append(1)\nmylist.append(2)\nfor item in mylist:\n    print(item) # 打印输出 1,2"
+        },
+        {
+          "title": "判断",
+          "description": "查看: [判断](#python-判断)",
+          "code": "num = 200\nif num > 0:\n    print(\"num is greater than 0\")\nelse:\n    print(\"num is not greater than 0\")"
+        },
+        {
+          "title": "循环",
+          "description": "查看: [循环](#python-循环)",
+          "code": "for item in range(6):\n    if item == 3: break\n    print(item)\nelse:\n    print(\"Finally finished!\")"
+        },
+        {
+          "title": "函数",
+          "description": "查看: [函数](#函数)",
+          "code": ">>> def my_function():\n...     print(\"来自函数的你好\")\n...\n>>> my_function()\n来自函数的你好"
+        },
+        {
+          "title": "文件处理",
+          "description": "查看: [文件处理](#python-文件处理)",
+          "code": "with open(\"myfile.txt\", \"r\", encoding='utf8') as file:\n    for line in file:\n        print(line)"
+        },
+        {
+          "title": "算术",
+          "description": "`/` 表示 x 和 y 的商，`//` 表示 x 和 y 的底商，另见 [StackOverflow](https://stackoverflow.com/a/183870/13192320)",
+          "code": "result = 10 + 30 # => 40\nresult = 40 - 10 # => 30\nresult = 50 * 5  # => 250\nresult = 16 / 4  # => 4.0 (Float Division)\nresult = 16 // 4 # => 4 (Integer Division)\nresult = 25 % 2  # => 1\nresult = 5 ** 3  # => 125"
+        },
+        {
+          "title": "加等于",
+          "description": "",
+          "code": "counter = 0\ncounter += 10           # => 10\ncounter = 0\ncounter = counter + 10  # => 10\nmessage = \"Part 1.\"\n# => Part 1.Part 2.\nmessage += \"Part 2.\""
+        },
+        {
+          "title": "f-字符串 (Python 3.6+)",
+          "description": "查看: [f-字符串](#python-f-字符串-python-36)\nPython 数据类型",
+          "code": ">>> website = 'Quick Reference'\n>>> f\"Hello, {website}\"\n\"Hello, Quick Reference\"\n>>> num = 10\n>>> f'{num} + 10 = {num + 10}'\n'10 + 10 = 20'"
+        }
+      ]
+    },
+    {
+      "title": "Python 数据类型",
+      "entries": [
+        {
+          "title": "字符串",
+          "description": "查看: [字符串](#python-字符串)",
+          "code": "hello = \"Hello World\"\nhello = 'Hello World'\nmulti_string = \"\"\"Multiline Strings\nLorem ipsum dolor sit amet,\nconsectetur adipiscing elit \"\"\""
+        },
+        {
+          "title": "数值",
+          "description": "只要内存足够，可以容纳无限大(小)的数值",
+          "code": "x = 1    # 整数\ny = 2.8  # 浮点小数\nz = 1j   # 复数\n>>> print(type(x))\n<class 'int'>"
+        },
+        {
+          "title": "布尔值",
+          "description": "bool 是 int 的子类",
+          "code": "my_bool = True \nmy_bool = False\nbool(0)     # => False\nbool(1)     # => True"
+        },
+        {
+          "title": "列表",
+          "description": "查看: [列表](#python-列表)",
+          "code": "list1 = [\"apple\", \"banana\", \"cherry\"]\nlist2 = [True, False, False]\nlist3 = [1, 5, 7, 9, 3]\nlist4 = list((1, 5, 7, 9, 3))"
+        },
+        {
+          "title": "元组",
+          "description": "类似列表，但自身不可变",
+          "code": "my_tuple = (1, 2, 3)\nmy_tuple = tuple((1, 2, 3))"
+        },
+        {
+          "title": "集合",
+          "description": "类似列表，但里面的元素是无序而不重复的",
+          "code": "set1 = {\"a\", \"b\", \"c\"}   \nset2 = set((\"a\", \"b\", \"c\"))"
+        },
+        {
+          "title": "字典",
+          "description": "键-值对，一种像 JSON 那样对象",
+          "code": ">>> empty_dict = {}\n>>> a = {\"one\": 1, \"two\": 2, \"three\": 3}\n>>> a[\"one\"]\n1\n>>> a.keys()\ndict_keys(['one', 'two', 'three'])\n>>> a.values()\ndict_values([1, 2, 3])\n>>> a.update({\"four\": 4})\n>>> a.keys()\ndict_keys(['one', 'two', 'three', 'four'])\n>>> a['four']\n4"
+        },
+        {
+          "title": "类型转换",
+          "description": "**转换为整数**\n\n**转换为浮点数**\n\n**转换为字符串**\nPython 字符串",
+          "code": "x = str(\"s1\")    # 得到 \"s1\"\ny = str(2)       # 得到 \"2\"\nz = str(3.0)     # 得到 \"3.0\""
+        }
+      ]
+    },
+    {
+      "title": "Python 字符串",
+      "entries": [
+        {
+          "title": "下标访问",
+          "description": "",
+          "code": ">>> hello = \"Hello, World\"\n>>> print(hello[1])  # 获取第二个字符\ne\n>>> print(hello[-1])  # 获取倒数第一个字符\nd\n>>> print(type(hello[-1]))  # 得到的还是字符串\n<class 'str'>"
+        },
+        {
+          "title": "循环",
+          "description": "对字符串 for-in 可以得到每个字符（类型还是字符串）",
+          "code": ">>> for char in \"foo\":\n...     print(char)\nf\no\no"
+        },
+        {
+          "title": "切割字符串",
+          "description": "**步长**",
+          "code": ">>> s = '12345' * 5\n>>> s\n'1234512345123451234512345'\n>>> s[::5]\n'11111'\n>>> s[4::5]\n'55555'\n>>> s[::-5]\n'55555'\n>>> s[::-1]\n'5432154321543215432154321'"
+        },
+        {
+          "title": "获取长度",
+          "description": "`len()` 函数返回字符串的长度",
+          "code": ">>> hello = \"Hello, World!\"\n>>> print(len(hello))\n13"
+        },
+        {
+          "title": "重复多次",
+          "description": "",
+          "code": ">>> s = '===+'\n>>> n = 8\n>>> s * n\n'===+===+===+===+===+===+===+===+'"
+        },
+        {
+          "title": "存在性判断",
+          "description": "判断 \"spam\" 这个字符串是否在其它字符串里",
+          "code": ">>> s = 'spam'\n>>> s in 'I saw spamalot!'\nTrue\n>>> s not in 'I saw The Holy Grail!'\nTrue"
+        },
+        {
+          "title": "字符串拼接",
+          "description": "",
+          "code": ">>> s = 'spam'\n>>> t = 'egg'\n>>> s + t  # 可以使用加号进行拼接\n'spamegg'\n>>> 'spam' 'egg'  # 两个字符串之间可以省略加号\n'spamegg'"
+        },
+        {
+          "title": "格式化",
+          "description": "**format() 方法**",
+          "code": "txt1 = \"My name is {fname}, I'm {age}\".format(fname=\"John\", age=36)\ntxt2 = \"My name is {0}, I'm {1}\".format(\"John\", 36)\ntxt3 = \"My name is {}, I'm {}\".format(\"John\", 36)"
+        },
+        {
+          "title": "转义符号",
+          "description": "| 转义符号 | 对应的操作  |\n|------|--------|\n| `\\\\` | 输出反斜杠  |\n| `\\'` | 输出单引号  |\n| `\\\"` | 输出双引号  |\n| `\\n` | 换行     |\n| `\\t` | 水平制表符  |\n| `\\r` | 光标回到首位 |\n| `\\b` | 退格     |",
+          "code": ""
+        },
+        {
+          "title": "控制台输入",
+          "description": "从控制台获取输入数据",
+          "code": ">>> name = input(\"Enter your name: \")\nEnter your name: Tom\n>>> name\n'Tom'"
+        },
+        {
+          "title": "头尾判断",
+          "description": "",
+          "code": ">>> # 是否以 H 开头\n>>> \"Hello, world!\".startswith(\"H\")\nTrue\n>>> # 是否以 h 开头\n>>> \"Hello, world!\".startswith(\"h\")\nFalse\n>>> # 是否以 ! 结尾\n>>> \"Hello, world!\".endswith(\"!\")\nTrue"
+        },
+        {
+          "title": "插入分隔符拼接",
+          "description": "Python f-字符串 (Python 3.6+)",
+          "code": ">>> \"、\".join([\"John\", \"Peter\", \"Vicky\"])\n'John、Peter、Vicky'"
+        }
+      ]
+    },
+    {
+      "title": "Python f-字符串 (Python 3.6+)",
+      "entries": [
+        {
+          "title": "f-字符串 用法",
+          "description": "它从 Python 3.6 开始可用，另见: [格式字符串字面值](https://docs.python.org/zh-cn/3/reference/lexical_analysis.html#f-strings)",
+          "code": ">>> website = 'Reference'\n>>> f\"Hello, {website}\"\n\"Hello, Reference\"\n>>> num = 10\n>>> f'{num} + 10 = {num + 10}'\n'10 + 10 = 20'\n>>> f\"\"\"He said {\"I'm John\"}\"\"\"\n\"He said I'm John\"\n>>> f'5 {\"{stars}\"}'\n'5 {stars}'\n>>> f'{{5}} {\"stars\"}'\n'{5} stars'\n>>> name = 'Eric'\n>>> age = 27\n>>> f\"\"\"Hello!\n...     I'm {name}.\n...     I'm {age}.\"\"\"\n\"Hello!\\n    I'm Eric.\\n    I'm 27.\""
+        },
+        {
+          "title": "填充对齐",
+          "description": "",
+          "code": ">>> f'{\"text\":10}'   # 使用空格填充到指定长度\n'text      '\n>>> f'{\"test\":*>10}' # 向左填充\n'******test'\n>>> f'{\"test\":*<10}' # 向右填充\n'test******'\n>>> f'{\"test\":*^10}' # 居中填充\n'***test***'\n>>> f'{12345:0>10}'  # 使用数字填充\n'0000012345'"
+        },
+        {
+          "title": "按类型输出",
+          "description": "",
+          "code": ">>> f'{10:b}'     # 输出二进制数值\n'1010'\n>>> f'{10:o}'     # 输出八进制数值\n'12'\n>>> f'{200:x}'    # 输出十六进制数值\n'c8'\n>>> f'{200:X}'\n'C8'\n>>> f'{345600000000:e}' # 科学计数法\n'3.456000e+11'\n>>> f'{65:c}'       # 将整数转化为一个字符后输出\n'A'\n>>> f'{10:#b}'      # [类型] 带符号（基础）\n'0b1010'\n>>> f'{10:#o}'\n'0o12'\n>>> f'{10:#x}'\n'0xa'"
+        },
+        {
+          "title": "显示正负号",
+          "description": "",
+          "code": ">>> f'{12345:+}'      # 显示正数的正号\n'+12345'\n>>> f'{-12345:+}'     # 显示负数的负号\n'-12345'\n>>> f'{-12345:+10}'   # 显示负号，并使用空格填充，直到长度为 10\n'    -12345'\n>>> f'{-12345:+010}'  # 显示负号，并使用0填充，直到长度为 10\n'-000012345'"
+        },
+        {
+          "title": "其它",
+          "description": "Python 列表",
+          "code": ">>> f'{-12345:0=10}'  # 负数\n'-000012345'\n>>> f'{12345:010}'    # [0] 快捷方式（不对齐）\n'0000012345'\n>>> f'{-12345:010}'\n'-000012345'\n>>> import math       # [.precision]\n>>> math.pi\n3.141592653589793\n>>> f'{math.pi:.2f}'\n'3.14'\n>>> f'{1000000:,.2f}' # [分组选项]\n'1,000,000.00'\n>>> f'{1000000:_.2f}'\n'1_000_000.00'\n>>> f'{0.25:0%}'      # 百分比\n'25.000000%'\n>>> f'{0.25:.0%}'\n'25%'"
+        }
+      ]
+    },
+    {
+      "title": "Python 列表",
+      "entries": [
+        {
+          "title": "定义",
+          "description": "",
+          "code": ">>> li1 = []\n>>> li1\n[]\n>>> li2 = [4, 5, 6]\n>>> li2\n[4, 5, 6]\n>>> li3 = list((1, 2, 3))\n>>> li3\n[1, 2, 3]\n>>> li4 = list(range(1, 11))\n>>> li4\n[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        },
+        {
+          "title": "生成",
+          "description": "",
+          "code": ">>> list(filter(lambda x : x % 2 == 1, range(1, 20)))\n[1, 3, 5, 7, 9, 11, 13, 15, 17, 19]\n>>> [x ** 2 for x in range (1, 11) if  x % 2 == 1]\n[1, 9, 25, 49, 81]\n>>> [x for x in [3, 4, 5, 6, 7] if x > 5]\n[6, 7]\n>>> list(filter(lambda x: x > 5, [3, 4, 5, 6, 7]))\n[6, 7]"
+        },
+        {
+          "title": "添加元素",
+          "description": "",
+          "code": ">>> li = []\n>>> li.append(1)\n>>> li\n[1]\n>>> li.append(2)\n>>> li\n[1, 2]\n>>> li.append(4)\n>>> li\n[1, 2, 4]\n>>> li.append(3)\n>>> li\n[1, 2, 4, 3]"
+        },
+        {
+          "title": "切片",
+          "description": "列表切片的语法：\n\n**切片**\n\n**省略索引**\n\n**间隔索引**",
+          "code": "['spam', 'egg', 'bacon', 'tomato', 'ham', 'lobster']\n>>> a[0:6:2]\n['spam', 'bacon', 'ham']\n>>> a[1:6:2]\n['egg', 'tomato', 'lobster']\n>>> a[6:0:-2]\n['lobster', 'tomato', 'egg']\n>>> a\n['spam', 'egg', 'bacon', 'tomato', 'ham', 'lobster']\n>>> a[::-1]\n['lobster', 'ham', 'tomato', 'bacon', 'egg', 'spam']"
+        },
+        {
+          "title": "删除",
+          "description": "",
+          "code": ">>> li = ['bread', 'butter', 'milk']\n>>> li.pop()\n'milk'\n>>> li\n['bread', 'butter']\n>>> del li[0]\n>>> li\n['butter']\n>>> li.remove('butter')\n>>> li\n[]"
+        },
+        {
+          "title": "列表边界",
+          "description": "",
+          "code": ">>> li = ['a', 'b', 'c', 'd']\n>>> li[0]\n'a'\n>>> li[-1]\n'd'\n>>> li[4]\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nIndexError: list index out of range"
+        },
+        {
+          "title": "连接",
+          "description": "",
+          "code": ">>> odd = [1, 3, 5]\n>>> odd.extend([9, 11, 13])\n>>> odd\n[1, 3, 5, 9, 11, 13]\n>>> odd = [1, 3, 5]\n>>> odd + [9, 11, 13]\n[1, 3, 5, 9, 11, 13]"
+        },
+        {
+          "title": "排序和反转",
+          "description": "",
+          "code": ">>> li = [3, 1, 3, 2, 5]\n>>> li.sort()\n>>> li\n[1, 2, 3, 3, 5]\n>>> li.reverse()\n>>> li\n[5, 3, 3, 2, 1]"
+        },
+        {
+          "title": "计数",
+          "description": "",
+          "code": ">>> li = [3, 1, 3, 2, 5]\n>>> li.count(3)\n2"
+        },
+        {
+          "title": "重复",
+          "description": "",
+          "code": ">>> li = [\"re\"] * 3\n>>> li\n['re', 're', 're']"
+        },
+        {
+          "title": "搜索",
+          "description": "当寻找一个不存在的值时，抛出`ValueError`。\nPython 判断",
+          "code": ">>> nums = [40, 36, 89, 2, 36, 100, 7, -20.5, -999]\n>>> nums.index(2)\n3\n>>> nums.index(100, 3, 7)  # 搜索3-7之间的元素\n5\n>>> nums.index(7, 4) # 搜索4之后的元素\n6"
+        }
+      ]
+    },
+    {
+      "title": "Python 判断",
+      "entries": [
+        {
+          "title": "if-else",
+          "description": "",
+          "code": "number = int(input('输入一个整数：'))\nif number < 0:\n    print(\"您输入了一个负数。\")\nelse:\n    print(\"您输入了一个非负整数。\")"
+        },
+        {
+          "title": "if-elif-else",
+          "description": "",
+          "code": "number = int(input('输入一个整数：'))\nif number < 0:\n    print(\"您输入了一个负数。\")\nelif number == 0:\n    print(\"您输入了一个 0 。\")\nelse:\n    print(\"您输入了一个正数。\")"
+        },
+        {
+          "title": "三目运算",
+          "description": "注意条件是放在中间的\nPython 循环",
+          "code": "scope = int(input('输入百分制成绩：'))\nline = 60\ntip = \"及格\" if scope >= line else \"不及格\"\n# 相当于 scope >= line ? \"及格\" : \"不及格\"\nprint(tip)"
+        }
+      ]
+    },
+    {
+      "title": "Python 循环",
+      "entries": [
+        {
+          "title": "一般形式",
+          "description": "",
+          "code": "primes = [2, 3, 5, 7]\nfor prime in primes:\n    print(prime)"
+        },
+        {
+          "title": "带索引",
+          "description": "",
+          "code": "animals = [\"dog\", \"cat\", \"mouse\"]\nfor i, value in enumerate(animals):\n    print(i, value)"
+        },
+        {
+          "title": "while 循环",
+          "description": "",
+          "code": "x = 0\nwhile x < 4:\n    print(x)\n    x += 1  # Shorthand for x = x + 1"
+        },
+        {
+          "title": "跳出循环",
+          "description": "",
+          "code": "x = 0\nfor index in range(10):\n    x = index * 10\n    if index == 5:\n        break\n    print(x)"
+        },
+        {
+          "title": "跳过一轮循环",
+          "description": "",
+          "code": "for index in range(3, 8): \n    x = index * 10\n    if index == 5:\n        continue\n    print(x)"
+        },
+        {
+          "title": "范围循环",
+          "description": "",
+          "code": "for i in range(4):\n    print(i) # Prints: 0 1 2 3\nfor i in range(4, 8):\n    print(i) # Prints: 4 5 6 7\nfor i in range(4, 10, 2):\n    print(i) # Prints: 4 6 8"
+        },
+        {
+          "title": "使用 zip()",
+          "description": "",
+          "code": "name = ['Pete', 'John', 'Elizabeth']\nage = [6, 23, 44]\nfor n, a in zip(name, age):\n    print('%s is %d years old' %(n, a))"
+        },
+        {
+          "title": "列表生成式",
+          "description": "Python 函数",
+          "code": "result = [x**2 for x in range(10) if x % 2 == 0]\n \nprint(result)\n# [0, 4, 16, 36, 64]"
+        }
+      ]
+    },
+    {
+      "title": "Python 函数",
+      "entries": [
+        {
+          "title": "基础",
+          "description": "",
+          "code": "def hello_world():  \n    print('Hello, World!')"
+        },
+        {
+          "title": "返回",
+          "description": "",
+          "code": "def add(x, y):\n    print(\"x is %s, y is %s\" %(x, y))\n    return x + y\nadd(5, 6)    # => 11"
+        },
+        {
+          "title": "位置参数",
+          "description": "args 的类型是 tuple",
+          "code": "def varargs(*args):\n    return args\nvarargs(1, 2, 3)  # => (1, 2, 3)"
+        },
+        {
+          "title": "关键字参数",
+          "description": "kwargs 的类型是 dict",
+          "code": "def keyword_args(**kwargs):\n    return kwargs\n# => {\"big\": \"foot\", \"loch\": \"ness\"}\nkeyword_args(big=\"foot\", loch=\"ness\")"
+        },
+        {
+          "title": "返回多个",
+          "description": "",
+          "code": "def swap(x, y):\n    return y, x\nx = 1\ny = 2\nx, y = swap(x, y)  # => x = 2, y = 1"
+        },
+        {
+          "title": "默认值",
+          "description": "",
+          "code": "def add(x, y=10):\n    return x + y\nadd(5)      # => 15\nadd(5, 20)  # => 25"
+        },
+        {
+          "title": "匿名函数",
+          "description": "Python 解包",
+          "code": "# => True\n(lambda x: x > 2)(3)\n# => 5\n(lambda x, y: x ** 2 + y ** 2)(2, 1)"
+        }
+      ]
+    },
+    {
+      "title": "Python 解包",
+      "entries": [
+        {
+          "title": "等量解包",
+          "description": "",
+          "code": "ip, port = \"127.0.0.1\", 80\nprint(ip)  # -> \"127.0.0.1\"\nprint(port)  # -> 80\n\n# 与以下代码等价\nip, port = (\"127.0.0.1\", 80)\n\n# 与以下代码效果相同\nip, port = [\"127.0.0.1\", 80]"
+        },
+        {
+          "title": "适量解包",
+          "description": "`_` 也是一个单一变量，不允许解包多个元素，因此变量与值必须一一对应。",
+          "code": "ip, _, port = \"127.0.0.1:80\".rpartition(\":\")\nprint(ip)  # -> \"127.0.0.1\"\nprint(port)  # -> \"80\"\n\n# _ 这个变量此刻的值是 \":\" ，但一般不再使用。"
+        },
+        {
+          "title": "过量解包",
+          "description": "这里的 `*` 就是收集[序列](https://docs.python.org/zh-cn/3/library/stdtypes.html#sequence-types-list-tuple-range)在解包过程中多出来的元素，\n只能有一个，与向函数传递[位置参数](#位置参数)时的 `*` 别无二致。",
+          "code": "major, minor, *parts = \"3.10.2.beta\".split(\".\")\nprint(major)  # -> \"3\"\nprint(minor)  # -> \"10\"\nprint(parts)  # -> [\"2\", \"beta\"]\n\n# 可将 parts 改为 _ 来表示不再需要后面的元素"
+        },
+        {
+          "title": "解包取左边",
+          "description": "",
+          "code": "major, minor, *_ = \"3.10.2.beta\".split(\".\")\n\nprint(major)  # -> \"3\"\nprint(minor)  # -> \"10\""
+        },
+        {
+          "title": "解包取两边",
+          "description": "",
+          "code": "major, *_, level = \"3.10.2.beta\".split(\".\")\n\nprint(major)  # -> \"3\"\nprint(level)  # -> \"beta\""
+        },
+        {
+          "title": "解包取右边",
+          "description": "",
+          "code": "*_, micro, level = \"3.10.2.beta\".split(\".\")\n\nprint(micro)  # -> \"2\"\nprint(level)  # -> \"beta\""
+        },
+        {
+          "title": "解包集合",
+          "description": "[集合](https://docs.python.org/zh-cn/3/library/stdtypes.html#set-types-set-frozenset)\n中的元素是无序的，因此解包结果不能轻易确定。",
+          "code": "a, b, *_ = {3, 2, 1}\nprint(a)  # -> 1\nprint(b)  # -> 2\nprint(_)  # -> [3]"
+        },
+        {
+          "title": "解包迭代器",
+          "description": "支持\n[迭代器](https://docs.python.org/zh-cn/3/library/stdtypes.html#iterator-types)\n协议的对象也可被解包。",
+          "code": "a, b, *_ = range(3)\nprint(a)  # -> 0\nprint(b)  # -> 1\nprint(_)  # -> [2]"
+        },
+        {
+          "title": "解包字典",
+          "description": "",
+          "code": "a, b, *_ = dict(a=1, b=2, c=3)\nprint(a)  # -> \"a\"\nprint(_)  # -> [\"c\"]\na, b, *_ = dict(a=1, b=2, c=3).values()\nprint(a)  # -> 1\nprint(_)  # -> [3]"
+        },
+        {
+          "title": "生成式中的解包",
+          "description": "- 仅在列表／元组生成式中可以使用多个 `*`\n- 仅在字典生成式中可以使用多个 `**`",
+          "code": "chars = (*\"abc\", *\"def\", \"g\", \"h\")\n# -> (\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\")\n\ndigits = [*range(10), *\"abcdef\"]\n# -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,\n#     \"a\", \"b\", \"c\", \"d\", \"e\", \"f\"]\n\npart = {\"小明\": 18, \"小亮\": 22}\nsummary = {\"小花\": 16, **part}\nprint(summary)\n# -> {\"小花\": 16, \"小明\": 18, \"小亮\": 22}"
+        },
+        {
+          "title": "迭代中解包",
+          "description": "",
+          "code": "students = [\n    (\"小明\", 18),\n    (\"小亮\", 22),\n]\nfor k, v in students:\n    print(k)  # -> \"小明\"、\"小亮\"\n    print(v)  # -> 18、22\n\nstudents = [\n    (0, (\"小明\", 18)),\n    (1, (\"小亮\", 22)),\n]\nfor i, (k, v) in students:\n    print(i)  # -> 0、1\n    print(k)  # -> \"小明\"、\"小亮\"\n    print(v)  # -> 18、22"
+        },
+        {
+          "title": "函数中的解包",
+          "description": "Python 模块",
+          "code": "def version(major, minor, *parts):\n    print(major)  # -> \"3\"\n    print(minor)  # -> \"10\"\n    print(parts)  # -> (\"2\", \"beta\", \"0\")\n\nversion(\"3\", \"10\", \"2\", \"beta\", \"0\")\n# 过程类似于\nmajor, minor, *parts = (\"3\", \"10\", \"2\", \"beta\", \"0\")\n\n\ndef version():\n    parts = \"3.10.2.beta.0\".split(\".\")\n    return *parts, \"x64\"\n\nprint(version())\n# -> (\"3\", \"10\", \"2\", \"beta\", \"0\", \"x64\")"
+        }
+      ]
+    },
+    {
+      "title": "Python 模块",
+      "entries": [
+        {
+          "title": "导入模块",
+          "description": "",
+          "code": "import math\nprint(math.sqrt(16))  # => 4.0"
+        },
+        {
+          "title": "从一个模块导入",
+          "description": "",
+          "code": "from math import ceil, floor\nprint(ceil(3.7))   # => 4.0\nprint(floor(3.7))  # => 3.0"
+        },
+        {
+          "title": "导入一个模块的全部",
+          "description": "",
+          "code": "from math import *"
+        },
+        {
+          "title": "给模块起别名",
+          "description": "",
+          "code": "import math as m\n# => True\nmath.sqrt(16) == m.sqrt(16)"
+        },
+        {
+          "title": "浏览模块的函数和属性",
+          "description": "Python 文件处理",
+          "code": "import math\ndir(math)"
+        }
+      ]
+    },
+    {
+      "title": "Python 文件处理",
+      "entries": [
+        {
+          "title": "读取文件",
+          "description": "**逐行**\n\n**带行号**",
+          "code": "file = open('myfile.txt', 'r')\nfor i, line in enumerate(file, start=1):\n    print(\"Number %s: %s\" % (i, line))"
+        },
+        {
+          "title": "字符串",
+          "description": "**写入一个字符串**\n\n**读取一个字符串**",
+          "code": "with open('myfile1.txt', \"r+\") as file:\n    contents = file.read()\nprint(contents)"
+        },
+        {
+          "title": "对象",
+          "description": "**写一个对象**\n\n**读取对象**",
+          "code": "with open('myfile2.txt', \"r+\") as file:\n    contents = json.load(file)\nprint(contents)"
+        },
+        {
+          "title": "删除文件",
+          "description": "",
+          "code": "import os\nos.remove(\"myfile.txt\")"
+        },
+        {
+          "title": "检查和删除",
+          "description": "",
+          "code": "import os\nif os.path.exists(\"myfile.txt\"):\n    os.remove(\"myfile.txt\")\nelse:\n    print(\"The file does not exist\")"
+        },
+        {
+          "title": "删除文件夹",
+          "description": "Python 类和继承",
+          "code": "import os\nos.rmdir(\"myfolder\")"
+        }
+      ]
+    },
+    {
+      "title": "Python 类和继承",
+      "entries": [
+        {
+          "title": "定义",
+          "description": "",
+          "code": "class MyNewClass:\n    pass\n# 类的实例化\nmy = MyNewClass()"
+        },
+        {
+          "title": "构造函数",
+          "description": "",
+          "code": "class Animal:\n    def __init__(self, voice):\n        self.voice = voice\n \ncat = Animal('Meow')\nprint(cat.voice)    # => Meow\n \ndog = Animal('Woof') \nprint(dog.voice)    # => Woof"
+        },
+        {
+          "title": "方法",
+          "description": "",
+          "code": "class Dog:\n    # 类的方法\n    def bark(self):\n        print(\"Ham-Ham\")\n \ncharlie = Dog()\ncharlie.bark()   # => \"Ham-Ham\""
+        },
+        {
+          "title": "类变量",
+          "description": "",
+          "code": "class MyClass:\n    class_variable = \"A class variable!\"\n# => 一个类变量！\nprint(MyClass.class_variable)\nx = MyClass()\n \n# => 一个类变量！\nprint(x.class_variable)"
+        },
+        {
+          "title": "super() 函数",
+          "description": "",
+          "code": ">>> child_instance = ChildClass()\n>>> child_instance.print_test()\nChild Method\nParent Method"
+        },
+        {
+          "title": "repr() 方法",
+          "description": "",
+          "code": "class Employee:\n    def __init__(self, name):\n        self.name = name\n \n    def __repr__(self):\n        return self.name\n \njohn = Employee('John')\nprint(john)  # => John"
+        },
+        {
+          "title": "用户定义的异常",
+          "description": "",
+          "code": "class CustomError(Exception):\n    pass"
+        },
+        {
+          "title": "多态性",
+          "description": "",
+          "code": "class ParentClass:\n    def print_self(self):\n        print('A')\n \nclass ChildClass(ParentClass):\n    def print_self(self):\n        print('B')\n \nobj_A = ParentClass()\nobj_B = ChildClass()\n \nobj_A.print_self() # => A\nobj_B.print_self() # => B"
+        },
+        {
+          "title": "重写",
+          "description": "",
+          "code": "class ParentClass:\n    def print_self(self):\n        print(\"Parent\")\n \nclass ChildClass(ParentClass):\n    def print_self(self):\n        print(\"Child\")\n \nchild_instance = ChildClass()\nchild_instance.print_self() # => Child"
+        },
+        {
+          "title": "继承",
+          "description": "",
+          "code": "class Animal: \n    def __init__(self, name, legs):\n        self.name = name\n        self.legs = legs\n        \nclass Dog(Animal):\n    def sound(self):\n        print(\"Woof!\")\n \nYoki = Dog(\"Yoki\", 4)\nprint(Yoki.name) # => YOKI\nprint(Yoki.legs) # => 4\nYoki.sound()     # => Woof!"
+        },
+        {
+          "title": "属性封装与访问控制",
+          "description": "实现计算属性、只读属性和验证逻辑。\nPython 数据模型",
+          "code": "class Person:\n    def __init__(self, age):\n        self._age = age  # 约定：_age 为内部属性\n\n    @property\n    def age(self):\n        \"\"\"获取年龄的方法，伪装成属性\"\"\"\n        return self._age\n\n    @age.setter\n    def age(self, value):\n        \"\"\"设置年龄的方法，添加验证逻辑\"\"\"\n        if value < 0:\n            raise ValueError(\"年龄不能为负数\")\n        self._age = value\n\n# 使用示例\np = Person(30)\nprint(p.age)  # 直接访问属性，无需括号 → 30\np.age = 31    # 赋值操作调用 @age.setter → 验证通过\np.age = -5    # 抛出 ValueError: 年龄不能为负数"
+        }
+      ]
+    },
+    {
+      "title": "Python 数据模型",
+      "entries": [
+        {
+          "title": "自定义类创建",
+          "description": "参见 [自定义类创建](https://docs.python.org/zh-cn/3/reference/datamodel.html#customizing-class-creation) 。",
+          "code": "from typing import Any\n\nclass Object:\n    def __new__(cls, *args, **kwargs) -> \"self\":\n        # new 和 init 声明的参数必须一致\n        # 或者用 *args 和 **kwargs 进行兼容\n        return object.__new__(cls)\n\n    def __init__(self, *args, **kwargs):\n        # 初始化方法没有返回值，也不能返回值。\n        pass\n\n    def __call__(self, *args, **kwargs) -> Any:\n        pass\n\n# 依次调用了 new 和 init，所以如果\n# 手动调用 new，那么别忘了调用 init\nobj = Object()\n\n# 触发 __call__ 方法，要给什么参数取决于声明\nobj()"
+        },
+        {
+          "title": "上下文管理器",
+          "description": "参见 [上下文管理器](https://docs.python.org/zh-cn/3/reference/datamodel.html#with-statement-context-managers) 。",
+          "code": "from typing import Any\n\nclass Object:\n    def __enter__(self) -> Optional[Any]:\n        # with 语句会将返回值绑定到 as 子句中的变量，如果有的话。\n        return\n\n    def __exit__(self, exc_type, exc_value, traceback):\n        # 若 with 内没有发生异常，则三个参数都是 None 。\n        # 不应该重新引发传入的异常，这是调用者的责任。\n        pass\n\nwith Object() as alias:\n    # 进入 with 之前调用 obj.__enter__() 并得到 alias（如果有返回的话）\n    pass\n# 离开 with 后调用 obj.__exit__() ，不管是正常结束还是因异常抛出而离开。\n\n# 当需要获取 Object 的对象时可以这样写\nobj = Object()\nwith obj as alias:\n    pass"
+        },
+        {
+          "title": "特殊方法",
+          "description": "下表使用 `-> *` 代表返回值类型是任意的，或者需要视情况而定，实际上并不存在这种写法。\n诸如 `-> str` 仅表示绝大多数情况下应当返回 `str` 类型，或者推荐返回 `str` 类型。\n没有 `->` 的方法一般没有返回值。\n参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html>\n| 语句                  | 特殊方法                               | 备注                                                                                                                                                                                                                                                 |     |\n|---------------------|------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----|\n| `repr(obj)`         | `__repr__(self) -> str`            | 详见 [`repr()`](https://docs.python.org/zh-cn/3/library/functions.html#repr) 。                                                                                                                                                                       |     |\n| `str(obj)`          | `__str__(self) -> str`             | 详见 [`str` 类型](https://docs.python.org/zh-cn/3/library/stdtypes.html#str) 。                                                                                                                                                                         |     |\n| `bytes(obj)`        | `__bytes__(self) -> bytes`         | 详见 [`bytes()`](https://docs.python.org/zh-cn/3/library/functions.html#func-bytes) 。                                                                                                                                                                |     |\n| `format(obj, spec)` | `__format__(self, spec) -> str`    | 详见 [`format()`](https://docs.python.org/zh-cn/3/library/functions.html#format)、[格式化字符串字面值](https://docs.python.org/zh-cn/3/reference/lexical_analysis.html#f-strings)、[格式规格迷你语言](https://docs.python.org/zh-cn/3/library/string.html#formatspec) 。 |     |\n| `hash(obj)`         | `__hash__(self) -> int`            | 详见 [`hash()`](https://docs.python.org/zh-cn/3/library/functions.html#hash) 。                                                                                                                                                                       |     |\n| `bool(obj)`         | `__bool__(self) -> bool`           | 未定义时调用 `obj.__len__() != 0` ，若 `__len__()` 也未定义，则所有对象都被视为 `True` 。另见 [`bool()`](https://docs.python.org/zh-cn/3/library/functions.html#bool) 。                                                                                                     |     |\n| `dir(obj)`          | `__dir__(self) -> list`            | 返回值必须是一个序列，[`dir()`](https://docs.python.org/zh-cn/3/library/functions.html#dir) 会把返回的序列转换为列表并对其排序。                                                                                                                                                |     |\n| `Object[key]`       | `__class_getitem__(cls, key) -> *` | 不建议用于除了 [模拟泛型类型](https://docs.python.org/zh-cn/3/reference/datamodel.html#emulating-generic-types) 以外的用途，避免 IDE 误判。                                                                                                                                |     |\n- 自定义实例及子类检查，参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html#customizing-instance-and-subclass-checks>\n| 语句                            | 特殊方法                                              | 备注                                        |     |\n|-------------------------------|---------------------------------------------------|:------------------------------------------|-----|\n| `isinstance(instance, class)` | `class.__instancecheck__(self, instance) -> bool` | 如果 instance 应被视为 class 的一个（直接或间接）实例则返回真值。 |     |\n| `issubclass(subclass, class)` | `class.__subclasscheck__(self, subclass) -> bool` | 如果 subclass 应被视为 class 的一个（直接或间接）子类则返回真值。 |     |\n- “富比较”方法，参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html#object.__lt__>\n| 语句              | 特殊方法                           | 备注                                                                                                                                                  |     |\n|-----------------|--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|-----|\n| `obj < other`   | `__lt__(self, other) -> bool`  |                                                                                                                                                     |     |\n| `obj <= other`  | `__le__(self, other) -> bool`  |                                                                                                                                                     |     |\n| `obj == other`  | `__eq__(self, other) -> bool`  | 默认返回 `obj is other` ，如果结果为 `False` ，则会返回 [`NotImplemented`](https://docs.python.org/zh-cn/3/reference/datamodel.html#the-standard-type-hierarchy) 。 |     |\n| `obj != other`  | `__ne__(self, other) -> bool`  | 默认返回 `not obj.__eq__(other)` 。                                                                                                                      |     |\n| `obj > other`   | `__gt__(self, other) -> bool`  |                                                                                                                                                     |     |\n| `obj >= other`  | `__ge__(self, other) -> bool`  |                                                                                                                                                     |     |\n- 自定义属性访问，参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html#customizing-attribute-access>\n| 语句                  | 特殊方法                                | 备注                                                                                                                               |     |\n|---------------------|-------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------|-----|\n| `obj.name`          | `__getattr__(self, name) -> *`      | 优先调用。当抛出 [`AttributeError`](https://docs.python.org/zh-cn/3/library/exceptions.html#AttributeError) 时转向调用 `__getattribute__()` 。 |     |\n| `obj.name`          | `__getattribute__(self, name) -> *` | 参见 [自定义属性访问](https://docs.python.org/zh-cn/3/reference/datamodel.html#customizing-attribute-access) 避免无限递归。                      |     |\n| `obj.name = value`  | `__setattr__(self, name, value)`    |                                                                                                                                  |     |\n| `del obj.name`      | `__delattr__(self, name)`           | 仅在 `del obj.name` 对于该对象有意义时才应该被实现。                                                                                               |     |\n- 模拟容器类型，参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html#emulating-container-types>\n| 语句                    | 特殊方法                               | 备注                                                                                                                                                                                                                                                                                                            |     |\n|-----------------------|------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----|\n| `len(obj)`            | `__len__(self) -> int`             |                                                                                                                                                                                                                                                                                                               |     |\n| `op.length_hint(obj)` | `__length_hint__(self) -> int`     | 在使用标准库 [operator](https://docs.python.org/zh-cn/3/library/operator.html) 的 [`length_hint()`](https://docs.python.org/zh-cn/3/library/operator.html#operator.length_hint) 时会被调用（Python 3.4+）。                                                                                                                  |     |\n| `obj[key]`            | `__getitem__(self, key) -> *`      | 需要抛出 [IndexError](https://docs.python.org/zh-cn/3/library/exceptions.html#IndexError) 以便正确地结束 [for](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#for) 循环。                                                                                                                                    |     |\n| `obj[key]`            | `__missing__(self, key) -> *`      | 仅在 dict 的子类找不到键时被调用（不能重写 `__getitem__` 方法）。                                                                                                                                                                                                                                                                   |     |\n| `obj[key] = value`    | `__setitem__(self, key, value)`    | `a[1:2] = b` 实际上是 `a[slice(1, 2, None)] = b` ，其它情形及在其余方法中同理。详见 [`slice()`](https://docs.python.org/zh-cn/3/library/functions.html#slice) 。                                                                                                                                                                    |     |\n| `del obj[key]`        | `__delitem__(self, key)`           |                                                                                                                                                                                                                                                                                                               |     |\n| _调用途径有很多_             | `__iter__(self) -> Iterator`       | 在需要创建一个 [迭代器](https://docs.python.org/zh-cn/3/glossary.html#term-iterator) 时被调用，例如使用 [`iter()`](https://docs.python.org/zh-cn/3/library/functions.html#iter) 、 [`for` 循环](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#for) 。<br>最好返回一个新对象，因为迭代器在语义上是一次性的。若返回 `self` ，则必须实现 `__next__()` 方法。 |     |\n| `reversed(obj)`       | `__reversed__(self) -> *`          | 详见 [`reversed()`](https://docs.python.org/zh-cn/3/library/functions.html#reversed) 。                                                                                                                                                                                                                          |     |\n| `item in obj`         | `__contains__(self, item) -> bool` | 对于未定义该方法的对象在 `in` 和 `not in` 时，参考 [成员检测运算](https://docs.python.org/zh-cn/3/reference/expressions.html#membership-test-details) 。                                                                                                                                                                              |     |\n- 模拟数字类型，参见 <https://docs.python.org/zh-cn/3/reference/datamodel.html#emulating-numeric-types>\n| 语句                   | 特殊方法                               | 备注                                                                                                                                                                                 |     |\n|----------------------|------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----|\n| `+obj`               | `__neg__(self) -> *`               |                                                                                                                                                                                    |     |\n| `-obj`               | `__pos__(self) -> *`               |                                                                                                                                                                                    |     |\n| `~obj`               | `__invert__(self) -> *`            |                                                                                                                                                                                    |     |\n| `abs(obj)`           | `__abs__(self) -> *`               |                                                                                                                                                                                    |     |\n| `int(obj)`           | `__int__(self) -> *`               |                                                                                                                                                                                    |     |\n| `float(obj)`         | `__float__(self) -> *`             |                                                                                                                                                                                    |     |\n| `complex(obj)`       | `__complex__(self) -> *`           |                                                                                                                                                                                    |     |\n| `round(obj)`         | `__round__(self) -> int`           | 详见 [`round()`](https://docs.python.org/zh-cn/3/library/functions.html#round) 。                                                                                                     |     |\n| `round(obj)`         | `__round__(self, ndigits) -> *`    | 详见 [`round()`](https://docs.python.org/zh-cn/3/library/functions.html#round) 。                                                                                                     |     |\n| `math.ceil(obj)`     | `__ceil__(self) -> int`            | 详见标准库 [math](https://docs.python.org/zh-cn/3/library/math.html#module-math) 的 [`ceil()`](https://docs.python.org/zh-cn/3/library/math.html#math.ceil) 。                            |     |\n| `math.floor(obj)`    | `__floor__(self) -> int`           | 详见标准库 [math](https://docs.python.org/zh-cn/3/library/math.html#module-math) 的 [`floor()`](https://docs.python.org/zh-cn/3/library/math.html#math.floor) 。                          |     |\n| `math.trunc(obj)`    | `__trunc__(self) -> int`           | 详见标准库 [math](https://docs.python.org/zh-cn/3/library/math.html#module-math) 的 [`trunc()`](https://docs.python.org/zh-cn/3/library/math.html#math.trunc) 。                          |     |\n|                      | `__index__(self) -> int`           | 需要无损地将数值转换为整数的时候会被调用。详见 [这里](https://docs.python.org/zh-cn/3/reference/datamodel.html#object.__index__) 。                                                                          |     |\n| `obj + other`        | `__add__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `obj - other`        | `__sub__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `obj * other`        | `__mul__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `obj @ other`        | `__matmul__(self, other) -> *`     | 为第三方库而生的矩阵乘法运算符，[这里](https://docs.python.org/zh-cn/3/reference/expressions.html#binary-arithmetic-operations)提了一嘴。（Python 3.5+）                                                    |     |\n| `obj / other`        | `__truediv__(self, other) -> *`    |                                                                                                                                                                                    |     |\n| `obj // other`       | `__floordiv__(self, other) -> *`   |                                                                                                                                                                                    |     |\n| `obj % other`        | `__mod__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `divmod(obj, other)` | `__divmod__(self, other) -> tuple` | `divmod(a, b)` 返回一个元组 `(a // b, a % b)` ，详见 [`divmod()`](https://docs.python.org/zh-cn/3/library/functions.html#divmod) 。                                                          |     |\n| `obj ** exp`         | `__pow__(self, exp) -> *`          |                                                                                                                                                                                    |     |\n| `pow(obj, exp, mod)` | `__pow__(self, exp, mod) -> *`     | `pow(base, exp, mod)` 比 `pow(base, exp) % mod` 更高效。                                                                                                                                |     |\n| `obj << other`       | `__lshift__(self, other) -> *`     |                                                                                                                                                                                    |     |\n| `obj >> other`       | `__rshift__(self, other) -> *`     |                                                                                                                                                                                    |     |\n| `obj & other`        | `__and__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `obj ^ other`        | `__xor__(self, other) -> *`        |                                                                                                                                                                                    |     |\n| `obj \\| other`       | `__or__(self, other) -> *`         |                                                                                                                                                                                    |     |\n| `other + obj`        | `__radd__(self, obj) -> *`         | 仅当 obj 未定义 `__add__()` 或其返回 `NotImplemented` ，<br>且与 other 互相都没有继承关系时，调用 other 的 `__radd__()` 。详见 [这里](https://docs.python.org/zh-cn/3/reference/datamodel.html#object.__radd__) 。 |     |\n| `other - obj`        | `__rsub__(self, obj) -> *`         | 以下，如此类推。                                                                                                                                                                           |     |\n| `other * obj`        | `__rmul__(self, obj) -> *`         |                                                                                                                                                                                    |     |\n| `other @ obj`        | `__rmatmul__(self, obj) -> *`      |                                                                                                                                                                                    |     |\n| `other / obj`        | `__rtruediv__(self, obj) -> *`     |                                                                                                                                                                                    |     |\n| `other // obj`       | `__rfloordiv__(self, obj) -> *`    |                                                                                                                                                                                    |     |\n| `other % obj`        | `__rmod__(self, obj) -> *`         |                                                                                                                                                                                    |     |\n| `divmod(other, obj)` | `__rdivmod__(self, obj) -> tuple`  |                                                                                                                                                                                    |     |\n| `other ** obj`       | `__rpow__(self, obj) -> *`         |                                                                                                                                                                                    |     |\n|                      | `__rpow__(self, obj, mod) -> *`    | `pow(obj, other, mod)` 不会尝试调用 `other.__rpow__(obj, mod)` ，因为强制转换规则会太过复杂。                                                                                                           |     |\n| `other << obj`       | `__rlshift__(self, obj) -> *`      |                                                                                                                                                                                    |     |\n| `other >> obj`       | `__rrshift__(self, obj) -> *`      |                                                                                                                                                                                    |     |\n| `other & obj`        | `__rand__(self, obj) -> *`         |                                                                                                                                                                                    |     |\n| `other ^ obj`        | `__rxor__(self, obj) -> *`         |                                                                                                                                                                                    |     |\n| `other \\| obj`       | `__ror__(self, obj) -> *`          |                                                                                                                                                                                    |     |\n| `obj += other`       | `__iadd__(self, other) -> *`       | 若方法已定义，则 `a += b` 等价于 `a.__iadd(b)` ；<br>若未定义，则回退到 `a + b` 选择 `x.__add__(y)` 和 `y.__radd__(x)` 。                                                                                   |     |\n| `obj -= other`       | `__isub__(self, other) -> *`       | 以下，如此类推。                                                                                                                                                                           |     |\n| `obj *= other`       | `__imul__(self, other) -> *`       |                                                                                                                                                                                    |     |\n| `obj @= other`       | `__imatmul__(self, other) -> *`    |                                                                                                                                                                                    |     |\n| `obj /= other`       | `__itruediv__(self, other) -> *`   |                                                                                                                                                                                    |     |\n| `obj //= other`      | `__ifloordiv__(self, other) -> *`  |                                                                                                                                                                                    |     |\n| `obj %= other`       | `__imod__(self, other) -> *`       |                                                                                                                                                                                    |     |\n| `obj **= exp`        | `__ipow__(self, other) -> *`       |                                                                                                                                                                                    |     |\n| `obj <<= other`      | `__ilshift__(self, other) -> *`    |                                                                                                                                                                                    |     |\n| `obj >>= other`      | `__irshift__(self, other) -> *`    |                                                                                                                                                                                    |     |\n| `obj &= other`       | `__iand__(self, other) -> *`       |                                                                                                                                                                                    |     |\n| `obj ^= other`       | `__ixor__(self, other) -> *`       |                                                                                                                                                                                    |     |\n| `obj \\|= other`      | `__ior__(self, other) -> *`        |                                                                                                                                                                                    |     |\nPython 类型标注 (Python 3.5+)",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "Python 类型标注 (Python 3.5+)",
+      "entries": [
+        {
+          "title": "变量",
+          "description": "",
+          "code": "string: str = \"ha\"\ntimes: int = 3\n\nprint(string * times)  # => hahaha"
+        },
+        {
+          "title": "变量",
+          "description": "错误的类型标注不会影响正常运行，也不会报错",
+          "code": "result: str = 1 + 2\n\nprint(result)  # => 3"
+        },
+        {
+          "title": "参数",
+          "description": "",
+          "code": "def say(name: str, start: str = \"Hi\"):\n    return start + \", \" + name\n\nprint(say(\"Python\"))  # => Hi, Python"
+        },
+        {
+          "title": "位置参数",
+          "description": "表示 args 的所有元素都是 int 类型的。",
+          "code": "def calc_summary(*args: int):\n    return sum(args)\n\nprint(calc_summary(3, 1, 4))  # => 8"
+        },
+        {
+          "title": "返回值",
+          "description": "",
+          "code": "def say_hello(name) -> str:\n    return \"Hello, \" + name\n\nvar = \"Python\"\nprint(say_hello(var))  # => Hello, Python"
+        },
+        {
+          "title": "多种可能的返回值",
+          "description": "表示返回值可能是 int，也可能是 str 。",
+          "code": "from typing import Union\n\ndef resp200(meaningful) -> Union[int, str]:\n    return \"OK\" if meaningful else 200"
+        },
+        {
+          "title": "关键字参数",
+          "description": "表示 kwargs 的所有值都是 int 类型的。",
+          "code": "def calc_summary(**kwargs: int):\n    return sum(kwargs.values())\n\nprint(calc_summary(a=1, b=2))  # => 3"
+        },
+        {
+          "title": "多个返回值",
+          "description": "",
+          "code": "def resp200() -> (int, str):\n    return 200, \"OK\""
+        },
+        {
+          "title": "多种可能的返回值 (3.10+)",
+          "description": "自 Python 3.10 起可用。",
+          "code": "def resp200(meaningful) -> int | str:\n    return \"OK\" if meaningful else 200"
+        },
+        {
+          "title": "属性",
+          "description": "",
+          "code": "class Employee:\n    name: str\n    age: int\n\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n        self.graduated: bool = False"
+        },
+        {
+          "title": "标注自己",
+          "description": "这里表示 set_name() 返回了一个 Employee 对象。",
+          "code": "class Employee:\n    name: str\n    age: int\n\n    def set_name(self, name) -> \"Employee\":\n        self.name = name\n        return self"
+        },
+        {
+          "title": "标注自己 (3.11+)",
+          "description": "",
+          "code": "from typing import Self\n\nclass Employee:\n    name: str\n    age: int\n\n    def set_name(self: Self, name) -> Self:\n        self.name = name\n        return self"
+        },
+        {
+          "title": "标注一个值为类型的参数",
+          "description": "",
+          "code": "from typing import TypeVar, Type\n\nT = TypeVar(\"T\")\n\n# \"mapper\" 的值是一个像 int、str、MyClass 这样的类型\n# \"default\" 是一个 T 类型的值，比如 314、\"string\"、MyClass()\n# 函数的返回值也是一个 T 类型的值\ndef converter(raw, mapper: Type[T], default: T) -> T:\n    try:\n        return mapper(raw)\n    except:\n        return default\n\nraw: str = input(\"请输入一个整数：\")\nresult: int = converter(raw, mapper=int, default=0)"
+        },
+        {
+          "title": "标注一个值为函数的参数",
+          "description": "各种各样的",
+          "code": "from typing import TypeVar, Callable, Any\n\nT = TypeVar(\"T\")\n\ndef converter(raw, mapper: Callable[[Any], T], default: T) -> T:\n    try:\n        return mapper(raw)\n    except:\n        return default\n\n# Callable[[Any], T] 表示值是一个像这样声明的函数:\n# def anynomous(arg: Any) -> T:\n#     pass\n\ndef is_success(value) -> bool:\n    return value in (0, \"OK\", True, \"success\")\n\nresp = dict(code=0, message=\"OK\", data=[])\nsuccessed: bool = converter(resp.message, mapper=is_success, default=False)"
+        }
+      ]
+    },
+    {
+      "title": "各种各样的",
+      "entries": [
+        {
+          "title": "注释",
+          "description": "",
+          "code": "''' 可以写多行字符串\n    使用三个'，并且经常使用\n    作为文档。\n'''"
+        },
+        {
+          "title": "生成器",
+          "description": "生成器可帮助您编写惰性代码",
+          "code": "def double_numbers(iterable):\n    for i in iterable:\n        yield i + i"
+        },
+        {
+          "title": "要列出的生成器",
+          "description": "",
+          "code": "values = (-x for x in [1,2,3,4,5])\ngen_to_list = list(values)\n# => [-1, -2, -3, -4, -5]\nprint(gen_to_list)"
+        },
+        {
+          "title": "处理异常",
+          "description": "",
+          "code": "try:\n    # 使用“raise”来引发错误\n    raise IndexError(\"这是一个索引错误\")\nexcept IndexError as e:\n    pass                 # pass只是一个空操作。 通常你会在这里做恢复。\nexcept (TypeError, NameError):\n    pass                 # 如果需要，可以一起处理多个异常。\nelse:                    # try/except 块的可选子句。 必须遵循除块之外的所有内容\n    print(\"All good!\")   # 仅当 try 中的代码未引发异常时运行\nfinally:                 # 在所有情况下执行\n    print(\"我们可以在这里清理资源\")"
+        },
+        {
+          "title": "高阶函数map",
+          "description": "将一个函数应用到可迭代对象（如列表）的每个元素上，并返回一个新的迭代器。",
+          "code": "def square(x):\n    return x ** 2\n\n使用 map 函数\nnumbers = [1, 2, 3, 4]\nresult = map(square, numbers)\n\n转换为列表查看结果\nprint(list(result))  # 输出: [1, 4, 9, 16]"
+        },
+        {
+          "title": "高阶函数sorted",
+          "description": "对可迭代对象进行排序，返回一个新的已排序列表（原对象不变）",
+          "code": "# 按照分数排序\nusers = [\n    {\"name\": \"Alice\", \"score\": 95, \"time\": \"2023-01-15 10:30:00\"},\n    {\"name\": \"Bob\", \"score\": 88, \"time\": \"2023-01-15 09:45:00\"},\n    {\"name\": \"Charlie\", \"score\": 95, \"time\": \"2023-01-14 15:20:00\"},\n    {\"name\": \"David\", \"score\": 85, \"time\": \"2023-01-16 11:10:00\"}\n]\n# reverse=True代表降序排序\nsorted_users = sorted(users, key=lambda x: x[\"score\"], reverse=True)\n\n# 输出结果\nfor user in sorted_users:\n    print(f\"{user['name']}: {user['score']}\")\n\n# 结果：\n# Alice: 95\n# Charlie: 95\n# Bob: 88\n# David: 85"
+        },
+        {
+          "title": "高阶函数reduce",
+          "description": "将一个二元函数（接受两个参数的函数）累积应用到可迭代对象的元素上，最终合并为单个值",
+          "code": "from functools import reduce\n\n# 定义一个乘法函数\ndef multiply(x, y):\n    return x * y\n\n# 使用 reduce 函数\nnumbers = [2, 3, 4, 5]\nresult = reduce(multiply, numbers)\n\nprint(result)  # 输出: 120（2×3×4×5=120）"
+        },
+        {
+          "title": "偏函数",
+          "description": "固定原函数的某些参数，生成新函数",
+          "code": "from functools import partial\n\n# 原函数：计算 x 的 y 次幂\ndef power(x, y):\n    return x ** y\n\n# 创建偏函数，固定 y=2（即平方函数）\nsquare = partial(power, y=2)\n\n# 调用偏函数\nprint(square(5))  # 输出: 25 (5²)\nprint(square(10)) # 输出: 100 (10²)"
+        },
+        {
+          "title": "pyenv & pipenv",
+          "description": "pyenv 用于管理python版本，pipenv 用于管理项目包版本\n\n**pyenv**\n[更多安装方式](https://github.com/pyenv/pyenv#installation)\n\n**pipenv**\n另见",
+          "code": "# 指定 python 版本\npipenv --python 3.10.12\n\n# 激活当前目录虚拟环境\npipenv shell"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/python.md"
+}

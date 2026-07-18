@@ -1,0 +1,209 @@
+{
+  "name": "Kubernetes",
+  "description": "Kubernetes 快速参考",
+  "category": "",
+  "count": 36,
+  "sections": [
+    {
+      "title": "查看资源信息",
+      "entries": [
+        {
+          "title": "节点",
+          "description": "资源名称: nodes, 缩写: no",
+          "code": "$ kubectl get no          # 显示所有节点信息\n# 显示所有节点的更多信息\n$ kubectl get no -o wide  \n$ kubectl describe no     # 显示节点详情\n# 以yaml格式，显示节点详情\n$ kubectl get no -o yaml  \n# 筛选指定标签的节点\n$ kubectl get node --selector=[label_name] \n# 输出 jsonpath 表达式定义的字段信息\n$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}'\n# 显示节点(CPU/内存/存储)使用情况\n$ kubectl top node [node_name]"
+        },
+        {
+          "title": "容器组",
+          "description": "资源名称: pods, 缩写: po",
+          "code": "$ kubectl get po              # 显示所有容器组信息\n$ kubectl get po -o wide\n$ kubectl describe po\n$ kubectl get po --show-labels # 查看容器组的labels\n$ kubectl get po -l app=nginx\n$ kubectl get po -o yaml\n$ kubectl get pod [pod_name] -o yaml --export\n$ kubectl get pod [pod_name] -o yaml --export > nameoffile.yaml \n# 以yaml格式导出容器组信息到yaml文件\n$ kubectl get pods --field-selector status.phase=Running     \n# 使用字段选择器筛选出容器组信息"
+        },
+        {
+          "title": "命名空间",
+          "description": "资源名称: `namespaces`, 缩写: `ns`",
+          "code": "$ kubectl get ns\n$ kubectl get ns -o yaml\n$ kubectl describe ns"
+        },
+        {
+          "title": "无状态",
+          "description": "资源名称: `deployments`, 缩写: `deploy`",
+          "code": "$ kubectl get deploy\n$ kubectl describe deploy\n$ kubectl get deploy -o wide \n$ kubectl get deploy -o yaml"
+        },
+        {
+          "title": "服务",
+          "description": "资源名称: `services`, 缩写: `svc`",
+          "code": "$ kubectl get svc\n$ kubectl describe svc\n$ kubectl get svc -o wide \n$ kubectl get svc -o yaml\n$ kubectl get svc --show-labels"
+        },
+        {
+          "title": "守护进程集",
+          "description": "资源名称: `daemonsets`, 缩写: `ds`",
+          "code": "$ kubectl get ds\n$ kubectl describe ds --all-namespaces\n$ kubectl describe ds [daemonset_name] -n [namespace_name]\n$ kubectl get ds [ds_name] -n [ns_name] -o yaml"
+        },
+        {
+          "title": "事件",
+          "description": "资源名称: `events`, 缩写: `ev`",
+          "code": "$ kubectl get events \n$ kubectl get events -n kube-system\n$ kubectl get events -w"
+        },
+        {
+          "title": "服务帐户",
+          "description": "资源名称: `serviceaccounts`, 缩写: `sa`",
+          "code": "$ kubectl get sa\n$ kubectl get sa -o yaml\n$ kubectl get serviceaccounts default -o yaml >./sa.yaml\n$ kubectl replace serviceaccount default -f ./sa.yaml"
+        },
+        {
+          "title": "日志",
+          "description": "",
+          "code": "$ kubectl logs [pod_name]\n$ kubectl logs --since=1h [pod_name]\n$ kubectl logs --tail=20 [pod_name]\n$ kubectl logs \\\n      -f -c [container_name] [pod_name]\n$ kubectl logs [pod_name] > pod.log"
+        },
+        {
+          "title": "副本集",
+          "description": "资源名称: replicasets, 缩写: rs",
+          "code": "$ kubectl get rs\n$ kubectl describe rs\n$ kubectl get rs -o wide \n$ kubectl get rs -o yaml"
+        },
+        {
+          "title": "角色",
+          "description": "",
+          "code": "$ kubectl get roles \\\n      --all-namespaces -o yaml"
+        },
+        {
+          "title": "保密字典",
+          "description": "",
+          "code": "$ kubectl get secrets\n$ kubectl get secrets --all-namespaces \n$ kubectl get secrets -o yaml"
+        },
+        {
+          "title": "配置项",
+          "description": "资源名称: configmaps, 缩写: cm",
+          "code": "$ kubectl get cm\n$ kubectl get cm --all-namespaces\n$ kubectl get cm --all-namespaces -o yaml"
+        },
+        {
+          "title": "路由",
+          "description": "资源名称: ingresses, 缩写: ing",
+          "code": "$ kubectl get ing\n$ kubectl get ing --all-namespaces"
+        },
+        {
+          "title": "持久卷",
+          "description": "资源名称: persistentvolumes, 缩写: pv",
+          "code": "$ kubectl get pv \n$ kubectl describe pv"
+        },
+        {
+          "title": "持久卷声明",
+          "description": "资源名称: persistentvolumeclaims, 缩写: pvc",
+          "code": "$ kubectl get pvc\n$ kubectl describe pvc"
+        },
+        {
+          "title": "存储类",
+          "description": "资源名称: storageclasses, 缩写: sc",
+          "code": "$ kubectl get sc\n$ kubectl get sc -o yaml"
+        },
+        {
+          "title": "多个资源",
+          "description": "变更资源属性",
+          "code": "$ kubectl get svc, po\n$ kubectl get deploy, no\n$ kubectl get all\n$ kubectl get all --all-namespaces"
+        }
+      ]
+    },
+    {
+      "title": "变更资源属性",
+      "entries": [
+        {
+          "title": "污点",
+          "description": "",
+          "code": "$ kubectl taint [node_name] [taint_name]"
+        },
+        {
+          "title": "标签",
+          "description": "",
+          "code": "$ kubectl label nodes <node-name> <label-key>=<label-value>  #增加\n$ kubectl label nodes <node-name> <label-key>- #删除\n$ kubectl label nodes <node-name> <label-key>=<label-value> --overwrite #修改"
+        },
+        {
+          "title": "维护/可调度",
+          "description": "",
+          "code": "$ kubectl cordon [node_name]   # 节点维护\n$ kubectl uncordon [node_name] # 节点可调度"
+        },
+        {
+          "title": "清空节点",
+          "description": "",
+          "code": "$ kubectl drain [node_name]    # 清空节点"
+        },
+        {
+          "title": "节点/容器组",
+          "description": "",
+          "code": "$ kubectl delete node [node_name] \n$ kubectl delete pod [pod_name]\n$ kubectl edit node [node_name]\n$ kubectl edit pod [pod_name]"
+        },
+        {
+          "title": "无状态/命名空间",
+          "description": "",
+          "code": "$ kubectl edit deploy [deploy_name]\n$ kubectl delete deploy [deploy_name]\n$ kubectl expose deploy [deploy_name] --port=80 --type=NodePort\n$ kubectl scale deploy [deploy_name] --replicas=5\n$ kubectl delete ns\n$ kubectl edit ns [ns_name]"
+        },
+        {
+          "title": "服务",
+          "description": "",
+          "code": "$ kubectl edit svc [svc_name]\n$ kubectl delete svc [svc_name]"
+        },
+        {
+          "title": "守护进程集",
+          "description": "",
+          "code": "$ kubectl edit ds [ds_name] -n kube-system \n$ kubectl delete ds [ds_name]"
+        },
+        {
+          "title": "服务账号",
+          "description": "",
+          "code": "$ kubectl edit sa [sa_name]\n$ kubectl delete sa [sa_name]"
+        },
+        {
+          "title": "注释",
+          "description": "添加资源",
+          "code": "$ kubectl annotatepo [pod_name] [annotation]\n$ kubectl annotateno [node_name]"
+        }
+      ]
+    },
+    {
+      "title": "添加资源",
+      "entries": [
+        {
+          "title": "创建容器组",
+          "description": "",
+          "code": "$ kubectl create -f [name_of_file] \n$ kubectl apply -f [name_of_file]\n$ kubectl run [pod_name] --image=nginx --restart=Never\n$ kubectl run [pod_name] --generator=run-pod/v1 --image=nginx\n$ kubectl run [pod_name] --image=nginx --restart=Never"
+        },
+        {
+          "title": "创建服务",
+          "description": "",
+          "code": "$ kubectl create svc nodeport [svc_name] \\\n      --tcp=8080:80"
+        },
+        {
+          "title": "创建无状态应用",
+          "description": "",
+          "code": "$ kubectl create -f [name_of_file] \n$ kubectl apply -f [name_of_file]\n$ kubectl create deploy [deploy_name] \\\n      --image=nginx"
+        },
+        {
+          "title": "输出YAML文件",
+          "description": "",
+          "code": "$ kubectl create deploy [deploy_name] --image=nginx --dry-run -o yaml > deploy.yaml\n$ kubectl get po [pod_name] -o yaml --export > pod.yaml\n$ kubectl run nginx --image=nginx:alpine --dry-run -o -yaml > deploy.yaml"
+        },
+        {
+          "title": "容器交互",
+          "description": "",
+          "code": "$ kubectl run [pod_name] \\\n        --image=busybox --rm -it \\\n        --restart=Never -- sh"
+        },
+        {
+          "title": "获取帮助",
+          "description": "请求",
+          "code": "$ kubectl -h\n$ kubectl create -h\n$ kubectl run -h\n$ kubectl explain deploy.spec"
+        }
+      ]
+    },
+    {
+      "title": "请求",
+      "entries": [
+        {
+          "title": "API调用",
+          "description": "",
+          "code": "$ kubectl get --raw /apis/metrics.k8s.io/"
+        },
+        {
+          "title": "集群信息",
+          "description": "另见",
+          "code": "$ kubectl config\n$ kubectl cluster-info\n$ kubectl get componentstatus"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/kubernetes.md"
+}

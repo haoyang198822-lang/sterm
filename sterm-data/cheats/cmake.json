@@ -1,0 +1,224 @@
+{
+  "name": "CMake",
+  "description": "CMake 快速参考",
+  "category": "构建",
+  "count": 35,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "CMake 是什么",
+          "description": "CMake 用来描述项目如何配置和生成构建系统。它不会直接替代编译器，而是为 Ninja、Makefile、Visual Studio、Xcode 等生成对应的构建文件。\n推荐把源码目录和构建目录分离，避免把生成文件写进源码树。",
+          "code": ".\n├── CMakeLists.txt\n├── include/\n│   └── hello.hpp\n└── src/\n    ├── hello.cpp\n    └── main.cpp"
+        },
+        {
+          "title": "最小项目",
+          "description": "优先使用 `target_*` 命令给目标设置属性，让包含目录、编译特性和链接依赖跟随目标传播。",
+          "code": "cmake_minimum_required(VERSION 3.20)\n\nproject(hello_cmake\n  VERSION 1.0\n  LANGUAGES CXX\n)\n\nadd_executable(hello_cmake)\n\ntarget_sources(hello_cmake\n  PRIVATE\n    src/main.cpp\n    src/hello.cpp\n)\n\ntarget_include_directories(hello_cmake\n  PRIVATE\n    include\n)\n\ntarget_compile_features(hello_cmake\n  PRIVATE\n    cxx_std_17\n)\n\nset_target_properties(hello_cmake PROPERTIES\n  RUNTIME_OUTPUT_DIRECTORY \"${CMAKE_BINARY_DIR}/bin\"\n)"
+        },
+        {
+          "title": "配置与构建",
+          "description": "`-S` 指定源码目录，`-B` 指定构建目录。后续构建直接使用 `cmake --build build`。",
+          "code": "$ cmake -S . -B build\n$ cmake --build build\n$ ./build/bin/hello_cmake"
+        },
+        {
+          "title": "指定生成器",
+          "description": "生成器决定 CMake 输出哪一种构建系统。Windows 上 Visual Studio 生成器通常是多配置生成器。\n命令行",
+          "code": "$ cmake -S . -B build -G Ninja\n$ cmake -S . -B build -G \"Unix Makefiles\"\n$ cmake -S . -B build -G \"Visual Studio 17 2022\""
+        }
+      ]
+    },
+    {
+      "title": "命令行",
+      "entries": [
+        {
+          "title": "常用命令",
+          "description": "命令 | 说明\n:- | :-\n`cmake -S . -B build` | 配置项目并生成构建系统\n`cmake --build build` | 构建项目\n`cmake --build build --target app` | 构建指定目标\n`cmake --build build --parallel` | 并行构建\n`cmake --install build` | 安装项目\n`ctest --test-dir build` | 运行测试\n`cmake -P script.cmake` | 执行 CMake 脚本\n`cmake -E <command>` | 运行跨平台辅助命令\n`cmake --open build` | 用关联 IDE 打开生成的项目\n`cmake --help` | 查看帮助",
+          "code": ""
+        },
+        {
+          "title": "配置变量",
+          "description": "`-D名称=值` 会写入 CMake cache。重新配置同一构建目录时，cache 中的值会被复用。",
+          "code": "$ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release\n$ cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/opt/myapp\n$ cmake -S . -B build -DBUILD_TESTING=ON"
+        },
+        {
+          "title": "单配置与多配置",
+          "description": "Ninja、Unix Makefiles 等单配置生成器通常用 `CMAKE_BUILD_TYPE` 选择 `Debug`、`Release`、`RelWithDebInfo` 或 `MinSizeRel`。\nVisual Studio、Xcode、Ninja Multi-Config 等多配置生成器通常在构建或测试阶段用 `--config` / `-C` 选择配置。",
+          "code": "$ cmake -S . -B build -G \"Visual Studio 17 2022\"\n$ cmake --build build --config Release\n$ ctest --test-dir build -C Release"
+        },
+        {
+          "title": "工具链与编译器",
+          "description": "工具链文件和编译器通常应在第一次配置构建目录时指定。已配置过的构建目录更换工具链时，建议新建构建目录。",
+          "code": "$ cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/path/to/toolchain.cmake\n$ cmake -S . -B build -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
+        },
+        {
+          "title": "安装",
+          "description": "`--prefix` 可在安装阶段临时覆盖 `CMAKE_INSTALL_PREFIX`。\nCMakeLists",
+          "code": "$ cmake --install build\n$ cmake --install build --prefix /tmp/package\n$ cmake --install build --config Release"
+        }
+      ]
+    },
+    {
+      "title": "CMakeLists",
+      "entries": [
+        {
+          "title": "项目声明",
+          "description": "`cmake_minimum_required()` 应放在顶层 `CMakeLists.txt` 靠前位置，用来声明所需最低 CMake 版本并设置策略。",
+          "code": "cmake_minimum_required(VERSION 3.20)\nproject(myapp VERSION 1.2.0 LANGUAGES C CXX)"
+        },
+        {
+          "title": "可执行文件",
+          "description": "可先创建目标，再用 `target_sources()` 追加源文件，便于大型项目分块维护。",
+          "code": "add_executable(app)\n\ntarget_sources(app\n  PRIVATE\n    src/main.cpp\n)"
+        },
+        {
+          "title": "静态库与共享库",
+          "description": "`STATIC` 生成静态库，`SHARED` 生成动态库。不指定类型时由 `BUILD_SHARED_LIBS` 影响默认行为。",
+          "code": "add_library(core STATIC)\ntarget_sources(core PRIVATE src/core.cpp)\n\nadd_library(plugin SHARED)\ntarget_sources(plugin PRIVATE src/plugin.cpp)"
+        },
+        {
+          "title": "链接目标",
+          "description": "链接 CMake 目标时，目标的公开包含目录、编译定义等用法需求会按 `PUBLIC` / `INTERFACE` 传播。",
+          "code": "add_executable(app src/main.cpp)\nadd_library(core src/core.cpp)\n\ntarget_link_libraries(app\n  PRIVATE\n    core\n)"
+        },
+        {
+          "title": "作用域",
+          "description": "作用域 | 含义\n:- | :-\n`PRIVATE` | 只用于当前目标本身\n`PUBLIC` | 用于当前目标，并传播给依赖它的目标\n`INTERFACE` | 不用于当前目标，只传播给依赖它的目标",
+          "code": ""
+        },
+        {
+          "title": "包含目录",
+          "description": "库的公共头文件目录通常使用 `PUBLIC` 或 `INTERFACE`，内部实现目录使用 `PRIVATE`。",
+          "code": "target_include_directories(core\n  PUBLIC\n    include\n  PRIVATE\n    src\n)"
+        },
+        {
+          "title": "编译特性",
+          "description": "相比手动设置 `CMAKE_CXX_STANDARD`，`target_compile_features()` 更适合按目标声明需要的语言特性。",
+          "code": "target_compile_features(core PUBLIC cxx_std_20)"
+        },
+        {
+          "title": "编译定义",
+          "description": "这会为目标添加预处理宏，相当于编译器参数中的 `-DCORE_BUILDING`。",
+          "code": "target_compile_definitions(core\n  PRIVATE CORE_BUILDING\n  PUBLIC CORE_ENABLE_LOGGING\n)"
+        },
+        {
+          "title": "编译选项",
+          "description": "生成器表达式可按编译器、平台、配置等条件启用不同选项。\n依赖",
+          "code": "target_compile_options(core\n  PRIVATE\n    $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra>\n    $<$<CXX_COMPILER_ID:MSVC>:/W4>\n)"
+        }
+      ]
+    },
+    {
+      "title": "依赖",
+      "entries": [
+        {
+          "title": "查找包",
+          "description": "现代 CMake 包通常提供导入目标，例如 `OpenGL::GL`。优先链接导入目标，而不是手动拼 include 路径和库路径。",
+          "code": "find_package(OpenGL REQUIRED)\n\ntarget_link_libraries(app\n  PRIVATE\n    OpenGL::GL\n)"
+        },
+        {
+          "title": "可选依赖",
+          "description": "未加 `REQUIRED` 时，找不到包不会立即失败，可以用 `<PackageName>_FOUND` 判断。",
+          "code": "find_package(ZLIB)\n\nif(ZLIB_FOUND)\n  target_link_libraries(app PRIVATE ZLIB::ZLIB)\n  target_compile_definitions(app PRIVATE HAVE_ZLIB)\nendif()"
+        },
+        {
+          "title": "子目录",
+          "description": "`add_subdirectory()` 会把子项目加入当前构建，适合 vendored 依赖或同仓库子模块。",
+          "code": "add_subdirectory(third_party/fmt)\ntarget_link_libraries(app PRIVATE fmt::fmt)"
+        },
+        {
+          "title": "FetchContent",
+          "description": "`FetchContent` 会在配置阶段获取依赖。生产项目建议固定版本标签或提交哈希，避免构建结果随远端变化。\n测试与安装",
+          "code": "include(FetchContent)\n\nFetchContent_Declare(\n  fmt\n  GIT_REPOSITORY https://github.com/fmtlib/fmt.git\n  GIT_TAG 10.2.1\n)\n\nFetchContent_MakeAvailable(fmt)\n\ntarget_link_libraries(app PRIVATE fmt::fmt)"
+        }
+      ]
+    },
+    {
+      "title": "测试与安装",
+      "entries": [
+        {
+          "title": "CTest",
+          "description": "`include(CTest)` 会定义 `BUILD_TESTING` 选项，常用于统一开关测试目标。",
+          "code": "$ cmake -S . -B build -DBUILD_TESTING=ON\n$ cmake --build build\n$ ctest --test-dir build --output-on-failure"
+        },
+        {
+          "title": "安装目标",
+          "description": "`RUNTIME` 对应可执行文件，`LIBRARY` 对应共享库，`ARCHIVE` 对应静态库或导入库。",
+          "code": "install(TARGETS app core\n  RUNTIME DESTINATION bin\n  LIBRARY DESTINATION lib\n  ARCHIVE DESTINATION lib\n)\n\ninstall(DIRECTORY include/\n  DESTINATION include\n)"
+        },
+        {
+          "title": "生成配置头",
+          "description": "`configure_file()` 可把版本号、开关等配置写入生成头文件。\nPresets",
+          "code": "configure_file(\n  config.hpp.in\n  generated/config.hpp\n)\n\ntarget_include_directories(app\n  PRIVATE\n    \"${CMAKE_CURRENT_BINARY_DIR}/generated\"\n)"
+        }
+      ]
+    },
+    {
+      "title": "Presets",
+      "entries": [
+        {
+          "title": "CMakePresets.json",
+          "description": "Presets 用来共享常用配置。团队可提交 `CMakePresets.json`，把个人路径和本地偏好放进 `CMakeUserPresets.json`。",
+          "code": "{\n  \"version\": 3,\n  \"configurePresets\": [\n    {\n      \"name\": \"dev\",\n      \"displayName\": \"Dev\",\n      \"generator\": \"Ninja\",\n      \"binaryDir\": \"${sourceDir}/build/dev\",\n      \"cacheVariables\": {\n        \"CMAKE_BUILD_TYPE\": \"Debug\",\n        \"BUILD_TESTING\": \"ON\"\n      }\n    }\n  ],\n  \"buildPresets\": [\n    {\n      \"name\": \"dev\",\n      \"configurePreset\": \"dev\"\n    }\n  ],\n  \"testPresets\": [\n    {\n      \"name\": \"dev\",\n      \"configurePreset\": \"dev\",\n      \"output\": {\n        \"outputOnFailure\": true\n      }\n    }\n  ]\n}"
+        },
+        {
+          "title": "使用 Presets",
+          "description": "Presets 可覆盖配置、构建、测试、打包和工作流等常用步骤。\n常见模式",
+          "code": "$ cmake --list-presets\n$ cmake --preset dev\n$ cmake --build --preset dev\n$ ctest --preset dev"
+        }
+      ]
+    },
+    {
+      "title": "常见模式",
+      "entries": [
+        {
+          "title": "选项开关",
+          "description": "`option()` 会创建布尔 cache 变量，用户可通过 `-DMYAPP_BUILD_TOOLS=OFF` 覆盖。",
+          "code": "option(MYAPP_BUILD_TOOLS \"Build command line tools\" ON)\n\nif(MYAPP_BUILD_TOOLS)\n  add_executable(mytool tools/mytool.cpp)\n  target_link_libraries(mytool PRIVATE core)\nendif()"
+        },
+        {
+          "title": "源文件收集",
+          "description": "显式列出源文件最稳定。`file(GLOB CONFIGURE_DEPENDS ...)` 可减少维护成本，但新增文件触发重新配置的行为依赖生成器支持。",
+          "code": "target_sources(app\n  PRIVATE\n    src/main.cpp\n    src/app.cpp\n    src/app.hpp\n)"
+        },
+        {
+          "title": "平台判断",
+          "description": "平台条件适合处理系统 API、路径和链接库差异。",
+          "code": "if(WIN32)\n  target_compile_definitions(app PRIVATE APP_PLATFORM_WINDOWS)\nelseif(APPLE)\n  target_compile_definitions(app PRIVATE APP_PLATFORM_APPLE)\nelseif(UNIX)\n  target_compile_definitions(app PRIVATE APP_PLATFORM_UNIX)\nendif()"
+        },
+        {
+          "title": "构建类型判断",
+          "description": "用生成器表达式判断配置，比读取 `CMAKE_BUILD_TYPE` 更适合多配置生成器。\n排错",
+          "code": "target_compile_definitions(app\n  PRIVATE\n    $<$<CONFIG:Debug>:APP_DEBUG_BUILD>\n)"
+        }
+      ]
+    },
+    {
+      "title": "排错",
+      "entries": [
+        {
+          "title": "查看 Cache",
+          "description": "`-L` 列出 cache 变量，`-A` 显示高级变量，`-H` 显示帮助说明。",
+          "code": "$ cmake -S . -B build -LAH"
+        },
+        {
+          "title": "清理重新配置",
+          "description": "`--fresh` 会删除已有 `CMakeCache.txt` 和 `CMakeFiles/` 后重新配置，适合解决 cache 污染。",
+          "code": "$ cmake --fresh -S . -B build"
+        },
+        {
+          "title": "输出调试信息",
+          "description": "`message(STATUS ...)` 适合在配置阶段打印变量，定位路径、选项和依赖查找问题。",
+          "code": "message(STATUS \"CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}\")\nmessage(STATUS \"CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}\")"
+        },
+        {
+          "title": "跟踪变量来源",
+          "description": "`--trace-expand` 用于查看 CMake 脚本执行过程，`--debug-find` 用于排查 `find_package()` 和 `find_*()` 的搜索路径。\n另见",
+          "code": "$ cmake -S . -B build --trace-expand\n$ cmake -S . -B build --debug-find"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/cmake.md"
+}

@@ -1,0 +1,654 @@
+{
+  "name": "JavaScript",
+  "description": "JavaScript 快速参考",
+  "category": "编程语言",
+  "count": 115,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "JavaScript 是一种轻量级的解释型编程语言。\n- [JSON 备忘清单](json.md)\n- [JavaScript 中的正则表达式](./regex.md#javascript-中的正则表达式)\n- [TypeScript 备忘清单](./typescript.md)",
+          "code": ""
+        },
+        {
+          "title": "打印调试",
+          "description": "",
+          "code": "// => Hello world!\nconsole.log('Hello world!');\n// => Hello QuickReference\nconsole.warn('hello %s', 'QuickReference');\n// 将错误消息打印到 stderr\nconsole.error(new Error('Oops!'));"
+        },
+        {
+          "title": "断点调试",
+          "description": "**debugger** 语句调用任何可用的调试功能。",
+          "code": "function potentiallyBuggyCode() {\n  debugger;\n  // 做可能有问题的东西来检查，逐步通过等。\n}"
+        },
+        {
+          "title": "数字",
+          "description": "",
+          "code": "let amount = 6;\nlet price = 4.99;\nlet home = 1e2;\nlet num = 1_000_000; // 位数过多可以用 _ 分割\nlet m = 0644;   // 八进制数字 420"
+        },
+        {
+          "title": "let 关键字",
+          "description": "",
+          "code": "let count; \nconsole.log(count); // => undefined\ncount = 10;\nconsole.log(count); // => 10"
+        },
+        {
+          "title": "const 关键字",
+          "description": "",
+          "code": "const numberOfColumns = 4;\n// TypeError: Assignment to constant...\nnumberOfColumns = 8;"
+        },
+        {
+          "title": "变量",
+          "description": "",
+          "code": "let x = null;\nlet name = \"Tammy\";\nconst found = false;\n// => Tammy, false, null\nconsole.log(name, found, x);\nvar a;\nconsole.log(a); // => undefined"
+        },
+        {
+          "title": "字符串",
+          "description": "",
+          "code": "let single = 'Wheres my bandit hat?';\nlet double = \"Wheres my bandit hat?\";\n// => 21\nconsole.log(single.length);"
+        },
+        {
+          "title": "算术运算符",
+          "description": "",
+          "code": "5 + 5 = 10     // 加法 Addition\n10 - 5 = 5     // 减法 Subtraction\n5 * 10 = 50    // 乘法 Multiplication\n10 / 5 = 2     // 除法 Division\n10 % 5 = 0     // 取模 Modulo"
+        },
+        {
+          "title": "注释",
+          "description": "",
+          "code": "// 此行将表示注释\n/* \n多行配置\n部署前必须更改\n以下配置。\n*/"
+        },
+        {
+          "title": "赋值运算符",
+          "description": "",
+          "code": "let number = 100;\n// 两个语句都会加 10\nnumber = number + 10;\nnumber += 10;\nconsole.log(number); \n// => 120"
+        },
+        {
+          "title": "字符串插值",
+          "description": "",
+          "code": "let age = 7;\n// 字符串拼接\n'Tommy is ' + age + ' years old.';\n// 字符串插值\n`Tommy is ${age} years old.`;"
+        },
+        {
+          "title": "字符串",
+          "description": "",
+          "code": "var abc = \"abcdefghijklmnopqrstuvwxyz\";\nvar esc = 'I don\\'t \\n know';    // \\n 换行\nvar len = abc.length;            // 字符串长度\nabc.indexOf(\"lmno\");             // 查找子字符串，如果不包含则 -1\nabc.lastIndexOf(\"lmno\");         // 最后一次出现\nabc.slice(3, 6);                 // 去掉“def”，负值从后面计算\nabc.replace(\"abc\",\"123\");        // 查找和替换，接受正则表达式\nabc.toUpperCase();               // 转换为大写\nabc.toLowerCase();               // 转换为小写\nabc.concat(\" \", str2);           // abc + \" \" + str2\nabc.charAt(2);                   // 索引处的字符：“c”\nabc[2];                          // 不安全，abc[2] = \"C\" 不起作用\n// 索引处的字符代码：“c”-> 99\nabc.charCodeAt(2);\n// 用逗号分割字符串给出一个数组\nabc.split(\",\");\n// 分割字符\nabc.split(\"\");\n// 匹配开头字符串,如果忽略第二个参数，则从索引 0 开始匹配\nabc.startsWith(\"bc\", 1);\n// 匹配结尾的字符串,如果忽略第二个参数，则默认是原字符串长度\nabc.endsWith(\"wxy\", abc.length - 1);\n// padEnd 和 padStart 都用于填充长度，默认填充对象是空格\n\"200\".padEnd(5); // \"200  \"\n\"200\".padEnd(5, \".\"); // \"200..\"\n// 重复字符\n\"abc\".repeat(2); // \"abcabc\"\n// trim、trimEnd 和 trimStart 用于去除首尾空格\n\" ab c \".trim(); // \"ab c\"\n// 数字转为十六进制 (16)、八进制 (8) 或二进制 (2)\n(128).toString(16);"
+        },
+        {
+          "title": "数字",
+          "description": "**Math**",
+          "code": "const pi = Math.PI; // 3.141592653589793\nMath.round(4.4); // = 4 - 数字四舍五入\nMath.round(4.5); // = 5\nMath.pow(2,8);   // = 256 - 2 的 8 次方    \nMath.sqrt(49);   // = 7 - 平方根\nMath.abs(-3.14); // = 3.14 - 绝对，正值\nMath.ceil(3.14); // = 4 - 返回 >= 最小整数\n// = 3 - 返回 <= 最大整数\nMath.floor(3.99);       \n// = 0 - 正弦\nMath.sin(0);            \n// OTHERS: tan,atan,asin,acos,余弦值\nMath.cos(Math.PI);      \n// = -2 - 最低值\nMath.min(0, 3, -2, 2);  \n// = 3 - 最高值\nMath.max(0, 3, -2, 2);  \n// = 0 自然对数\nMath.log(1);            \n// = 2.7182pow(E,x) 自然对数的底数\nMath.exp(1);            \n// 0 到 1 之间的随机数\nMath.random();          \n// 随机整数，从 1\nMath.floor(Math.random() * 5) + 1;"
+        },
+        {
+          "title": "全局函数",
+          "description": "JavaScript 条件",
+          "code": "// 像脚本代码一样执行字符串\neval();                     \n// 从数字返回字符串\nString(23);                 \n// 从数字返回字符串\n(23).toString();            \n// 从字符串返回数字\nNumber(\"23\");               \n// 解码 URI。 结果：“my page.asp”\ndecodeURI(enc);             \n// 编码 URI。 结果：“my%20page.asp”\nencodeURI(uri);             \n// 解码 URI 组件\ndecodeURIComponent(enc);    \n// 对 URI 组件进行编码\nencodeURIComponent(uri);    \n// 是一个有限的合法数\nisFinite();                 \n// 是一个非法数字\nisNaN();                    \n// 返回字符串的浮点数\nparseFloat();               \n// 解析一个字符串并返回一个整数\nparseInt();"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 条件",
+      "entries": [
+        {
+          "title": "操作符",
+          "description": "**逻辑运算符 &&**\n\n**比较运算符**\n\n**逻辑运算符**\n\n**空值合并运算符 ??**",
+          "code": "null ?? 'I win';         //  'I win'\nundefined ?? 'Me too';   //  'Me too'\nfalse ?? 'I lose'        //  false\n0 ?? 'I lose again'      //  0\n'' ?? 'Damn it'          //  ''"
+        },
+        {
+          "title": "if Statement (if 语句)",
+          "description": "",
+          "code": "const isMailSent = true;\nif (isMailSent) {\n  console.log('Mail sent to recipient');\n}"
+        },
+        {
+          "title": "Ternary Operator (三元运算符)",
+          "description": "",
+          "code": "var age = 1;\n\n// => false\nvar status = (age >= 18) ? true : false;"
+        },
+        {
+          "title": "else if",
+          "description": "",
+          "code": "const size = 10;\nif (size > 20) {\n  console.log('Medium');\n} else if (size > 4) {\n  console.log('Small');\n} else {\n  console.log('Tiny');\n}\n// Print: Small"
+        },
+        {
+          "title": "== vs ===",
+          "description": "`==` 只检查值，`===` 检查值和类型。",
+          "code": "0 == false     // true\n0 === false    // false, 不同类型\n1 == \"1\"       // true,  自动类型转换\n1 === \"1\"      // false, 不同类型\nnull == undefined  // true\nnull === undefined // false\n'0' == false       // true\n'0' === false      // false"
+        },
+        {
+          "title": "switch 语句",
+          "description": "",
+          "code": "const food = 'salad';\n\nswitch (food) {\n  case 'oyster': console.log('海的味道');\n    break;\n  case 'pizza': console.log('美味的馅饼');\n    break;\n  default:\n    console.log('请您用餐');\n}"
+        },
+        {
+          "title": "switch 多 case - 单一操作",
+          "description": "JavaScript Functions 函数",
+          "code": "const food = 'salad';\n\nswitch (food) {\n  case 'oyster':\n  case 'pizza':\n    console.log('美味的馅饼');\n    break;\n  default:\n    console.log('请您用餐');\n}"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Functions 函数",
+      "entries": [
+        {
+          "title": "函数",
+          "description": "",
+          "code": "// 定义函数：\nfunction sum(num1, num2) {\n  return num1 + num2;\n}\n// 调用函数：\nsum(3, 6); // 9"
+        },
+        {
+          "title": "匿名函数",
+          "description": "",
+          "code": "// 命名函数\nfunction rocketToMars() {\n  return 'BOOM!';\n}\n// 匿名函数\nconst rocketToMars = function() {\n  return 'BOOM!';\n}"
+        },
+        {
+          "title": "箭头函数 (ES6)",
+          "description": "**有两个参数**\n\n**没有参数**\n\n**只有一个参数**\n\n**简洁箭头函数**\n从 ES2015 开始提供[箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)",
+          "code": "const multiply = (a, b) => a * b; \n// => 60 \nconsole.log(multiply(2, 30));"
+        },
+        {
+          "title": "返回关键字",
+          "description": "",
+          "code": "// 有 return\nfunction sum(num1, num2) {\n  return num1 + num2;\n}\n// 该函数不输出总和\nfunction sum(num1, num2) {\n  num1 + num2;\n}"
+        },
+        {
+          "title": "调用函数",
+          "description": "",
+          "code": "// 定义函数\nfunction sum(num1, num2) {\n  return num1 + num2;\n}\n// 调用函数\nsum(2, 4); // 6"
+        },
+        {
+          "title": "立即执行函数",
+          "description": "",
+          "code": "//命名函数并立即执行一次\n(function sum(num1, num2) {\n  return num1 + num2;\n})(2,4)//6"
+        },
+        {
+          "title": "函数表达式",
+          "description": "",
+          "code": "const dog = function() {\n  return 'Woof!';\n}"
+        },
+        {
+          "title": "函数参数",
+          "description": "",
+          "code": "// 参数是 name\nfunction sayHello(name) {\n  return `Hello, ${name}!`;\n}"
+        },
+        {
+          "title": "函数声明",
+          "description": "JavaScript 范围",
+          "code": "function add(num1, num2) {\n  return num1 + num2;\n}"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 范围",
+      "entries": [
+        {
+          "title": "范围",
+          "description": "`{ }` 块内声明的变量\nES6 引入了两个重要的新 JavaScript 关键字：let 和 const。这两个关键字在 JavaScript 中提供了块作用域。",
+          "code": "var x = 2;       // Global scope\nlet x = 2;       // Global scope\nconst x = 2;       // Global scope"
+        },
+        {
+          "title": "块作用域变量",
+          "description": "",
+          "code": "const isLoggedIn = true;\nif (isLoggedIn == true) {\n  const statusMessage = 'Logged in.';\n}\n// Uncaught ReferenceError...\n// 未捕获的引用错误...\nconsole.log(statusMessage);"
+        },
+        {
+          "title": "全局变量",
+          "description": "",
+          "code": "// 全局声明的变量\nconst color = 'blue';\nfunction printColor() {\n  console.log(color);\n}\n\nprintColor(); // => blue"
+        },
+        {
+          "title": "`let` vs `var`",
+          "description": "`var` 的范围是最近的函数块，而 `let` 的范围是最近的封闭块。",
+          "code": "for (var i = 0; i < 3; i++) {\n  // i 可以访问 ✔️\n}\n// i 可以访问 ✔️"
+        },
+        {
+          "title": "带闭包的循环",
+          "description": "变量使用 `let` 有自己的副本，变量有使用 `var` 的共享副本。\nJavaScript Arrays",
+          "code": "// 按预期打印 0、1 和 2。\nfor (let j = 0; j < 3; j++) { \n  setTimeout(_ => console.log(j), 10);\n}"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Arrays",
+      "entries": [
+        {
+          "title": "方法",
+          "description": ":- | :-\n:- | :-\n`Array.from()` | 类似数组对象创建一个新的 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from)\n`Array.isArray()` | 值是否是一个 Array [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)\n`Array.of()` | 创建一个新数组示例 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of)\n`.at()` | 返回值索引对应的元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/at)\n`.concat()` | 合并两个或多个数组 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)\n`.copyWithin()` | 浅复制替换某个位置 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)\n`.entries()` | 新的 Array Iterator 对象 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)\n`.every()` | 是否能通过回调函数的测试 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)\n`.fill()` | 固定值填充一个数组中 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)\n`.filter()` | 返回过滤后的数组 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)\n`.find()` | 第一个元素的值 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)\n`.findIndex()` | 第一个元素的索引 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)\n`.findLast()` | 最后一个元素的值 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast)\n`.findLastIndex()` | 最后一个元素的索引 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)\n`.flat()` | 扁平化嵌套数组 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)\n`.flatMap()` | 与 flat 相同 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)\n`.forEach()` | 升序循环执行 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)\n`.includes()` | 是否包含一个指定的值 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)\n`.indexOf()` | 找到给定元素的第一个索引 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)\n`.join()` | 数组链接成一个字符串 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)\n`.keys()` | 每个索引键 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)\n`.lastIndexOf()` | 给定元素的最后一个索引 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)\n`.map()` | 循环返回一个新数组 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)\n`.pop()` | `删除`最后一个元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)\n`.push()` | 元素`添加`到数组的末尾 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)\n`.reduce()` | 循环函数传递当前和上一个值 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)\n`.reduceRight()` | 类似 `reduce` 从右往左循环 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight)\n`.reverse()` | 数组元素的位置颠倒 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)\n`.shift()` | `删除`第一个元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)\n`.slice()` | `提取`元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)\n`.some()` | 至少有一个通过测试函数 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)\n`.sort()` | 元素进行排序 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)\n`.splice()` | `删除`或`替换`或`添加`元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)\n`.toLocaleString()` | 字符串表示数组中的元素 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)\n`.toString()` | 返回字符串 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)\n`.unshift()` | 元素`添加`到数组的`开头` [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)\n`.values()` | 返回新的 ArrayIterator 对象 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/values)",
+          "code": ""
+        },
+        {
+          "title": "数组",
+          "description": "",
+          "code": "const fruits = [\"apple\", \"dew\", \"banana\"];\n// 不同的数据类型\nconst data = [1, 'chicken', false];"
+        },
+        {
+          "title": "属性 .length",
+          "description": "",
+          "code": "const numbers = [1, 2, 3, 4];\nnumbers.length // 4"
+        },
+        {
+          "title": "索引",
+          "description": "",
+          "code": "// 访问数组元素\nconst myArray = [100, 200, 300];\nconsole.log(myArray[0]); // 100\nconsole.log(myArray[1]); // 200"
+        },
+        {
+          "title": "可变图表",
+          "description": "|           | 添加 | 删除 | 开始 | 结束 |\n|:----------|:---:|:------:|:-----:|:---:|\n| `push`    | ✅  |        |       | ✅  |\n| `pop`     |     | ✅     |       | ✅  |\n| `unshift` | ✅  |        | ✅    |     |\n| `shift`   |     | ✅     | ✅    |     |",
+          "code": ""
+        },
+        {
+          "title": "方法 .push()",
+          "description": "将项目**添加到末尾**并返回新的数组长度。",
+          "code": "// 添加单个元素：\nconst cart = ['apple', 'orange'];\ncart.push('pear'); \n// 添加多个元素：\nconst numbers = [1, 2];\nnumbers.push(3, 4, 5);"
+        },
+        {
+          "title": "方法 .pop()",
+          "description": "从**末尾删除**一个项目并返回已删除的项目。",
+          "code": "const fruits = [\"apple\", \"dew\", \"banana\"];\nconst fruit = fruits.pop(); // 'banana'\n\nconsole.log(fruits); // [\"apple\", \"dew\"]"
+        },
+        {
+          "title": "方法 .shift()",
+          "description": "**从头删除**一个项目并返回已删除的项目。",
+          "code": "const array1 = [1, 2, 3];\nconst firstElement = array1.shift();\nconsole.log(array1); // 输出: Array [2, 3]\nconsole.log(firstElement); // 输出: 1"
+        },
+        {
+          "title": "方法 .some()",
+          "description": "",
+          "code": "const array = [1, 2, 3, 4, 5];\n// 检查元素是否为偶数\nconst even = (element) => element % 2 === 0;\nconsole.log(array.some(even));\n// 预期输出: true"
+        },
+        {
+          "title": "方法 .concat()",
+          "description": "如果你想避免改变你的原始数组，你可以使用 concat。",
+          "code": "const numbers = [3, 2, 1]\nconst newFirstNumber = 4\n    \n// => [ 4, 3, 2, 1 ]\n[newFirstNumber].concat(numbers)\n    \n// => [ 3, 2, 1, 4 ]\nnumbers.concat(newFirstNumber)"
+        },
+        {
+          "title": "方法 .splice()",
+          "description": "",
+          "code": "const months = ['Jan', 'March'];\nmonths.splice(1, 0, 'Feb');\n// 在索引 1 处插入\nconsole.log(months);\n// 预期输出: Array [\"Jan\", \"Feb\", \"March\"]\n\nmonths.splice(2, 1, 'May');\n// 替换索引 2 处的 1 个元素\nconsole.log(months);\n// 预期输出: Array [\"Jan\", \"Feb\", \"May\"]"
+        },
+        {
+          "title": "方法 .unshift()",
+          "description": "将项目**添加到开头**并返回新的数组长度。",
+          "code": "let cats = ['Bob'];\n// => ['Willy', 'Bob']\ncats.unshift('Willy');\n// => ['Puff', 'George', 'Willy', 'Bob']\ncats.unshift('Puff', 'George');"
+        },
+        {
+          "title": "方法 .filter()",
+          "description": "JavaScript 循环",
+          "code": "const words = ['js', 'java', 'golang'];\nconst result = words.filter(word => {\n  return  word.length > 3\n});\nconsole.log(result);\n// 预期输出: Array [\"java\", \"golang\"]"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 循环",
+      "entries": [
+        {
+          "title": "While 循环",
+          "description": "",
+          "code": "while (condition) {\n  // 要执行的代码块\n}\nlet i = 0;\nwhile (i < 5) {        \n  console.log(i);\n  i++;\n}"
+        },
+        {
+          "title": "反向循环",
+          "description": "",
+          "code": "const fruits = [\"apple\", \"dew\", \"berry\"];\nfor (let i = fruits.length - 1; i >= 0; i--) {\n  console.log(`${i}. ${fruits[i]}`);\n}\n// => 2. berry\n// => 1. dew\n// => 0. apple"
+        },
+        {
+          "title": "Do...While 语句",
+          "description": "",
+          "code": "x = 0\ni = 0\ndo {\n  x = x + i;\n  console.log(x)\n  i++;\n} while (i < 5);\n// => 0 1 3 6 10"
+        },
+        {
+          "title": "For 循环",
+          "description": "",
+          "code": "for (let i = 0; i < 4; i += 1) {\n  console.log(i);\n};\n// => 0, 1, 2, 3"
+        },
+        {
+          "title": "遍历数组",
+          "description": "",
+          "code": "for (let i = 0; i < array.length; i++){\n  console.log(array[i]);\n}\n// => 数组中的每一项"
+        },
+        {
+          "title": "Break",
+          "description": "",
+          "code": "for (let i = 0; i < 99; i += 1) {\n  if (i > 5) break;\n  console.log(i)\n}\n// => 0 1 2 3 4 5"
+        },
+        {
+          "title": "Continue",
+          "description": "",
+          "code": "for (i = 0; i < 10; i++) {\n  if (i === 3) {\n    continue;\n  }\n  text += \"The number is \" + i + \"<br>\";\n}"
+        },
+        {
+          "title": "嵌套循环",
+          "description": "",
+          "code": "for (let i = 0; i < 2; i += 1) {\n  for (let j = 0; j < 3; j += 1) {\n    console.log(`${i}-${j}`);\n  }\n}"
+        },
+        {
+          "title": "for...in 循环",
+          "description": "",
+          "code": "const fruits = [\"apple\", \"orange\", \"banana\"];\nfor (let index in fruits) {\n  console.log(index);\n}\n// => 0\n// => 1\n// => 2"
+        },
+        {
+          "title": "label 语句",
+          "description": "从 `alert(num)` 的值可以看出，`continue outPoint;` 语句的作用是跳出当前循环，并跳转到 `outPoint`（标签）下的 `for` 循环继续执行。",
+          "code": "var num = 0;\n\noutPoint:\nfor(var i = 0; i < 10; i++) {\n  for(var j = 0; j < 10; j++) {\n    if(i == 5 && j == 5) {\n      continue outPoint;\n    }\n    num++;\n  }\n}\n\nalert(num);  // 95"
+        },
+        {
+          "title": "for...of 循环",
+          "description": "",
+          "code": "const fruits = [\"apple\", \"orange\", \"banana\"];\nfor (let fruit of fruits) {\n  console.log(fruit);\n}\n// => apple\n// => orange\n// => banana\n\nfor (let [index, value] of fruits.entries()) {\n  console.log(index, value);\n}\n// => 0 apple\n// => 1 orange\n// => 2 banana"
+        },
+        {
+          "title": "for await...of",
+          "description": "",
+          "code": "async function* asyncGenerator() {\n  var i = 0;\n  while (i < 3) {\n    yield i++;\n  }\n}\n\n(async function() {\n  for await (num of asyncGenerator()) {\n    console.log(num);\n  }\n})();\n\n// 0\n// 1\n// 2"
+        },
+        {
+          "title": "可选的 for 表达式",
+          "description": "JavaScript 迭代器(Iterators)",
+          "code": "var i = 0;\n\nfor (;;) {\n  if (i > 3) break;\n  console.log(i);\n  i++;\n}"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 迭代器(Iterators)",
+      "entries": [
+        {
+          "title": "分配给变量的函数",
+          "description": "",
+          "code": "let plusFive = (number) => {\n  return number + 5;  \n};\n// f 被赋值为 plusFive\nlet f = plusFive;\nplusFive(3); // 8\n// 由于 f 具有函数值，因此可以调用它。\nf(9); // 14"
+        },
+        {
+          "title": "回调函数",
+          "description": "",
+          "code": "const isEven = (n) => {\n  return n % 2 == 0;\n}\nlet printMsg = (evenFunc, num) => {\n  const isNumEven = evenFunc(num);\n  console.log(`${num} is an even number: ${isNumEven}.`)\n}\n// Pass in isEven as the callback function\nprintMsg(isEven, 4); \n// => The number 4 is an even number: True."
+        },
+        {
+          "title": "数组方法 .reduce()",
+          "description": "",
+          "code": "const numbers = [1, 2, 3, 4];\nconst sum = numbers.reduce((accumulator, curVal) => {  \n  return accumulator + curVal;\n});\nconsole.log(sum); // 10"
+        },
+        {
+          "title": "数组方法 .map()",
+          "description": "",
+          "code": "const members = [\"Taylor\", \"Donald\", \"Don\", \"Natasha\", \"Bobby\"];\nconst announcements = members.map((member) => {\n  return member + \" joined the contest.\";\n});\nconsole.log(announcements);"
+        },
+        {
+          "title": "数组方法 .forEach()",
+          "description": "",
+          "code": "const numbers = [28, 77, 45, 99, 27];\nnumbers.forEach(number => {  \n  console.log(number);\n});"
+        },
+        {
+          "title": "数组方法 .filter()",
+          "description": "JavaScript 对象(Objects)",
+          "code": "const randomNumbers = [4, 11, 42, 14, 39];\nconst filteredArray = randomNumbers.filter(n => {  \n  return n > 5;\n});"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 对象(Objects)",
+      "entries": [
+        {
+          "title": "访问属性",
+          "description": "",
+          "code": "const apple = { \n  color: 'Green',\n  price: { bulk: '$3/kg', smallQty: '$4/kg' }\n};\nconsole.log(apple.color);      // => Green\nconsole.log(apple.price.bulk); // => $3/kg"
+        },
+        {
+          "title": "命名属性",
+          "description": "",
+          "code": "// 无效键名示例\nconst trainSchedule = {\n  // 由于单词之间的空格而无效。\n  platform num: 10, \n  // 表达式不能是键。\n  40 - 10 + 2: 30,\n  // 除非用引号括起来，否则 + 号无效。\n  +compartment: 'C'\n}"
+        },
+        {
+          "title": "不存在的属性",
+          "description": "",
+          "code": "const classElection = {\n  date: 'January 12'\n};\nconsole.log(classElection.place); // undefined"
+        },
+        {
+          "title": "可变的",
+          "description": "",
+          "code": "const student = {\n  name: 'Sheldon',\n  score: 100,\n  grade: 'A',\n}\nconsole.log(student)\n// { name: 'Sheldon', score: 100, grade: 'A' }\ndelete student.score\nstudent.grade = 'F'\nconsole.log(student)\n// { name: 'Sheldon', grade: 'F' }\nstudent = {}\n// TypeError: TypeError：分配给常量变量。"
+        },
+        {
+          "title": "赋值简写语法",
+          "description": "",
+          "code": "const person = {\n  name: 'Tom',\n  age: '22',\n};\nconst {name, age} = person;\nconsole.log(name); // 'Tom'\nconsole.log(age);  // '22'"
+        },
+        {
+          "title": "删除运算符",
+          "description": "",
+          "code": "const person = {\n  firstName: \"Matilda\",\n  hobby: \"knitting\",\n  goal: \"learning JavaScript\"\n};\ndelete person.hobby; // 或 delete person['hobby'];\nconsole.log(person);\n/*\n{\n  firstName: \"Matilda\"\n  goal: \"learning JavaScript\"\n} */"
+        },
+        {
+          "title": "对象作为参数",
+          "description": "",
+          "code": "const origNum = 8;\nconst origObj = {color: 'blue'};\nconst changeItUp = (num, obj) => {\n  num = 7;\n  obj.color = 'red';\n};\nchangeItUp(origNum, origObj);\n// 将输出 8，因为整数是按值传递的。\nconsole.log(origNum);\n// 由于传递了对象，将输出“red”\n// 通过引用，因此是可变的。\nconsole.log(origObj.color);"
+        },
+        {
+          "title": "工厂函数",
+          "description": "",
+          "code": "// 一个接受 'name'，'age' 和 'breed' 的工厂函数，\n//  参数返回一个自定义的 dog 对象。\nconst dogFactory = (name, age, breed) => {\n  return {\n    name: name,\n    age: age,\n    breed: breed,\n    bark() {\n      console.log('Woof!');  \n    }\n  };\n};"
+        },
+        {
+          "title": "速记对象创建",
+          "description": "",
+          "code": "const activity = 'Surfing';\nconst beach = { activity };\nconsole.log(beach); // { activity: 'Surfing' }"
+        },
+        {
+          "title": "this 关键字",
+          "description": "",
+          "code": "const cat = {\n  name: 'Pipey',\n  age: 8,\n  whatName() {\n    return this.name  \n  }\n};\nconsole.log(cat.whatName()); // => Pipey"
+        },
+        {
+          "title": "方法",
+          "description": "",
+          "code": "const engine = {\n  // 方法简写，有一个参数\n  start(adverb) {\n    console.log(`The engine starts up ${adverb}...`);\n  },  \n  // 不带参数的匿名箭头函数表达式\n  sputter: () => {\n    console.log('The engine sputters...');\n  },\n};\nengine.start('noisily');\nengine.sputter();"
+        },
+        {
+          "title": "Getters 和 setters",
+          "description": "",
+          "code": "const myCat = {\n  _name: 'Dottie',\n  get name() {\n    return this._name;  \n  },\n  set name(newName) {\n    this._name = newName;  \n  }\n};\n// 引用调用 getter\nconsole.log(myCat.name);\n// 赋值调用 setter\nmyCat.name = 'Yankee';"
+        },
+        {
+          "title": "Proxy",
+          "description": "Proxy 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。\n\n**语法**\n- target 要使用 Proxy 包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）。\n- handler 一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为。\n\n**方法**\n:- | :-\n:- | :-\n`Proxy.revocable()` | 创建一个可撤销的Proxy对象 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable)\n\n**handler 对象的方法**\n:- | :-\n:- | :-\n`handler.getPrototypeOf()` | Object.getPrototypeOf 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/getPrototypeOf)\n`handler.setPrototypeOf()` | Object.setPrototypeOf 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/setPrototypeOf)\n`handler.isExtensible()` | Object.isExtensible 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/isExtensible)\n`handler.preventExtensions()` | Object.preventExtensions 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/preventExtensions)\n`handler.getOwnPropertyDescriptor()` | Object.getOwnPropertyDescriptor 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/getOwnPropertyDescriptor)\n`handler.defineProperty()` | Object.defineProperty 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/defineProperty)\n`handler.has()` | in 操作符的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/has)\n`handler.get()` | 属性读取操作的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/get)\n`handler.set()` | 属性设置操作的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/set)\n`handler.deleteProperty()` | delete 操作符的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/deleteProperty)\n`handler.ownKeys()` | Object.getOwnPropertyNames 方法和 Object.getOwnPropertySymbols 方法的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/ownKeys)\n`handler.apply()` | 函数调用操作的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/apply)\n`handler.construct()` | new 操作符的捕捉器 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/construct)",
+          "code": "const p = new Proxy(target, handler)"
+        },
+        {
+          "title": "Reflect",
+          "description": "Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法。这些方法与proxy handlers (en-US)的方法相同。Reflect不是一个函数对象，因此它是不可构造的。\n\n**静态方法**\n:- | :-\n:- | :-\n`Reflect.apply(target, thisArgument, argumentsList)` | 对一个函数进行调用操作，同时可以传入一个数组作为调用参数。和 Function.prototype.apply() 功能类似 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/apply)\n`Reflect.construct(target, argumentsList[, newTarget])` | 对构造函数进行 new 操作，相当于执行 new target(...args) [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/construct)\n`Reflect.defineProperty(target, propertyKey, attributes)` | 和 Object.defineProperty() 类似。如果设置成功就会返回 true [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/defineProperty)\n`Reflect.deleteProperty(target, propertyKey)` | 作为函数的delete操作符，相当于执行 delete target[name] [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/deleteProperty)\n`Reflect.get(target, propertyKey[, receiver])` | 获取对象身上某个属性的值，类似于 target[name] [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/get)\n`Reflect.getOwnPropertyDescriptor(target, propertyKey)`  | 类似于 Object.getOwnPropertyDescriptor()。如果对象中存在该属性，则返回对应的属性描述符，否则返回 undefined [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/getOwnPropertyDescriptor)\n`Reflect.getPrototypeOf(target)` | 类似于 Object.getPrototypeOf() [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/getPrototypeOf)\n`Reflect.has(target, propertyKey)` | 判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同 [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/has)\n`Reflect.isExtensible(target)` | 类似于 Object.isExtensible() [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/isExtensible)\n`Reflect.ownKeys(target)` | 返回一个包含所有自身属性（不包含继承属性）的数组。(类似于 Object.keys(), 但不会受enumerable 影响) [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)\n`Reflect.preventExtensions(target)` | 类似于 Object.preventExtensions()。返回一个Boolean [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/preventExtensions)\n`Reflect.set(target, propertyKey, value[, receiver])` | 将值分配给属性的函数。返回一个Boolean，如果更新成功，则返回true [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/set)\n`Reflect.setPrototypeOf(target, prototype)` | 设置对象原型的函数。返回一个 Boolean，如果更新成功，则返回 true [#](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/setPrototypeOf)\nJavaScript this 绑定",
+          "code": "// 检测一个对象是否存在特定属性\nconst duck = {\n  name: 'Maurice',\n  color: 'white',\n  greeting: function() {\n    console.log(`Quaaaack! My name is ${this.name}`);\n  }\n}\n\nReflect.has(duck, 'color');\n// true\nReflect.has(duck, 'haircut');\n// false"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript this 绑定",
+      "entries": [
+        {
+          "title": "隐式绑定",
+          "description": "**隐式丢失**\n- 指定隐式绑定：必须在调用的对象内部有一个对函数的引用（比如一个属性）\n- 将以上调用赋值给一个变量，结果最终会是 Window\n- 在 a 被调用的位置没有进行过任何显示绑定，最终全局对象 window 会调用它（`Window.a`）",
+          "code": "let a = obj2.obj1.foo()\na() // Window"
+        },
+        {
+          "title": "显示绑定",
+          "description": "**call**\ncall 第一个参数接受 this 作用域，剩余参数传递给其调用的函数\n\n**apply**\napply 第一个参数与 call 相同，第二个参数是其调用函数的参数数组\n\n**bind**\nbind 函数会返回一个新函数",
+          "code": "getName.bind(person,18,12)()\n//或者可以这样\ngetName.bind(person)(18, 12)\n//或者这样\ngetName.bind(person).bind(null, 18)(12)"
+        },
+        {
+          "title": "内置函数中的 this",
+          "description": "数组中的一些方法，类似于 map、forEach 等，可以自己设置绑定 this\n其中一些全局对象，如 setTimeout 等，它们和未显示绑定 this 的部分数组方法一样，都会指向全局对象（`Window`）\nJavaScript Classes",
+          "code": "setTimeout(function(){ \n  console.log(this)\n}, 1000) // Window"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Classes",
+      "entries": [
+        {
+          "title": "静态方法/字段",
+          "description": "**公有静态字段**",
+          "code": "class ClassStaticField {\n  static staticField = 'static field'\n}\n\nconsole.log(ClassStaticField.staticField)\n// 预期输出值：\"static field\"​"
+        },
+        {
+          "title": "Class",
+          "description": "",
+          "code": "class Song {\n  constructor() {\n    this.title;\n    this.author;\n  }\n  \n  play() {\n    console.log('Song playing!');\n  }\n}\n\nconst mySong = new Song();\nmySong.play();"
+        },
+        {
+          "title": "extends",
+          "description": "",
+          "code": "// Parent class\nclass Media {\n  constructor(info) {\n    this.publishDate = info.publishDate;\n    this.name = info.name;\n  }\n}\n// Child class\nclass Song extends Media {\n  constructor(songData) {\n    super(songData);\n    this.artist = songData.artist;\n  }\n}\nconst mySong = new Song({ \n  artist: 'Queen', \n  name: 'Bohemian Rhapsody', \n  publishDate: 1975\n});"
+        },
+        {
+          "title": "Class Constructor",
+          "description": "",
+          "code": "class Song {\n  constructor(title, artist) {\n    this.title = title;\n    this.artist = artist;\n  }\n}\nconst mySong = new Song('Bohemian Rhapsody', 'Queen');\nconsole.log(mySong.title);"
+        },
+        {
+          "title": "Class Methods",
+          "description": "JavaScript Modules",
+          "code": "class Song {\n  play() {\n    console.log('Playing!');\n  }\n  \n  stop() {\n    console.log('Stopping!');\n  }\n}"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Modules",
+      "entries": [
+        {
+          "title": "Export / Import",
+          "description": "**import 加载模块**",
+          "code": "// main.js\nimport add, { subtract, multiply, duplicate } from './myMath.js';\nconsole.log(add(6, 2));      // 8 \nconsole.log(subtract(6, 2))  // 4\nconsole.log(multiply(6, 2)); // 12\nconsole.log(duplicate(5))    // 10\n// index.html\n<script type=\"module\" src=\"main.js\"></script>"
+        },
+        {
+          "title": "Export Module",
+          "description": "**require 加载模块**\nJavaScript Promises",
+          "code": "// main.js\nconst myMath = require('./myMath.js')\nconsole.log(myMath.add(6, 2));      // 8 \nconsole.log(myMath.subtract(6, 2))  // 4\nconsole.log(myMath.multiply(6, 2)); // 12\nconsole.log(myMath.duplicate(5))    // 10"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Promises",
+      "entries": [
+        {
+          "title": "Promise",
+          "description": "创建 promises\n\n**使用 promises**\n\n**Promise 方法**",
+          "code": "Promise.all(···)\nPromise.race(···)\nPromise.reject(···)\nPromise.resolve(···)"
+        },
+        {
+          "title": "执行器函数",
+          "description": "",
+          "code": "const executorFn = (resolve, reject) => {\n  resolve('Resolved!');\n};\nconst promise = new Promise(executorFn);"
+        },
+        {
+          "title": "setTimeout()",
+          "description": "",
+          "code": "const loginAlert = () => {\n  console.log('Login');\n};\nsetTimeout(loginAlert, 6000);"
+        },
+        {
+          "title": "Promise 状态",
+          "description": "",
+          "code": "const promise = new Promise((resolve, reject) => {\n  const res = true;\n  // 一个异步操作。\n  if (res) {\n    resolve('Resolved!');\n  }\n  else {\n    reject(Error('Error'));\n  }\n});\npromise.then(\n  (res) => console.log(res),\n  (err) => console.error(err)\n);"
+        },
+        {
+          "title": ".then() 方法",
+          "description": "",
+          "code": "const promise = new Promise((resolve, reject) => {    \n  setTimeout(() => {\n    resolve('Result');\n  }, 200);\n});\n\npromise.then((res) => {\n  console.log(res);\n}, (err) => {\n  console.error(err);\n});"
+        },
+        {
+          "title": ".catch() 方法",
+          "description": "",
+          "code": "const promise = new Promise(\n  (resolve, reject) => {  \n  setTimeout(() => {\n    reject(Error('Promise 无条件拒绝。'));\n  }, 1000);\n});\n\npromise.then((res) => {\n  console.log(value);\n});\n\npromise.catch((err) => {\n  console.error(err);\n});"
+        },
+        {
+          "title": "Promise.all()",
+          "description": "",
+          "code": "const promise1 = new Promise((resolve, reject) => {\n  setTimeout(() => {\n    resolve(3);\n  }, 300);\n});\nconst promise2 = new Promise((resolve, reject) => {\n  setTimeout(() => {\n    resolve(2);\n  }, 200);\n});\nPromise.all([promise1, promise2]).then((res) => {\n  console.log(res[0]);\n  console.log(res[1]);\n});"
+        },
+        {
+          "title": "链接多个 .then()",
+          "description": "",
+          "code": "const promise = new Promise(\n  resolve => \n    setTimeout(() => resolve('dAlan'),100)\n);\n\npromise.then(res => {\n  return res === 'Alan' \n    ? Promise.resolve('Hey Alan!')\n    : Promise.reject('Who are you?')\n})\n.then((res) => {\n  console.log(res)\n}, (err) => {\n  console.error(err)\n});"
+        },
+        {
+          "title": "避免嵌套的 Promise 和 .then()",
+          "description": "JavaScript Async-Await",
+          "code": "const promise = new Promise((resolve, reject) => {  \n  setTimeout(() => {\n    resolve('*');\n  }, 1000);\n});\nconst twoStars = (star) => {  \n  return (star + star);\n};\nconst oneDot = (star) => {  \n  return (star + '.');\n};\nconst print = (val) => {\n  console.log(val);\n};\n// 将它们链接在一起\npromise.then(twoStars).then(oneDot).then(print);"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Async-Await",
+      "entries": [
+        {
+          "title": "异步",
+          "description": "",
+          "code": "function helloWorld() {\n  return new Promise(resolve => {\n    setTimeout(() => {\n      resolve('Hello World!');\n    }, 2000);\n  });\n}\n\n// 异步函数表达式\nconst msg = async function() {\n  const msg = await helloWorld();\n  console.log('Message:', msg);\n}\n\n// 异步箭头函数\nconst msg1 = async () => {\n  const msg = await helloWorld();\n  console.log('Message:', msg);\n}\n\nmsg(); // Message: Hello World! <-- 2 秒后\nmsg1(); // Message: Hello World! <-- 2 秒后"
+        },
+        {
+          "title": "解决 Promises",
+          "description": "",
+          "code": "let pro1 = Promise.resolve(5);\nlet pro2 = 44;\nlet pro3 = new Promise(function(resolve, reject) {\n  setTimeout(resolve, 100, 'foo');\n});\nPromise.all([pro1, pro2, pro3]).then(function(values) {\n  console.log(values);\n});\n// expected => Array [5, 44, \"foo\"]"
+        },
+        {
+          "title": "异步等待 Promises",
+          "description": "",
+          "code": "function helloWorld() {\n  return new Promise(resolve => {\n    setTimeout(() => {\n      resolve('Hello World!');\n    }, 2000);\n  });\n}\nasync function msg() {\n  const msg = await helloWorld();\n  console.log('Message:', msg);\n}\nmsg(); // Message: Hello World! <-- 2 秒后"
+        },
+        {
+          "title": "错误处理",
+          "description": "",
+          "code": "// 数据不完整\nlet json = '{ \"age\": 30 }';\n\ntry {\n  let user = JSON.parse(json); // <-- 没有错误\n  console.log( user.name );    // no name!\n} catch (e) {\n  console.error( \"Invalid JSON data!\" );\n}"
+        },
+        {
+          "title": "异步等待运算符",
+          "description": "JavaScript 请求",
+          "code": "function helloWorld() {\n  return new Promise(resolve => {\n    setTimeout(() => {\n      resolve('Hello World!');\n    }, 2000);\n  });\n}\nasync function msg() {\n  const msg = await helloWorld();\n  console.log('Message:', msg);\n}\nmsg(); // Message: Hello World! <-- 2 秒后"
+        }
+      ]
+    },
+    {
+      "title": "JavaScript 请求",
+      "entries": [
+        {
+          "title": "JSON",
+          "description": "另见：[JSON 备忘单](./json.md)",
+          "code": "const jsonObj = {\n  \"name\": \"Rick\",\n  \"id\": \"11A\",\n  \"level\": 4  \n};"
+        },
+        {
+          "title": "XMLHttpRequest",
+          "description": "`XMLHttpRequest` 是一个浏览器级别的 API，它使客户端能够通过 JavaScript 编写数据传输脚本，而不是 JavaScript 语言的一部分。",
+          "code": "const xhr = new XMLHttpRequest();\nxhr.open('GET', 'mysite.com/getjson');"
+        },
+        {
+          "title": "GET",
+          "description": "",
+          "code": "const req = new XMLHttpRequest();\nreq.responseType = 'json';\nreq.open('GET', '/getdata?id=65');\nreq.onload = () => {\n  console.log(xhr.response);\n};\nreq.send();"
+        },
+        {
+          "title": "POST",
+          "description": "",
+          "code": "const data = { weight: '1.5 KG' };\nconst xhr = new XMLHttpRequest();\n// 初始化一个请求。\nxhr.open('POST', '/inventory/add');\n// 一个用于定义响应类型的枚举值\nxhr.responseType = 'json';\n// 发送请求以及数据。\nxhr.send(JSON.stringify(data));\n// 请求成功完成时触发。\nxhr.onload = () => {\n  console.log(xhr.response);\n}\n// 当 request 遭遇错误时触发。\nxhr.onerror = () => {\n  console.log(xhr.response);\n}"
+        },
+        {
+          "title": "fetch api",
+          "description": "",
+          "code": "fetch(url, {\n    method: 'POST',\n    headers: {\n      'Content-type': 'application/json',\n      'apikey': apiKey\n    },\n    body: data\n}).then(response => {\n  if (response.ok) {\n    return response.json();\n  }\n  throw new Error('Request failed!');\n}, networkError => {\n  console.log(networkError.message)\n})"
+        },
+        {
+          "title": "JSON 格式",
+          "description": "",
+          "code": "fetch('url-that-returns-JSON')\n  .then(response => response.json())\n  .then(jsonResponse => {\n    console.log(jsonResponse);\n  });"
+        },
+        {
+          "title": "promise url 参数获取 API",
+          "description": "",
+          "code": "fetch('url')\n  .then(response  => {\n    console.log(response);\n  }, rejection => {\n    console.error(rejection.message);\n  });"
+        },
+        {
+          "title": "Fetch API 函数",
+          "description": "",
+          "code": "fetch('https://api-xxx.com/endpoint', {\n  method: 'POST',\n  body: JSON.stringify({id: \"200\"})\n}).then(response => {\n  if(response.ok){\n    return response.json();  \n  }\n  throw new Error('Request failed!');\n}, networkError => {\n  console.log(networkError.message);\n}).then(jsonResponse => {\n  console.log(jsonResponse);\n})"
+        },
+        {
+          "title": "async await 语法",
+          "description": "",
+          "code": "const getSuggestions = async () => {\n  const wordQuery = inputField.value;\n  const endpoint = `${url}${queryParams}${wordQuery}`;\n  try{\n    const response = await fetch(endpoint, {cache: 'no-cache'});\n    if(response.ok){\n      const jsonResponse = await response.json()\n    }\n  }\n  catch(error){\n    console.log(error)\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/javascript.md"
+}

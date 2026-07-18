@@ -1,0 +1,279 @@
+{
+  "name": "Nix",
+  "description": "Nix 快速参考",
+  "category": "",
+  "count": 43,
+  "sections": [
+    {
+      "title": "类型与语法",
+      "entries": [
+        {
+          "title": "字符串",
+          "description": "**字符串插值**\n\n**转义字符**",
+          "code": "let\n  escaped = ''\n    引号：\\\"hello\\\"，换行：\\n，制表符：\\t\n  '';\nin"
+        },
+        {
+          "title": "整数",
+          "description": "",
+          "code": "let\n  x = -123;\n  y = 123;\n  # 支持不同进制\n  hex = 0xFF;          # 十六进制: 255\n  bin = 0b1010;        # 二进制: 10\n  oct = 0o755;         # 八进制: 493\nin"
+        },
+        {
+          "title": "浮点数",
+          "description": "",
+          "code": "let\n  x = -0.32;\n  y = 0.45;\n  scientific = 1.23e-4;    # 科学记数法\n  inf = 1.0 / 0.0;         # 无穷大\nin"
+        },
+        {
+          "title": "布尔值",
+          "description": "",
+          "code": "let\n  x = true;\n  y = false;\n  # 布尔运算\n  and_result = true && false;   # false\n  or_result = true || false;    # true\n  not_result = !true;           # false\nin"
+        },
+        {
+          "title": "空值",
+          "description": "",
+          "code": "let\n  x = null;\n  # null 表示缺失值\n  # 类似于其他语言的 None 或 undefined\nin"
+        },
+        {
+          "title": "路径",
+          "description": "",
+          "code": "let\n  absolute = /usr/bin/env;      # 绝对路径\n  relative = ./config.nix;      # 相对路径\n  home = ~/Documents;           # 家目录路径\n  # 路径会在构建时自动复制到 Nix store\nin"
+        },
+        {
+          "title": "属性集",
+          "description": "参见 [属性集操作](#属性集)",
+          "code": "let\n  x = {\n    name = \"张三\";\n    age = 25;\n    address = {\n      city = \"北京\";\n      district = \"朝阳区\";\n    };\n  };\n  y = { c = 3; };\n  # 递归属性集\n  rec_set = rec {\n    x = 1;\n    y = x + 1;    # 可以引用同级属性\n  };\nin"
+        },
+        {
+          "title": "列表",
+          "description": "",
+          "code": "let\n  numbers = [ 1 2 3 4 5 ];\n  mixed = [\n    1\n    \"这是字符串\"\n    23.0\n    null\n    { name = \"属性集\"; }\n  ];\n  # 列表可以包含任意类型的元素\n  nested = [ [ 1 2 ] [ 3 4 ] ];\nin"
+        },
+        {
+          "title": "注释",
+          "description": "**↓ 单行注释**\n\n**↓ 多行注释**\n作用域管理",
+          "code": "/*\n  这是多行注释\n  可以跨越多行\n  /* 可以嵌套 */\n*/"
+        }
+      ]
+    },
+    {
+      "title": "作用域管理",
+      "entries": [
+        {
+          "title": "定义局部变量",
+          "description": "**嵌套 let 表达式**",
+          "code": "let\n  outer = 10;\nin\n  let\n    inner = 5;\n  in\n    outer + inner   # 返回 15"
+        },
+        {
+          "title": "将变量添加到作用域",
+          "description": "**↓ 等价于**",
+          "code": "let\n  x = 1;\n  y = 2;\nin\n  { x = x; y = y; }"
+        },
+        {
+          "title": "从属性集继承属性",
+          "description": "**↓ 等价于**",
+          "code": "let\n  config = { \n    host = \"localhost\"; \n    port = 8080;\n    ssl = true;\n  };\nin\n  { \n    host = config.host; \n    port = config.port; \n  }"
+        },
+        {
+          "title": "将所有属性引入作用域",
+          "description": "**注意事项**\n条件表达式",
+          "code": "let\n  x = 1;\n  attrs = { x = 2; y = 3; };\nin\n  with attrs;\n  x + y    # x = 1 (局部变量优先级更高), y = 3"
+        }
+      ]
+    },
+    {
+      "title": "条件表达式",
+      "entries": [
+        {
+          "title": "基本条件表达式",
+          "description": "**布尔条件判断**\n\n**字符串条件判断**",
+          "code": "let\n  env = \"production\";\n  database = if env == \"production\"\n    then \"prod-db.example.com\"\n    else if env == \"staging\"\n    then \"staging-db.example.com\"\n    else \"localhost\";\nin\n  database"
+        },
+        {
+          "title": "复杂条件判断",
+          "description": "",
+          "code": "let\n  user = { name = \"张三\"; age = 25; isAdmin = true; };\n  message = if user.isAdmin && user.age >= 18\n    then \"管理员用户: ${user.name}\"\n    else \"普通用户: ${user.name}\";\nin\n  message"
+        },
+        {
+          "title": "条件表达式中的属性集",
+          "description": "属性集",
+          "code": "let\n  env = \"production\";\n  config = if env == \"development\"\n    then {\n      debug = true;\n      logLevel = \"debug\";\n      database.host = \"localhost\";\n    }\n    else {\n      debug = false;\n      logLevel = \"info\";\n      database.host = \"prod-db.example.com\";\n    };\nin\n  config"
+        }
+      ]
+    },
+    {
+      "title": "属性集",
+      "entries": [
+        {
+          "title": "定义属性集",
+          "description": "",
+          "code": "let\n  person = {\n    name = \"李四\";\n    age = 30;\n    skills = [ \"编程\" \"设计\" \"管理\" ];\n    contact = {\n      email = \"lisi@example.com\";\n      phone = \"138-0000-0000\";\n    };\n  };\nin\n  person"
+        },
+        {
+          "title": "动态属性名",
+          "description": "",
+          "code": "let\n  key = \"dynamicKey\";\n  attrs = {\n    ${key} = \"动态值\";\n    \"static-key\" = \"静态值\";\n  };\nin\n  attrs    # { dynamicKey = \"动态值\"; static-key = \"静态值\"; }"
+        },
+        {
+          "title": "更新属性集",
+          "description": "**深度合并**",
+          "code": "let\n  config1 = {\n    server = { host = \"localhost\"; port = 8080; };\n    database = { name = \"test\"; };\n  };\n  config2 = {\n    server = { port = 9000; ssl = true; };\n    cache = { enabled = true; };\n  };\n  # 注意：// 操作符只进行浅合并\n  merged = config1 // config2;\n  # server 属性会被完全替换，而不是深度合并\nin\n  merged"
+        },
+        {
+          "title": "检查属性是否存在",
+          "description": "",
+          "code": "let\n  person = { name = \"王五\"; age = 28; };\nin\n  {\n    hasName = person ? name;      # true\n    hasEmail = person ? email;    # false\n    hasNested = person ? contact.email;  # false (嵌套检查)\n  }"
+        },
+        {
+          "title": "访问属性",
+          "description": "**可选属性访问**\n连接与插值",
+          "code": "let\n  config = { server = { host = \"localhost\"; }; };\nin\n  {\n    port = config.server.port or 3000;        # 如果不存在则使用默认值\n    timeout = config.timeout or 30;           # 30\n    ssl = config.server.ssl or false;         # false\n  }"
+        }
+      ]
+    },
+    {
+      "title": "连接与插值",
+      "entries": [
+        {
+          "title": "连接列表",
+          "description": "",
+          "code": "let\n  list1 = [ 1 2 3 ];\n  list2 = [ 4 5 6 ];\n  combined = list1 ++ list2;     # [ 1 2 3 4 5 6 ]\n  \n  # 多个列表连接\n  all = [ 0 ] ++ list1 ++ list2 ++ [ 7 8 ];\nin\n  all    # [ 0 1 2 3 4 5 6 7 8 ]"
+        },
+        {
+          "title": "连接路径与字符串",
+          "description": "",
+          "code": "let\n  base = /usr/bin;\n  executable = base + /python3;           # /usr/bin/python3\n  \n  # 路径与字符串连接\n  config_path = /etc + \"/nginx/nginx.conf\";   # /etc/nginx/nginx.conf\n  \n  # 字符串连接\n  greeting = \"你好\" + \"，世界！\";            # \"你好，世界！\"\nin\n  { inherit executable config_path greeting; }"
+        },
+        {
+          "title": "字符串插值",
+          "description": "函数",
+          "code": "let\n  name = \"张三\";\n  age = 25;\n  score = 95.5;\nin\n  {\n    greeting = \"你好，${name}！\";\n    info = \"姓名：${name}，年龄：${toString age}\";\n    result = \"考试成绩：${toString score}分\";\n    \n    # 复杂表达式插值\n    status = \"用户 ${name} ${if age >= 18 then \"已成年\" else \"未成年\"}\";\n    \n    # 路径插值\n    config_file = \"${./configs}/${name}.conf\";\n  }"
+        }
+      ]
+    },
+    {
+      "title": "函数",
+      "entries": [
+        {
+          "title": "简单函数",
+          "description": "",
+          "code": "let\n  # 单参数函数\n  increment = x: x + 1;\n  double = x: x * 2;\n  \n  # 使用函数\n  result1 = increment 5;    # 6\n  result2 = double 3;       # 6\nin\n  { inherit result1 result2; }"
+        },
+        {
+          "title": "命名参数",
+          "description": "**忽略额外参数**\n\n**默认参数值**\n\n**绑定到变量**",
+          "code": "let\n  # 将整个参数集绑定到变量，同时解构部分参数\n  logMessage = {\n    level, \n    message, \n    timestamp ? null\n  }@args: {\n    formatted = \"[${level}] ${message}\";\n    raw = args;  # 保留原始参数集\n    hasTimestamp = \n      args ? timestamp && timestamp != null;\n  };\n  \n  log = logMessage {\n    level = \"INFO\";\n    message = \"服务器启动成功\";\n    user = \"admin\";  # 额外参数也会保存在 args 中\n  };\nin\n  log"
+        },
+        {
+          "title": "多参数函数",
+          "description": "",
+          "code": "let\n  # 柯里化函数\n  add = x: y: x + y;\n  multiply = x: y: z: x * y * z;\n  \n  # 部分应用\n  add10 = add 10;  # 等价于 y: 10 + y\n  \n  # 使用示例\n  result1 = add 3 4;        # 7\n  result2 = add10 5;        # 15\n  result3 = multiply 2 3 4; # 24\nin\n  { inherit result1 result2 result3; }"
+        },
+        {
+          "title": "高阶函数",
+          "description": "",
+          "code": "let\n  # 接受函数作为参数的高阶函数\n  applyTwice = f: x: f (f x);\n  \n  # 返回函数的高阶函数\n  createMultiplier = factor: x: x * factor;\n  \n  # 函数组合\n  compose = f: g: x: f (g x);\n  \n  # 使用示例\n  double = x: x * 2;\n  increment = x: x + 1;\n  \n  result1 = applyTwice double 3;    # 12\n  triple = createMultiplier 3;\n  result2 = triple 5;               # 15\n  doubleAndIncrement = \n    compose increment double;\n  result3 = doubleAndIncrement 4;   # 9\nin\n  { inherit result1 result2 result3; }"
+        },
+        {
+          "title": "递归函数",
+          "description": "",
+          "code": "let\n  # 计算阶乘\n  factorial = n:\n    if n <= 1\n    then 1\n    else n * factorial (n - 1);\n  \n  # 斐波那契数列\n  fibonacci = n:\n    if n <= 1\n    then n\n    else fibonacci (n - 1) + fibonacci (n - 2);\n  \n  # 列表长度计算\n  listLength = list:\n    if list == []\n    then 0\n    else 1 + listLength (builtins.tail list);\n  \n  # 使用示例\n  fact5 = factorial 5;        # 120\n  fib7 = fibonacci 7;         # 13\n  len = listLength [1 2 3 4]; # 4\nin\n  { inherit fact5 fib7 len; }"
+        },
+        {
+          "title": "条件函数",
+          "description": "let\n# 根据条件选择不同的处理函数\nprocessData = condition: data:\nlet\nuppercaseProcessor = str:\nbuiltins.replaceStrings\n[\"a\" \"e\" \"i\" \"o\" \"u\"]\n[\"A\" \"E\" \"I\" \"O\" \"U\"] str;\nlengthProcessor = str:\ntoString (builtins.stringLength str);\nreverseProcessor = str:\nlet\nlen = builtins.stringLength str;\nchars = builtins.genList\n(i: builtins.substring\n(len - 1 - i) 1 str) len;\nin\nbuiltins.concatStringsSep \"\" chars;\nin\nif condition == \"uppercase\"\nthen uppercaseProcessor data\nelse if condition == \"length\"\nthen lengthProcessor data\nelse if condition == \"reverse\"\nthen reverseProcessor data\nelse data;\n# 使用示例\ntext = \"hello world\";\nresult1 = processData \"uppercase\" text;\nresult2 = processData \"length\" text;\nresult3 = processData \"reverse\" text;\nin\n{ inherit result1 result2 result3; }",
+          "code": ""
+        },
+        {
+          "title": "函数工厂",
+          "description": "",
+          "code": "let\n  # 创建验证器函数的工厂\n  createValidator = rules: value:\n    let\n      checkRule = rule:\n        if rule.type == \"minLength\"\n        then \n          builtins.stringLength value >= rule.value\n        else if rule.type == \"maxLength\"\n        then \n          builtins.stringLength value <= rule.value\n        else if rule.type == \"contains\"\n        then \n          builtins.match \".*${rule.value}.*\" value \n          != null\n        else true;\n      \n      results = map checkRule rules;\n      allValid = builtins.all (x: x) results;\n    in\n      { \n        valid = allValid; \n        value = value;\n        errors = builtins.filter \n          (rule: !checkRule rule) rules;\n      };\n  \n  # 创建特定的验证器\n  emailValidator = createValidator [\n    { type = \"minLength\"; value = 5; }\n    { type = \"contains\"; value = \"@\"; }\n    { type = \"contains\"; value = \".\"; }\n  ];\n  \n  passwordValidator = createValidator [\n    { type = \"minLength\"; value = 8; }\n    { type = \"maxLength\"; value = 32; }\n  ];\n  \n  # 使用示例\n  email_result = emailValidator \"user@example.com\";\n  password_result = passwordValidator \"mypassword123\";\nin\n  { inherit email_result password_result; }"
+        },
+        {
+          "title": "函数式编程工具",
+          "description": "内置函数",
+          "code": "let\n  # 映射函数\n  mapList = f: list:\n    if list == []\n    then []\n    else \n      let head = f (builtins.head list);\n          tail = mapList f (builtins.tail list);\n      in [ head ] ++ tail;\n  \n  # 过滤函数\n  filterList = predicate: list:\n    if list == []\n    then []\n    else\n      let\n        head = builtins.head list;\n        tail = builtins.tail list;\n        filtered_tail = \n          filterList predicate tail;\n      in\n        if predicate head\n        then [ head ] ++ filtered_tail\n        else filtered_tail;\n  \n  # 归约函数\n  reduceList = f: initial: list:\n    if list == []\n    then initial\n    else \n      let head = builtins.head list;\n          tail = builtins.tail list;\n      in reduceList f (f initial head) tail;\n  \n  # 使用示例\n  numbers = [ 1 2 3 4 5 ];\n  doubled = mapList (x: x * 2) numbers;\n  evens = filterList (x: x mod 2 == 0) numbers;\n  sum = reduceList (acc: x: acc + x) 0 numbers;\n  product = reduceList (acc: x: acc * x) 1 numbers;\nin\n  { inherit doubled evens sum product; }"
+        }
+      ]
+    },
+    {
+      "title": "内置函数",
+      "entries": [
+        {
+          "title": "类型检查函数",
+          "description": "",
+          "code": "let\n  value = \"hello\";\nin\n  {\n    isString = builtins.isString value;      \n          # true\n    isInt = builtins.isInt value;            \n          # false\n    isBool = builtins.isBool true;           \n          # true\n    isList = builtins.isList [1 2 3];        \n          # true\n    isAttrs = builtins.isAttrs {x = 1;};     \n          # true\n    isFunction = builtins.isFunction (x: x); \n          # true\n  }"
+        },
+        {
+          "title": "字符串操作函数",
+          "description": "",
+          "code": "let\n  text = \"Hello, Nix World!\";\nin\n  {\n    length = builtins.stringLength text;     # 18\n    substring = builtins.substring 7 3 text; # \"Nix\"\n    split = builtins.split \" \" text;         # 分割字符串\n    replace = builtins.replaceStrings [\"Nix\"] [\"世界\"] text;  # \"Hello, 世界 World!\"\n    \n    # 大小写转换需要自定义实现\n    toLower = builtins.replaceStrings \n      [\"A\" \"B\" \"C\" \"D\" \"E\" \"F\" \"G\" \"H\" \"I\" \"J\" \"K\" \"L\" \"M\" \n       \"N\" \"O\" \"P\" \"Q\" \"R\" \"S\" \"T\" \"U\" \"V\" \"W\" \"X\" \"Y\" \"Z\"]\n      [\"a\" \"b\" \"c\" \"d\" \"e\" \"f\" \"g\" \"h\" \"i\" \"j\" \"k\" \"l\" \"m\" \n       \"n\" \"o\" \"p\" \"q\" \"r\" \"s\" \"t\" \"u\" \"v\" \"w\" \"x\" \"y\" \"z\"] \n      \"HELLO\";\n  }"
+        },
+        {
+          "title": "列表操作函数",
+          "description": "",
+          "code": "let\n  numbers = [1 2 3 4 5];\n  strings = [\"apple\" \"banana\" \"cherry\"];\nin\n  {\n    length = builtins.length numbers;        # 5\n    head = builtins.head numbers;            # 1\n    tail = builtins.tail numbers;            # [2 3 4 5]\n    \n    # 映射函数\n    doubled = map (x: x * 2) numbers;        # [2 4 6 8 10]\n    # 过滤函数\n    evens = builtins.filter (x: x mod 2 == 0) numbers;  # [2 4]\n    # 折叠函数\n    sum = builtins.foldl' (acc: x: acc + x) 0 numbers;  # 15\n    # 元素查找\n    hasThree = builtins.elem 3 numbers;      # true\n    # 排序\n    sorted = builtins.sort (a: b: a < b) [3 1 4 1 5 9];  # [1 1 3 4 5 9]\n  }"
+        },
+        {
+          "title": "属性集操作函数",
+          "description": "导入与模块",
+          "code": "let\n  attrs = { a = 1; b = 2; c = 3; };\nin\n  {\n    keys = builtins.attrNames attrs;         # [\"a\" \"b\" \"c\"]\n    values = builtins.attrValues attrs;      # [1 2 3]\n    hasAttr = builtins.hasAttr \"b\" attrs;    # true\n    \n    # 映射属性值\n    doubled = builtins.mapAttrs (name: value: value * 2) attrs;\n    # { a = 2; b = 4; c = 6; }\n    \n    # 过滤属性\n    filtered = builtins.filterAttrs (name: value: value > 1) attrs;\n    # { b = 2; c = 3; }\n    \n    # 移除属性\n    removed = builtins.removeAttrs attrs [\"b\"];  # { a = 1; c = 3; }\n  }"
+        }
+      ]
+    },
+    {
+      "title": "导入与模块",
+      "entries": [
+        {
+          "title": "导入文件",
+          "description": "",
+          "code": "let\n  # 导入其他 Nix 文件\n  utils = import ./utils.nix;\n  config = import ./config.nix;\n  \n  # 带参数导入\n  lib = import <nixpkgs/lib>;\n  \n  # 导入并传递参数\n  myModule = import ./module.nix {\n    pkgs = import <nixpkgs> {};\n    config = { enableFeature = true; };\n  };\nin\n  {\n    inherit utils config lib myModule;\n  }"
+        },
+        {
+          "title": "模块定义",
+          "description": "包管理",
+          "code": "# module.nix 示例\n{ pkgs, config, ... }:\n\n{\n  # 模块选项\n  options = {\n    services.myapp = {\n      enable = lib.mkOption {\n        type = lib.types.bool;\n        default = false;\n        description = \"启用 MyApp 服务\";\n      };\n      \n      port = lib.mkOption {\n        type = lib.types.int;\n        default = 8080;\n        description = \"MyApp 监听端口\";\n      };\n    };\n  };\n  \n  # 模块配置\n  config = lib.mkIf config.services.myapp.enable {\n    systemd.services.myapp = {\n      description = \"MyApp 服务\";\n      after = [\"network.target\"];\n      serviceConfig = {\n        ExecStart = \"${pkgs.myapp}/bin/myapp --port ${toString config.services.myapp.port}\";\n        Restart = \"always\";\n      };\n    };\n  };\n}"
+        }
+      ]
+    },
+    {
+      "title": "包管理",
+      "entries": [
+        {
+          "title": "基本包定义",
+          "description": "",
+          "code": "# default.nix 或 shell.nix\n{ pkgs ? import <nixpkgs> {} }:\n\npkgs.stdenv.mkDerivation {\n  pname = \"my-app\";\n  version = \"1.0.0\";\n  \n  src = ./.;  # 当前目录作为源码\n  \n  buildInputs = with pkgs; [\n    nodejs\n    yarn\n  ];\n  \n  buildPhase = ''\n    yarn install\n    yarn build\n  '';\n  \n  installPhase = ''\n    mkdir -p $out/bin\n    cp -r dist/* $out/\n    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/my-app \\\n      --add-flags \"$out/index.js\"\n  '';\n  \n  meta = with pkgs.lib; {\n    description = \"我的应用程序\";\n    homepage = \"https://example.com\";\n    license = licenses.mit;\n    maintainers = with maintainers; [ \"your-name\" ];\n  };\n}"
+        },
+        {
+          "title": "开发环境",
+          "description": "常用工具函数",
+          "code": "# shell.nix\n{ pkgs ? import <nixpkgs> {} }:\n\npkgs.mkShell {\n  buildInputs = with pkgs; [\n    # 开发工具\n    git\n    nodejs\n    yarn\n    python3\n    \n    # 系统库\n    pkg-config\n    openssl\n    \n    # 数据库\n    postgresql\n    redis\n  ];\n  \n  # 环境变量\n  shellHook = ''\n    echo \"欢迎进入开发环境！\"\n    export DATABASE_URL=\"postgresql://localhost/myapp\"\n    export REDIS_URL=\"redis://localhost:6379\"\n    \n    # 自动启动服务\n    if ! pgrep -f \"postgres\" > /dev/null; then\n      echo \"启动 PostgreSQL...\"\n      postgres -D $HOME/postgres-data &\n    fi\n  '';\n}"
+        }
+      ]
+    },
+    {
+      "title": "常用工具函数",
+      "entries": [
+        {
+          "title": "递归函数",
+          "description": "错误处理",
+          "code": "let\n  # 计算阶乘\n  factorial = n:\n    if n <= 1\n    then 1\n    else n * factorial (n - 1);\n  \n  # 列表求和\n  sumList = list:\n    if list == []\n    then 0\n    else builtins.head list + sumList (builtins.tail list);\n  \n  # 深度合并属性集\n  deepMerge = a: b:\n    let\n      mergeAttr = name:\n        let\n          aVal = a.${name};\n          bVal = b.${name};\n        in\n          if builtins.isAttrs aVal && builtins.isAttrs bVal\n          then deepMerge aVal bVal\n          else bVal;\n    in\n      a // b // builtins.listToAttrs (\n        map (name: { inherit name; value = mergeAttr name; })\n        (builtins.filter (name: builtins.hasAttr name a) (builtins.attrNames b))\n      );\nin\n  {\n    fact5 = factorial 5;           # 120\n    listSum = sumList [1 2 3 4 5]; # 15\n    merged = deepMerge \n      { a = { x = 1; y = 2; }; c = 3; }\n      { a = { y = 9; z = 4; }; d = 5; };\n  }"
+        }
+      ]
+    },
+    {
+      "title": "错误处理",
+      "entries": [
+        {
+          "title": "断言",
+          "description": "",
+          "code": "let\n  version = \"1.2.3\";\n  \n  # 基本断言\n  validVersion = assert builtins.stringLength version > 0; version;\n  \n  # 带消息的断言（通过 throw 实现）\n  checkPort = port:\n    if port < 1 || port > 65535\n    then throw \"端口号必须在 1-65535 之间，当前值: ${toString port}\"\n    else port;\n  \n  # 条件检查\n  config = {\n    port = checkPort 8080;\n    host = if builtins.getEnv \"HOST\" != \"\" \n           then builtins.getEnv \"HOST\" \n           else \"localhost\";\n  };\nin\n  config"
+        },
+        {
+          "title": "异常处理",
+          "description": "来源",
+          "code": "let\n  # 安全的属性访问\n  safeGet = attrs: path: default:\n    let\n      keys = builtins.split \"\\\\.\" path;\n      getValue = obj: keyList:\n        if keyList == [] then obj\n        else if !builtins.isAttrs obj then default\n        else if !builtins.hasAttr (builtins.head keyList) obj then default\n        else getValue (obj.${builtins.head keyList}) (builtins.tail keyList);\n    in\n      getValue attrs keys;\n  \n  config = {\n    database = {\n      host = \"localhost\";\n      port = 5432;\n    };\n  };\n  \n  # 安全访问嵌套属性\n  dbHost = safeGet config \"database.host\" \"default-host\";      # \"localhost\"\n  dbUser = safeGet config \"database.user\" \"default-user\";      # \"default-user\"\nin\n  { inherit dbHost dbUser; }"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/nix.md"
+}

@@ -1,0 +1,264 @@
+{
+  "name": "ES2015+",
+  "description": "ES2015+ 快速参考",
+  "category": "",
+  "count": 43,
+  "sections": [
+    {
+      "title": "常用",
+      "entries": [
+        {
+          "title": "块范围",
+          "description": "**Let**\n\n**Const**\n`let` 是新的 `var`。 常量(`const`) 就像 `let` 一样工作，但不能重新分配。\n请参阅：[Let 和 const](https://babeljs.io/learn-es2015/#let--const)",
+          "code": "const a = 1"
+        },
+        {
+          "title": "反引号字符串",
+          "description": "**插值**\n\n**多行字符串**\n模板和多行字符串。\n请参阅：[模板字符串](https://babeljs.io/learn-es2015/#template-strings)",
+          "code": "const str = `\nhello\nworld\n`"
+        },
+        {
+          "title": "二进制和八进制文字",
+          "description": "请参阅：[二进制和八进制文字](https://babeljs.io/learn-es2015/#binary-and-octal-literals)",
+          "code": "let bin = 0b1010010\nlet oct = 0o755"
+        },
+        {
+          "title": "指数运算符",
+          "description": "",
+          "code": "const byte = 2 ** 8\n// 同: Math.pow(2, 8)"
+        },
+        {
+          "title": "新方法",
+          "description": "**新的字符串方法**\n\n**新的数字方法**\n\n**新的 Math 方法**\n\n**新的 Array 方法**\n请参阅: [新方法](https://babeljs.io/learn-es2015/#math--number--string--object-apis)",
+          "code": "// 返回一个真实的数组\nArray.from(document.querySelectorAll(\"*\"))\n// 类似于 new Array(...)，但没有特殊的单参数行为\nArray.of(1, 2, 3)"
+        },
+        {
+          "title": "类",
+          "description": "**构造函数**\n\n**方法**\n\n**调用超类方法**\n\n**静态方法**\n原型的语法糖。\n请参阅: [类](https://babeljs.io/learn-es2015/#classes)",
+          "code": "static createFromDiameter(diameter) {\n    return new Circle(diameter / 2)\n  }\n}"
+        },
+        {
+          "title": "私有类",
+          "description": "javascript 默认字段是公共的（`public`）,如果需要注明私有，可以使用（`#`）\n\n**静态私有类**\nPromises",
+          "code": "class ClassWithPrivate {\n  static #privateStaticField;\n  static #privateStaticFieldWithInitializer = 42;\n\n  static #privateStaticMethod() {\n    // …\n  }\n}"
+        }
+      ]
+    },
+    {
+      "title": "Promises",
+      "entries": [
+        {
+          "title": "做出承诺",
+          "description": "用于异步编程。\n请参阅：[Promises](https://babeljs.io/learn-es2015/#promises)",
+          "code": "new Promise((resolve, reject) => {\n  if (ok) { resolve(result) }\n  else { reject(error) }\n})"
+        },
+        {
+          "title": "使用 Promises",
+          "description": "",
+          "code": "promise\n  .then((result) => { ··· })\n  .catch((error) => { ··· })"
+        },
+        {
+          "title": "在 finally 中使用 Promise",
+          "description": "当承诺被履行或被拒绝时，处理程序被调用",
+          "code": "promise\n  .then((result) => { ··· })\n  .catch((error) => { ··· })\n  .finally(() => {\n    /* 独立于成功/错误的逻辑 */\n  })"
+        },
+        {
+          "title": "Promise 函数",
+          "description": "",
+          "code": "Promise.all(···)\nPromise.race(···)\nPromise.reject(···)\nPromise.resolve(···)"
+        },
+        {
+          "title": "Async-await",
+          "description": "`async` 函数是使用函数的另一种方式。\n请参阅：[异步函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)\n解构 Destructuring",
+          "code": "async function run () {\n  const user = await getUser()\n  const tweets = await getTweets(user)\n  return [user, tweets]\n}"
+        }
+      ]
+    },
+    {
+      "title": "解构 Destructuring",
+      "entries": [
+        {
+          "title": "解构赋值",
+          "description": "**Arrays**\n\n**Objects**\n支持匹配数组和对象。\n请参阅：[解构](https://babeljs.io/learn-es2015/#destructuring)",
+          "code": "let {title, author} = {\n  title: 'The Silkworm',\n  author: 'R. Galbraith'\n}"
+        },
+        {
+          "title": "默认值",
+          "description": "可以在解构数组或对象时分配默认值",
+          "code": "// Result:\n// math === 22, sci === 33, arts === 50"
+        },
+        {
+          "title": "函数参数",
+          "description": "对象和数组的解构也可以在函数参数中完成",
+          "code": "greet({ name: 'Larry', greeting: 'Ahoy' })"
+        },
+        {
+          "title": "默认值",
+          "description": "",
+          "code": "greet() // Hi Rauno!\ngreet({ name: 'Larry' }) // Hi Larry!"
+        },
+        {
+          "title": "重新分配键",
+          "description": "此示例将 `x` 分配给 `left` 键的值",
+          "code": "printCoordinates({ left: 25, top: 90 })"
+        },
+        {
+          "title": "循环",
+          "description": "赋值表达式也在循环中工作",
+          "code": "for (let {title, artist} of songs) {\n  ···\n}"
+        },
+        {
+          "title": "对象解构",
+          "description": "使用 `rest(...)` 运算符单独提取一些键和对象中的剩余键\n扩展运算符 Spread",
+          "code": "const { id, ...detail } = song;"
+        }
+      ]
+    },
+    {
+      "title": "扩展运算符 Spread",
+      "entries": [
+        {
+          "title": "对象扩展",
+          "description": "**与对象扩展**\n\n**没有对象扩展**\n对象扩展运算符允许您从其他对象构建新对象。\n请参阅：[对象传播](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)",
+          "code": "const options = Object.assign(\n  {}, defaults,\n  { visible: true })"
+        },
+        {
+          "title": "数组扩展",
+          "description": "**具有数组扩展**\n\n**没有数组扩展**\n扩展运算符允许您以相同的方式构建新数组。\n请参阅：[扩展运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)\n函数 Functions",
+          "code": "const users = admins\n  .concat(editors)\n  .concat([ 'rstacruz' ])"
+        }
+      ]
+    },
+    {
+      "title": "函数 Functions",
+      "entries": [
+        {
+          "title": "函数参数",
+          "description": "**默认参数**\n\n**Rest 参数**\n\n**扩展**\nDefault(默认), rest, spread(扩展)。\n请参阅：[函数参数](https://babeljs.io/learn-es2015/#default--rest--spread)",
+          "code": "fn(...[1, 2, 3])\n// 与 fn(1, 2, 3) 相同"
+        },
+        {
+          "title": "箭头函数",
+          "description": "**箭头函数**\n\n**带参数**\n\n**隐式返回**\n类似函数，但保留了 `this`。\n请参阅：[箭头函数](https://babeljs.io/learn-es2015/#arrows-and-lexical-this)",
+          "code": "arr.map(n => n*2)\n// 没有花括号 = 隐式返回\n// 同: arr.map(function (n) { return n*2 })\narr.map(n => ({\n  result: n*2\n}))\n// 隐式返回对象需要在对象周围加上括号"
+        },
+        {
+          "title": "参数设置默认值",
+          "description": "",
+          "code": "function log(x, y = 'World') {\n  console.log(x, y);\n}\n\nlog('Hello')          // Hello World\nlog('Hello', 'China') // Hello China\nlog('Hello', '')      // Hello"
+        },
+        {
+          "title": "与解构赋值默认值结合使用",
+          "description": "",
+          "code": "function foo({x, y = 5} = {}) {\n  console.log(x, y);\n}\n\nfoo() // undefined 5"
+        },
+        {
+          "title": "name 属性",
+          "description": "",
+          "code": "function foo() {}\nfoo.name // \"foo\""
+        },
+        {
+          "title": "length 属性",
+          "description": "Objects",
+          "code": "function foo(a, b){}\nfoo.length // 2"
+        }
+      ]
+    },
+    {
+      "title": "Objects",
+      "entries": [
+        {
+          "title": "速记语法",
+          "description": "同下:\n请参阅：[对象字面量增强](https://babeljs.io/learn-es2015/#enhanced-object-literals)",
+          "code": "module.exports = {\n  hello: hello, bye: bye\n}"
+        },
+        {
+          "title": "方法",
+          "description": "请参阅：[对象文字增强](https://babeljs.io/learn-es2015/#enhanced-object-literals)",
+          "code": "const App = {\n  start () {\n    console.log('running')\n  }\n}\n// 同: App = { start: function () {···} }"
+        },
+        {
+          "title": "Getters and setters",
+          "description": "请参阅：[对象字面量增强](https://babeljs.io/learn-es2015/#enhanced-object-literals)",
+          "code": "const App = {\n  get closed () {\n    return this.status === 'closed'\n  },\n  set closed (value) {\n    this.status = value ? 'closed' : 'open'\n  }\n}"
+        },
+        {
+          "title": "计算属性名称",
+          "description": "请参阅：[对象字面量增强](https://babeljs.io/learn-es2015/#enhanced-object-literals)",
+          "code": "let event = 'click'\nlet handlers = {\n  [`on${event}`]: true\n}\n// 同: handlers = { 'onclick': true }"
+        },
+        {
+          "title": "提取值",
+          "description": "Modules 模块",
+          "code": "const fatherJS = { age: 57, name: \"张三\" }\nObject.values(fatherJS)\n// [57, \"张三\"]\nObject.entries(fatherJS)\n// [[\"age\", 57], [\"name\", \"张三\"]]"
+        }
+      ]
+    },
+    {
+      "title": "Modules 模块",
+      "entries": [
+        {
+          "title": "Imports 导入",
+          "description": "`import` 是新的 `require()`。\n请参阅：[Module imports](https://babeljs.io/learn-es2015/#modules)",
+          "code": "import { indentSpaces as indent } from 'helpers'\n// 又名: const indent = require('···').indentSpaces"
+        },
+        {
+          "title": "Exports 导出",
+          "description": "`export` 是新的`module.exports`。\n请参阅：[Module exports](https://babeljs.io/learn-es2015/#modules)",
+          "code": "export * from \"lib/math\";"
+        },
+        {
+          "title": "`as` 关键字重命名",
+          "description": "",
+          "code": "import {\n  lastName as surname // 导入重命名\n} from './profile.js';\n\nfunction v1() { ... }\nfunction v2() { ... }\n\nexport { v1 as default };\n// 等同于 export default v1;\n\nexport {\n  v1 as streamV1,           // 导出重命名\n  v2 as streamV2,           // 导出重命名\n  v2 as streamLatestVersion // 导出重命名\n};"
+        },
+        {
+          "title": "动态加载模块",
+          "description": "[ES2020提案](https://github.com/tc39/proposal-dynamic-import) 引入 `import()` 函数",
+          "code": "button.addEventListener('click', event => {\n  import('./dialogBox.js')\n    .then(dialogBox => {\n      dialogBox.open();\n    })\n    .catch(error => {\n      /* Error handling */\n    })\n});"
+        },
+        {
+          "title": "import() 允许模块路径动态生成",
+          "description": "",
+          "code": "const main = document.querySelector('main')\n\nimport(`./modules/${someVariable}.js`)\n  .then(module => {\n    module.loadPageInto(main);\n  })\n  .catch(err => {\n    main.textContent = err.message;\n  });"
+        },
+        {
+          "title": "import.meta",
+          "description": "[ES2020](https://github.com/tc39/proposal-import-meta) 为 `import` 命令添加了一个元属性 `import.meta`，返回当前模块的元信息\nNode.js 环境中，`import.meta.url`返回的总是本地路径，即 `file:URL` 协议的字符串，比如 `file:///home/user/foo.js`",
+          "code": "new URL('data.txt', import.meta.url)"
+        },
+        {
+          "title": "导入断言（Import Assertions）",
+          "description": "**静态导入**\n\n**动态导入**\nGenerators",
+          "code": "const json = \n     await import(\"./package.json\", { assert: { type: \"json\" } })"
+        }
+      ]
+    },
+    {
+      "title": "Generators",
+      "entries": [
+        {
+          "title": "Generator 函数",
+          "description": "情况很复杂。\n请参阅：[Generators](https://babeljs.io/learn-es2015/#generators)",
+          "code": "let gen = idMaker()\ngen.next().value  // → 0\ngen.next().value  // → 1\ngen.next().value  // → 2"
+        },
+        {
+          "title": "For..of + 迭代器(iterator)",
+          "description": "用于迭代生成器和数组。\n请参阅：[For..of iteration](https://babeljs.io/learn-es2015/#iterators--forof)",
+          "code": "let fibonacci = {\n  [Symbol.iterator]() {\n    let pre = 0, cur = 1;\n    return {\n      next() {\n        [pre, cur] = [cur, pre + cur];\n        return { done: false, value: cur }\n      }\n    }\n  }\n}\n\nfor (var n of fibonacci) {\n  // 在 1000 处截断序列\n  if (n > 1000) break;\n  console.log(n);\n}"
+        },
+        {
+          "title": "与 Iterator 接口的关系",
+          "description": "`Generator` 函数赋值给 `Symbol.iterator` 属性，从而使得 `gen` 对象具有了 `Iterator` 接口，可以被 `...` 运算符遍历了",
+          "code": "var gen = {};\ngen[Symbol.iterator] = function* () {\n  yield 1;\n  yield 2;\n  yield 3;\n};\n\n[...gen] // => [1, 2, 3]"
+        },
+        {
+          "title": "Symbol.iterator 属性",
+          "description": "`gen` 是一个 `Generator` 函数，调用它会生成一个遍历器对象`g`。它的 `Symbol.iterator` 属性，也是一个遍历器对象生成函数，执行后返回它自己\n另见",
+          "code": "function* gen() { /* some code */ }\nvar g = gen();\n\ng[Symbol.iterator]() === g // true"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/es6.md"
+}

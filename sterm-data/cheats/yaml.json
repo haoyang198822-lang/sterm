@@ -1,0 +1,174 @@
+{
+  "name": "YAML",
+  "description": "YAML 快速参考",
+  "category": "",
+  "count": 30,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "介绍",
+          "description": "[YAML](https://yaml.org/) 是一种数据序列化语言，旨在供人类直接读写\n- YAML 不允许使用制表符\n- 元素部分之间必须有空间\n- YAML 区分大小写\n- 以 `.yaml` 或 `.yml` 扩展名结束您的 YAML 文件\n- YAML 是 JSON 的超集\n- Ansible playbook 是 YAML 文件",
+          "code": ""
+        },
+        {
+          "title": "标量类型",
+          "description": "**↓ 等效的 JSON**\n使用空格缩进。 元素部分之间必须有空间。",
+          "code": "{\n  \"n1\": 1,\n  \"n2\": 1.234,\n  \"s1\": \"abc\",\n  \"s2\": \"abc\",\n  \"s3\": \"abc\",\n  \"b\": false,\n  \"d\": \"2015-04-05\"\n}"
+        },
+        {
+          "title": "变量",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"some_thing\": \"foobar\",\n  \"other_thing\": \"foobar\"\n}"
+        },
+        {
+          "title": "注释",
+          "description": "",
+          "code": "# A single line comment example\n# block level comment example\n# comment line 1\n# comment line 2\n# comment line 3"
+        },
+        {
+          "title": "多行字符串",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\"description\": \"hello\\nworld\\n\"}"
+        },
+        {
+          "title": "继承",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"parent\": {\n    \"a\": 2,\n    \"b\": 3\n  },\n  \"child\": {\n    \"a\": 2,\n    \"b\": 4\n  }\n}"
+        },
+        {
+          "title": "参考",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"values\": [\n    \"Will be\",\n    \"reused below\"\n  ],\n  \"other_values\": {\n    \"i_am_ref\": [\n      \"Will be\",\n      \"reused below\"\n    ]\n  }\n}"
+        },
+        {
+          "title": "折叠的字符串",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\"description\": \"hello world\\n\"}"
+        },
+        {
+          "title": "两份文件",
+          "description": "",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "YAML Collections",
+      "entries": [
+        {
+          "title": "序列",
+          "description": "**↓ 等效的 JSON**",
+          "code": "[\n  \"Mark McGwire\",\n  \"Sammy Sosa\",\n  \"Ken Griffey\"\n]"
+        },
+        {
+          "title": "映射",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"hr\": 65,\n  \"avg\": 0.278,\n  \"rbi\": 147\n}"
+        },
+        {
+          "title": "映射到序列",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"attributes\": [\"a1\", \"a2\"],\n  \"methods\": [\"getter\", \"setter\"]\n}"
+        },
+        {
+          "title": "映射序列",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"children\": [\n    {\"name\": \"Jimmy Smith\", \"age\": 15},\n    {\"name\": \"Jimmy Smith\", \"age\": 15},\n    {\"name\": \"Sammy Sosa\", \"age\": 12}\n  ]\n}"
+        },
+        {
+          "title": "序列的序列",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"my_sequences\": [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9, 0]\n  ]\n}"
+        },
+        {
+          "title": "映射的映射",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"Mark McGwire\": {\n    \"hr\": 65,\n    \"avg\": 0.278\n  },\n  \"Sammy Sosa\": {\n    \"hr\": 63,\n    \"avg\": 0.288\n  }\n}"
+        },
+        {
+          "title": "嵌套集合",
+          "description": "**↓ 等效的 JSON**",
+          "code": "{\n  \"Jack\": {\n    \"id\": 1,\n    \"name\": \"Franc\",\n    \"salary\": 25000,\n    \"hobby\": [\"a\", \"b\"],\n    \"location\": {\n        \"country\": \"A\", \"city\": \"A-A\"\n    }\n  }\n}"
+        },
+        {
+          "title": "无序集",
+          "description": "**↓ 等效的 JSON**\n集合表示为一个映射，其中每个键都与一个空值相关联",
+          "code": "{\n  \"set1\": {\"one\": null, \"two\": null},\n  \"set2\": {\"one\": null, \"two\": null}\n}"
+        },
+        {
+          "title": "有序映射",
+          "description": "**↓ 等效的 JSON**\nYAML 参考",
+          "code": "{\n  \"ordered\": [\n     {\"Mark McGwire\": 65},\n     {\"Sammy Sosa\": 63},\n     {\"Ken Griffy\": 58}\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "title": "YAML 参考",
+      "entries": [
+        {
+          "title": "条款",
+          "description": "- 序列又名数组或列表\n- 标量又名字符串或数字\n- 映射又名哈希或字典\n基于 YAML.org [refcard](https://yaml.org/refcard.html)。",
+          "code": ""
+        },
+        {
+          "title": "文档指标",
+          "description": ":- | :-\n:- | :-\n`%`   | 指令指标\n`---` | 文档标题\n`...` | 文档终结者",
+          "code": ""
+        },
+        {
+          "title": "收集指标",
+          "description": ":- | :-\n:- | :-\n`?`  | 关键指标\n`:`  | 价值指标\n`-`  | 嵌套系列条目指示器\n`,`  | 单独的内联分支条目\n`[]` | 环绕串联系列分支\n`{}` | 环绕在线键控分支",
+          "code": ""
+        },
+        {
+          "title": "别名指标",
+          "description": ":- | :-\n:- | :-\n`&` | 锚属性\n`*` | 别名指示符",
+          "code": ""
+        },
+        {
+          "title": "特殊键",
+          "description": ":- | :-\n:- | :-\n`=`  | 默认“值”映射键\n`<<` | 合并来自另一个映射的键",
+          "code": ""
+        },
+        {
+          "title": "标量指标",
+          "description": ":- | :-\n:- | :-\n`''`  | 环绕内联未转义标量\n`\"`   | 环绕内嵌转义标量\n`|`   | 块标量指示器\n`>`   | 折叠标量指示器\n`-`   | 剥离 chomp 修饰符（`\\|-` 或 `>-`）\n`+`   | 保留 chomp 修饰符（`\\|+` 或 `>+`）\n`1-9` | 显式缩进修饰符（`\\|1` 或 `>2`）。 <br/> 修饰符可以组合（`\\|2-`, `>+1`）",
+          "code": ""
+        },
+        {
+          "title": "标签属性（通常未指定）",
+          "description": ":- | :-\n:- | :-\n`none`   | 未指定的标签（由应用程序自动解析）\n`!`      | 非特定标签（默认情况下，`!!map`/`!!seq`/`!!str`）\n`!foo`   | 主要（按照惯例，表示本地 `!foo` 标记）\n`!!foo`  | 次要的（按照惯例，表示 `tag:yaml.org,2002:foo`）\n`!h!foo` | 需要 `%TAG !h! <prefix>`（然后表示 `<prefix>foo`）\n`!<foo>` | 逐字标记（始终表示“foo”）",
+          "code": ""
+        },
+        {
+          "title": "杂项指标",
+          "description": "|     |                             |\n|-----|-----------------------------|\n| `#` | 一次性评论指示器 |\n| <code>\\`@</code> | 两者都保留供将来使用 |",
+          "code": ""
+        },
+        {
+          "title": "核心类型（默认自动标签）",
+          "description": "|         |                                          |\n|---------|------------------------------------------|\n| `!!map` | `{Hash table, dictionary, mapping}`      |\n| `!!seq` | `{List, array, tuple, vector, sequence}` |\n| `!!str` | Unicode 字符串                            |",
+          "code": ""
+        },
+        {
+          "title": "转义码",
+          "description": "**Numeric**\n- `\\x12` (8-bit)\n- `\\u1234` (16-bit)\n- `\\U00102030` (32-bit)\n\n**Protective**\n- `\\\\` (\\\\)\n- `\\\"` (\")\n- `\\` ( )\n- `\\<TAB>` (TAB)\n\n**C**\n- `\\0` (NUL)\n- `\\a` (BEL)\n- `\\b` (BS)\n- `\\f` (FF)\n- `\\n` (LF)\n- `\\r` (CR)\n- `\\t` (TAB)\n- `\\v` (VTAB)\n\n**额外的**\n- `\\e` (ESC)\n- `\\_` (NBSP)\n- `\\N` (NEL)\n- `\\L` (LS)\n- `\\P` (PS)",
+          "code": ""
+        },
+        {
+          "title": "更多类型",
+          "description": "|          |                             |\n|----------|-----------------------------|\n| `!!set`  | `{cherries, plums, apples}` |\n| `!!omap` | `[one: 1, two: 2]`          |",
+          "code": ""
+        },
+        {
+          "title": "与语言无关的标量类型",
+          "description": "|                           |                                            |\n|---------------------------|--------------------------------------------|\n| `{~, null}`               | 空（无值）。 |\n| `[1234, 0x4D2, 02333]`    | [十进制整数、十六进制整数、八进制整数] |\n| `[1_230.15, 12.3015e+02]` | [固定浮点数，指数浮点数] |\n| `[.inf, -.Inf, .NAN]`     | [无穷大（浮点数），负数，不是数字] |\n| `{Y, true, Yes, ON}`      | 布尔真 |\n| `{n, FALSE, No, off}`     | 布尔假 |\n另见",
+          "code": ""
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/yaml.md"
+}

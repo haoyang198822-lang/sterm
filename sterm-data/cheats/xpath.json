@@ -1,0 +1,194 @@
+{
+  "name": "XPath",
+  "description": "XPath 快速参考",
+  "category": "",
+  "count": 31,
+  "sections": [
+    {
+      "title": "XPath 选择器",
+      "entries": [
+        {
+          "title": "入门",
+          "description": "XPath 即为 XML 路径语言（XML Path Language），它是一种用来确定XML文档中某部分位置的计算机语言。\n- [Xpath test bed](http://www.whitebeam.org/library/guide/TechNotes/xpathtestbed.rhtm) _(whitebeam.org)_\n- XPath 代表 XML 路径语言\n- XPath 使用 `类似路径` 语法识别和导航 XML 文档中的节点\n- XPath 包含超过 200 个内置函数\n- XPath 是 XSLT 标准中的主要元素\n- XPath 是 W3C 推荐的\n在 `Firefox` 或 `Chrome` 控制台中测试：",
+          "code": "$x('/html/body')\n$x('//h1')\n$x('//h1')[0].innerText\n$x('//a[text()=\"XPath\"]')[0].click()"
+        },
+        {
+          "title": "后代选择器",
+          "description": "| Xpath        | CSS          |\n|--------------|--------------|\n| `//h1`       | h1           |\n| `//div//p`   | div p        |\n| `//ul/li`    | ul > li      |\n| `//ul/li/a`  | ul > li > a  |\n| `//div/*`    | div > *      |\n| `/`          | :root        |\n| `/html/body` | :root > body |",
+          "code": ""
+        },
+        {
+          "title": "有序选择器",
+          "description": "| Xpath               | CSS                  |\n|---------------------|----------------------|\n| `//ul/li[1]`        | ul > li:first-child  |\n| `//ul/li[2]`        | ul > li:nth-child(2) |\n| `//ul/li[last()]`   | ul > li:last-child   |\n| `//li[@id=\"id\"][1]` | li#id:first-child    |\n| `//a[1]`            | a:first-child        |\n| `//a[last()]`       | a:last-child         |",
+          "code": ""
+        },
+        {
+          "title": "属性选择器",
+          "description": "| Xpath                           | CSS                  |\n|---------------------------------|----------------------|\n| `//*[@id=\"id\"]`                 | #id                  |\n| `//*[@class=\"class\"]`           | .class               |\n| `//input[@type=\"submit\"]`       | input[type=\"submit\"] |\n| `//a[@id=\"abc\"][@for=\"xyz\"]`    | a#abc[for=\"xyz\"]     |\n| `//a[@rel]`                     | a[rel]               |\n| `//a[starts-with(@href, '/')]`  | a[href^='/']         |\n| `//a[ends-with(@href, '.pdf')]` | a[href$='pdf']       |\n| `//a[contains(@href, '://')]`   | a[href*='`:`//']     |\n| `//a[contains(@rel, 'help')]`   | a[rel~='help']       |",
+          "code": ""
+        },
+        {
+          "title": "兄弟姐妹选择器",
+          "description": "| Xpath                                | CSS      |\n|--------------------------------------|----------|\n| `//h1/following-sibling::ul`         | h1 ~ ul  |\n| `//h1/following-sibling::ul[1]`      | h1 + ul  |\n| `//h1/following-sibling::[@id=\"id\"]` | h1 ~ #id |",
+          "code": ""
+        },
+        {
+          "title": "最有用的路径表达式",
+          "description": "| Xpath                            | CSS                        |\n|----------------------------------|----------------------------|\n`nodename` | 选择名称为 `nodename` 的所有节点\n`/`  | 从根节点中选择\n`//` | 从当前节点中选择文档中与选择匹配的节点，无论它们在哪里\n`.`  | 选择当前节点\n`..` | 选择当前节点的父节点\n`@`  | 选择属性",
+          "code": ""
+        },
+        {
+          "title": "杂项选择器",
+          "description": "| Xpath                             | CSS                       |\n|-----------------------------------|---------------------------|\n| `//h1[not(@id)]`                  | h1:not([id])              |\n| `//button[text()=\"Submit\"]`       | 文字匹配 |\n| `//button[contains(text(),\"Go\")]` | 文本包含（子字符串） |\n| `//product[@price > 2.50]`        | 算术 |\n| `//ul[*]`                         | 有孩子 |\n| `//ul[li]`                        | 有孩子（具体） |\n| `//a[@name or @href]`             | 或逻辑 |\n| `//a \\| //div`                    | 联合（加入结果） |",
+          "code": ""
+        },
+        {
+          "title": "jQuery",
+          "description": "| Xpath                            | CSS                        |\n|----------------------------------|----------------------------|\n| `//ul/li/..`                     | $('ul > li').parent()      |\n| `//li/ancestor-or-self::section` | $('li').closest('section') |\n| `//a/@href`                      | $('a').attr('href')        |\n| `//span/text()`                  | $('span').text()           |",
+          "code": ""
+        },
+        {
+          "title": "运算符",
+          "description": "运算符 | 说明  | 示例\n:- | - | -\n`\\|`  | 计算两个节点集 | `//book \\| //cd`\n`+`   | 添加 | `6 + 4`\n`-`   | 减法 | `6 - 4`\n`*`   | 乘法 | `6 * 4`\n`div` | 分配 | `8 div 4`\n`=`   | 平等的 | `price=9.80`\n`!=`  | 不相等 | `price!=9.80`\n`<`   | 小于   | `price<9.80`\n`<=`  | 小于或等于 | `price<=9.80`\n`>`   | 大于 | `price>9.80`\n`>=`  | 大于或等于 | `price>=9.80`\n`or`  | 或者 | `price=9.80` or `price=9.70`\n`and` | 和 | `price>9.00` and `price<9.90`\n`mod` | 模数（除法余数） | `5` mod `2`\nXPath 表达式",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "XPath 表达式",
+      "entries": [
+        {
+          "title": "步骤和轴",
+          "description": "| -    | -    | -    | -               |\n|------|------|------|-----------------|\n| `//` | `ul` | `/`  | `a[@id='link']` |\n| Axis | Step | Axis | Step            |",
+          "code": ""
+        },
+        {
+          "title": "前缀",
+          "description": "| 前缀    | 例子                  | 意思是    |\n|--------|-----------------------|----------|\n| `//`   | `//hr[@class='edge']` | 任何地方 |\n| `/`    | `/html/body/div`      | 根     |\n| `./`   | `./div/p`             | 相对的 |",
+          "code": ""
+        },
+        {
+          "title": "Axes",
+          "description": "| Axis(轴) | 例子             | 意思是      |\n|------|---------------------|------------|\n| `/`  | `//ul/li/a`         | 孩子      |\n| `//` | `//[@id=\"list\"]//a` | 后裔 |\nXPath Predicates(谓词)",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "XPath Predicates(谓词)",
+      "entries": [
+        {
+          "title": "Predicates(谓词)",
+          "description": "仅当某些条件为真时才限制节点集。它们可以被链接起来。",
+          "code": "//div[true()]\n//div[@class=\"head\"]\n//div[@class=\"head\"][@id=\"top\"]"
+        },
+        {
+          "title": "操作符",
+          "description": "",
+          "code": "# 逻辑 (and/or)\n//div[@id=\"head\" and position()=2]\n//div[(x and y) or not(z)]"
+        },
+        {
+          "title": "使用节点",
+          "description": "您可以在谓词中使用节点。",
+          "code": "# 返回具有 `<li>` 子级的 `<ul>`\n//ul[li]"
+        },
+        {
+          "title": "索引",
+          "description": "将 `[]` 与数字一起使用，或者使用 `last()` 或 `position()`。",
+          "code": "//a[1]                # 第一个<a>\n//a[last()]           # 最后一个<a>\n//ol/li[2]            # 第二个<li>\n//ol/li[position()=2] # 和上面一样\n//ol/li[position()>1] #:not(:first-child)"
+        },
+        {
+          "title": "链接顺序",
+          "description": "顺序很重要，这两个是不同的。",
+          "code": "a[1][@href='/']\na[@href='/'][1]"
+        },
+        {
+          "title": "嵌套谓词",
+          "description": "如果它有一个具有 `id='hi'` 的 `<h1>` 后代，则返回 `<section>`。\nXPath 函数",
+          "code": "//section[.//h1[@id='hi']]"
+        }
+      ]
+    },
+    {
+      "title": "XPath 函数",
+      "entries": [
+        {
+          "title": "节点功能",
+          "description": "",
+          "code": "count()           # //table[count(tr)=1]\nposition()        # //ol/li[position()=2]"
+        },
+        {
+          "title": "字符串函数",
+          "description": "",
+          "code": "concat(x,y)\nsubstring(str, start, len)\nsubstring-before(\"01/02\", \"/\")  #=> 01\nsubstring-after(\"01/02\", \"/\")   #=> 02\ntranslate()\nnormalize-space()\nstring-length()"
+        },
+        {
+          "title": "布尔函数",
+          "description": "",
+          "code": "not(expr)         # button[not(starts-with(text(),\"Submit\"))]"
+        },
+        {
+          "title": "类型转换",
+          "description": "XPath Axes",
+          "code": "string()\nnumber()\nboolean()"
+        }
+      ]
+    },
+    {
+      "title": "XPath Axes",
+      "entries": [
+        {
+          "title": "使用轴",
+          "description": "|      |      |            |      |\n|------|------|------------|------|\n| `//` | `ul` | `/child::` | `li` |\n| Axis | Step | Axis       | Step |\n表达式的步骤由 `/` 分隔，通常用于选择子节点。 这并不总是正确的：您可以使用 `::` 指定不同的“轴”。",
+          "code": "//ul/li                       # ul > li\n//ul/child::li                # ul > li (same)\n//ul/following-sibling::li    # ul ~ li\n//ul/descendant-or-self::li   # ul li\n//ul/ancestor-or-self::li     # $('ul').closest('li')"
+        },
+        {
+          "title": "子轴",
+          "description": "`child::` is the default axis. This makes `//a/b/c` work.",
+          "code": "# 都一样\n//ul[count(li) > 2]\n//ul[count(child::li) > 2]"
+        },
+        {
+          "title": "后代或自我轴",
+          "description": "`//` 是 `descendant-or-self::` 轴的缩写。",
+          "code": "# 都一样\n//ul//[last()]\n//ul/descendant-or-self::[last()]"
+        },
+        {
+          "title": "其他轴",
+          "description": "| Axis               | Abbrev | Notes |\n|--------------------|--------|-------|\n`ancestor`           |        | 选择当前节点的所有祖先(父母、祖父母等)\n`ancestor-or-self`   |        | 选择当前节点所有祖先(父、祖父等)和当前节点本身\n`attribute`          | `@`    | `@href` 是 `attribute::href` 的缩写\n`child`              |        | `div` 是 `child::div` 的缩写\n`descendant`         |        | 选择当前节点的所有后代（子、孙等）\n`descendant-or-self` | `//`   | `//` 是 `/descendant-or-self::node()/`的缩写  选择当前节点和当前节点本身的所有后代（子、孙等）\n`namespace`          |        | 选择当前节点的所有命名空间节点\n`self`               | `.`    | `.` 是 `self::node()` 的缩写，选择当前节点\n`parent`             | `..`   | `..` 是 `parent::node()` 的缩写，选择当前节点的父节点\n`following`          |        | 选择文档中当前节点结束标记之后的所有内容\n`following-sibling`  |        | 选择当前节点之后的所有兄弟节点\n`preceding`          |        | 选择文档中出现在当前节点之前的所有节点，除了祖先、属性节点和命名空间节点\n`preceding-sibling`  |        | 选择当前节点之前的所有兄弟节点\n您还可以使用其他轴。",
+          "code": ""
+        },
+        {
+          "title": "联合",
+          "description": "使用 `|` 连接两个表达式。\nXPath 更多示例",
+          "code": "//a | //span"
+        }
+      ]
+    },
+    {
+      "title": "XPath 更多示例",
+      "entries": [
+        {
+          "title": "示例",
+          "description": "",
+          "code": "//*                 # 所有元素\ncount(//*)          # 计算所有元素\n(//h1)[1]/text()    # 第一个 h1 标题的文本\n//li[span]          # 找到一个 <li> 里面有一个 <span>\n                    # ...扩展到 //li[child::span]\n//ul/li/..          # 使用 .. 选择父级"
+        },
+        {
+          "title": "查找(父)家长",
+          "description": "查找直接包含 `h1#section-name` 的 `<section>`\n查找包含 `h1#section-name` 的 `<section>`。\n（与上面相同，但使用后代或自我而不是孩子）",
+          "code": "//section[//h1[@id='section-name']]"
+        },
+        {
+          "title": "最近的",
+          "description": "像 `jQuery` 的 `$().closest('.box')` 一样工作。",
+          "code": "./ancestor-or-self::[@class=\"box\"]"
+        },
+        {
+          "title": "属性",
+          "description": "查找 `<item>` 并检查其属性\n另见",
+          "code": "//item[@price > 2*@discount]"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/xpath.md"
+}

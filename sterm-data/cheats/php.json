@@ -1,0 +1,399 @@
+{
+  "name": "PHP",
+  "description": "PHP 快速参考",
+  "category": "编程语言",
+  "count": 68,
+  "sections": [
+    {
+      "title": "入门",
+      "entries": [
+        {
+          "title": "hello.php",
+          "description": "PHP 运行命令",
+          "code": "$ php hello.php"
+        },
+        {
+          "title": "变量 Variables",
+          "description": "查看: [Types](#php-类型)",
+          "code": "$boolean1 = true;\n$boolean2 = True;\n$int = 12;\n$float = 3.1415926;\nunset($float);  // 删除变量\n$str1 = \"How are you?\";\n$str2 = 'Fine, thanks';"
+        },
+        {
+          "title": "字符串 Strings",
+          "description": "查看: [Strings](#php-字符串)",
+          "code": "$url = \"jaywcjlove.github.io\";\necho \"I'm learning PHP at $url\";\n// 连接字符串\necho \"I'm learning PHP at \" . $url;\n$hello = \"Hello, \";\n$hello .= \"World!\";\necho $hello;   # => Hello, World!"
+        },
+        {
+          "title": "数组 Arrays",
+          "description": "查看: [Arrays](#php-数组)",
+          "code": "$num = [1, 3, 5, 7, 9];\n$num[5] = 11;\nunset($num[2]);    // 删除变量\nprint_r($num);     # => 1 3 7 9 11\necho count($num);  # => 5"
+        },
+        {
+          "title": "运算符 Operators",
+          "description": "查看: [Operators](#php-运算符)",
+          "code": "$x = 1;\n$y = 2;\n$sum = $x + $y;\necho $sum;   # => 3"
+        },
+        {
+          "title": "Include",
+          "description": "**vars.php**\n\n**test.php**",
+          "code": "<?php\ninclude 'vars.php';\necho $fruit . \"\\n\";   # => apple\n/* 与 include 相同，\n如果不能包含则导致错误*/\nrequire 'vars.php';\n// 也有效\ninclude('vars.php');\nrequire('vars.php');\n// 通过 HTTP 包含\ninclude 'http://x.com/file.php';\n// 包含和返回语句\n$result = include 'vars.php';\necho $result;  # => Anything you like.\n?>"
+        },
+        {
+          "title": "功能 Functions",
+          "description": "查看: [Functions](#php-函数)",
+          "code": "function add($num1, $num2 = 1) {\n    return $num1 + $num2;\n}\necho add(10);    # => 11\necho add(10, 5); # => 15"
+        },
+        {
+          "title": "注释 Comments",
+          "description": "",
+          "code": "# 这是一个单行 shell 样式的注释\n// 这是一行 c++ 风格的注释\n/* 这是一个多行注释\n    另一行注释 */"
+        },
+        {
+          "title": "常数 Constants",
+          "description": "",
+          "code": "const MY_CONST = \"hello\";\necho MY_CONST;   # => hello\n\n# => MY_CONST is: hello\necho 'MY_CONST is: ' . MY_CONST;"
+        },
+        {
+          "title": "类 Classes",
+          "description": "查看: [Classes](#php-类)\nPHP 类型",
+          "code": "class Student {\n  public function __construct($name) {\n      $this->name = $name;\n  }\n}\n$alex = new Student(\"Alex\");"
+        }
+      ]
+    },
+    {
+      "title": "PHP 类型",
+      "entries": [
+        {
+          "title": "布尔值 Boolean",
+          "description": "布尔值不区分大小写",
+          "code": "$boolean1 = true;\n$boolean2 = TRUE;\n$boolean3 = false;\n$boolean4 = FALSE;\n$boolean5 = (boolean) 1;   # => true\n$boolean6 = (boolean) 0;   # => false"
+        },
+        {
+          "title": "整数 Integer",
+          "description": "另见: [Integers](https://www.php.net/manual/en/language.types.integer.php)",
+          "code": "$int1 = 28;    # => 28\n$int2 = -32;   # => -32\n$int3 = 012;   # => 10 (octal)\n$int4 = 0x0F;  # => 15 (hex)\n$int5 = 0b101; # => 5  (binary)\n# => 2000100000 (decimal, PHP 7.4.0)\n$int6 = 2_000_100_000;"
+        },
+        {
+          "title": "字符串 Strings",
+          "description": "查看: [Strings](#php-字符串)",
+          "code": "echo 'this is a simple string';"
+        },
+        {
+          "title": "数组 Arrays",
+          "description": "查看: [Arrays](#php-数组)",
+          "code": "$arr = array(\"hello\", \"world\", \"!\");"
+        },
+        {
+          "title": "浮点数 Float (Double)",
+          "description": "",
+          "code": "$float1 = 1.234;\n$float2 = 1.2e7;\n$float3 = 7E-10;\n$float4 = 1_234.567;  // as of PHP 7.4.0\nvar_dump($float4);    // float(1234.567)\n$float5 = 1 + \"10.5\";   # => 11.5\n$float6 = 1 + \"-1.3e3\"; # => -1299"
+        },
+        {
+          "title": "Null",
+          "description": "",
+          "code": "$a = null;\n$b = 'Hello php!';\necho $a ?? 'a is unset'; # => a is unset\necho $b ?? 'b is unset'; # => Hello php\n$a = array();\n$a == null    # => true\n$a === null   # => false\nis_null($a)   # => false"
+        },
+        {
+          "title": "可迭代对象 Iterables",
+          "description": "PHP 字符串",
+          "code": "function bar(): iterable {\n  return [1, 2, 3];\n}\nfunction gen(): iterable {\n  yield 1;\n  yield 2;\n  yield 3;\n}\nforeach (bar() as $value) {\n  echo $value;   # => 123\n}"
+        }
+      ]
+    },
+    {
+      "title": "PHP 字符串",
+      "entries": [
+        {
+          "title": "字符串 String",
+          "description": "",
+          "code": "# => '$String'\n$sgl_quotes = '$String';\n# => 'This is a $String.'\n$dbl_quotes = \"This is a $sgl_quotes.\";\n# => a    tab character.\n$escaped   = \"a \\t tab character.\";\n# => a slash and a t: \\t\n$unescaped = 'a slash and a t: \\t';"
+        },
+        {
+          "title": "多行 Multi-line",
+          "description": "",
+          "code": "$str = \"foo\";\n// 未插值的多行\n$nowdoc = <<<'END'\nMulti line string\n$str\nEND;\n// 将执行字符串插值\n$heredoc = <<<END\nMulti line\n$str\nEND;"
+        },
+        {
+          "title": "操作 Manipulation",
+          "description": "另见: [字符串函数](https://www.php.net/manual/en/ref.strings.php)\nPHP 数组",
+          "code": "$s = \"Hello Phper\";\necho strlen($s);       # => 11\necho substr($s, 0, 3); # => Hel\necho substr($s, 1);    # => ello Phper\necho substr($s, -4, 3);# => hpe\necho strtoupper($s);   # => HELLO PHPER\necho strtolower($s);   # => hello phper\necho strpos($s, \"l\");      # => 2\nvar_dump(strpos($s, \"L\")); # => false"
+        }
+      ]
+    },
+    {
+      "title": "PHP 数组",
+      "entries": [
+        {
+          "title": "定义",
+          "description": "**混合 int 和 string 键**\n\n**短数组语法**",
+          "code": "$array = [\n    \"foo\" => \"bar\",\n    \"bar\" => \"foo\",\n];"
+        },
+        {
+          "title": "多阵列",
+          "description": "",
+          "code": "$multiArray = [ \n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9],\n];\nprint_r($multiArray[0][0]) # => 1\nprint_r($multiArray[0][1]) # => 2\nprint_r($multiArray[0][2]) # => 3"
+        },
+        {
+          "title": "多类型",
+          "description": "",
+          "code": "$array = array(\n    \"foo\" => \"bar\",\n    42    => 24,\n    \"multi\" => array(\n         \"dim\" => array(\n             \"a\" => \"foo\"\n         )\n    )\n);\n# => string(3) \"bar\"\nvar_dump($array[\"foo\"]);\n# => int(24)\nvar_dump($array[42]);    \n# =>  string(3) \"foo\"\nvar_dump($array[\"multi\"][\"dim\"][\"a\"]);"
+        },
+        {
+          "title": "操作",
+          "description": "查看: [数组函数](https://www.php.net/manual/en/ref.array.php)",
+          "code": "$arr = array(5 => 1, 12 => 2);\n$arr[] = 56;      // 附加\n$arr[\"x\"] = 42;   // 用键添加\nsort($arr);       // 排序\nunset($arr[5]);   // 消除\nunset($arr);      // 移除所有"
+        },
+        {
+          "title": "索引迭代",
+          "description": "",
+          "code": "$array = array('a', 'b', 'c');\n$count = count($array);\nfor ($i = 0; $i < $count; $i++) {\n    echo \"i:{$i}, v:{$array[$i]}\\n\";\n}"
+        },
+        {
+          "title": "价值迭代",
+          "description": "",
+          "code": "$colors = array('red', 'blue', 'green');\nforeach ($colors as $color) {\n    echo \"Do you like $color?\\n\";\n}"
+        },
+        {
+          "title": "关键迭代",
+          "description": "",
+          "code": "$arr = [\"foo\" => \"bar\", \"bar\" => \"foo\"];\nforeach ( $arr as $key => $value )\n{\n    echo \"key: \" . $key . \"\\n\";\n    echo \"val: {$arr[$key]}\\n\";\n}"
+        },
+        {
+          "title": "串联阵列",
+          "description": "",
+          "code": "$a = [1, 2];\n$b = [3, 4];\n// PHP 7.4 以后\n# => [1, 2, 3, 4]\n$result = [...$a, ...$b];"
+        },
+        {
+          "title": "Into 函数",
+          "description": "",
+          "code": "$array = [1, 2];\nfunction foo(int $a, int $b) {\n  echo $a; # => 1\n    echo $b; # => 2\n}\nfoo(...$array);"
+        },
+        {
+          "title": "Splat运算符",
+          "description": "PHP 运算符",
+          "code": "function foo($first, ...$other) {\n  var_dump($first); # => a\n    var_dump($other); # => ['b', 'c']\n}\nfoo('a', 'b', 'c' /*, ...*/ );\n// 或\nfunction foo($first, string ...$other){}"
+        }
+      ]
+    },
+    {
+      "title": "PHP 运算符",
+      "entries": [
+        {
+          "title": "算术",
+          "description": ":- | -\n:- | -\n`+`  | 添加\n`-`  | 减法\n`*`  | 乘法\n`/`  | 分配\n`%`  | 取模\n`**` | 求幂",
+          "code": ""
+        },
+        {
+          "title": "分配",
+          "description": ":- | -\n:- | -\n`a += b` | 如同 `a = a + b`\n`a -= b` | 如同 `a = a – b`\n`a *= b` | 如同 `a = a * b`\n`a /= b` | 如同 `a = a / b`\n`a %= b` | 如同 `a = a % b`",
+          "code": ""
+        },
+        {
+          "title": "比较",
+          "description": ":- | -\n:- | -\n`==`  | 平等的\n`===` | 完全相同的\n`!=`  | 不相等\n`<>`  | 不相等\n`!==` | 不相同\n`<`   | 少于\n`>`   | 比...更棒\n`<=`  | 小于或等于\n`>=`  | 大于或等于\n`<=>` | 小于/等于/大于",
+          "code": ""
+        },
+        {
+          "title": "逻辑的",
+          "description": ":- | -\n:- | -\n`and` | 和\n`or`  | 或者\n`xor` | 独家或\n`!`   | 不是\n`&&`  | 和\n`\\|\\|`  | 或者",
+          "code": ""
+        },
+        {
+          "title": "算术",
+          "description": "",
+          "code": "// 算术\n$sum        = 1 + 1; // 2\n$difference = 2 - 1; // 1\n$product    = 2 * 2; // 4\n$quotient   = 2 / 1; // 2\n// 速记算术\n$num = 0;\n$num += 1;       // 将 $num 增加 1\necho $num++;     // 打印 1（评估后的增量）\necho ++$num;     // 打印 3（评估前的增量）\n$num /= $float;  // 将商除并分配给 $num"
+        },
+        {
+          "title": "按位",
+          "description": ":- | -\n:- | -\n`&`  | 和\n`|`  | 或（包括或）\n`^`  | 异或（异或）\n`~`  | 不是\n`<<` | 左移\n`>>` | 右移\nPHP 条件",
+          "code": ""
+        }
+      ]
+    },
+    {
+      "title": "PHP 条件",
+      "entries": [
+        {
+          "title": "If elseif else",
+          "description": "",
+          "code": "$a = 10;\n$b = 20;\nif ($a > $b) {\n    echo \"a is bigger than b\";\n} elseif ($a == $b) {\n    echo \"a is equal to b\";\n} else {\n    echo \"a is smaller than b\";\n}"
+        },
+        {
+          "title": "Switch",
+          "description": "",
+          "code": "$x = 0;\nswitch ($x) {\n    case '0':\n        print \"it's zero\";\n        break; \n    case 'two':\n    case 'three':\n        // do something\n        break;\n    default:\n        // do something\n}"
+        },
+        {
+          "title": "三元运算符",
+          "description": "",
+          "code": "# => Does\nprint (false ? 'Not' : 'Does');\n$x = false;\n# => Does\nprint($x ?: 'Does');\n$a = null;\n$b = 'Does print';\n# => a is unsert\necho $a ?? 'a is unset';\n# => print\necho $b ?? 'b is unset';"
+        },
+        {
+          "title": "匹配",
+          "description": "查看: [Match](https://www.php.net/manual/en/control-structures.match.php)",
+          "code": "$statusCode = 500;\n$message = match($statusCode) {\n  200, 300 => null,\n  400 => '未找到',\n  500 => '服务器错误',\n  default => '已知状态码',\n};\necho $message; # => 服务器错误"
+        },
+        {
+          "title": "匹配表达式",
+          "description": "PHP 循环",
+          "code": "$age = 23;\n$result = match (true) {\n    $age >= 65 => 'senior',\n    $age >= 25 => 'adult',\n    $age >= 18 => 'young adult',\n    default => 'kid',\n};\necho $result; # => young adult"
+        }
+      ]
+    },
+    {
+      "title": "PHP 循环",
+      "entries": [
+        {
+          "title": "while 循环",
+          "description": "",
+          "code": "$i = 1;\n# => 12345\nwhile ($i <= 5) {\n    echo $i++;\n}"
+        },
+        {
+          "title": "do while 循环",
+          "description": "",
+          "code": "$i = 1;\n# => 12345\ndo {\n    echo $i++;\n} while ($i <= 5);"
+        },
+        {
+          "title": "for i 循环",
+          "description": "",
+          "code": "# => 12345\nfor ($i = 1; $i <= 5; $i++) {\n    echo $i;\n}"
+        },
+        {
+          "title": "break 跳出循环",
+          "description": "",
+          "code": "# => 123\nfor ($i = 1; $i <= 5; $i++) {\n    if ($i === 4) {\n        break;\n    }\n    echo $i;\n}"
+        },
+        {
+          "title": "continue 继续",
+          "description": "",
+          "code": "# => 1235\nfor ($i = 1; $i <= 5; $i++) {\n    if ($i === 4) {\n        continue;\n    }\n    echo $i;\n}"
+        },
+        {
+          "title": "foreach 循环",
+          "description": "查看: [Array iteration](#关键迭代)\nPHP 函数",
+          "code": "$a = ['foo' => 1, 'bar' => 2];\n# => 12\nforeach ($a as $k) {\n    echo $k;\n}"
+        }
+      ]
+    },
+    {
+      "title": "PHP 函数",
+      "entries": [
+        {
+          "title": "返回值",
+          "description": "",
+          "code": "function square($x)\n{\n    return $x * $x;\n}\necho square(4);  # => 16"
+        },
+        {
+          "title": "返回类型",
+          "description": "",
+          "code": "// 基本返回类型声明\nfunction sum($a, $b): float {/*...*/}\nfunction get_item(): string {/*...*/}\nclass C {}\n// 返回一个对象\nfunction getC(): C { return new C; }"
+        },
+        {
+          "title": "可空返回类型",
+          "description": "查看: [Nullable types](https://www.php.net/manual/en/migration71.new-features.php)",
+          "code": "// 在 PHP 7.1 中可用\nfunction nullOrString(int $v) : ?string\n{\n    return $v % 2 ? \"odd\" : null;\n}\necho nullOrString(3);       # => odd\nvar_dump(nullOrString(4));  # => NULL"
+        },
+        {
+          "title": "无效函数",
+          "description": "",
+          "code": "// 在 PHP 7.1 中可用\nfunction voidFunction(): void\n{\n  echo 'Hello';\n  return;\n}\nvoidFunction();  # => Hello"
+        },
+        {
+          "title": "变量函数",
+          "description": "",
+          "code": "function bar($arg = '')\n{\n    echo \"In bar(); arg: '$arg'.\\n\";\n}\n$func = 'bar';\n$func('test'); # => In bar(); arg: test"
+        },
+        {
+          "title": "匿名函数",
+          "description": "",
+          "code": "$greet = function($name)\n{\n    printf(\"Hello %s\\r\\n\", $name);\n};\n$greet('World'); # => Hello World\n$greet('PHP');   # => Hello PHP"
+        },
+        {
+          "title": "递归函数",
+          "description": "",
+          "code": "function recursion($x)\n{\n    if ($x < 5) {\n        echo \"$x\";\n        recursion($x + 1);\n    }\n}\nrecursion(1);  # => 1234"
+        },
+        {
+          "title": "默认参数",
+          "description": "",
+          "code": "function coffee($type = \"cappuccino\")\n{\n    return \"Making a cup of $type.\\n\";\n}\n# => 制作一杯卡布奇诺\necho coffee();\n# => 制作一杯\necho coffee(null);\n# => 制作一杯浓缩咖啡\necho coffee(\"espresso\");"
+        },
+        {
+          "title": "箭头函数",
+          "description": "PHP 类",
+          "code": "$y = 1;\n \n$fn1 = fn($x) => $x + $y;\n// 相当于按值使用 $y：\n$fn2 = function ($x) use ($y) {\n    return $x + $y;\n};\necho $fn1(5);   # => 6\necho $fn2(5);   # => 6"
+        }
+      ]
+    },
+    {
+      "title": "PHP 类",
+      "entries": [
+        {
+          "title": "构造函数 Constructor",
+          "description": "",
+          "code": "class Student {\n    public function __construct($name) {\n        $this->name = $name;\n    }\n    public function print() {\n        echo \"Name: \" . $this->name;\n    }\n}\n$alex = new Student(\"Alex\");\n$alex->print();    # => Name: Alex"
+        },
+        {
+          "title": "继承 Inheritance",
+          "description": "",
+          "code": "class ExtendClass extends SimpleClass\n{\n    // 重新定义父方法\n    function displayVar()\n    {\n        echo \"Extending class\\n\";\n        parent::displayVar();\n    }\n}\n$extended = new ExtendClass();\n$extended->displayVar();"
+        },
+        {
+          "title": "类变量 Classes variables",
+          "description": "静态访问",
+          "code": "echo MyClass::MY_CONST;   # => value\necho MyClass::$staticVar; # => static"
+        },
+        {
+          "title": "魔术方法",
+          "description": "",
+          "code": "class MyClass\n{\n    // 对象被视为字符串\n    public function __toString()\n    {\n        return $property;\n    }\n    // 与 __construct() 相反\n    public function __destruct()\n    {\n        print \"Destroying\";\n    }\n}"
+        },
+        {
+          "title": "接口",
+          "description": "各种各样的",
+          "code": "interface Foo \n{\n    public function doSomething();\n}\ninterface Bar\n{\n    public function doSomethingElse();\n}\nclass Cls implements Foo, Bar \n{\n    public function doSomething() {}\n    public function doSomethingElse() {}\n}"
+        }
+      ]
+    },
+    {
+      "title": "各种各样的",
+      "entries": [
+        {
+          "title": "基本错误处理",
+          "description": "",
+          "code": "try {\n    // 做一点事\n} catch (Exception $e) {\n    // 处理异常\n} finally {\n    echo \"Always print!\";\n}"
+        },
+        {
+          "title": "PHP 8.0 中的异常",
+          "description": "",
+          "code": "$nullableValue = null;\ntry {\n  $value = $nullableValue ?? throw new InvalidArgumentException();\n} catch (InvalidArgumentException) { // 变量是可选的\n    // 处理我的异常\n    echo \"print me!\";\n}"
+        },
+        {
+          "title": "自定义异常",
+          "description": "用法",
+          "code": "try {\n    $condition = true;\n    if ($condition) {\n        throw new MyException('bala');\n    }\n} catch (MyException $e) {\n    // 处理我的异常\n}"
+        },
+        {
+          "title": "Nullsafe 运算符",
+          "description": "另见: [Nullsafe 运算符](https://wiki.php.net/rfc/nullsafe_operator)",
+          "code": "// 从 PHP 8.0.0 开始，这一行：\n$result = $repo?->getUser(5)?->name;\n// 相当于下面的代码：\nif (is_null($repo)) {\n    $result = null;\n} else {\n    $user = $repository->getUser(5);\n    if (is_null($user)) {\n        $result = null;\n    } else {\n        $result = $user->name;\n    }\n}"
+        },
+        {
+          "title": "常用表达",
+          "description": "查看: [PHP中的正则表达式](./regex.md#php中的正则表达式)",
+          "code": "$str = \"Visit jaywcjlove.github.io\";\necho preg_match(\"/qu/i\", $str); # => 1"
+        },
+        {
+          "title": "fopen() 模式",
+          "description": ":- | -\n:- | -\n`r`  | 读\n`r+` | 读写，前置\n`w`  | 写入，截断\n`w+` | 读写，截断\n`a`  | 写，追加\n`a+` | 读写，追加",
+          "code": ""
+        },
+        {
+          "title": "运行时定义的常量",
+          "description": "另见",
+          "code": "define(\"CURRENT_DATE\", date('Y-m-d'));\n// 一种可能的表示\necho CURRENT_DATE;   # => 2021-01-05\n# => CURRENT_DATE is: 2021-01-05\necho 'CURRENT_DATE is: ' . CURRENT_DATE;"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/php.md"
+}

@@ -6,27 +6,113 @@
     <title>sterm</title>
     <link rel="stylesheet" href="/css/terminal.css" />
     <link rel="stylesheet" href="/css/xterm.css" />
+    <link rel="stylesheet" href="/css/app.css?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,510;14..32,590&family=JetBrains+Mono&family=Fira+Code&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="app">
       <div id="header">
-        <div id="tab-container">
-          <div class="tab active" data-id="0">
-            <span class="tab-dot"></span>
-            <span class="tab-label">bash</span>
-            <button class="tab-close" type="button">✕</button>
-          </div>
-        </div>
+        <div id="tab-container"></div>
         <div id="header-actions">
-          <button id="btn-new-tab" type="button" title="新建终端">+</button>
+          <button id="btn-new-tab" type="button" title="新建终端"></button>
           <button id="btn-menu" type="button" title="菜单">⋮</button>
         </div>
       </div>
 
-      <div id="terminal-container"></div>
+      <div id="workspace">
+        <div id="terminal-container">
+          <div id="terminal-empty" class="terminal-empty" hidden>没有打开的终端，点击右上角 + 新建终端</div>
+        </div>
+
+        <aside id="side-panel" class="collapsed" aria-label="侧边面板">
+          <div id="side-panel-tabs" role="tablist" aria-label="侧边面板标签页">
+            <button class="side-panel-tab active" type="button" data-tab="commands" role="tab" aria-selected="true">命令</button>
+            <button class="side-panel-tab" type="button" data-tab="cheats" role="tab" aria-selected="false">速查</button>
+            <button class="side-panel-tab" type="button" data-tab="settings" role="tab" aria-selected="false">设置</button>
+          </div>
+
+          <div class="side-panel-body">
+            <section class="side-panel-section active" data-panel="commands">
+              <div class="panel-search-row">
+                <div class="panel-search-with-btn">
+                  <input id="panel-search" type="search" placeholder="搜索命令或输入 / 聚焦" />
+                  <button id="btn-add-command" type="button" title="收藏当前命令"></button>
+                </div>
+              </div>
+              <div id="commands-list" class="panel-list"></div>
+            </section>
+
+            <section class="side-panel-section" data-panel="cheats">
+              <div id="cheats-messages" class="cheats-messages">
+                <div class="cheats-welcome" id="cheats-welcome">
+                  <div class="cheats-welcome-content">
+                    <p>输入你想执行的操作<br />AI 会帮你找到对应的命令</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cheats-input-bar">
+                <div class="cheats-input-wrap">
+                  <textarea id="cheats-input" class="cheats-input" rows="1" placeholder="用自然语言描述命令…"></textarea>
+                  <button id="cheats-send" class="cheats-send-btn" type="button" title="发送">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="side-panel-section" data-panel="settings">
+              <div id="settings-list" class="settings-grid"></div>
+            </section>
+          </div>
+        </aside>
+      </div>
+
+      <div id="command-palette" aria-hidden="true">
+        <div id="command-palette-backdrop"></div>
+        <div id="command-palette-dialog" role="dialog" aria-modal="true" aria-label="命令面板">
+          <div class="palette-search-row">
+            <input id="command-palette-search" type="search" placeholder="搜索收藏、速查或操作" />
+          </div>
+          <div id="command-palette-results"></div>
+        </div>
+      </div>
+
+      <div id="add-command-dialog" aria-hidden="true">
+        <div id="add-command-backdrop"></div>
+        <div id="add-command-content" role="dialog" aria-modal="true" aria-label="收藏命令">
+          <div class="add-cmd-header">
+            <span class="add-cmd-title">收藏命令</span>
+            <button id="add-cmd-close" type="button" aria-label="关闭"></button>
+          </div>
+          <div class="add-cmd-body">
+            <div class="add-cmd-field">
+              <label class="add-cmd-label" for="add-cmd-name">名称</label>
+              <input id="add-cmd-name" type="text" placeholder="例：查看服务器日志" class="add-cmd-input" />
+            </div>
+            <div class="add-cmd-field">
+              <label class="add-cmd-label" for="add-cmd-command">命令</label>
+              <textarea id="add-cmd-command" rows="3" placeholder="例：ssh sg-lucerna \"journalctl -u lucerna -n 50 --no-pager\"" class="add-cmd-textarea"></textarea>
+            </div>
+            <div class="add-cmd-field">
+              <label class="add-cmd-label" for="add-cmd-tag">分组</label>
+              <div class="add-cmd-tag-row">
+                <select id="add-cmd-tag" class="settings-select"></select>
+                <input id="add-cmd-tag-new" type="text" placeholder="或新建分组" class="add-cmd-input add-cmd-input-sm" />
+              </div>
+            </div>
+            <div class="add-cmd-field">
+              <label class="add-cmd-label" for="add-cmd-shortcut">快捷键提示（可选）</label>
+              <input id="add-cmd-shortcut" type="text" placeholder="例：Cmd+Shift+L" class="add-cmd-input" />
+            </div>
+          </div>
+          <div class="add-cmd-footer">
+            <button id="add-cmd-cancel" type="button" class="add-cmd-btn-primary" style="background:var(--bg-surface-2);color:var(--text-secondary);border-color:var(--border-standard)">取消</button>
+            <button id="add-cmd-save" type="button" class="add-cmd-btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
 
       <div id="status-bar">
         <div class="status-group status-left">
@@ -35,12 +121,12 @@
           <span class="status-sep"></span>
           <span class="status-label status-conn" id="statusConn">已连接</span>
         </div>
-        <div class="status-group status-center">
-        </div>
+        <div class="status-group status-center"></div>
         <div class="status-group status-right">
           <span class="status-mono" id="statusType">zsh</span>
           <span class="status-sep"></span>
-          <button class="status-btn" id="btnTheme" type="button" title="切换主题">☀</button>
+          <button class="status-btn" id="btnPanel" type="button" title="切换侧边栏 (⌘\)">☰</button>
+          <button class="status-btn" id="btnTheme" type="button" title="切换主题"></button>
         </div>
       </div>
     </div>

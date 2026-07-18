@@ -1,0 +1,144 @@
+{
+  "name": "Linux 命令速查表",
+  "description": "Linux 命令速查表 — 快速参考",
+  "category": "系统",
+  "count": 23,
+  "sections": [
+    {
+      "title": "命令速查表",
+      "entries": [
+        {
+          "title": "系统",
+          "description": "",
+          "code": "uname | 显示 linux 系统信息\nuname -r | 显示内核版本信息\ncat /etc/os-release | 显示 linux 系统详细信息\nuptime | 显示系统运行的时间(包括平均负载)\nhostname | 显示系统主机名\nhostname -i | 显示系统的IP地址\nlast reboot | 显示系统重新启动历史记录\ndate | 显示当前系统日期和时间\ntimedatectl | 查询和更改系统时钟\ncal | 显示当前日历的月份和日期\nw | 显示系统中当前登录的用户\nwhoami | 显示您的登录身份\nfinger username | 显示有关用户的信息\nsed -ri 's/.*swap.*/#&/' /etc/fstab && swapoff -a | 关闭swap"
+        },
+        {
+          "title": "硬件",
+          "description": "",
+          "code": "dmesg | 显示启动消息\ncat /proc/cpuinfo | <pur>CPU</pur>: 显示 CPU 的更多信息，例如型号、核心等\ncat /proc/meminfo | <pur>内存</pur>: 显示硬件内存的更多信息\ndf -h | <pur>磁盘空间</pur>: 显示磁盘空间大小(单位`G`)\nhdparm -i /dev/xda | <pur>磁盘</pur>: 显示有关磁盘数据的信息\nlshw | 显示有关系统硬件配置的信息\nlsblk | 显示块设备相关信息\nfree -m | 显示系统中空闲和使用的内存，`-m`(MB)，`-g`(GB)\nlspci -tv | 在树状图中显示 PCI 设备\nlsusb -tv | 以树状图的形式显示 USB 设备\ndmidecode | 显示BIOS中的硬件信息\nhdparm -tT /dev/xda <:code> | 在设备xda上进行读速度测试\nbadblocks -s /dev/xda | 测试磁盘上不可读的块"
+        },
+        {
+          "title": "用户",
+          "description": "",
+          "code": "id | 显示活动用户的详细信息，如uid、gid和组\nlast | 显示系统中的最后一次登录\nwho | 显示谁已登录到系统\ngroupadd \"admin\" | 添加组\"admin\"\nadduser \"Sam\" | 添加用户 Sam\nuserdel \"Sam\" | 删除用户 Sam\nusermod | 用于更改/修改用户信息"
+        },
+        {
+          "title": "登陆",
+          "description": "",
+          "code": "ssh user@host | 使用指定用户安全连接到主机\nssh -p port_number user@host | 使用指定端口安全地连接到主机\nssh host | 通过SSH默认端口22安全连接到系统\ntelnet host | 通过telnet默认端口23连接到主机"
+        },
+        {
+          "title": "文件",
+          "description": "",
+          "code": "ls -al | 列出文件-包括常规文件和隐藏文件以及它们的权限\ntree | 以树形结构列出文件，常用参数有：`-d`查看目录，`-L num`查看num层文件，`-a`查看隐藏文件\npwd | 显示当前目录文件路径\nmkdir 'directory_name' | 创建一个新目录\nrm file_name | 删除一个文件\nrm -f filename | 强制删除文件\nrm -r directory_name | 递归地删除一个目录\nrm -rf directory_name | 强制并递归地删除一个目录\ncp file1 file2 | 将file1的内容复制到file2\ncp -r dir1 dir2 | 递归地将dir1复制到dir2。如果dir2不存在，则创建它\nmv file1 file2 | 将file1重命名为file2\nln -s /path/to/file_name link_name | 创建到file_name的软链接\ntouch file_name | 创建一个新文件\ncat > file_name | 从键盘创建一个文件\nmore file_name | 输出文件的内容\nhead file_name | 显示文件的前10行\ntail file_name | 显示文件的最后10行\ngpg -c file_name | 加密一个文件\ngpg file_name.gpg | 解密文件\nwc | 打印文件中的字节、单词和行数\nxargs | 从标准输入执行命令"
+        },
+        {
+          "title": "进程",
+          "description": "",
+          "code": "ps | 显示当前活动的进程\nps aux \\| grep 'telnet' | 搜索进程'telnet'的id\npmap | 显示进程的内存映射\ntop | 显示所有正在运行的进程\nkill pid | 使用给定的pid终止进程\nkillall proc | 杀死/终止所有名为proc的进程\npkill process-name | 向具有其名称的进程发送信号\nlsof | 列出进程打开的文件 #\nrenice 19 PID | 使进程以非常低的优先级运行\npgrep firefox | 查找Firefox进程ID\npstree | 在树模型中可视化过程"
+        },
+        {
+          "title": "安装包",
+          "description": "",
+          "code": "rpm -i pkg_name.rpm | 安装 rpm 包\nrpm -e pkg_name | 删除 rpm 包\ndnf install pkg_name | 使用 dnf 工具安装软件包"
+        },
+        {
+          "title": "文件权限",
+          "description": "",
+          "code": "chmod octal filename | 将文件权限更改为八进制\nchmod 777 /data/test.c | 将rwx权限设置为owner、group和everyone(其他可以访问服务器的人)\nchmod 755 /data/test.c | 将rwx设置为所有者，将r_x设置为组和所有人\nchmod 766 /data/test.c | 为所有者设置rwx，为组和每个人设置rw\nchown owner user-file | 更改文件的所有权\nchown owner-user:owner-group file_name | 更改文件的所有者和组所有者\nchown owner-user:owner-group directory | 更改目录的所有者和组所有者"
+        },
+        {
+          "title": "安装源(编译)",
+          "description": "",
+          "code": "./configure | 检查系统，以获得构建程序所需的软件。它将构建包含有效构建项目所需的指令的Makefile\nmake |\nmake install | 编译后，该命令将二进制文件安装在默认/修改的路径中"
+        },
+        {
+          "title": "压缩/打包",
+          "description": "",
+          "code": "tar -cf home.tar home<:code> | 创建名为\"home\"的存档文件。tar文件’home'\ntar -xf files.tar | 解压档案文件\"files.tar\"\ntar -zcvf home.tar.gz source-folder | 从源文件夹创建压缩的tar存档文件\ngzip file | 压缩扩展名为.gz的文件\nzip -r compressed.zip folder/ | 递归压缩目录`folder`为压缩文件`compressed.zip`\nunzip compressed.zip -d folder/ | 在目录`folder`下解压文件\nunzip -v compressed.zip | 查看但不解压文件"
+        },
+        {
+          "title": "搜索",
+          "description": "",
+          "code": "grep ‘pattern’ files | 在文件中搜索给定的模式\ngrep -r pattern dir | Search recursively for a pattern in a given directory\nlocate file | 查找文件的所有实例\nfind /home/ -name \"index\" | 在/home文件夹中查找以’index’开头的文件名\nfind /home -size +10000k | 在主文件夹中查找大于10000k的文件"
+        },
+        {
+          "title": "网络",
+          "description": "",
+          "code": "ip addr show | 显示IP地址和所有网络接口\nip address add 192.168.0.1/24 dev eth0 | 将IP地址192.168.0.1分配给接口eth0\nifconfig | 显示所有网络接口的IP地址\nping host | ping命令发送ICMP回送请求以建立到服务器/PC的连接\nwhois domain | 检索有关域名的更多信息\ndig domain | 检索关于域的DNS信息\ndig -x host | 对域执行反向查找\nhost google.com | 执行域名的IP查找\nhostname -i | 显示本地IP地址\nwget file_name | 从在线资源下载文件\nnetstat -pnltu | 显示所有活动监听端口"
+        },
+        {
+          "title": "文件传输",
+          "description": "",
+          "code": "scp file1.txt server2/tmp | 安全地将file1.txt复制到/tmp目录中的server2\nrsync -a /home/apps /backup/ | 将/home/apps目录中的内容与/backup目录进行同步"
+        },
+        {
+          "title": "磁盘使用情况",
+          "description": "",
+          "code": "df -h | 显示安装系统上的空闲空间\ndf -i | 显示文件系统上的空闲inode\nfdisk -l | 显示磁盘分区、大小和类型\ndu -sh | 以人类可读的格式显示当前目录中的磁盘使用情况\nfindmnt | 显示所有文件系统的目标挂载点\nmount device-path mount-point | 挂载设备"
+        },
+        {
+          "title": "目录遍历",
+          "description": "",
+          "code": "cd .. | 在目录树结构中向上移动一层\ncd | 将目录更改为$HOME目录\ncd /test | 将目录更改为/test目录"
+        },
+        {
+          "title": "文件描述符",
+          "description": "",
+          "code": "0 | 标准输入\n1 | 标准输出\n2 | 错误输出\n/dev/null | Linux的空设备文件，俗称“黑洞”"
+        },
+        {
+          "title": "输出重定向",
+          "description": "",
+          "code": "> | 覆盖运算符\n>> | 追加运算符\n>& | 重定向合并运算符\ncommand > filename | 标准输出覆盖写入新文件\ncommand 1> filename | 标准输出覆盖写入新文件（同上）\ncommand 2> filename | 标准错误覆盖写入新文件\ncommand >> filename | 标准输出追加到新文件\ncommand 1>> filename | 标准输出追加到新文件（同上）\ncommand 2>> filename | 标准错误追加到新文件\n2>&1 | 标准错误重定向到标准输出\n1>&2 | 标准输出重定向到标准错误\n前后台"
+        }
+      ]
+    },
+    {
+      "title": "前后台",
+      "entries": [
+        {
+          "title": "&（终端关闭，程序也关闭）",
+          "description": "",
+          "code": "command & | 使用后台进程模式执行 command\nCtrl+Z | 将当前进程放到后台（但程序是Stopped状态）\njobs | 查看任务（状态、ID等）\nfg n | 将jobID为n的任务切到前台运行\nbg n | 将jobID为n的任务切到后台运行"
+        },
+        {
+          "title": "nohup（终端关闭，程序继续运行）",
+          "description": "",
+          "code": "nohup command & | 后台执行 command，标准输出到 nohup.out\nnohup command > log_file & | 后台执行 command，标准输出到 log_file\nnohup command > log_file 2>&1 & | 后台执行 command，标准输出和错误输出到 log_file\nnohup command > log_file 2>err_log & | 后台执行 command，标准输出到 log_file，错误输出到 err_log\nps/kill | 查看进程/结束进程"
+        },
+        {
+          "title": "screen（创建独立会话）",
+          "description": "",
+          "code": "screen -S my_session | 创建一个名为 my_session 的会话\nscreen -ls | 列出当前所有的 session\nscreen -r my_session | 重新连接 my_session 这个会话\nscreen -d my_session | 脱离 my_session 这个会话\nCtrl+a+d | 在 screen 中，脱离当前会话\nexit | 在 screen 中，退出并删除当前 screen\n-X -S my_session quit | 删除 my_session 这个会话\nscreen -wipe | 删除所有已经失效的会话\n快捷键"
+        }
+      ]
+    },
+    {
+      "title": "快捷键",
+      "entries": [
+        {
+          "title": "命令行编辑",
+          "description": "",
+          "code": "`Tab` | 自动补全\n`Ctrl`+`A` | 移动光标到命令行首\n`Ctrl`+`E` | 移动光标到命令行尾\n`Ctrl`+`Left` | 光标左移一个单词\n`Ctrl`+`Right` | 光标右移一个单词\n`Ctrl`+`K` | 删除光标之后所有字符\n`Ctrl`+`U` | 清空当前键入的命令\n`Ctrl`+`W` | 删除光标前的单词\n`Ctrl`+`Y` | 粘贴 `Ctrl` + `W` 或 `Ctrl` + `K` 删除的内容\n`Ctrl`+`D` | 删除当前光标所在字符 (在没有字符时会关闭终端)\n`Ctrl`+`B` (Left) | 光标左移（后退）\n`Ctrl`+`F` (Right) | 光标右移（前进）\n`Ctrl`+`H` (Backspace) | 删除光标的前一个字符"
+        },
+        {
+          "title": "其他",
+          "description": "",
+          "code": "`Ctrl`+`L` | 清屏\n`Ctrl`+`C` | 中断正在执行的程序\n`Ctrl`+`R` | 按字符串寻找历史命令\n`Ctrl`+`Z` | 将当前进程放到后台（但程序是Stopped状态）\n`Shift`+`Insert` | 粘贴\n`Ctrl`+`PageUp` | 屏幕输出向上翻页\n`Ctrl`+`PageDown` | 屏幕输出向下翻页\n`Ctrl`+`P` (Up) | 上一条命令\n`Ctrl`+`N` (Down) | 下一条命令\n技巧"
+        }
+      ]
+    },
+    {
+      "title": "技巧",
+      "entries": [
+        {
+          "title": "linux技巧",
+          "description": "",
+          "code": "du -h / \\| sort -rh \\| head -20         | 最大20个文件\ngrep -Ev '^\\s*($\\|#\\|;)' example.conf   | 查看去掉注释和空行\necho <passwd> \\| passwd root --stdin    | 单行改密码\nfind /data/app/tmp -mtime +30 -name \"*.flv\" -exec rm -Rf {} \\;  | 删除30天前文件\nfor file in $(ls); do sed -i 's/nmg/sz/g' \"$file\"; done         | 当前目录修改字符串\nssh -NfR remote_port:localhost:local_port user@remote_server    | ssh代理\nfind . -wholename \"*.sh\" -exec dos2unix {} \\;     | 修复脚本格式错误\nrsync -avz /source/ user@remote:/destination/     | 同步文件和目录到远程服务器，支持压缩和增量传输\n<!--rehype:className=left-align shortcuts-->\n另见"
+        }
+      ]
+    }
+  ],
+  "source": "https://github.com/jaywcjlove/reference/blob/main/docs/linux-command.md"
+}
